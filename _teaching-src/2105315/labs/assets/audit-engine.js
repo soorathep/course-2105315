@@ -181,7 +181,7 @@ export function audit(data, rows) {
   return { facts, columns, statements, unique };
 }
 
-export function pct(x) { return `${(100 * x).toFixed(1)}%`; }
+export function pct(x) { return `${(100 * x).toFixed(1)} %`; }
 export function fmt(x, d = 2) { return Number.isFinite(x) ? x.toFixed(d) : '–'; }
 
 /** Share of CO(GT) hours at -200 for each hour of the day. */

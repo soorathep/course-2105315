@@ -174,7 +174,7 @@ Studying alone: write your sentence, then go on.
 ::: {.beforeafter}
 ::: {}
 [What happened]{.label}
-About 90 hours were invented. Across the three-day outage the line is straight: three nights and three rush hours are gone. The mean can look plausible while the typical daily peak is too low.
+About 90 hours were invented. Across the three-day outage the line is straight: three nights and three rush hours are gone. The mean can look plausible while the typical daily peak (the mean of the daily maxima) is too low.
 :::
 ::: {}
 [A fill you can report]{.label}

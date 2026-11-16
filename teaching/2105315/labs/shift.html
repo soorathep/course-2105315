@@ -81,11 +81,11 @@ daily = daily[daily["count"] &gt;= 18]   # then test the daily means, and compar
     </section>
 
     <section class="lab-step" aria-labelledby="s6">
-      <div class="step-head"><span class="step-number">06</span><div><h2 id="s6">Test the daily means</h2><p>One value per day: 14 before against 14 after.</p></div></div>
+      <div class="step-head"><span class="step-number">06</span><div><h2 id="s6">Test the daily means</h2><p>One value per day: 14 before against 14 after. Both tests are Welch's t-test, which does not assume that the two periods have the same spread. The 95 % confidence interval is the range of differences in the means that fits the data.</p></div></div>
       <button id="run-daily" class="primary-button calculate-button" type="button" disabled>Test the daily means</button>
       <div id="results" hidden>
         <figure class="figure-block"><div class="figure-scroll"><svg id="daily-chart"></svg></div><figcaption>Points: daily means. Lines: the mean of the daily means before (teal) and after (amber).</figcaption></figure>
-        <div class="table-scroll" role="region" aria-label="Test results" tabindex="0"><table class="audit-table" id="test-table"><thead><tr><th scope="col">Test</th><th scope="col">Values</th><th scope="col">After − before</th><th scope="col">95 % interval</th><th scope="col">p</th></tr></thead><tbody></tbody></table></div>
+        <div class="table-scroll" role="region" aria-label="Test results" tabindex="0"><table class="audit-table" id="test-table"><thead><tr><th scope="col">Test</th><th scope="col">Values</th><th scope="col">After − before</th><th scope="col">95 % confidence interval</th><th scope="col">p</th></tr></thead><tbody></tbody></table></div>
         <p id="daily-readout" class="result-lead"></p>
       </div>
     </section>
@@ -111,12 +111,12 @@ daily = daily[daily["count"] &gt;= 18]   # then test the daily means, and compar
         <h3>Write the sentence you would send to the city about your date: what changed, by how much, and how it compares with ordinary dates.</h3>
         <label for="c-claim" class="visually-hidden">Your answer</label>
         <textarea id="c-claim" rows="3" maxlength="3000"></textarea>
-        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>A defensible sentence gives the size of the difference with its interval, and the placebo comparison, and does not name a cause the data cannot separate. For Demo A: "Mean daily benzene was 1.7 µg/m³ lower in the 14 days after 29 July 2004 than before (95 % interval −3.9 to 0.5). A difference this large or larger occurred at 45 % of the dates in the year with no planned change, so these data do not show an effect of the new traffic plan." For Demo B the difference, −5.9 µg/m³, was larger than at all but one ordinary date: a real shift, but the data alone cannot say whether the traffic plan or the November weather caused it.</p></div></details>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>A defensible sentence gives the size of the difference with its interval, and the placebo comparison, and does not name a cause the data cannot separate. For Demo A: "Mean daily benzene was 1.7 µg/m³ lower in the 14 days after 29 July 2004 than before (95 % confidence interval −3.9 to 0.5). A difference this large or larger occurred at 45 % of the dates in the year with no planned change, so these data do not show an effect of the new traffic plan." For Demo B the difference, −5.9 µg/m³, was larger than at all but one ordinary date: a real shift, but the data alone cannot say whether the traffic plan or the November weather caused it.</p></div></details>
       </div>
     </section>
 
     <section class="lab-step graduate-section grad-only" aria-labelledby="s9">
-      <div class="step-head"><span class="step-number">09</span><div><h2 id="s9">Extension: the length of the window</h2><p>The consultant chose 14 days on each side. Repeat the placebo check with other lengths.</p></div></div>
+      <div class="step-head"><span class="step-number">09</span><div><h2 id="s9">Extension: the length of the window</h2><p>The consultant chose 14 days on each side. Repeat the placebo check with other lengths. As before, each side needs daily means on at least 85 % of its days: 6 of 7, 12 of 14, 18 of 21, 24 of 28.</p></div></div>
       <div class="graduate-step">
         <div class="case-buttons" role="group" aria-label="Window length" id="win-buttons">
           <button type="button" data-w="7" aria-pressed="false">7 days</button><button type="button" data-w="14" aria-pressed="true">14 days</button><button type="button" data-w="21" aria-pressed="false">21 days</button><button type="button" data-w="28" aria-pressed="false">28 days</button>

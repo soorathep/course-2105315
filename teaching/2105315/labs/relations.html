@@ -49,7 +49,7 @@
     </section>
 
     <section class="lab-step" aria-labelledby="s3">
-      <div class="step-head"><span class="step-number">03</span><div><h2 id="s3">Predict</h2><p>Remove the slow seasonal change from both series (a 29-day centered rolling mean) and correlate what is left: the day-to-day ups and downs.</p></div></div>
+      <div class="step-head"><span class="step-number">03</span><div><h2 id="s3">Predict</h2><p>Remove the slow seasonal change from both series (a 29-day centered rolling mean) and correlate what is left: the day-to-day ups and downs.</p><p class="input-help">Why 29 days: about a month, long enough that the weekly traffic cycle and single weather events stay out of the trend, and an odd number so the window centers on one day. A day gets a trend value only if at least 15 of its 29 daily means exist (more than half).</p></div></div>
       <div class="notebook-list"><div class="notebook-item"><label for="p-r">Your estimate of r after removing the trend (−1 to 1)</label><input id="p-r" type="text" inputmode="decimal" autocomplete="off"></div></div>
     </section>
 
@@ -62,7 +62,7 @@
         <textarea id="ai-answer" rows="3" maxlength="3000" placeholder="Write your answer first (at least one full sentence)."></textarea>
         <details><summary>Compare with the explanation</summary><div class="concept-answer">
           <p>"Explains" and "cause" are claims the correlation cannot make. Between summer and autumn, temperature falls and NOx rises, and other things change with the season too, for example traffic returning after the summer holidays, heating, and shallower mixing of the air in autumn. Any two series that both drift through a season correlate, whether or not one acts on the other.</p>
-          <p>Before writing the sentence, remove what both series share (here the seasonal trend; in Session 9, the hour of day) and look at whether the day-to-day changes still move together. Then say what you tested and what you did not.</p>
+          <p>Before writing the sentence, remove what both series share (here the seasonal trend; in other data it may be the hour of day or the plant load) and look at whether the day-to-day changes still move together. Then say what you tested and what you did not.</p>
           <p class="fix-line">trend = daily.rolling(29, center=True, min_periods=15).mean()
 print((daily - trend)["T_degC"].corr((daily - trend)["NOx_ppb"]))</p>
         </div></details>
@@ -88,11 +88,11 @@ print((daily - trend)["T_degC"].corr((daily - trend)["NOx_ppb"]))</p>
 
     <section class="lab-step" aria-labelledby="s7">
       <div class="step-head"><span class="step-number">07</span><div><h2 id="s7">Part B · When did the drift start?</h2><p>The sensor was calibrated against benzene on the first 14 days (shaded). Each point is a day's mean difference between benzene and the calibrated sensor. Before any rule, mark the day you think the drift started.</p></div></div>
-      <figure class="figure-block"><div class="figure-scroll"><svg id="drift-chart"></svg></div><figcaption>Dashed: the calibration mean ± 3 standard deviations of the 14 calibration days.</figcaption></figure>
+      <figure class="figure-block"><div class="figure-scroll"><svg id="drift-chart"></svg></div><figcaption>Dashed: the calibration mean ± 3σ, where σ is the standard deviation of the 14 daily means in the calibration period.</figcaption></figure>
       <div class="notebook-list"><div class="notebook-item"><label for="p-onset">The day you think the drift started</label><select id="p-onset"></select></div></div>
       <button id="run-cusum" class="primary-button calculate-button" type="button" disabled>Run the CUSUM chart and the 3σ rule</button>
       <div id="cusum-box" hidden>
-        <figure class="figure-block"><div class="figure-scroll"><svg id="cusum-chart"></svg></div><figcaption>CUSUM adds up each day's distance from the calibration mean (minus an allowance k = 0.5σ). It raises an alarm when a sum passes h = 5σ.</figcaption></figure>
+        <figure class="figure-block"><div class="figure-scroll"><svg id="cusum-chart"></svg></div><figcaption>CUSUM adds up each day's distance from the calibration mean (minus an allowance k = 0.5σ). It raises an alarm when a sum passes h = 5σ. These are common textbook values: a sustained shift of about 1σ is found within days, while a stable process rarely sets off an alarm.</figcaption></figure>
         <p id="cusum-readout" class="result-lead"></p>
       </div>
     </section>

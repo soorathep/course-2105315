@@ -101,7 +101,7 @@ The t-test treats 667 hours as 667 independent measurements. Neighboring hours c
 :::
 ::: {}
 [A first fix]{.label}
-One value per day: 14 against 14. For Demo A, p becomes 0.13 and the 95 % interval widens from 1.6 to 4.5 µg/m³. The comment's "changed" also claims a cause that no test checked.
+One value per day: 14 against 14. For Demo A, p becomes 0.13 and the 95 % confidence interval widens from 1.6 to 4.5 µg/m³. The comment's "changed" also claims a cause that no test checked.
 :::
 :::
 
@@ -184,7 +184,7 @@ Season and holidays move the level. The t-test sees only the scatter inside each
 ::: {.beforeafter}
 ::: {}
 [Demo A · 29 July 2004]{.label}
-−1.7 µg/m³ (95 % interval −3.9 to 0.5), p = 0.13 on daily means. 45 % of ordinary dates show a difference this large. The data do not show an effect.
+−1.7 µg/m³ (95 % confidence interval −3.9 to 0.5), p = 0.13 on daily means. 45 % of ordinary dates show a difference this large. The data do not show an effect.
 :::
 ::: {}
 [Demo B · 7 November 2004]{.label}

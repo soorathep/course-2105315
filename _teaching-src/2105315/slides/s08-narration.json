@@ -1,197 +1,197 @@
 {
-  "voice_en": "am_michael",
-  "note": "en = English caption and voice; th = Thai caption; th_say = what the Thai voice reads (Thai script only: English terms written as they sound, numbers in words). say = English voice text when it differs from en.",
-  "slides": {
-    "title-slide": [
-      {
-        "en": "Session eight. Figures that tell the truth.",
-        "th": "คาบที่แปด กราฟที่บอกความจริง",
-        "th_say": "คาบที่แปด กราฟที่บอกความจริง"
-      },
-      {
-        "en": "The numbers on a figure can be correct while the drawing misleads. Today we learn to spot it and to fix it.",
-        "th": "ตัวเลขบนกราฟอาจถูกต้อง แต่การวาดทำให้เข้าใจผิดได้ วันนี้เราจะเรียนวิธีสังเกตและแก้ไข",
-        "th_say": "ตัวเลขบนกราฟอาจถูกต้อง แต่การวาดทำให้เข้าใจผิดได้ วันนี้เราจะเรียนวิธีสังเกตและแก้ไข"
-      }
-    ],
-    "course-map": [
-      {
-        "en": "This is the second session of week four. Last time we chose the view that answers the question.",
-        "th": "นี่คือคาบที่สองของสัปดาห์ที่สี่ คาบที่แล้วเราเลือกมุมมองที่ตอบคำถาม",
-        "th_say": "นี่คือคาบที่สองของสัปดาห์ที่สี่ คาบที่แล้วเราเลือกมุมมองที่ตอบคำถาม"
-      },
-      {
-        "en": "Today we draw it so that the reader sees what the data say, and no more.",
-        "th": "วันนี้เราวาดให้ผู้อ่านเห็นสิ่งที่ข้อมูลบอก และไม่เกินกว่านั้น",
-        "th_say": "วันนี้เราวาดให้ผู้อ่านเห็นสิ่งที่ข้อมูลบอก และไม่เกินกว่านั้น"
-      }
-    ],
-    "route": [
-      {
-        "en": "We start with your homework numbers. Then two ways a correct figure misleads: the axis and the time window.",
-        "th": "เราเริ่มจากตัวเลขการบ้าน จากนั้นสองวิธีที่กราฟซึ่งตัวเลขถูกต้องทำให้เข้าใจผิด คือแกนและช่วงเวลา",
-        "th_say": "เราเริ่มจากตัวเลขการบ้าน จากนั้นสองวิธีที่กราฟซึ่งตัวเลขถูกต้องทำให้เข้าใจผิด คือแกนและช่วงเวลา"
-      },
-      {
-        "en": "Then the AI's bar chart, four rules for an honest figure, and you finish Lab 04.",
-        "th": "แล้วดูกราฟแท่งของ AI กฎสี่ข้อสำหรับกราฟที่ซื่อตรง และทำแล็บที่สี่ให้เสร็จ",
-        "th_say": "แล้วดูกราฟแท่งของเอไอ กฎสี่ข้อสำหรับกราฟที่ซื่อตรง และทำแล็บที่สี่ให้เสร็จ"
-      }
-    ],
-    "warmup": [
-      {
-        "en": "Warm-up, in pairs, eight minutes. Compare your two monthly means, and work out how many times higher one is.",
-        "th": "อุ่นเครื่อง จับคู่ แปดนาที เปรียบเทียบค่าเฉลี่ยรายเดือนสองค่า และคำนวณว่าค่าหนึ่งสูงกว่าอีกค่ากี่เท่า",
-        "th_say": "อุ่นเครื่อง จับคู่ แปดนาที เปรียบเทียบค่าเฉลี่ยรายเดือนสองค่า และคำนวณว่าค่าหนึ่งสูงกว่าอีกค่ากี่เท่า"
-      },
-      {
-        "en": "Keep that ratio. In a few minutes you will see how tall the report made it look.",
-        "th": "จำอัตราส่วนนั้นไว้ อีกไม่กี่นาทีจะได้เห็นว่ารายงานทำให้ดูสูงแค่ไหน",
-        "th_say": "จำอัตราส่วนนั้นไว้ อีกไม่กี่นาทีจะได้เห็นว่ารายงานทำให้ดูสูงแค่ไหน"
-      }
-    ],
-    "baseline": [
-      {
-        "en": "Two bars, April and October. Move the slider to start the axis higher.",
-        "th": "กราฟแท่งสองแท่ง เดือนเมษายนและตุลาคม เลื่อนแถบเพื่อให้แกนเริ่มที่ค่าสูงขึ้น",
-        "th_say": "กราฟแท่งสองแท่ง เดือนเมษายนและตุลาคม เลื่อนแถบเพื่อให้แกนเริ่มที่ค่าสูงขึ้น"
-      },
-      {
-        "en": "The numbers do not change, but the second bar starts to look three times as tall.",
-        "th": "ตัวเลขไม่เปลี่ยน แต่แท่งที่สองเริ่มดูสูงเป็นสามเท่า",
-        "th_say": "ตัวเลขไม่เปลี่ยน แต่แท่งที่สองเริ่มดูสูงเป็นสามเท่า"
-      },
-      {
-        "en": "The lie factor is the change the reader sees divided by the change in the data. An honest bar chart has a lie factor of one.",
-        "th": "ค่าความบิดเบือน คือการเปลี่ยนแปลงที่ผู้อ่านเห็น หารด้วยการเปลี่ยนแปลงในข้อมูล กราฟแท่งที่ซื่อตรงมีค่านี้เท่ากับหนึ่ง",
-        "th_say": "ค่าความบิดเบือน คือการเปลี่ยนแปลงที่ผู้อ่านเห็น หารด้วยการเปลี่ยนแปลงในข้อมูล กราฟแท่งที่ซื่อตรงมีค่านี้เท่ากับหนึ่ง"
-      }
-    ],
-    "window": [
-      {
-        "en": "These are the daily means for a whole year, with a straight line fitted to the months you choose.",
-        "th": "นี่คือค่าเฉลี่ยรายวันตลอดทั้งปี พร้อมเส้นตรงที่ลากผ่านเดือนที่คุณเลือก",
-        "th_say": "นี่คือค่าเฉลี่ยรายวันตลอดทั้งปี พร้อมเส้นตรงที่ลากผ่านเดือนที่คุณเลือก"
-      },
-      {
-        "en": "From August to October benzene rises by almost three per month. From October to February it falls by one and a half.",
-        "th": "จากเดือนสิงหาคมถึงตุลาคม เบนซีนเพิ่มขึ้นเกือบสามต่อเดือน จากเดือนตุลาคมถึงกุมภาพันธ์ลดลงหนึ่งจุดห้า",
-        "th_say": "จากเดือนสิงหาคมถึงตุลาคม เบนซีนเพิ่มขึ้นเกือบสามต่อเดือน จากเดือนตุลาคมถึงกุมภาพันธ์ลดลงหนึ่งจุดห้า"
-      },
-      {
-        "en": "Same station, same year. A trend is only as honest as the window, so say which months you chose and why.",
-        "th": "สถานีเดียวกัน ปีเดียวกัน แนวโน้มจะซื่อตรงได้เท่ากับช่วงเวลาที่เลือก จึงต้องบอกว่าเลือกเดือนไหนและเพราะอะไร",
-        "th_say": "สถานีเดียวกัน ปีเดียวกัน แนวโน้มจะซื่อตรงได้เท่ากับช่วงเวลาที่เลือก จึงต้องบอกว่าเลือกเดือนไหนและเพราะอะไร"
-      }
-    ],
-    "act1": [
-      {
-        "en": "Activity one, in pairs, ten minutes. This is the code behind the report's figure.",
-        "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที นี่คือโค้ดที่สร้างกราฟในรายงาน",
-        "th_say": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที นี่คือโค้ดที่สร้างกราฟในรายงาน"
-      },
-      {
-        "en": "Every number on the chart is correct. Name two lines that make it mislead, and rewrite the title.",
-        "th": "ตัวเลขทุกตัวบนกราฟถูกต้อง บอกสองบรรทัดที่ทำให้เข้าใจผิด และเขียนชื่อกราฟใหม่",
-        "th_say": "ตัวเลขทุกตัวบนกราฟถูกต้อง บอกสองบรรทัดที่ทำให้เข้าใจผิด และเขียนชื่อกราฟใหม่"
-      }
-    ],
-    "act1-fix": [
-      {
-        "en": "Line three starts the axis just below the smaller mean, so the reader compares the leftover tips of the bars.",
-        "th": "บรรทัดที่สามทำให้แกนเริ่มต่ำกว่าค่าเฉลี่ยที่น้อยกว่าเพียงเล็กน้อย ผู้อ่านจึงเปรียบเทียบเฉพาะปลายแท่งที่เหลือ",
-        "th_say": "บรรทัดที่สามทำให้แกนเริ่มต่ำกว่าค่าเฉลี่ยที่น้อยกว่าเพียงเล็กน้อย ผู้อ่านจึงเปรียบเทียบเฉพาะปลายแท่งที่เหลือ"
-      },
-      {
-        "en": "Line four states a judgement the figure was drawn to support. A title should state the numbers.",
-        "th": "บรรทัดที่สี่เขียนข้อสรุปที่กราฟถูกวาดขึ้นมาเพื่อสนับสนุน ชื่อกราฟควรบอกตัวเลข",
-        "th_say": "บรรทัดที่สี่เขียนข้อสรุปที่กราฟถูกวาดขึ้นมาเพื่อสนับสนุน ชื่อกราฟควรบอกตัวเลข"
-      },
-      {
-        "en": "The code did what it was asked. The request was the problem.",
-        "th": "โค้ดทำตามที่ถูกขอ ปัญหาอยู่ที่คำขอ",
-        "th_say": "โค้ดทำตามที่ถูกขอ ปัญหาอยู่ที่คำขอ"
-      }
-    ],
-    "rules": [
-      {
-        "en": "Four rules. Bars start at zero. Show the spread, not only the mean.",
-        "th": "กฎสี่ข้อ กราฟแท่งเริ่มที่ศูนย์ แสดงการกระจาย ไม่ใช่แค่ค่าเฉลี่ย",
-        "th_say": "กฎสี่ข้อ กราฟแท่งเริ่มที่ศูนย์ แสดงการกระจาย ไม่ใช่แค่ค่าเฉลี่ย"
-      },
-      {
-        "en": "Say which time window you used and why. And let the title state the finding, with numbers.",
-        "th": "บอกช่วงเวลาที่ใช้และเหตุผล และให้ชื่อกราฟบอกสิ่งที่พบ พร้อมตัวเลข",
-        "th_say": "บอกช่วงเวลาที่ใช้และเหตุผล และให้ชื่อกราฟบอกสิ่งที่พบ พร้อมตัวเลข"
-      },
-      {
-        "en": "Ask the AI for the figure that answers a question, not for one that shows the difference clearly.",
-        "th": "ขอให้ AI สร้างกราฟที่ตอบคำถาม ไม่ใช่กราฟที่แสดงความแตกต่างให้ชัด",
-        "th_say": "ขอให้เอไอสร้างกราฟที่ตอบคำถาม ไม่ใช่กราฟที่แสดงความแตกต่างให้ชัด"
-      }
-    ],
-    "act2": [
-      {
-        "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
-        "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้",
-        "th_say": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
-      },
-      {
-        "en": "Open Lab 04. Enter your three homework numbers in Step 5 before you rebuild the figure.",
-        "th": "เปิดแล็บที่สี่ ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนสร้างกราฟใหม่",
-        "th_say": "เปิดแล็บที่สี่ ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนสร้างกราฟใหม่"
-      },
-      {
-        "en": "Rebuild it three ways, compare the distributions, answer Steps 8 and 9, then download one file and upload it to myCourseVille.",
-        "th": "สร้างกราฟใหม่สามแบบ เปรียบเทียบการกระจาย ตอบขั้นที่แปดและเก้า แล้วดาวน์โหลดไฟล์เดียว และอัปโหลดไปที่ myCourseVille",
-        "th_say": "สร้างกราฟใหม่สามแบบ เปรียบเทียบการกระจาย ตอบขั้นที่แปดและเก้า แล้วดาวน์โหลดไฟล์เดียว และอัปโหลดไปที่มายคอร์สวิลล์"
-      }
-    ],
-    "debrief": [
-      {
-        "en": "What lie factor did the report's figure have for your two months?",
-        "th": "กราฟในรายงานมีค่าความบิดเบือนเท่าไรสำหรับสองเดือนของคุณ",
-        "th_say": "กราฟในรายงานมีค่าความบิดเบือนเท่าไรสำหรับสองเดือนของคุณ"
-      },
-      {
-        "en": "What share of your higher month's hours fell below the lower month's mean?",
-        "th": "กี่เปอร์เซ็นต์ของชั่วโมงในเดือนที่สูงกว่า ต่ำกว่าค่าเฉลี่ยของเดือนที่ต่ำกว่า",
-        "th_say": "กี่เปอร์เซ็นต์ของชั่วโมงในเดือนที่สูงกว่า ต่ำกว่าค่าเฉลี่ยของเดือนที่ต่ำกว่า"
-      },
-      {
-        "en": "Which window would you show the plant manager, and what would the title say?",
-        "th": "คุณจะแสดงช่วงเวลาไหนให้ผู้จัดการโรงงานดู และชื่อกราฟจะเขียนว่าอะไร",
-        "th_say": "คุณจะแสดงช่วงเวลาไหนให้ผู้จัดการโรงงานดู และชื่อกราฟจะเขียนว่าอะไร"
-      }
-    ],
-    "exit": [
-      {
-        "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
-        "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน",
-        "th_say": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
-      },
-      {
-        "en": "A slide shows forty-eight and fifty-two percent conversion, with the axis starting at forty-six. What is the lie factor, and what title would you write?",
-        "th": "สไลด์แสดงค่าการเปลี่ยนแปลงร้อยละสี่สิบแปดและห้าสิบสอง โดยแกนเริ่มที่สี่สิบหก ค่าความบิดเบือนเป็นเท่าไร และคุณจะตั้งชื่อกราฟว่าอะไร",
-        "th_say": "สไลด์แสดงค่าการเปลี่ยนแปลงร้อยละสี่สิบแปดและห้าสิบสอง โดยแกนเริ่มที่สี่สิบหก ค่าความบิดเบือนเป็นเท่าไร และคุณจะตั้งชื่อกราฟว่าอะไร"
-      },
-      {
-        "en": "Scan the code or open the link. No name or student ID is recorded.",
-        "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต",
-        "th_say": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
-      }
-    ],
-    "next": [
-      {
-        "en": "Next session starts week five: correlated or driven? When two tags move together, and when a third one moves both.",
-        "th": "คาบหน้าเริ่มสัปดาห์ที่ห้า สัมพันธ์กันหรือเป็นเหตุและผล เมื่อไรสองแท็กเคลื่อนไหวไปด้วยกัน และเมื่อไรมีแท็กที่สามขับทั้งสองตัว",
-        "th_say": "คาบหน้าเริ่มสัปดาห์ที่ห้า สัมพันธ์กันหรือเป็นเหตุและผล เมื่อไรสองแท็กเคลื่อนไหวไปด้วยกัน และเมื่อไรมีแท็กที่สามขับทั้งสองตัว"
-      },
-      {
-        "en": "Submit your Lab 04 file, and think of two plant variables that rise and fall together.",
-        "th": "ส่งไฟล์แล็บที่สี่ และลองคิดถึงตัวแปรในโรงงานสองตัวที่ขึ้นลงไปด้วยกัน",
-        "th_say": "ส่งไฟล์แล็บที่สี่ และลองคิดถึงตัวแปรในโรงงานสองตัวที่ขึ้นลงไปด้วยกัน"
-      }
-    ]
-  }
+ "voice_en": "am_michael",
+ "note": "en = English caption and voice; th = Thai caption; th_say = what the Thai voice reads (Thai script only: English terms written as they sound, numbers in words). say = English voice text when it differs from en.",
+ "slides": {
+  "title-slide": [
+   {
+    "en": "Session eight. Figures that tell the truth.",
+    "th": "คาบที่แปด กราฟที่บอกความจริง",
+    "th_say": "คาบที่แปด กราฟที่บอกความจริง"
+   },
+   {
+    "en": "The numbers on a figure can be correct while the drawing misleads. Today we learn to spot it and to fix it.",
+    "th": "ตัวเลขบนกราฟอาจถูกต้อง แต่การวาดทำให้เข้าใจผิดได้ วันนี้เราจะเรียนวิธีสังเกตและแก้ไข",
+    "th_say": "ตัวเลขบนกราฟอาจถูกต้อง แต่การวาดทำให้เข้าใจผิดได้ วันนี้เราจะเรียนวิธีสังเกตและแก้ไข"
+   }
+  ],
+  "course-map": [
+   {
+    "en": "This is the second session of week four. Last time we chose the view that answers the question.",
+    "th": "นี่คือคาบที่สองของสัปดาห์ที่สี่ คาบที่แล้วเราเลือกมุมมองที่ตอบคำถาม",
+    "th_say": "นี่คือคาบที่สองของสัปดาห์ที่สี่ คาบที่แล้วเราเลือกมุมมองที่ตอบคำถาม"
+   },
+   {
+    "en": "Today we draw it so that the reader sees what the data say, and no more.",
+    "th": "วันนี้เราวาดให้ผู้อ่านเห็นสิ่งที่ข้อมูลบอก และไม่เกินกว่านั้น",
+    "th_say": "วันนี้เราวาดให้ผู้อ่านเห็นสิ่งที่ข้อมูลบอก และไม่เกินกว่านั้น"
+   }
+  ],
+  "route": [
+   {
+    "en": "We start with your homework numbers. Then two ways a correct figure misleads: the axis and the time window.",
+    "th": "เราเริ่มจากตัวเลขการบ้าน จากนั้นสองวิธีที่กราฟซึ่งตัวเลขถูกต้องทำให้เข้าใจผิด คือแกนและช่วงเวลา",
+    "th_say": "เราเริ่มจากตัวเลขการบ้าน จากนั้นสองวิธีที่กราฟซึ่งตัวเลขถูกต้องทำให้เข้าใจผิด คือแกนและช่วงเวลา"
+   },
+   {
+    "en": "Then the AI's bar chart, four rules for an honest figure, and you finish Lab 04.",
+    "th": "แล้วดูกราฟแท่งของ AI กฎสี่ข้อสำหรับกราฟที่ซื่อตรง และทำแล็บที่สี่ให้เสร็จ",
+    "th_say": "แล้วดูกราฟแท่งของเอไอ กฎสี่ข้อสำหรับกราฟที่ซื่อตรง และทำแล็บที่สี่ให้เสร็จ"
+   }
+  ],
+  "warmup": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. Compare your two monthly means, and work out how many times higher one is.",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที เปรียบเทียบค่าเฉลี่ยรายเดือนสองค่า และคำนวณว่าค่าหนึ่งสูงกว่าอีกค่ากี่เท่า",
+    "th_say": "อุ่นเครื่อง จับคู่ แปดนาที เปรียบเทียบค่าเฉลี่ยรายเดือนสองค่า และคำนวณว่าค่าหนึ่งสูงกว่าอีกค่ากี่เท่า"
+   },
+   {
+    "en": "Keep that ratio. In a few minutes you will see how tall the report made it look.",
+    "th": "จำอัตราส่วนนั้นไว้ อีกไม่กี่นาทีจะได้เห็นว่ารายงานทำให้ดูสูงแค่ไหน",
+    "th_say": "จำอัตราส่วนนั้นไว้ อีกไม่กี่นาทีจะได้เห็นว่ารายงานทำให้ดูสูงแค่ไหน"
+   }
+  ],
+  "baseline": [
+   {
+    "en": "Two bars, April and October. Move the slider to start the axis higher.",
+    "th": "กราฟแท่งสองแท่ง เดือนเมษายนและตุลาคม เลื่อนแถบเพื่อให้แกนเริ่มที่ค่าสูงขึ้น",
+    "th_say": "กราฟแท่งสองแท่ง เดือนเมษายนและตุลาคม เลื่อนแถบเพื่อให้แกนเริ่มที่ค่าสูงขึ้น"
+   },
+   {
+    "en": "The numbers do not change, but the second bar starts to look three times as tall.",
+    "th": "ตัวเลขไม่เปลี่ยน แต่แท่งที่สองเริ่มดูสูงเป็นสามเท่า",
+    "th_say": "ตัวเลขไม่เปลี่ยน แต่แท่งที่สองเริ่มดูสูงเป็นสามเท่า"
+   },
+   {
+    "en": "The lie factor is the change the reader sees divided by the change in the data. An honest bar chart has a lie factor of one.",
+    "th": "ค่าความบิดเบือน คือการเปลี่ยนแปลงที่ผู้อ่านเห็น หารด้วยการเปลี่ยนแปลงในข้อมูล กราฟแท่งที่ซื่อตรงมีค่านี้เท่ากับหนึ่ง",
+    "th_say": "ค่าความบิดเบือน คือการเปลี่ยนแปลงที่ผู้อ่านเห็น หารด้วยการเปลี่ยนแปลงในข้อมูล กราฟแท่งที่ซื่อตรงมีค่านี้เท่ากับหนึ่ง"
+   }
+  ],
+  "window": [
+   {
+    "en": "These are the daily means for a whole year, with a straight line fitted to the months you choose.",
+    "th": "นี่คือค่าเฉลี่ยรายวันตลอดทั้งปี พร้อมเส้นตรงที่ลากผ่านเดือนที่คุณเลือก",
+    "th_say": "นี่คือค่าเฉลี่ยรายวันตลอดทั้งปี พร้อมเส้นตรงที่ลากผ่านเดือนที่คุณเลือก"
+   },
+   {
+    "en": "From August to October benzene rises by almost three every thirty days. From October to February it falls by one and a half.",
+    "th": "จากเดือนสิงหาคมถึงตุลาคม เบนซีนเพิ่มขึ้นเกือบสามทุกสามสิบวัน จากเดือนตุลาคมถึงกุมภาพันธ์ลดลงหนึ่งจุดห้า",
+    "th_say": "จากเดือนสิงหาคมถึงตุลาคม เบนซีนเพิ่มขึ้นเกือบสามทุกสามสิบวัน จากเดือนตุลาคมถึงกุมภาพันธ์ลดลงหนึ่งจุดห้า"
+   },
+   {
+    "en": "Same station, same year. A trend is only as honest as the window, so say which months you chose and why.",
+    "th": "สถานีเดียวกัน ปีเดียวกัน แนวโน้มจะซื่อตรงได้เท่ากับช่วงเวลาที่เลือก จึงต้องบอกว่าเลือกเดือนไหนและเพราะอะไร",
+    "th_say": "สถานีเดียวกัน ปีเดียวกัน แนวโน้มจะซื่อตรงได้เท่ากับช่วงเวลาที่เลือก จึงต้องบอกว่าเลือกเดือนไหนและเพราะอะไร"
+   }
+  ],
+  "act1": [
+   {
+    "en": "Activity one, in pairs, ten minutes. This is the code behind the report's figure.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที นี่คือโค้ดที่สร้างกราฟในรายงาน",
+    "th_say": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที นี่คือโค้ดที่สร้างกราฟในรายงาน"
+   },
+   {
+    "en": "Every number on the chart is correct. Name two lines that make it mislead, and rewrite the title.",
+    "th": "ตัวเลขทุกตัวบนกราฟถูกต้อง บอกสองบรรทัดที่ทำให้เข้าใจผิด และเขียนชื่อกราฟใหม่",
+    "th_say": "ตัวเลขทุกตัวบนกราฟถูกต้อง บอกสองบรรทัดที่ทำให้เข้าใจผิด และเขียนชื่อกราฟใหม่"
+   }
+  ],
+  "act1-fix": [
+   {
+    "en": "Line three starts the axis just below the smaller mean, so the reader compares the leftover tips of the bars.",
+    "th": "บรรทัดที่สามทำให้แกนเริ่มต่ำกว่าค่าเฉลี่ยที่น้อยกว่าเพียงเล็กน้อย ผู้อ่านจึงเปรียบเทียบเฉพาะปลายแท่งที่เหลือ",
+    "th_say": "บรรทัดที่สามทำให้แกนเริ่มต่ำกว่าค่าเฉลี่ยที่น้อยกว่าเพียงเล็กน้อย ผู้อ่านจึงเปรียบเทียบเฉพาะปลายแท่งที่เหลือ"
+   },
+   {
+    "en": "Line four states a judgement the figure was drawn to support. A title should state the numbers.",
+    "th": "บรรทัดที่สี่เขียนข้อสรุปที่กราฟถูกวาดขึ้นมาเพื่อสนับสนุน ชื่อกราฟควรบอกตัวเลข",
+    "th_say": "บรรทัดที่สี่เขียนข้อสรุปที่กราฟถูกวาดขึ้นมาเพื่อสนับสนุน ชื่อกราฟควรบอกตัวเลข"
+   },
+   {
+    "en": "The code did what it was asked. The request was the problem.",
+    "th": "โค้ดทำตามที่ถูกขอ ปัญหาอยู่ที่คำขอ",
+    "th_say": "โค้ดทำตามที่ถูกขอ ปัญหาอยู่ที่คำขอ"
+   }
+  ],
+  "rules": [
+   {
+    "en": "Four rules. Bars start at zero. Show the spread, not only the mean.",
+    "th": "กฎสี่ข้อ กราฟแท่งเริ่มที่ศูนย์ แสดงการกระจาย ไม่ใช่แค่ค่าเฉลี่ย",
+    "th_say": "กฎสี่ข้อ กราฟแท่งเริ่มที่ศูนย์ แสดงการกระจาย ไม่ใช่แค่ค่าเฉลี่ย"
+   },
+   {
+    "en": "Say which time window you used and why. And let the title state the finding, with numbers.",
+    "th": "บอกช่วงเวลาที่ใช้และเหตุผล และให้ชื่อกราฟบอกสิ่งที่พบ พร้อมตัวเลข",
+    "th_say": "บอกช่วงเวลาที่ใช้และเหตุผล และให้ชื่อกราฟบอกสิ่งที่พบ พร้อมตัวเลข"
+   },
+   {
+    "en": "Ask the AI for the figure that answers a question, not for one that shows the difference clearly.",
+    "th": "ขอให้ AI สร้างกราฟที่ตอบคำถาม ไม่ใช่กราฟที่แสดงความแตกต่างให้ชัด",
+    "th_say": "ขอให้เอไอสร้างกราฟที่ตอบคำถาม ไม่ใช่กราฟที่แสดงความแตกต่างให้ชัด"
+   }
+  ],
+  "act2": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้",
+    "th_say": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 04. Enter your three homework numbers in Step 5 before you rebuild the figure.",
+    "th": "เปิดแล็บที่สี่ ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนสร้างกราฟใหม่",
+    "th_say": "เปิดแล็บที่สี่ ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนสร้างกราฟใหม่"
+   },
+   {
+    "en": "Rebuild it three ways, compare the distributions, answer Steps 8 and 9, then download one file and upload it to myCourseVille.",
+    "th": "สร้างกราฟใหม่สามแบบ เปรียบเทียบการกระจาย ตอบขั้นที่แปดและเก้า แล้วดาวน์โหลดไฟล์เดียว และอัปโหลดไปที่ myCourseVille",
+    "th_say": "สร้างกราฟใหม่สามแบบ เปรียบเทียบการกระจาย ตอบขั้นที่แปดและเก้า แล้วดาวน์โหลดไฟล์เดียว และอัปโหลดไปที่มายคอร์สวิลล์"
+   }
+  ],
+  "debrief": [
+   {
+    "en": "What lie factor did the report's figure have for your two months?",
+    "th": "กราฟในรายงานมีค่าความบิดเบือนเท่าไรสำหรับสองเดือนของคุณ",
+    "th_say": "กราฟในรายงานมีค่าความบิดเบือนเท่าไรสำหรับสองเดือนของคุณ"
+   },
+   {
+    "en": "What share of your higher month's hours fell below the lower month's mean?",
+    "th": "กี่เปอร์เซ็นต์ของชั่วโมงในเดือนที่สูงกว่า ต่ำกว่าค่าเฉลี่ยของเดือนที่ต่ำกว่า",
+    "th_say": "กี่เปอร์เซ็นต์ของชั่วโมงในเดือนที่สูงกว่า ต่ำกว่าค่าเฉลี่ยของเดือนที่ต่ำกว่า"
+   },
+   {
+    "en": "Which window would you show the plant manager, and what would the title say?",
+    "th": "คุณจะแสดงช่วงเวลาไหนให้ผู้จัดการโรงงานดู และชื่อกราฟจะเขียนว่าอะไร",
+    "th_say": "คุณจะแสดงช่วงเวลาไหนให้ผู้จัดการโรงงานดู และชื่อกราฟจะเขียนว่าอะไร"
+   }
+  ],
+  "exit": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน",
+    "th_say": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "A slide shows forty-eight and fifty-two percent conversion, with the axis starting at forty-six. What is the lie factor, and what title would you write?",
+    "th": "สไลด์แสดงค่าการเปลี่ยนแปลงร้อยละสี่สิบแปดและห้าสิบสอง โดยแกนเริ่มที่สี่สิบหก ค่าความบิดเบือนเป็นเท่าไร และคุณจะตั้งชื่อกราฟว่าอะไร",
+    "th_say": "สไลด์แสดงค่าการเปลี่ยนแปลงร้อยละสี่สิบแปดและห้าสิบสอง โดยแกนเริ่มที่สี่สิบหก ค่าความบิดเบือนเป็นเท่าไร และคุณจะตั้งชื่อกราฟว่าอะไร"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต",
+    "th_say": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "next": [
+   {
+    "en": "Next session starts week five: correlated or driven? When two tags move together, and when a third one moves both.",
+    "th": "คาบหน้าเริ่มสัปดาห์ที่ห้า สัมพันธ์กันหรือเป็นเหตุและผล เมื่อไรสองแท็กเคลื่อนไหวไปด้วยกัน และเมื่อไรมีแท็กที่สามขับทั้งสองตัว",
+    "th_say": "คาบหน้าเริ่มสัปดาห์ที่ห้า สัมพันธ์กันหรือเป็นเหตุและผล เมื่อไรสองแท็กเคลื่อนไหวไปด้วยกัน และเมื่อไรมีแท็กที่สามขับทั้งสองตัว"
+   },
+   {
+    "en": "Submit your Lab 04 file, and think of two plant variables that rise and fall together.",
+    "th": "ส่งไฟล์แล็บที่สี่ และลองคิดถึงตัวแปรในโรงงานสองตัวที่ขึ้นลงไปด้วยกัน",
+    "th_say": "ส่งไฟล์แล็บที่สี่ และลองคิดถึงตัวแปรในโรงงานสองตัวที่ขึ้นลงไปด้วยกัน"
+   }
+  ]
+ }
 }

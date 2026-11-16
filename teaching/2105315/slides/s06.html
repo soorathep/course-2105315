@@ -266,7 +266,7 @@ Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering
 <h2>Two effects you cannot avoid</h2>
 <div class="beforeafter">
 <div>
-<p><span class="label">Peaks get lower</span> A mean of w hours cannot be higher than the highest of them. In the Lab 03 demo, a 6-hour mean lowers the typical daily peak from 21.5 to 16.1 µg/m³ (−25 %), and a 24-hour mean to 11.5 (−46 %).</p>
+<p><span class="label">Peaks get lower</span> A mean of w hours cannot be higher than the highest of them. In the Lab 03 demo, with the typical daily peak taken as the mean of the 14 daily maxima, a 6-hour mean lowers the typical daily peak from 21.5 to 16.1 µg/m³ (−25 %), and a 24-hour mean to 11.5 (−46 %).</p>
 </div>
 <div>
 <p><span class="label">A trailing mean runs late</span> It uses only past hours, so it lags by (w − 1)/2 hours: 2.5 hours for a 6-hour mean, 5.5 for 12. A centered mean removes most of the lag but needs future hours, so a live display cannot use it.</p>
@@ -289,7 +289,7 @@ Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering
 <h2>What it did</h2>
 <div class="why3">
 <div class="w">
-<p><span class="label">1 · Deleted real events</span> <strong>Rush hours above mean + 3 SD are removed.</strong> They are the hours a benzene report is about.</p>
+<p><span class="label">1 · Deleted real events</span> <strong>Rush hours above the mean + 3σ are removed.</strong> They are the hours a benzene report is about.</p>
 </div>
 <div class="w">
 <p><span class="label">2 · Kept faults</span> <strong>A drop to 0.1 at noon stays in.</strong> It is unusual for that hour, not for the record.</p>
@@ -298,7 +298,7 @@ Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering
 <p><span class="label">3 · Made gaps</span> <strong>Whole rows go</strong>, so the series is no longer hourly, and the sensor value at those hours is lost too.</p>
 </div>
 </div>
-<pre class="code-slide"><span>med = df["C6H6_ugm3"].rolling(7, center=True).median()</span><span>df["suspect"] = (df["C6H6_ugm3"] - med).abs() &gt; 5     <b class="c"># flag, do not delete</b></span></pre>
+<pre class="code-slide"><span>s = df["C6H6_ugm3"]</span><span>med = s.rolling(7, center=True).median()</span><span>mad = s.rolling(7, center=True).apply(lambda w: np.median(np.abs(w - np.median(w))))</span><span>df["suspect"] = (s - med).abs() &gt; 3 * 1.4826 * mad   <b class="c"># Hampel: flag, do not delete</b></span></pre>
 <p><span class="note-line">Flag, then check each flagged hour against the second sensor. Remove only what you can show is a fault, and report it.</span></p>
 </section>
 <section id="rules" class="slide level2">

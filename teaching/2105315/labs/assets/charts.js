@@ -48,7 +48,7 @@ export function coChart(svg, points, mode) {
     ? 'CO(GT) over 14 days with the -200 code plotted as if it were a concentration. The line drops to -200 at every missing hour.'
     : 'CO(GT) over 14 days with -200 treated as missing. The line breaks at missing hours, which are marked on the time axis.');
   const ticks = mode === 'recorded' ? [-200, -150, -100, -50, 0] : niceTicks(0, top, 5);
-  yAxis(svg, y, ticks, 'CO(GT) / mg m⁻³');
+  yAxis(svg, y, ticks, 'CO(GT), mg/m³');
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   points.forEach((p, k) => {
@@ -81,7 +81,7 @@ export function hoursChart(svg, mine, year) {
   const top = Math.max(0.1, ...mine, ...year) * 1.1;
   const bw = (W - M.l - M.r) / 24;
   const y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
-  yAxis(svg, y, niceTicks(0, top, 4), 'share missing', (v) => `${Math.round(v * 100)}%`);
+  yAxis(svg, y, niceTicks(0, top, 4), 'share missing', (v) => `${Math.round(v * 100)} %`);
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   for (let h = 0; h < 24; h += 2) ax.append(el('text', { x: M.l + bw * (h + 0.5), y: H - M.b + 18, 'text-anchor': 'middle' }, String(h).padStart(2, '0')));
@@ -98,7 +98,7 @@ export function dailyChart(svg, days) {
   const top = Math.max(1, ...vals) * 1.15;
   const step = (W - M.l - M.r) / days.length;
   const y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
-  yAxis(svg, y, niceTicks(0, top, 4), 'daily mean CO / mg m⁻³');
+  yAxis(svg, y, niceTicks(0, top, 4), 'daily mean CO, mg/m³');
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   days.forEach((d, k) => {
@@ -118,7 +118,7 @@ export function dailyChart(svg, days) {
 /** Lab 02 · benzene over 14 days with gaps. Sand bands mark missing hours. Before the reveal the teal line
  * is the record as received (it breaks at gaps). After the reveal the teal line is the true record and the
  * amber line shows what a fill method put into the gaps. */
-export function gapChart(svg, t, obs, gaps, { truth = null, filled = null, unit = 'µg m⁻³' } = {}) {
+export function gapChart(svg, t, obs, gaps, { truth = null, filled = null, unit = 'µg/m³' } = {}) {
   const n = t.length;
   const vals = (truth || obs).filter((v) => Number.isFinite(v));
   const top = Math.max(1, ...vals, ...(filled || []).filter((v) => Number.isFinite(v))) * 1.08;
@@ -136,7 +136,7 @@ export function gapChart(svg, t, obs, gaps, { truth = null, filled = null, unit 
     bands.append(el('rect', { class: 'threshold-band', x: x(k) - half, y: M.t, width: x(j) - x(k) + 2 * half, height: H - M.t - M.b }));
   }
   svg.append(bands);
-  yAxis(svg, y, niceTicks(0, top, 5), `benzene / ${unit}`);
+  yAxis(svg, y, niceTicks(0, top, 5), `benzene, ${unit}`);
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   t.forEach((s, k) => {
@@ -164,7 +164,7 @@ export function gapChart(svg, t, obs, gaps, { truth = null, filled = null, unit 
 /** Lab 03 · benzene record with numbered candidate hours. Optional: the second sensor scaled to benzene units
  * (dashed graphite), a smoothed series (amber), and after the reveal each marker filled amber (fault) or
  * outlined teal (real). */
-export function spikeChart(svg, t, y, { marks = [], sensor = null, smoothed = null, reveal = false, from = 0, to = null, unit = 'µg m⁻³' } = {}) {
+export function spikeChart(svg, t, y, { marks = [], sensor = null, smoothed = null, reveal = false, from = 0, to = null, unit = 'µg/m³' } = {}) {
   const end = to ?? t.length - 1, n = end - from + 1;
   const range = (xs) => xs.slice(from, end + 1).filter((v) => Number.isFinite(v));
   const top = Math.max(1, ...range(y), ...(sensor ? range(sensor) : []), ...(smoothed ? range(smoothed) : [])) * 1.1;
@@ -173,7 +173,7 @@ export function spikeChart(svg, t, y, { marks = [], sensor = null, smoothed = nu
   const yy = (v) => M.t + (1 - (v - lo) / (top - lo)) * (H - M.t - M.b);
   frame(svg, smoothed ? 'Benzene over the window: teal, the record; amber, the rolling mean.'
     : `Benzene over the window with ${marks.length} numbered hours to judge${sensor ? '; dashed line: the second sensor, scaled to benzene units' : ''}.`);
-  yAxis(svg, yy, niceTicks(lo, top, 5), `benzene / ${unit}`);
+  yAxis(svg, yy, niceTicks(lo, top, 5), `benzene, ${unit}`);
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   for (let k = from; k <= end; k++) {
@@ -205,14 +205,14 @@ export function spikeChart(svg, t, y, { marks = [], sensor = null, smoothed = nu
 
 /** Lab 04 · two monthly summaries. mode 'bars': bars from `base`; 'dots': mean as a dot with the
  * interquartile range (thick) and the 10th to 90th percentile (thin), on an axis from zero. */
-export function monthFigure(svg, items, { mode = 'bars', base = 0, report = false, unit = 'µg m⁻³' } = {}) {
+export function monthFigure(svg, items, { mode = 'bars', base = 0, report = false, unit = 'µg/m³' } = {}) {
   const top = Math.max(...items.map((d) => (mode === 'dots' ? d.p90 : d.mean))) * 1.12;
   const lo = mode === 'bars' ? base : 0;
   const y = (v) => M.t + (1 - (v - lo) / (top - lo)) * (H - M.t - M.b);
   frame(svg, mode === 'bars'
     ? `Bar chart of the monthly mean benzene, axis starting at ${lo}.`
     : 'Monthly mean benzene as dots, with the middle half of the hours (thick line) and the 10th to 90th percentile (thin line), axis from zero.');
-  yAxis(svg, y, niceTicks(lo, top, 5).filter((v) => v >= lo), `mean benzene / ${unit}`);
+  yAxis(svg, y, niceTicks(lo, top, 5).filter((v) => v >= lo), `mean benzene, ${unit}`);
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   const slot = (W - M.l - M.r) / items.length;
@@ -234,28 +234,28 @@ export function monthFigure(svg, items, { mode = 'bars', base = 0, report = fals
 }
 
 /** Lab 04 · share of hours per bin for two months: teal outline (lower month), amber fill (higher month). */
-export function histChart(svg, a, b, w, labels, unit = 'µg m⁻³') {
+export function histChart(svg, a, b, w, labels, unit = 'µg/m³') {
   const n = a.length, top = Math.max(...a, ...b) * 1.12;
   frame(svg, `Share of hours in ${w}-${unit} bins. Amber bars: ${labels[1]}. Teal outlines: ${labels[0]}.`);
   const x = (v) => M.l + (v / (n * w)) * (W - M.l - M.r), y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
-  yAxis(svg, y, niceTicks(0, top, 4), 'share of hours', (v) => `${Math.round(v * 100)}%`);
+  yAxis(svg, y, niceTicks(0, top, 4), 'share of hours', (v) => `${Math.round(v * 100)} %`);
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   for (const v of niceTicks(0, n * w, 8)) ax.append(el('text', { x: x(v), y: H - M.b + 18, 'text-anchor': 'middle' }, String(v)));
-  ax.append(el('text', { class: 'ax-label', x: M.l + (W - M.l - M.r) / 2, y: H - 6, 'text-anchor': 'middle' }, `benzene / ${unit}`));
+  ax.append(el('text', { class: 'ax-label', x: M.l + (W - M.l - M.r) / 2, y: H - 6, 'text-anchor': 'middle' }, `benzene, ${unit}`));
   svg.append(ax);
   b.forEach((v, k) => svg.append(el('rect', { class: 'bar-effect', x: x(k * w) + 1, y: y(v), width: Math.max(1, x(w) - x(0) - 2), height: H - M.b - y(v) })));
   a.forEach((v, k) => svg.append(el('rect', { class: 'bar-ref', x: x(k * w) + 1, y: y(v), width: Math.max(1, x(w) - x(0) - 2), height: H - M.b - y(v) })));
 }
 
 /** Lab 04 · daily means for the year (teal points), the chosen window shaded, and its trend line (amber). */
-export function trendChart(svg, days, fit, from, to, unit = 'µg m⁻³') {
+export function trendChart(svg, days, fit, from, to, unit = 'µg/m³') {
   const n = days.length, vals = days.filter((d) => Number.isFinite(d.mean)).map((d) => d.mean), top = Math.max(...vals) * 1.08;
   frame(svg, 'Daily mean benzene, April 2004 to March 2005, with a straight line fitted to the chosen months.');
   const x = (k) => M.l + (k / (n - 1)) * (W - M.l - M.r), y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
   const k0 = days.findIndex((d) => d.month >= from), k1 = days.length - 1 - [...days].reverse().findIndex((d) => d.month <= to);
   svg.append(el('rect', { class: 'threshold-band', x: x(k0), y: M.t, width: x(k1) - x(k0), height: H - M.t - M.b }));
-  yAxis(svg, y, niceTicks(0, top, 5), `daily mean / ${unit}`);
+  yAxis(svg, y, niceTicks(0, top, 5), `daily mean, ${unit}`);
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   days.forEach((d, k) => { if (d.day.endsWith('-01')) { ax.append(el('line', { x1: x(k), x2: x(k), y1: H - M.b, y2: H - M.b + 5 })); ax.append(el('text', { x: x(k + 15), y: H - M.b + 18, 'text-anchor': 'middle' }, d.day.slice(5, 7) + '/' + d.day.slice(2, 4))); } });
@@ -307,7 +307,7 @@ export function driftChart(svg, days, daily, mu, sigma, marks = {}) {
   frame(svg, 'Daily mean difference between benzene and the calibrated sensor, over 16 weeks.');
   const x = (k) => M.l + ((k + 0.5) / n) * (W - M.l - M.r), y = (val) => M.t + (1 - (val - bot) / (top - bot)) * (H - M.t - M.b);
   svg.append(el('rect', { class: 'threshold-band', x: M.l, y: M.t, width: x(13.5) - M.l, height: H - M.t - M.b }));
-  yAxis(svg, y, niceTicks(bot, top, 5), 'residual / µg m⁻³', (q) => String(+q.toFixed(1)));
+  yAxis(svg, y, niceTicks(bot, top, 5), 'residual, µg/m³', (q) => String(+q.toFixed(1)));
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   days.forEach((d, k) => { if (k % 14 === 0) ax.append(el('text', { x: x(k), y: H - M.b + 18, 'text-anchor': 'middle' }, `${d.slice(8, 10)}/${d.slice(5, 7)}`)); });
@@ -327,7 +327,7 @@ export function cusumChart(svg, days, up, down, Hs) {
   const n = days.length, top = Math.max(Hs * 1.3, ...up, ...down);
   frame(svg, 'CUSUM sums: amber for upward drift, teal for downward drift; dashed line: the decision limit.');
   const x = (k) => M.l + ((k + 0.5) / n) * (W - M.l - M.r), y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
-  yAxis(svg, y, niceTicks(0, top, 4), 'CUSUM / µg m⁻³', (q) => String(+q.toFixed(1)));
+  yAxis(svg, y, niceTicks(0, top, 4), 'CUSUM, µg/m³', (q) => String(+q.toFixed(1)));
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   days.forEach((d, k) => { if (k % 14 === 0) ax.append(el('text', { x: x(k), y: H - M.b + 18, 'text-anchor': 'middle' }, `${d.slice(8, 10)}/${d.slice(5, 7)}`)); });
@@ -344,7 +344,7 @@ export function shiftChart(svg, r, { showDaily = true, showHourly = true } = {})
   const top = Math.max(...hours.filter(Number.isFinite), 5) * 1.05;
   frame(svg, `Benzene ${r.w} days before and after the change on ${r.day}. Hourly values as a thin line, daily means as points, the mean of each side as a horizontal line.`);
   const xh = (j) => M.l + (j / (n * 24)) * (W - M.l - M.r), xd = (k) => xh(k * 24 + 12), y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
-  yAxis(svg, y, niceTicks(0, top, 5), 'benzene / µg m⁻³', (v) => String(v));
+  yAxis(svg, y, niceTicks(0, top, 5), 'benzene, µg/m³', (v) => String(v));
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   const step = n > 30 ? 14 : 7;
@@ -378,7 +378,7 @@ export function placeboChart(svg, list, diff) {
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   for (const v of niceTicks(lo, hi, 8)) ax.append(el('text', { x: x(v), y: H - M.b + 18, 'text-anchor': 'middle' }, String(v).replace('-', '−')));
-  ax.append(el('text', { class: 'ax-label', x: M.l + (W - M.l - M.r) / 2, y: H - 6, 'text-anchor': 'middle' }, 'mean after minus mean before / µg m⁻³'));
+  ax.append(el('text', { class: 'ax-label', x: M.l + (W - M.l - M.r) / 2, y: H - 6, 'text-anchor': 'middle' }, 'mean after minus mean before, µg/m³'));
   svg.append(ax);
   counts.forEach((c, b) => {
     if (!c) return;
@@ -415,7 +415,7 @@ export function alertChart(svg, r, { limit = 15, margin = 0, from = 7 * 24 } = {
   const top = Math.max(30, ...t.filter(Number.isFinite), ...p.filter(Number.isFinite)) * 1.05;
   frame(svg, `Weeks 2 to 4, hourly: benzene from the analyzer and from the calibrated sensor, with the alert level ${limit} µg/m³.`);
   const x = (j) => M.l + (j / (n - 1)) * (W - M.l - M.r), y = (v) => M.t + 8 + (1 - Math.max(0, v) / top) * (H - M.t - M.b - 8);
-  yAxis(svg, y, niceTicks(0, top, 5), 'benzene / µg m⁻³', (v) => String(v));
+  yAxis(svg, y, niceTicks(0, top, 5), 'benzene, µg/m³', (v) => String(v));
   const ax = el('g', { class: 'ax' });
   ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
   for (let d = 0; d < n / 24; d += 7) ax.append(el('text', { x: x(d * 24), y: H - M.b + 18, 'text-anchor': 'middle' }, `week ${2 + d / 7}`));

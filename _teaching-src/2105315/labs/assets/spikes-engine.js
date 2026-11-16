@@ -13,9 +13,9 @@ export const FAULTS = 8;
 export const CANDIDATES = 15;
 export const HAMPEL_WINDOW = 7;
 export const RULES = [
-  { id: 'z', label: 'z-score over the whole record', detail: '|x − mean| > 3 standard deviations' },
-  { id: 'hampel', label: 'Hampel filter', detail: '|x − median of 7 h| > 3 × 1.4826 × MAD of 7 h' },
-  { id: 'sensor', label: 'Compare with the second sensor', detail: 'residual from a straight-line fit to PT08.S1(CO), > 4 × 1.4826 × MAD' },
+  { id: 'z', label: 'z-score over the whole record', detail: '|x − mean| > 3σ (σ: standard deviation of the 336 hours)' },
+  { id: 'hampel', label: 'Hampel filter', detail: '|x − median of 7 h| > 3 scaled MADs of the same 7 h' },
+  { id: 'sensor', label: 'Compare with the second sensor', detail: 'residual from a straight-line fit to PT08.S1(CO) > 4 scaled MADs of all residuals' },
 ];
 export const DEMOS = {
   spring: { label: 'Demo A · spring 2004', start: '2004-04-26T00:00', seed: 303 },

@@ -65,8 +65,10 @@
           <p>Three things. First, the rule asks only "is this hour far from the two-week mean?" Benzene follows traffic, so real rush-hour peaks are far from the mean and get deleted, while a fault in the middle of the normal daily range is kept. A drop to 0.1 at noon is not unusual for the whole record, only for that hour.</p>
           <p>Second, it deletes whole rows, so the time series now has gaps (Lab 02), and the sensor reading at those hours is thrown away too. Third, the faults themselves inflate the standard deviation, which makes the rule less sensitive.</p>
           <p>You notice by printing which hours were removed and looking at them on the plot next to the second sensor: if the sensor rose at the same hour, the event was real.</p>
-          <p class="fix-line">med = df["C6H6_ugm3"].rolling(7, center=True).median()   # compare with nearby hours
-df["suspect"] = (df["C6H6_ugm3"] - med).abs() &gt; 5     # flag, do not delete; then check the sensor</p>
+          <p class="fix-line">s = df["C6H6_ugm3"]
+med = s.rolling(7, center=True).median()                                   # median of the nearby hours
+mad = s.rolling(7, center=True).apply(lambda w: np.median(np.abs(w - np.median(w))))
+df["suspect"] = (s - med).abs() &gt; 3 * 1.4826 * mad   # Hampel rule: flag, do not delete; then check the sensor</p>
         </div></details>
       </div>
     </section>
@@ -80,6 +82,10 @@ df["suspect"] = (df["C6H6_ugm3"] - med).abs() &gt; 5     # flag, do not delete; 
 
     <section class="lab-step" aria-labelledby="s6">
       <div class="step-head"><span class="step-number">06</span><div><h2 id="s6">Run three rules, then see the faults</h2><p>Each rule flags hours. The page knows which hours are faults and counts what each rule caught and what it flagged by mistake.</p></div></div>
+      <details class="source-box"><summary>Where the numbers in the three rules come from</summary>
+        <p><strong>σ</strong> is the standard deviation of all 336 hours. <strong>MAD</strong> is the median of the absolute distances from the median. Multiplied by 1.4826 it is called the <strong>scaled MAD</strong>: for normally distributed data it equals σ, so "3 scaled MADs" can be read like "3σ". Unlike σ, a few faults hardly change it.</p>
+        <p>The Hampel window is 7 hours: the hour itself and 3 on each side, short enough to follow the daily cycle. The thresholds 3 (z-score, Hampel) are the usual textbook values. The sensor rule uses 4: at 3 it flags about six real hours per file, at 4 about two, while catching nearly as many faults. These are choices for this lab; Step 9 lets you change the Hampel threshold.</p>
+      </details>
       <button id="run-rules" class="primary-button calculate-button" type="button" disabled>Run the rules and show the faults</button>
       <div id="results" hidden>
         <p id="result-lead" class="result-lead"></p>
@@ -90,7 +96,7 @@ df["suspect"] = (df["C6H6_ugm3"] - med).abs() &gt; 5     # flag, do not delete; 
     </section>
 
     <section class="lab-step" aria-labelledby="s7">
-      <div class="step-head"><span class="step-number">07</span><div><h2 id="s7">Smoothing without lying</h2><p>A rolling mean makes a weekly chart calmer. Choose the window and see what it does to the real record (faults removed).</p></div></div>
+      <div class="step-head"><span class="step-number">07</span><div><h2 id="s7">Smoothing without lying</h2><p>A rolling mean makes a weekly chart calmer. Choose the window and see what it does to the real record (faults removed). The typical daily peak is the mean of the 14 daily maxima.</p></div></div>
       <div class="range-row"><label for="win">Rolling-mean window</label><output id="win-out" for="win">6 h</output><input id="win" type="range" min="1" max="24" step="1" value="6" aria-describedby="win-out"></div>
       <div class="chart-toggle" role="group" aria-label="Window position"><button type="button" data-align="trail" aria-pressed="true">Trailing (past hours)</button><button type="button" data-align="centre" aria-pressed="false">Centered</button></div>
       <figure class="figure-block"><div class="figure-scroll"><svg id="smooth-chart"></svg></div><figcaption>First four days of your window. Teal: the record. Amber: the rolling mean.</figcaption></figure>
@@ -118,7 +124,7 @@ df["suspect"] = (df["C6H6_ugm3"] - med).abs() &gt; 5     # flag, do not delete; 
     <section class="lab-step graduate-section grad-only" aria-labelledby="s9">
       <div class="step-head"><span class="step-number">09</span><div><h2 id="s9">Extension: choose the Hampel threshold</h2><p>A lower threshold catches more faults and flags more real hours. There is no setting that does both perfectly.</p></div></div>
       <div class="graduate-step">
-        <div class="range-row"><label for="hk">Hampel threshold k (MADs)</label><output id="hk-out" for="hk">3.0</output><input id="hk" type="range" min="1.5" max="8" step="0.5" value="3" aria-describedby="hk-out"></div>
+        <div class="range-row"><label for="hk">Hampel threshold (scaled MADs)</label><output id="hk-out" for="hk">3.0</output><input id="hk" type="range" min="1.5" max="8" step="0.5" value="3" aria-describedby="hk-out"></div>
         <button id="run-hk" class="secondary-button" type="button" disabled>Apply</button>
         <p id="hk-readout" class="ext-readout"></p>
         <label for="e-hk">Choose k for a plant where a missed fault means a wrong compliance report, and a false alarm means an engineer checks one hour by hand. Defend it in two or three sentences.</label>

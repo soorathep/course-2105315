@@ -87,7 +87,7 @@
       <div id="results" hidden>
         <div class="chart-toggle" role="group" aria-label="Figure style"><button type="button" data-fig="report" aria-pressed="false">As in the report</button><button type="button" data-fig="zero" aria-pressed="true">Bars from zero</button><button type="button" data-fig="dots" aria-pressed="false">Points with spread</button></div>
         <figure class="figure-block"><div class="figure-scroll"><svg id="fig-chart"></svg></div><figcaption id="fig-caption"></figcaption></figure>
-        <dl class="ratio-grid"><div id="rg-seen"><dt>The reader sees</dt><dd id="r-seen">–</dd></div><div class="ok"><dt>The data say</dt><dd id="r-data">–</dd></div><div id="rg-lie"><dt>Lie factor (seen change ÷ real change)</dt><dd id="r-lie">–</dd></div></dl>
+        <dl class="ratio-grid"><div id="rg-seen"><dt>The reader sees</dt><dd id="r-seen">–</dd></div><div class="ok"><dt>The data say</dt><dd id="r-data">–</dd></div><div id="rg-lie"><dt>Lie factor: (seen ratio − 1) ÷ (data ratio − 1)</dt><dd id="r-lie">–</dd></div></dl>
         <p id="pred-verdict" class="ext-readout"></p>
       </div>
     </section>
@@ -97,6 +97,7 @@
       <div class="range-row"><label for="bin">Bin width</label><output id="bin-out" for="bin">2 µg/m³</output><input id="bin" type="range" min="0.5" max="6" step="0.5" value="2" aria-describedby="bin-out"></div>
       <figure class="figure-block"><div class="figure-scroll"><svg id="hist-chart"></svg></div><figcaption id="hist-caption"></figcaption></figure>
       <div class="table-scroll" role="region" aria-label="Summary statistics" tabindex="0"><table class="audit-table stat-table"><thead><tr><th scope="col">Month</th><th scope="col">Valid hours</th><th scope="col">Mean</th><th scope="col">Median</th><th scope="col">Middle half</th><th scope="col">Above 10</th></tr></thead><tbody id="stat-body"></tbody></table></div>
+        <p class="input-help">"Above 10": share of valid hours above 10 µg/m³, a reference level chosen for this lab (close to the mean of all hours in the year, 10.1 µg/m³), not a legal limit.</p>
       <label for="h-answer">What does the distribution show that the two means did not? Two sentences.</label>
       <textarea id="h-answer" rows="3" maxlength="3000"></textarea>
     </section>

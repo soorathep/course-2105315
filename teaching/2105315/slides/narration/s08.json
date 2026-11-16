@@ -139,8 +139,8 @@
     "th": "นี่คือค่าเฉลี่ยรายวันตลอดทั้งปี พร้อมเส้นตรงที่ลากผ่านเดือนที่คุณเลือก"
    },
    {
-    "en": "From August to October benzene rises by almost three per month. From October to February it falls by one and a half.",
-    "th": "จากเดือนสิงหาคมถึงตุลาคม เบนซีนเพิ่มขึ้นเกือบสามต่อเดือน จากเดือนตุลาคมถึงกุมภาพันธ์ลดลงหนึ่งจุดห้า"
+    "en": "From August to October benzene rises by almost three every thirty days. From October to February it falls by one and a half.",
+    "th": "จากเดือนสิงหาคมถึงตุลาคม เบนซีนเพิ่มขึ้นเกือบสามทุกสามสิบวัน จากเดือนตุลาคมถึงกุมภาพันธ์ลดลงหนึ่งจุดห้า"
    },
    {
     "en": "Same station, same year. A trend is only as honest as the window, so say which months you chose and why.",
@@ -156,11 +156,11 @@
     ],
     [
      6.51,
-     14.96
+     15.81
     ],
     [
-     15.31,
-     22.94
+     16.16,
+     23.8
     ]
    ]
   }

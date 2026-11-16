@@ -170,7 +170,7 @@ That the values are independent and that "nothing changed" is the only alternati
   <div class="story"><p>Energy use fell by 8 %, p = 0.20, over six weeks.</p><button type="button">Reveal</button><p class="ans" hidden><b>Not shown, not disproved.</b> The interval is wide: it includes zero and a large saving. Collect more weeks.</p></div>
   <div class="story"><p>"p = 0.03, so there is a 97 % chance the new catalyst works."</p><button type="button">Reveal</button><p class="ans" hidden><b>Wrong reading.</b> p is computed assuming no change. It is not the probability of either hypothesis.</p></div>
   <div class="story"><p>Twenty tags were compared before and after a shutdown. One gave p = 0.04.</p><button type="button">Reveal</button><p class="ans" hidden><b>Expected by chance:</b> one in twenty tests falls below 0.05 when nothing changed.</p></div>
-  <div class="story"><p>Off-spec rate before 4.1 %, after 2.9 %; 95 % interval of the change −2.0 to −0.4 points.</p><button type="button">Reveal</button><p class="ans" hidden><b>Useful report:</b> size and interval. The interval excludes zero, so p &lt; 0.05 without saying it.</p></div>
+  <div class="story"><p>Off-spec rate before 4.1 %, after 2.9 %; 95 % confidence interval of the change −2.0 to −0.4 points.</p><button type="button">Reveal</button><p class="ans" hidden><b>Useful report:</b> size and interval. The interval excludes zero, so p &lt; 0.05 without saying it.</p></div>
   <div class="story"><p>Benzene: 1.7 µg/m³ lower after the change, p = 0.13 on daily means.</p><button type="button">Reveal</button><p class="ans" hidden><b>Not shown.</b> Shuffled labels give a difference this large about one time in eight.</p></div>
 </div>
 <script>
@@ -191,7 +191,7 @@ For each result: is the change shown, is it large enough to matter, and is the s
 ::: {.beforeafter}
 ::: {}
 [Report this]{.label}
-The difference with its unit, a 95 % interval, the number of independent values, and p. Demo A: −1.7 µg/m³ (−3.9 to 0.5), 14 + 14 days, p = 0.13.
+The difference with its unit, a 95 % confidence interval, the number of independent values, and p from Welch's t-test (it does not assume equal spread before and after). Demo A: −1.7 µg/m³ (−3.9 to 0.5), 14 + 14 days, p = 0.13.
 :::
 ::: {}
 [Then say]{.label}

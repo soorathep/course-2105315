@@ -5,7 +5,7 @@ import { hashText, normaliseId, validStudentId, parseValue, stampAt, MISSING } f
 
 export const COLUMN = 'C6H6(GT)';
 export const UNIT = 'µg/m³';
-export const LEVEL = 10;                 // lab reference level for "hours above"; about the median of the year, not a regulation
+export const LEVEL = 10;                 // lab reference level for "hours above"; close to the mean of all hours (10.1), not a regulation
 export const FIRST_MONTH = '2004-04', LAST_MONTH = '2005-03';
 export const DEMOS = {
   spring: { label: 'Demo A · April and October 2004', low: '2004-04', high: '2004-10' },

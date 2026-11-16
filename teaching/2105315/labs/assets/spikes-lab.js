@@ -143,7 +143,7 @@ function drawSmooth() {
 function runHampel() {
   const k = Number($('hk').value), r = S.rules(state.s, k), sc = S.score(state.s, { hampel: r.flags.hampel }).hampel;
   state.ext = { hampelRun: true, hampel: { k, caught: sc.caught, falseAlarms: sc.falseAlarms } };
-  $('hk-readout').textContent = `k = ${k.toFixed(1)}: ${sc.caught} of 8 faults caught, ${sc.falseAlarms} real hours flagged by mistake.`;
+  $('hk-readout').textContent = `Threshold ${k.toFixed(1)} scaled MADs: ${sc.caught} of 8 faults caught, ${sc.falseAlarms} real hours flagged by mistake.`;
 }
 
 /* ---------- Step 10 ---------- */

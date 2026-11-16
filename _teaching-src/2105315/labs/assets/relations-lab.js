@@ -28,7 +28,7 @@ function setCase(kind, { quiet = false } = {}) {
   if (!quiet) $('id-note').textContent = kind === 'student' ? 'Your own data set is loaded. Use it for the work you submit.' : '';
   $('dataset-line').textContent = `${variant.label} · Part A from ${dm(state.a.days[0])} (${state.a.raw.n} days with both) · Part B from ${dm(state.b.days[0])} · file: ${csvName()}`;
   $('p-r').disabled = false; $('p-onset').disabled = false;
-  scatter($('scatter-raw'), state.a.temp, state.a.nox, ['daily mean temperature / °C', 'daily mean NOx / ppb'], state.a.raw.r);
+  scatter($('scatter-raw'), state.a.temp, state.a.nox, ['daily mean temperature, °C', 'daily mean NOx, ppb'], state.a.raw.r);
   $('raw-caption').textContent = `As reported: r = ${R.fmt(state.a.raw.r)} over ${state.a.raw.n} days. Darker points are later in the window.`;
   renderNotebook();
   $('results').hidden = true;
@@ -71,8 +71,8 @@ function detrend() {
   renderNotebook(); showNotebookResults();
   const a = state.a;
   pairSeries($('series-chart'), a.days, a.nox, a.temp, a.trendNox, a.trendTemp, ['NOx', 'temperature']);
-  scatter($('scatter-a'), a.temp, a.nox, ['temperature / °C', 'NOx / ppb'], a.raw.r);
-  scatter($('scatter-b'), a.detTemp, a.detNox, ['temperature minus trend / °C', 'NOx minus trend / ppb'], a.det.r);
+  scatter($('scatter-a'), a.temp, a.nox, ['temperature, °C', 'NOx, ppb'], a.raw.r);
+  scatter($('scatter-b'), a.detTemp, a.detNox, ['temperature minus trend, °C', 'NOx minus trend, ppb'], a.det.r);
   const p = num('p-r');
   $('detrend-readout').textContent = `r falls from ${R.fmt(a.raw.r)} to ${R.fmt(a.det.r)} (${a.det.n} days). You predicted ${p === null ? 'no value' : R.fmt(p)}. ` +
     (Math.abs(a.det.r) < 0.2 ? 'Most of the reported correlation came from the seasonal trend that both series share.' : 'Part of the correlation remains in the day-to-day changes; the trend explains the rest.');
