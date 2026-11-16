@@ -1,0 +1,391 @@
+{
+ "title-slide": {
+  "text": [
+   {
+    "en": "Session twelve. Tests on plant data.",
+    "th": "คาบที่สิบสอง การทดสอบกับข้อมูลโรงงาน"
+   },
+   {
+    "en": "A t-test assumes independent values. Plant data rarely are. Today we see what that does to p, and what to compare with instead.",
+    "th": "การทดสอบทีตั้งสมมติฐานว่าค่าต่างๆ เป็นอิสระต่อกัน ข้อมูลโรงงานแทบไม่เคยเป็นแบบนั้น วันนี้เราดูว่ามันส่งผลต่อค่า p อย่างไร และควรเปรียบเทียบกับอะไรแทน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.04
+    ],
+    [
+     3.39,
+     12.91
+    ]
+   ]
+  }
+ },
+ "course-map": {
+  "text": [
+   {
+    "en": "This is the second session of week six. Last time, what p means when the values are independent.",
+    "th": "นี่คือคาบที่สองของสัปดาห์ที่หก คาบที่แล้วเราดูว่าค่า p หมายถึงอะไรเมื่อค่าต่างๆ เป็นอิสระต่อกัน"
+   },
+   {
+    "en": "Today, plant data that are not, and ordinary dates that show what a real change must beat.",
+    "th": "วันนี้เป็นข้อมูลโรงงานที่ไม่เป็นอิสระ และวันปกติที่แสดงว่าการเปลี่ยนแปลงจริงต้องชนะอะไร"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/course-map.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.86
+    ],
+    [
+     7.21,
+     13.42
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   {
+    "en": "We start with your homework numbers and the AI’s t-test.",
+    "th": "เราเริ่มจากตัวเลขการบ้านและการทดสอบทีของ AI"
+   },
+   {
+    "en": "Then the same test at every ordinary date of the year, what you can claim, and you finish Lab 06.",
+    "th": "จากนั้นใช้การทดสอบเดียวกันกับทุกวันปกติของปี ดูว่าอ้างอะไรได้ และทำแล็บที่หกให้เสร็จ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.96
+    ],
+    [
+     4.31,
+     11.67
+    ]
+   ]
+  }
+ },
+ "warmup": {
+  "text": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. Compare the three numbers your code reported in Lab 06, Step 5.",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที เปรียบเทียบตัวเลขสามค่าที่โค้ดของคุณรายงานในแล็บที่หก ขั้นที่ห้า"
+   },
+   {
+    "en": "If they differ from your neighbor’s, is it the data set or the code? Keep your p for the next activity.",
+    "th": "ถ้าต่างจากของเพื่อน เป็นเพราะชุดข้อมูลหรือโค้ด เก็บค่า p ไว้ใช้ในกิจกรรมถัดไป"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/warmup.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.1
+    ],
+    [
+     8.45,
+     15.17
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   {
+    "en": "Activity one, in pairs, ten minutes. The consultant asked an AI assistant to test whether benzene changed after the date. This is the code.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที ที่ปรึกษาขอให้ AI ทดสอบว่าเบนซีนเปลี่ยนไปหลังวันนั้นหรือไม่ นี่คือโค้ด"
+   },
+   {
+    "en": "The code runs and p is correct for what it was given. Which assumption does this data break, and what does that do to p?",
+    "th": "โค้ดรันได้และค่า p ถูกต้องสำหรับข้อมูลที่ใส่เข้าไป ข้อมูลนี้ละเมิดสมมติฐานข้อใด และส่งผลต่อค่า p อย่างไร"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     10.64
+    ],
+    [
+     10.99,
+     18.88
+    ]
+   ]
+  }
+ },
+ "act1-fix": {
+  "text": [
+   {
+    "en": "The t-test treats six hundred and sixty-seven hours as independent measurements. Neighboring hours correlate at zero point eight four, and every day repeats its rush hours.",
+    "th": "การทดสอบทีถือว่าหกร้อยหกสิบเจ็ดชั่วโมงเป็นการวัดที่เป็นอิสระต่อกัน แต่ชั่วโมงที่ติดกันมีสหสัมพันธ์ศูนย์จุดแปดสี่ และทุกวันมีชั่วโมงเร่งด่วนซ้ำกัน"
+   },
+   {
+    "en": "So the standard error is too small and p is too small. With one value per day, p for Demo A rises from zero point zero zero zero zero six to zero point one three.",
+    "th": "ดังนั้นความคลาดเคลื่อนมาตรฐานเล็กเกินไป และค่า p เล็กเกินไป เมื่อใช้ค่าเดียวต่อวัน ค่า p ของตัวอย่าง A เพิ่มจากศูนย์จุดศูนย์ศูนย์ศูนย์ศูนย์หก เป็นศูนย์จุดหนึ่งสาม"
+   },
+   {
+    "en": "Count what is independent before you count values.",
+    "th": "นับสิ่งที่เป็นอิสระต่อกันก่อนนับจำนวนค่า"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/act1-fix.en.mp3",
+   "cues": [
+    [
+     0.25,
+     12.39
+    ],
+    [
+     12.74,
+     26.09
+    ],
+    [
+     26.44,
+     29.79
+    ]
+   ]
+  }
+ },
+ "placebo": {
+  "text": [
+   {
+    "en": "Each point is one date in the year where nothing was changed on purpose: the difference between the fourteen days after and the fourteen days before.",
+    "th": "แต่ละจุดคือวันหนึ่งในปีที่ไม่มีการเปลี่ยนแปลงโดยตั้งใจ แสดงผลต่างระหว่างสิบสี่วันหลังกับสิบสี่วันก่อน"
+   },
+   {
+    "en": "Amber points are dates the hourly test calls significant: fifty-eight percent of them. A fair test would call about five percent.",
+    "th": "จุดสีเหลืองอำพันคือวันที่การทดสอบรายชั่วโมงบอกว่ามีนัยสำคัญ คิดเป็นห้าสิบแปดเปอร์เซ็นต์ การทดสอบที่ยุติธรรมควรบอกประมาณห้าเปอร์เซ็นต์"
+   },
+   {
+    "en": "Press Daily test. Twenty-five percent: better, still five times too many. The hits gather around the August holidays, November, January and March.",
+    "th": "กดปุ่มการทดสอบรายวัน ยี่สิบห้าเปอร์เซ็นต์ ดีขึ้นแต่ยังมากเกินไปห้าเท่า จุดที่มีนัยสำคัญรวมกันอยู่ช่วงวันหยุดเดือนสิงหาคม พฤศจิกายน มกราคม และมีนาคม"
+   },
+   {
+    "en": "Press Demo A and B. A difference as large as Demo A’s appears at forty-five percent of ordinary dates. Demo B’s appears at only one.",
+    "th": "กดปุ่มตัวอย่าง A และ B ผลต่างที่มากเท่าตัวอย่าง A เกิดขึ้นในสี่สิบห้าเปอร์เซ็นต์ของวันปกติ ส่วนของตัวอย่าง B เกิดขึ้นเพียงวันเดียว"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/placebo.en.mp3",
+   "cues": [
+    [
+     0.25,
+     9.98
+    ],
+    [
+     10.33,
+     19.27
+    ],
+    [
+     19.62,
+     30.26
+    ],
+    [
+     30.61,
+     41.19
+    ]
+   ]
+  }
+ },
+ "why": {
+  "text": [
+   {
+    "en": "Three reasons. Hours are not independent. Days are not either: neighboring days correlate at zero point six, because weather lasts several days.",
+    "th": "สามเหตุผล ชั่วโมงไม่เป็นอิสระต่อกัน วันก็เช่นกัน วันที่ติดกันมีสหสัมพันธ์ศูนย์จุดหก เพราะสภาพอากาศคงอยู่หลายวัน"
+   },
+   {
+    "en": "And fortnights differ: the season and holidays move the level. The t-test sees only the scatter inside each fortnight.",
+    "th": "และช่วงสองสัปดาห์ก็ต่างกัน ฤดูกาลและวันหยุดทำให้ระดับเปลี่ยน การทดสอบทีเห็นเพียงการกระจายภายในแต่ละช่วงสองสัปดาห์"
+   },
+   {
+    "en": "Placebo dates measure that directly. They are the year’s own record of nothing changed.",
+    "th": "วันอ้างอิงที่ไม่มีการเปลี่ยนแปลงวัดสิ่งนี้ได้โดยตรง เป็นบันทึกของปีนั้นเองว่าเมื่อไม่มีอะไรเปลี่ยนจะเป็นอย่างไร"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/why.en.mp3",
+   "cues": [
+    [
+     0.25,
+     10.81
+    ],
+    [
+     11.16,
+     19.37
+    ],
+    [
+     19.72,
+     25.27
+    ]
+   ]
+  }
+ },
+ "claim": {
+  "text": [
+   {
+    "en": "Demo A: one point seven lower, with an interval that includes zero. Forty-five percent of ordinary dates show as much. The data do not show an effect.",
+    "th": "ตัวอย่าง A ต่ำลงหนึ่งจุดเจ็ด โดยช่วงความเชื่อมั่นครอบคลุมศูนย์ สี่สิบห้าเปอร์เซ็นต์ของวันปกติก็ต่างได้เท่านี้ ข้อมูลไม่ได้แสดงผลของการเปลี่ยนแปลง"
+   },
+   {
+    "en": "Demo B: five point nine lower, and only one ordinary date shows as much. A real shift, but the data cannot say whether the traffic plan or the November weather caused it.",
+    "th": "ตัวอย่าง B ต่ำลงห้าจุดเก้า และมีวันปกติเพียงวันเดียวที่ต่างได้เท่านี้ เป็นการเลื่อนจริง แต่ข้อมูลบอกไม่ได้ว่าเกิดจากแผนจราจรหรือสภาพอากาศเดือนพฤศจิกายน"
+   },
+   {
+    "en": "Before a decision, ask for a comparison that rules out the other cause, such as a station the plan did not touch.",
+    "th": "ก่อนตัดสินใจ ขอการเปรียบเทียบที่ตัดสาเหตุอื่นออก เช่น สถานีที่แผนนี้ไม่ได้ส่งผล"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/claim.en.mp3",
+   "cues": [
+    [
+     0.25,
+     11.62
+    ],
+    [
+     11.97,
+     24.34
+    ],
+    [
+     24.69,
+     32.54
+    ]
+   ]
+  }
+ },
+ "act2": {
+  "text": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 06. Enter your three homework numbers in Step 5 before you test the daily means.",
+    "th": "เปิดแล็บที่หก ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนทดสอบค่าเฉลี่ยรายวัน"
+   },
+   {
+    "en": "Run both tests at every date in Step 7, answer Step 8, then download one file and upload it to myCourseVille.",
+    "th": "รันการทดสอบทั้งสองกับทุกวันในขั้นที่เจ็ด ตอบขั้นที่แปด แล้วดาวน์โหลดไฟล์เดียว และอัปโหลดไปที่ myCourseVille"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/act2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.69
+    ],
+    [
+     6.04,
+     13.06
+    ],
+    [
+     13.41,
+     21.77
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   {
+    "en": "How far did p rise for your date when you tested daily means instead of hours?",
+    "th": "ค่า p ของวันของคุณเพิ่มขึ้นเท่าไร เมื่อทดสอบด้วยค่าเฉลี่ยรายวันแทนรายชั่วโมง"
+   },
+   {
+    "en": "At what share of ordinary dates was a difference at least as large as yours?",
+    "th": "กี่เปอร์เซ็นต์ของวันปกติที่มีผลต่างมากอย่างน้อยเท่ากับของคุณ"
+   },
+   {
+    "en": "What sentence did you write for the city in Step 8?",
+    "th": "คุณเขียนประโยคอะไรถึงเทศบาลในขั้นที่แปด"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.8
+    ],
+    [
+     6.15,
+     11.31
+    ],
+    [
+     11.66,
+     14.77
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "An engineer compares one-minute reactor temperatures for one day before and one day after a controller retune, and finds a p of ten to the minus twenty. Name two reasons this overstates the evidence, and one better comparison.",
+    "th": "วิศวกรเปรียบเทียบอุณหภูมิเครื่องปฏิกรณ์ทุกหนึ่งนาที หนึ่งวันก่อนและหนึ่งวันหลังการปรับตัวควบคุม ได้ค่า p เท่ากับสิบยกกำลังลบยี่สิบ บอกสองเหตุผลที่ค่านี้เกินจริง และการเปรียบเทียบที่ดีกว่าหนึ่งแบบ"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.27
+    ],
+    [
+     6.62,
+     22.62
+    ],
+    [
+     22.97,
+     28.3
+    ]
+   ]
+  }
+ },
+ "next": {
+  "text": [
+   {
+    "en": "Next session starts week seven: from a raw file to a decision, using every check from weeks one to six.",
+    "th": "คาบหน้าเริ่มสัปดาห์ที่เจ็ด จากไฟล์ดิบสู่การตัดสินใจ โดยใช้การตรวจสอบทั้งหมดจากสัปดาห์ที่หนึ่งถึงหก"
+   },
+   {
+    "en": "Submit your Lab 06 file, and look back at your Lab 01 audit: which check would you run first on a new file?",
+    "th": "ส่งไฟล์แล็บที่หก และย้อนดูการตรวจสอบในแล็บที่หนึ่ง คุณจะตรวจอะไรเป็นอย่างแรกกับไฟล์ใหม่"
+   }
+  ],
+  "en": {
+   "audio": "narration/s12/next.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.42
+    ],
+    [
+     7.77,
+     16.05
+    ]
+   ]
+  }
+ }
+}

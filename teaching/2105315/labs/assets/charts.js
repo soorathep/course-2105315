@@ -336,3 +336,55 @@ export function cusumChart(svg, days, up, down, Hs) {
   const line = (xs, cls) => svg.append(el('path', { class: cls, d: xs.map((v, k) => `${k ? 'L' : 'M'}${x(k).toFixed(1)},${y(v).toFixed(1)}`).join('') }));
   line(down, 'series-ref'); line(up, 'series-effect');
 }
+
+/** Lab 06 · 14 days before and after a change. Thin line: hourly values. Points: daily means.
+ * Teal: before; amber: after. Horizontal lines: the mean of the daily means on each side. */
+export function shiftChart(svg, r, { showDaily = true, showHourly = true } = {}) {
+  const n = r.days.length, hours = [...r.hourlyBefore, ...r.hourlyAfter], daily = [...r.dailyBefore, ...r.dailyAfter];
+  const top = Math.max(...hours.filter(Number.isFinite), 5) * 1.05;
+  frame(svg, `Benzene ${r.w} days before and after the change on ${r.day}. Hourly values as a thin line, daily means as points, the mean of each side as a horizontal line.`);
+  const xh = (j) => M.l + (j / (n * 24)) * (W - M.l - M.r), xd = (k) => xh(k * 24 + 12), y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
+  yAxis(svg, y, niceTicks(0, top, 5), 'benzene / µg m⁻³', (v) => String(v));
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  const step = n > 30 ? 14 : 7;
+  for (let k = 0; k <= n; k += step) { const d = r.days[Math.min(k, n - 1)]; if (k < n) ax.append(el('text', { x: xh(k * 24), y: H - M.b + 18, 'text-anchor': 'middle' }, `${d.slice(8, 10)}/${d.slice(5, 7)}`)); }
+  svg.append(ax);
+  if (showHourly) for (const [from, to, cls] of [[0, r.w * 24, '#0F6E6B'], [r.w * 24, n * 24, '#E29A2D']]) {
+    let d = '', pen = false;
+    for (let j = from; j < to; j++) { const v = hours[j]; if (!Number.isFinite(v)) { pen = false; continue; } d += `${pen ? 'L' : 'M'}${xh(j).toFixed(1)},${y(v).toFixed(1)}`; pen = true; }
+    svg.append(el('path', { d, fill: 'none', stroke: cls, 'stroke-width': 1, opacity: showDaily ? 0.35 : 0.8 }));
+  }
+  svg.append(el('line', { x1: xh(r.w * 24), x2: xh(r.w * 24), y1: M.t, y2: H - M.b, stroke: '#333F4A', 'stroke-width': 1.5, 'stroke-dasharray': '5 4' }));
+  svg.append(el('text', { class: 'bar-label', x: xh(r.w * 24) + 6, y: M.t + 14 }, 'change'));
+  if (showDaily) {
+    const mB = r.daily.meanBefore, mA = r.daily.meanAfter;
+    svg.append(el('line', { x1: M.l, x2: xh(r.w * 24), y1: y(mB), y2: y(mB), stroke: '#0F6E6B', 'stroke-width': 2.5 }));
+    svg.append(el('line', { x1: xh(r.w * 24), x2: W - M.r, y1: y(mA), y2: y(mA), stroke: '#E29A2D', 'stroke-width': 2.5 }));
+    daily.forEach((v, k) => { if (Number.isFinite(v)) svg.append(el('circle', { cx: xd(k), cy: y(v), r: 4.5, fill: k < r.w ? '#0F6E6B' : '#E29A2D', stroke: '#fff', 'stroke-width': 1 })); });
+  }
+}
+
+/** Lab 06 · before/after differences at every placebo date (histogram, 0.5 µg/m³ bins).
+ * Bars at least as far from zero as the student's difference are amber; the student's difference is a dashed line. */
+export function placeboChart(svg, list, diff) {
+  const bw = 0.5, ds = list.map((r) => r.diff), lo = Math.floor(Math.min(...ds, diff) / bw) * bw, hi = Math.ceil(Math.max(...ds, diff) / bw) * bw + bw;
+  const nb = Math.round((hi - lo) / bw), counts = new Array(nb).fill(0);
+  for (const d of ds) counts[Math.min(nb - 1, Math.floor((d - lo) / bw))]++;
+  const top = Math.max(...counts) * 1.12;
+  frame(svg, `Before/after differences at ${list.length} dates with no planned change. Amber bars are at least as far from zero as your difference, ${diff.toFixed(2)}.`);
+  const x = (v) => M.l + ((v - lo) / (hi - lo)) * (W - M.l - M.r), y = (c) => M.t + (1 - c / top) * (H - M.t - M.b);
+  yAxis(svg, y, niceTicks(0, top, 4), 'number of dates', (v) => String(v));
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  for (const v of niceTicks(lo, hi, 8)) ax.append(el('text', { x: x(v), y: H - M.b + 18, 'text-anchor': 'middle' }, String(v).replace('-', '−')));
+  ax.append(el('text', { class: 'ax-label', x: M.l + (W - M.l - M.r) / 2, y: H - 6, 'text-anchor': 'middle' }, 'mean after minus mean before / µg m⁻³'));
+  svg.append(ax);
+  counts.forEach((c, b) => {
+    if (!c) return;
+    const mid = lo + (b + 0.5) * bw, far = Math.abs(mid) >= Math.abs(diff) - bw / 2 + 1e-9 && Math.sign(mid) !== 0;
+    svg.append(el('rect', { x: x(lo + b * bw) + 1, y: y(c), width: x(lo + bw) - x(lo) - 2, height: H - M.b - y(c), fill: far ? '#E29A2D' : '#B9C1C6' }));
+  });
+  for (const v of [diff, -diff]) svg.append(el('line', { x1: x(v), x2: x(v), y1: M.t, y2: H - M.b, stroke: v === diff ? '#1C242B' : '#66727C', 'stroke-width': v === diff ? 2.5 : 1.5, 'stroke-dasharray': '6 4' }));
+  svg.append(el('text', { class: 'bar-label', x: x(diff) + (diff >= 0 ? 6 : -6), y: M.t + 14, 'text-anchor': diff >= 0 ? 'start' : 'end' }, `your date ${diff >= 0 ? '+' : '−'}${Math.abs(diff).toFixed(2)}`));
+}

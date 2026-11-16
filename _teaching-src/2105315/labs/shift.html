@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Lab 06 · Did the change really shift the process? · 2105315 Data Analytics Labs</title>
+  <meta name="description" content="Test whether benzene really changed after a date: a t-test on hourly values, on daily means, and the same tests at every other date in the year.">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="assets/labs.css?v=6">
+  <script type="module" src="assets/mode.js?v=1"></script>
+  <script type="module" src="assets/shift-lab.js?v=1"></script>
+</head>
+<body data-mode="core">
+  <a class="skip-link" href="#lab">Skip to the lab</a>
+  <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html">Lab 01</a><a href="gaps.html">Lab 02</a><a href="spikes.html">Lab 03</a><a href="figures.html">Lab 04</a><a href="relations.html">Lab 05</a><a href="shift.html" aria-current="page">Lab 06</a><a href="index.html">All labs</a></nav></header>
+    <main class="page da-page" id="lab">
+    <p class="eyebrow">2105315 Data Analytics in Chemical Engineering · Lab 06 · Week 6</p>
+    <h1>Did the change really shift the process?</h1>
+    <div class="logbook" role="group" aria-label="Monitoring log">
+      <div class="logbook-row"><p class="logbook-time"><strong>09:40</strong>log</p><p class="logbook-entry">The city changed the traffic plan near the station on one date. A consultant compared benzene in the 14 days before with the 14 days after and reports a significant change.</p></div>
+      <div class="logbook-row"><p class="logbook-time"><strong>TASK</strong>you</p><p class="task-line">Decide whether the data show a change that ordinary weeks would not produce, and write what you can claim.</p></div>
+    </div>
+
+    <fieldset class="mode-switch"><legend>View</legend><div class="mode-options"><label><input type="radio" name="lab-mode" value="core" checked><span>Core</span></label><label><input type="radio" name="lab-mode" value="graduate"><span>Extension</span></label></div><p class="core-only">Core: Steps 1 to 8, about 45 minutes.</p><p class="grad-only">Extension: the core steps plus Step 9, the length of the comparison window.</p></fieldset>
+
+    <section class="lab-step" aria-labelledby="s1">
+      <div class="step-head"><span class="step-number">01</span><div><h2 id="s1">Choose your data</h2><p>Practice on a demo, then load your own change date, chosen from your student ID.</p></div></div>
+      <fieldset class="student-fields"><legend>Your details</legend><p class="input-help">Your student ID picks your data set. All three go into the file you submit.</p><div class="student-grid"><div><label for="student-first-name">First name</label><input id="student-first-name" type="text" maxlength="80" autocomplete="given-name"></div><div><label for="student-last-name">Last name</label><input id="student-last-name" type="text" maxlength="80" autocomplete="family-name"></div><div><label for="student-id">Student ID</label><input id="student-id" type="text" maxlength="20" inputmode="numeric" autocomplete="off"></div></div></fieldset>
+      <div class="case-buttons" role="group" aria-label="Data set">
+        <button type="button" data-case="a" aria-pressed="true">Demo A<span class="case-sub">change on 29 Jul 2004</span></button>
+        <button type="button" data-case="b" aria-pressed="false">Demo B<span class="case-sub">change on 7 Nov 2004</span></button>
+        <button type="button" data-case="student" aria-pressed="false">My data set<span class="case-sub">from my student ID</span></button>
+      </div>
+      <p id="id-note" class="id-note" role="status" aria-live="polite"></p>
+      <p id="dataset-line" class="dataset-line">Loading the station record…</p>
+      <details class="source-box"><summary>Where the data come from</summary>
+        <p>The road-level station of Labs 01 to 05: benzene C6H6(GT) from the reference analyzer. Missing hours (-200) are left out; a daily mean needs at least 18 valid hours, and each side needs at least 12 of its 14 days. Nothing else is changed.</p>
+        <p>No traffic plan was changed at the station: the change date is part of the exercise. Your date is one of the about 100 dates where the consultant's hourly test gives p below 0.01 and every window length in Step 9 has enough data. The placebo dates in Step 7 are all of the about 300 dates in the record with enough data.</p>
+        <p>Source: S. De Vito, Air Quality, UCI Machine Learning Repository, <a href="https://doi.org/10.24432/C59K5F">doi:10.24432/C59K5F</a>, CC BY 4.0.</p>
+      </details>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s2">
+      <div class="step-head"><span class="step-number">02</span><div><h2 id="s2">The consultant's comparison</h2><p>Hourly benzene, 14 days before and 14 days after the change.</p></div></div>
+      <figure class="figure-block"><div class="figure-scroll"><svg id="raw-chart"></svg></div><figcaption>Teal: before. Amber: after. Dashed: the change.</figcaption></figure>
+      <p id="claim" class="result-lead"></p>
+      <label for="p-doubt">Before you accept the claim, what would you want to know? Write one question.</label>
+      <textarea id="p-doubt" rows="2" maxlength="3000"></textarea>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s3">
+      <div class="step-head"><span class="step-number">03</span><div><h2 id="s3">Predict</h2><p>Two predictions. The page records them before it shows any result.</p></div></div>
+      <div class="notebook-list">
+        <div class="notebook-item"><label for="p-daily">Test the 14 daily means against the 14 daily means instead of the hourly values. Will p be below 0.05?</label><select id="p-daily"><option value="">Choose</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+        <div class="notebook-item"><label for="p-rate">Run the consultant's hourly test at every other date in the year, where nothing was changed. What share of them will give p below 0.05? (%)</label><input id="p-rate" type="text" inputmode="decimal" autocomplete="off"></div>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s4">
+      <div class="step-head"><span class="step-number">04</span><div><h2 id="s4">Check the AI's code</h2><p>The consultant asked an AI assistant: "Test whether benzene changed after the date." It returned this.</p></div></div>
+      <pre class="code-block" aria-label="Code written by an AI assistant"><span class="ln">df = pd.read_csv(<span class="s">"benzene_hourly.csv"</span>, parse_dates=[<span class="s">"datetime"</span>])</span><span class="ln">before = df.loc[df.period == <span class="s">"before"</span>, <span class="s">"C6H6_ugm3"</span>].dropna()</span><span class="ln">after = df.loc[df.period == <span class="s">"after"</span>, <span class="s">"C6H6_ugm3"</span>].dropna()</span><span class="ln">t, p = stats.ttest_ind(after, before, equal_var=<span class="s">False</span>)</span><span class="ln">print(f<span class="s">"n = {len(before) + len(after)}, p = {p:.1e}"</span>)</span><span class="ln"><span class="c"># "p &lt; 0.05: the traffic plan changed benzene."</span></span></pre>
+      <div class="concept-question">
+        <h3>The code runs and the p is computed correctly for what it was given. Which assumption of the t-test does this data break, and what does that do to p?</h3>
+        <label for="ai-answer" class="visually-hidden">Your answer</label>
+        <textarea id="ai-answer" rows="3" maxlength="3000" placeholder="Write your answer first (at least one full sentence)."></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer">
+          <p>The t-test treats every value as an independent measurement. Hourly benzene is not: each hour is close to the hour before (the correlation between neighboring hours is about 0.8 at this station), and every day repeats the same rush-hour pattern. About 650 hours carry far less information than 650 independent values, so the standard error is too small and p is far too small.</p>
+          <p>The comment adds a second error: even a real difference says nothing about what caused it. Weather, holidays and the season change from one fortnight to the next as well.</p>
+          <p class="fix-line">daily = df.set_index("datetime").resample("D")["C6H6_ugm3"].agg(["mean", "count"])
+daily = daily[daily["count"] &gt;= 18]   # then test the daily means, and compare with ordinary dates (Step 7)</p>
+        </div></details>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s5">
+      <div class="step-head"><span class="step-number">05</span><div><h2 id="s5">Your notebook numbers</h2><p>Download your file (one row per hour, 28 days). Ask an AI assistant for code that reports the three numbers below, read it before you run it, and enter what you get.</p></div></div>
+      <p><button id="download-csv" class="secondary-button" type="button">Download my file (CSV)</button></p>
+      <div id="notebook-list" class="notebook-list"></div>
+      <p id="locked-note" class="locked-note">Enter your numbers before you test the daily means. Doing so locks your numbers and your predictions.</p>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s6">
+      <div class="step-head"><span class="step-number">06</span><div><h2 id="s6">Test the daily means</h2><p>One value per day: 14 before against 14 after.</p></div></div>
+      <button id="run-daily" class="primary-button calculate-button" type="button" disabled>Test the daily means</button>
+      <div id="results" hidden>
+        <figure class="figure-block"><div class="figure-scroll"><svg id="daily-chart"></svg></div><figcaption>Points: daily means. Lines: the mean of the daily means before (teal) and after (amber).</figcaption></figure>
+        <div class="table-scroll" role="region" aria-label="Test results" tabindex="0"><table class="audit-table" id="test-table"><thead><tr><th scope="col">Test</th><th scope="col">Values</th><th scope="col">After − before</th><th scope="col">95 % interval</th><th scope="col">p</th></tr></thead><tbody></tbody></table></div>
+        <p id="daily-readout" class="result-lead"></p>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s7">
+      <div class="step-head"><span class="step-number">07</span><div><h2 id="s7">Placebo dates</h2><p>Run the same comparison at every date in the record. Nothing was changed on purpose at those dates, so a fair test should call about 5 % of them significant.</p></div></div>
+      <button id="run-placebo" class="primary-button calculate-button" type="button" disabled>Run both tests at every date</button>
+      <div id="placebo-box" hidden>
+        <figure class="figure-block"><div class="figure-scroll"><svg id="placebo-chart"></svg></div><figcaption>Each bar counts dates by their before/after difference in daily means. Amber: about as far from zero as your date, or farther.</figcaption></figure>
+        <p id="placebo-readout" class="result-lead"></p>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s8">
+      <div class="step-head"><span class="step-number">08</span><div><h2 id="s8">Check your understanding</h2><p>Write first, then compare.</p></div></div>
+      <div class="concept-question">
+        <h3>Even the test on daily means calls about a quarter of the ordinary dates significant. Why is it still too eager?</h3>
+        <label for="c-daily" class="visually-hidden">Your answer</label>
+        <textarea id="c-daily" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>Daily means are also not independent: one day is like the next (the correlation between neighboring days is about 0.6 here), because weather patterns last several days. And the level moves with the season and with holidays, so two fortnights differ even when nothing was changed. The t-test only knows the scatter within each fortnight; it does not know how much fortnights differ from each other in an ordinary year. The placebo dates measure exactly that.</p></div></details>
+      </div>
+      <div class="concept-question">
+        <h3>Write the sentence you would send to the city about your date: what changed, by how much, and how it compares with ordinary dates.</h3>
+        <label for="c-claim" class="visually-hidden">Your answer</label>
+        <textarea id="c-claim" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>A defensible sentence gives the size of the difference with its interval, and the placebo comparison, and does not name a cause the data cannot separate. For Demo A: "Mean daily benzene was 1.7 µg/m³ lower in the 14 days after 29 July 2004 than before (95 % interval −3.9 to 0.5). A difference this large or larger occurred at 45 % of the dates in the year with no planned change, so these data do not show an effect of the new traffic plan." For Demo B the difference, −5.9 µg/m³, was larger than at all but one ordinary date: a real shift, but the data alone cannot say whether the traffic plan or the November weather caused it.</p></div></details>
+      </div>
+    </section>
+
+    <section class="lab-step graduate-section grad-only" aria-labelledby="s9">
+      <div class="step-head"><span class="step-number">09</span><div><h2 id="s9">Extension: the length of the window</h2><p>The consultant chose 14 days on each side. Repeat the placebo check with other lengths.</p></div></div>
+      <div class="graduate-step">
+        <div class="case-buttons" role="group" aria-label="Window length" id="win-buttons">
+          <button type="button" data-w="7" aria-pressed="false">7 days</button><button type="button" data-w="14" aria-pressed="true">14 days</button><button type="button" data-w="21" aria-pressed="false">21 days</button><button type="button" data-w="28" aria-pressed="false">28 days</button>
+        </div>
+        <div class="table-scroll" role="region" aria-label="Window lengths" tabindex="0"><table class="audit-table" id="win-table"><thead><tr><th scope="col">Days each side</th><th scope="col">Placebo dates</th><th scope="col">Hourly test significant</th><th scope="col">Daily test significant</th><th scope="col">Your date: daily p</th><th scope="col">Dates with a difference as large</th></tr></thead><tbody></tbody></table></div>
+        <label for="e-window">Longer windows have more data, yet the false alarms do not fall. Explain why in two or three sentences, and say which window you would use.</label>
+        <textarea id="e-window" rows="3" maxlength="3000"></textarea>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s10">
+      <div class="step-head"><span class="step-number">10</span><div><h2 id="s10">Submit</h2><p>Download one file and upload it to the assignment on myCourseVille.</p></div></div>
+      <ul class="submit-list"><li>The file holds your details, data set, predictions, answers, notebook numbers and results.</li><li>It stays on your computer until you upload it. Nothing is sent from this page.</li><li>Open it here later to continue where you stopped.</li></ul>
+      <div class="study-actions"><button id="export-study" class="primary-button" type="button" disabled>Download my study</button><div class="file-control"><label for="import-study">Open a saved study</label><input id="import-study" type="file" accept=".json,application/json"></div></div>
+      <p id="status" class="study-status" role="status" aria-live="polite"></p>
+    </section>
+    <noscript><p class="error-summary">This lab needs JavaScript.</p></noscript>
+  </main>
+  <footer class="site-footer"><span>2105315 Data Analytics in Chemical Engineering · Chulalongkorn University</span><span>Data: De Vito, UCI Air Quality, CC BY 4.0</span></footer>
+</body>
+</html>

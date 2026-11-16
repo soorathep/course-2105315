@@ -1,0 +1,256 @@
+---
+title: "Tests on plant data"
+subtitle: "Session 12 of 14 · 90 minutes · When a t-test is too eager"
+author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where this session sits {#course-map}
+
+::: {.coursemap14}
+[Week 1 · Import and audit]{.wk} [1 · Data you can trust]{.cm} [2 · Audit and the AI's code]{.cm}
+[Week 2 · Missing data]{.wk} [3 · Why values go missing]{.cm} [4 · Filling gaps you can defend]{.cm}
+[Week 3 · Outliers and noise]{.wk} [5 · Spike or real event?]{.cm} [6 · Smoothing without lying]{.cm}
+[Week 4 · Visualization]{.wk} [7 · Trends and distributions]{.cm} [8 · Figures that tell the truth]{.cm}
+[Week 5 · Correlation and anomalies]{.wk} [9 · Correlated or driven?]{.cm} [10 · When did it start?]{.cm}
+[Week 6 · Hypothesis tests]{.wk .now} [11 · Did the change work?]{.cm} [12 · Tests on plant data]{.cm .now}
+[Week 7 · Integrated case]{.wk} [13 · Raw file to decision]{.cm} [14 · Defend your decision]{.cm}
+:::
+
+
+::: {.bridge}
+Session 11: what p means when the values are independent. Today: plant data are not, and ordinary dates show what a real change must beat.
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .act}
+[0–10]{.t} **Warm-up** [Your three numbers]{.d}
+:::
+::: {.seg .act}
+[10–22]{.t} **Activity 1** [The AI's t-test]{.d}
+:::
+::: {.seg .concept}
+[22–50]{.t} **Concepts** [Placebo dates; what to report]{.d}
+:::
+::: {.seg .act}
+[50–80]{.t} **Activity 2** [Lab 06, Steps 4 to 10]{.d}
+:::
+::: {.seg .wrap}
+[80–90]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: if a test fires at half of all ordinary dates, what does its p tell you about your date?
+:::
+
+## Warm-up · Your three numbers {#warmup .activity}
+
+[Pairs · 8 minutes · your homework]{.act-label}
+
+::: {.prompt}
+Compare the three numbers your code reported for Lab 06, Step 5. If they differ from your neighbor's, is it the data set or the code?
+:::
+
+::: {.checks3}
+::: {.c4}
+[1 · Hourly values]{.label}
+Hours with data, before and after together.
+:::
+::: {.c4}
+[2 · Difference]{.label}
+Mean of the daily means, after minus before.
+:::
+::: {.c4}
+[3 · p, daily means]{.label}
+Welch t-test on the daily means.
+:::
+:::
+
+[Keep your p. Activity 1 compares it with the consultant's.]{.note-line}
+
+::: {.selfstudy}
+Studying alone: write your three numbers down.
+:::
+
+## Activity 1 · The AI's t-test {#act1 .activity}
+
+[Pairs · 10 minutes · Lab 06, Step 4]{.act-label}
+
+```{=html}
+<pre class="code-slide"><span>before = df.loc[df.period == "before", "C6H6_ugm3"].dropna()</span><span>after = df.loc[df.period == "after", "C6H6_ugm3"].dropna()</span><span>t, p = stats.ttest_ind(after, before, equal_var=False)</span><span>print(f"n = {len(before) + len(after)}, p = {p:.1e}")</span><span><b class="c"># "p &lt; 0.05: the traffic plan changed benzene."</b></span></pre>
+```
+
+::: {.prompt .small}
+The code runs and p is computed correctly for what it was given. Which assumption of the t-test does this data break, and what does that do to p?
+:::
+
+::: {.selfstudy}
+Studying alone: write your answer, then go on.
+:::
+
+## What to change {#act1-fix}
+
+::: {.beforeafter}
+::: {}
+[The assumption]{.label}
+The t-test treats 667 hours as 667 independent measurements. Neighboring hours correlate at 0.84, and every day repeats its rush hours. The standard error is too small, so p is too small: for Demo A, 0.00006.
+:::
+::: {}
+[A first fix]{.label}
+One value per day: 14 against 14. For Demo A, p becomes 0.13 and the 95 % interval widens from 1.6 to 4.5 µg/m³. The comment's "changed" also claims a cause that no test checked.
+:::
+:::
+
+[Count what is independent before you count values.]{.note-line}
+
+## Placebo dates {#placebo data-hold="true"}
+
+```{=html}
+<div class="pl" id="pl">
+  <div class="sm-controls">
+    <div class="sm-mode pl-mode" role="group" aria-label="Test">
+      <button type="button" data-v="h" aria-pressed="true">Hourly test</button>
+      <button type="button" data-v="d" aria-pressed="false">Daily test</button>
+      <button type="button" data-v="demo" aria-pressed="false">Demo A and B</button>
+    </div>
+  </div>
+  <svg id="pl-plot" viewBox="0 0 1160 360" role="img" aria-label="Before/after difference at every date in the record"></svg>
+  <p class="sm-readout" id="pl-out" aria-live="polite"></p>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('pl'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Real data: at each date, mean daily benzene in the 14 days after minus the 14 days before (UCI Air Quality).
+  // h, d: 1 when the Welch t-test on hourly values or on daily means gives p < 0.05. Nothing was changed at these dates.
+  const P = [["2004-03-25",-2.24,1,1],["2004-03-26",-1.96,1,0],["2004-03-27",-1.64,1,0],["2004-03-28",-1.44,1,0],["2004-03-29",-1.26,1,0],["2004-03-30",-0.76,0,0],["2004-03-31",-0.48,0,0],["2004-04-01",0.23,0,0],["2004-04-02",0.56,0,0],["2004-04-03",0.59,0,0],["2004-04-04",0.1,0,0],["2004-04-05",0.04,0,0],["2004-04-06",-0.29,0,0],["2004-04-07",-0.27,0,0],["2004-04-08",0.41,0,0],["2004-04-09",0.29,0,0],["2004-04-10",0.76,0,0],["2004-04-11",1,0,0],["2004-04-12",1.12,1,0],["2004-04-13",1.62,1,0],["2004-04-14",1.76,1,0],["2004-04-15",1.92,1,0],["2004-04-16",1.84,1,0],["2004-04-17",1.89,1,0],["2004-04-18",2.38,1,0],["2004-04-19",2.56,1,0],["2004-04-20",3.06,1,1],["2004-04-21",2.74,1,0],["2004-04-22",1.88,1,0],["2004-04-23",1.34,1,0],["2004-04-24",0.28,0,0],["2004-04-25",-0.18,0,0],["2004-04-26",0,0,0],["2004-04-27",0.28,0,0],["2004-04-28",0.44,0,0],["2004-04-29",-0.02,0,0],["2004-04-30",-0.51,0,0],["2004-05-01",-0.65,0,0],["2004-05-02",-0.78,0,0],["2004-05-03",-0.89,0,0],["2004-05-04",-1.39,1,0],["2004-05-05",-1.13,0,0],["2004-05-06",-0.63,0,0],["2004-05-07",0.07,0,0],["2004-05-08",0.82,0,0],["2004-05-09",1.35,1,0],["2004-05-10",1.14,1,0],["2004-05-11",0.11,0,0],["2004-05-12",-0.52,0,0],["2004-05-13",-0.65,0,0],["2004-05-14",-0.13,0,0],["2004-05-15",-0.23,0,0],["2004-05-16",-0.53,0,0],["2004-05-17",-0.6,0,0],["2004-05-18",-0.15,0,0],["2004-05-19",-0.27,0,0],["2004-05-20",-0.9,0,0],["2004-05-21",-1.4,1,0],["2004-05-22",-1.87,1,0],["2004-05-23",-2.39,1,1],["2004-05-24",-2.49,1,1],["2004-05-25",-1.48,1,0],["2004-05-26",-0.86,0,0],["2004-05-27",-0.25,0,0],["2004-05-28",-0.25,0,0],["2004-05-29",0.1,0,0],["2004-05-30",0.57,0,0],["2004-05-31",0.46,0,0],["2004-06-01",-0.19,0,0],["2004-06-02",-0.21,0,0],["2004-06-03",0.55,0,0],["2004-06-04",0.79,0,0],["2004-06-05",1.25,0,0],["2004-06-06",1.68,1,0],["2004-06-07",2.28,1,0],["2004-06-08",1.63,1,0],["2004-06-09",1.2,0,0],["2004-06-10",0.7,0,0],["2004-06-11",0.06,0,0],["2004-06-12",-0.3,0,0],["2004-06-13",-0.54,0,0],["2004-06-14",0.02,0,0],["2004-06-15",1.1,0,0],["2004-06-16",1.29,1,0],["2004-06-17",1.12,0,0],["2004-06-18",1.08,0,0],["2004-06-19",0.81,0,0],["2004-06-20",0.38,0,0],["2004-06-21",-0.45,0,0],["2004-06-22",-0.23,0,0],["2004-06-23",0.06,0,0],["2004-06-24",0.34,0,0],["2004-06-25",1.23,1,0],["2004-06-26",1.42,1,0],["2004-06-27",1.37,1,0],["2004-06-28",0.87,1,0],["2004-06-29",-0.05,0,0],["2004-06-30",-0.33,0,0],["2004-07-01",-0.48,0,0],["2004-07-02",-0.48,0,0],["2004-07-03",-0.38,0,0],["2004-07-04",-0.11,0,0],["2004-07-05",0.23,0,0],["2004-07-06",0.18,0,0],["2004-07-07",-0.01,0,0],["2004-07-08",-0.32,0,0],["2004-07-09",-0.7,0,0],["2004-07-10",-0.53,0,0],["2004-07-11",-0.37,0,0],["2004-07-12",-0.36,0,0],["2004-07-13",-0.15,0,0],["2004-07-14",-0.4,0,0],["2004-07-15",-0.6,0,0],["2004-07-16",-0.71,0,0],["2004-07-17",-0.77,0,0],["2004-07-18",-0.76,0,0],["2004-07-19",-0.77,0,0],["2004-07-20",-1,1,0],["2004-07-21",-1.22,1,0],["2004-07-22",-1.37,1,0],["2004-07-23",-1.92,1,0],["2004-07-24",-2.29,1,1],["2004-07-25",-2.4,1,1],["2004-07-26",-2.18,1,0],["2004-07-27",-2.09,1,0],["2004-07-28",-1.59,1,0],["2004-07-29",-1.69,1,0],["2004-07-30",-1.92,1,0],["2004-07-31",-2.4,1,1],["2004-08-01",-2.79,1,1],["2004-08-02",-2.92,1,1],["2004-08-03",-2.94,1,1],["2004-08-04",-2.91,1,1],["2004-08-05",-2.71,1,1],["2004-08-06",-2.31,1,1],["2004-08-07",-2.45,1,1],["2004-08-08",-2.58,1,1],["2004-08-09",-2.67,1,1],["2004-08-10",-2.82,1,1],["2004-08-11",-3.07,1,1],["2004-08-12",-2.75,1,1],["2004-08-13",-2.48,1,1],["2004-08-14",-1.93,1,1],["2004-08-15",-1.41,1,1],["2004-08-16",-1.04,1,0],["2004-08-17",-0.42,0,0],["2004-08-18",0.17,0,0],["2004-08-19",0.78,1,0],["2004-08-20",1.54,1,0],["2004-08-21",2.52,1,1],["2004-08-22",3.11,1,1],["2004-08-23",3.17,1,1],["2004-08-24",3.28,1,1],["2004-08-25",3.61,1,1],["2004-08-27",4.12,1,1],["2004-08-28",4.2,1,1],["2004-08-29",4.23,1,1],["2004-08-30",4.12,1,1],["2004-08-31",4.1,1,1],["2004-09-01",3.87,1,1],["2004-09-02",3.48,1,1],["2004-09-03",2.71,1,1],["2004-09-04",1.65,1,0],["2004-09-05",1.01,1,0],["2004-09-06",1.25,1,0],["2004-09-07",1.95,1,0],["2004-09-08",2.23,1,0],["2004-09-10",2.01,1,0],["2004-09-11",1.97,1,0],["2004-09-12",1.49,1,0],["2004-09-13",1.25,0,0],["2004-09-14",0.54,0,0],["2004-09-15",0.67,0,0],["2004-09-16",0.59,0,0],["2004-09-17",1.04,0,0],["2004-09-18",2.03,1,0],["2004-09-19",2.55,1,0],["2004-09-20",2.16,1,0],["2004-09-21",1.54,1,0],["2004-09-22",1.22,0,0],["2004-09-23",1.06,0,0],["2004-09-24",1.22,0,0],["2004-09-25",1.35,1,0],["2004-09-26",2.25,1,0],["2004-09-27",2.43,1,0],["2004-09-28",2.95,1,1],["2004-09-29",2.13,1,0],["2004-09-30",1.41,1,0],["2004-10-01",0.54,0,0],["2004-10-02",-0.28,0,0],["2004-10-03",-0.81,0,0],["2004-10-04",-0.85,0,0],["2004-10-05",-0.9,0,0],["2004-10-06",-1.06,0,0],["2004-10-07",-0.68,0,0],["2004-10-08",-0.74,0,0],["2004-10-09",-0.83,0,0],["2004-10-10",-1.5,1,0],["2004-10-11",-1.35,0,0],["2004-10-12",-1.05,0,0],["2004-10-13",0.41,0,0],["2004-10-14",1.64,1,0],["2004-10-15",2.62,1,0],["2004-10-16",2.81,1,0],["2004-10-17",3.53,1,1],["2004-10-18",3.92,1,1],["2004-10-19",3.7,1,1],["2004-10-20",4.01,1,1],["2004-10-21",2.86,1,0],["2004-10-22",2.82,1,0],["2004-10-23",2.73,1,0],["2004-10-24",2.68,1,0],["2004-10-25",2.11,1,0],["2004-10-26",0.8,0,0],["2004-10-27",-0.76,0,0],["2004-10-28",-1.67,1,0],["2004-10-29",-2.17,1,0],["2004-10-30",-2.44,1,0],["2004-10-31",-3.34,1,0],["2004-11-01",-4.21,1,1],["2004-11-02",-4.53,1,1],["2004-11-03",-5.74,1,1],["2004-11-04",-4.99,1,1],["2004-11-05",-5.39,1,1],["2004-11-06",-5.8,1,1],["2004-11-07",-5.93,1,1],["2004-11-08",-5.43,1,1],["2004-11-09",-3.73,1,1],["2004-11-10",-2.09,1,0],["2004-11-11",-1.11,0,0],["2004-11-12",-0.98,0,0],["2004-11-13",0.24,0,0],["2004-11-14",1.21,0,0],["2004-11-15",2.23,1,0],["2004-11-16",3.14,1,0],["2004-11-17",4.11,1,1],["2004-11-18",3.94,1,1],["2004-11-19",4.51,1,1],["2004-11-20",5.14,1,1],["2004-11-21",5.38,1,1],["2004-11-22",5.01,1,1],["2004-11-23",3.46,1,0],["2004-11-24",1.58,1,0],["2004-11-25",0.31,0,0],["2004-11-26",-0.38,0,0],["2004-11-27",-2.27,1,0],["2004-11-28",-3.35,1,0],["2004-11-29",-3.47,1,0],["2004-11-30",-3.47,1,0],["2004-12-01",-3.55,1,0],["2004-12-02",-3.69,1,0],["2004-12-16",-1.44,1,0],["2004-12-30",0.34,0,0],["2004-12-31",1.42,1,0],["2005-01-01",2.56,1,0],["2005-01-02",2.88,1,0],["2005-01-03",3.02,1,0],["2005-01-04",2.95,1,0],["2005-01-05",3.2,1,0],["2005-01-06",2.09,1,0],["2005-01-07",3.16,1,0],["2005-01-08",4.09,1,1],["2005-01-09",4.49,1,1],["2005-01-10",4.25,1,1],["2005-01-11",3.18,1,1],["2005-01-12",2.03,1,0],["2005-01-13",0.22,0,0],["2005-01-14",-1.07,0,0],["2005-01-15",-2.28,1,0],["2005-01-16",-3.2,1,0],["2005-01-17",-3.34,1,0],["2005-01-18",-3.6,1,1],["2005-01-19",-4.06,1,1],["2005-01-20",-2.84,1,0],["2005-01-21",-3,1,0],["2005-01-22",-4.13,1,1],["2005-01-23",-4.99,1,1],["2005-01-24",-5.13,1,1],["2005-01-25",-4.68,1,1],["2005-01-26",-3.58,1,0],["2005-02-24",-0.69,0,0],["2005-02-25",-0.67,0,0],["2005-02-26",-0.74,0,0],["2005-02-27",-0.01,0,0],["2005-02-28",0.44,0,0],["2005-03-01",1.43,1,0],["2005-03-02",2.21,1,1],["2005-03-03",2.65,1,1],["2005-03-04",2.7,1,1],["2005-03-05",2.41,1,1],["2005-03-06",2.47,1,1],["2005-03-07",2.55,1,1],["2005-03-08",3.11,1,1],["2005-03-09",2.95,1,1],["2005-03-10",2.72,1,1],["2005-03-11",2.87,1,1],["2005-03-12",3,1,1],["2005-03-13",3.17,1,1],["2005-03-14",3.02,1,1],["2005-03-15",2.02,1,0],["2005-03-16",1.35,1,0],["2005-03-17",0.83,0,0],["2005-03-18",0.23,0,0],["2005-03-19",-0.4,0,0],["2005-03-20",-0.81,0,0],["2005-03-21",-1.01,0,0]];
+  const W = 1160, H = 360, L = 70, R = 20, T = 16, B = 46;
+  const t0 = Date.parse('2004-03-11'), t1 = Date.parse('2005-04-04');
+  const X = (d) => L + (Date.parse(d) - t0) / (t1 - t0) * (W - L - R), V = (v) => T + (1 - (v + 8) / 16) * (H - T - B);
+  const MON = [['2004-04-01', 'Apr'], ['2004-06-01', 'Jun'], ['2004-08-01', 'Aug'], ['2004-10-01', 'Oct'], ['2004-12-01', 'Dec'], ['2005-02-01', 'Feb']];
+  function draw(v) {
+    let g = '';
+    [-6, -3, 0, 3, 6].forEach((y) => { g += `<line x1="${L}" x2="${W - R}" y1="${V(y)}" y2="${V(y)}" stroke="${y === 0 ? '#333F4A' : '#B9C1C6'}" ${y === 0 ? 'stroke-width="1.5"' : ''}/><text x="${L - 10}" y="${V(y) + 6}" text-anchor="end" font-size="17" fill="#333F4A">${(y > 0 ? '+' : '') + String(y).replace('-', '−')}</text>`; });
+    MON.forEach(([d, m]) => { g += `<text x="${X(d)}" y="${H - B + 24}" text-anchor="middle" font-size="17" fill="#333F4A">${m}</text>`; });
+    g += `<line x1="${L}" x2="${L}" y1="${T}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/><text transform="translate(20 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle" font-size="16" fill="#66727C">after minus before, µg/m³</text>`;
+    const k = v === 'd' ? 3 : 2;
+    P.forEach((p) => { const hit = v !== 'demo' && p[k]; g += `<circle cx="${X(p[0]).toFixed(1)}" cy="${V(p[1]).toFixed(1)}" r="${hit ? 5.5 : 4}" fill="${hit ? '#E29A2D' : '#B9C1C6'}"/>`; });
+    if (v === 'demo') [['2004-07-29', -1.69, 'Demo A'], ['2004-11-07', -5.93, 'Demo B']].forEach(([d, y, t]) => {
+      g += `<circle cx="${X(d)}" cy="${V(y)}" r="9" fill="#E29A2D" stroke="#1C242B" stroke-width="2"/><text x="${X(d) + 14}" y="${V(y) + 6}" font-size="18" font-weight="700" fill="#1C242B">${t}</text>`;
+      for (const s of [1, -1]) g += `<line x1="${L}" x2="${W - R}" y1="${V(s * Math.abs(y))}" y2="${V(s * Math.abs(y))}" stroke="#66727C" stroke-dasharray="5 5" opacity=".6"/>`;
+    });
+    document.getElementById('pl-plot').innerHTML = g;
+    const n = P.length, c = P.filter((p) => p[k]).length;
+    document.getElementById('pl-out').textContent = {
+      h: `Each point is one date where nothing was changed on purpose. The hourly test calls ${c} of ${n} dates significant (${Math.round(100 * c / n)} %). A fair test would call about 5 %.`,
+      d: `The test on daily means calls ${c} of ${n} dates significant (${Math.round(100 * c / n)} %): better, still five times too many. The hits gather in a few periods: the August holidays, November, January and March.`,
+      demo: 'Demo A (−1.69): 45 % of ordinary dates show a difference at least this large. Demo B (−5.93): only 1 of 306 does. Only Demo B stands out from an ordinary fortnight.',
+    }[v];
+    root.querySelectorAll('[data-v]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.v === v));
+  }
+  root.querySelectorAll('[data-v]').forEach((b) => b.addEventListener('click', () => draw(b.dataset.v)));
+  draw('h');
+})();
+</script>
+```
+
+[Lab 06, Step 7: 306 dates, 14 days each side. Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
+
+## Why the tests fire too often {#why}
+
+::: {.checks3}
+::: {.c4}
+[Hours are not independent]{.label}
+Neighboring hours correlate at 0.84 and the daily cycle repeats. 667 hours carry far less information than 667 values.
+:::
+::: {.c4}
+[Days are not either]{.label}
+Neighboring days correlate at 0.6: weather lasts several days. 14 days count as fewer than 14.
+:::
+::: {.c4}
+[Fortnights differ]{.label}
+Season and holidays move the level. The t-test sees only the scatter inside each fortnight, not how much ordinary fortnights differ.
+:::
+:::
+
+[Placebo dates measure the third point directly: they are the year's own record of "nothing changed".]{.note-line}
+
+## What you can claim {#claim}
+
+::: {.beforeafter}
+::: {}
+[Demo A · 29 July 2004]{.label}
+−1.7 µg/m³ (95 % interval −3.9 to 0.5), p = 0.13 on daily means. 45 % of ordinary dates show a difference this large. The data do not show an effect.
+:::
+::: {}
+[Demo B · 7 November 2004]{.label}
+−5.9 µg/m³ (−8.9 to −3.0), p = 0.0004. Only 1 of 306 ordinary dates shows a difference this large. A real shift, but the data cannot say whether the traffic plan or the November weather caused it.
+:::
+:::
+
+[Before a decision, ask for a comparison that rules out the other cause: a station the plan did not touch, or the same weeks in another year.]{.note-line}
+
+## Activity 2 · Lab 06, Steps 4 to 10 {#act2 .activity}
+
+[Individual · 25 minutes · laptop or phone]{.act-label}
+
+1. Open **Lab 06**. Press **Open a saved study** if you saved one in Session 11.
+2. Step 4: write your answer before you compare.
+3. Step 5: enter your three homework numbers **before** you test the daily means.
+4. Step 6: test the daily means. Step 7: run both tests at every date.
+5. Step 8, then the Extension view, Step 9.
+6. Step 10: download one file and upload it to myCourseVille.
+
+[Open Lab 06](../labs/shift.html){.lab-button target="_blank"}
+
+::: {.selfstudy}
+Studying alone: work through Steps 4 to 10 in order and submit in Step 10.
+:::
+
+## Debrief {#debrief}
+
+::: {.debrief-q}
+[How far did p rise for your date when you tested daily means instead of hours?]{.dq}
+[At what share of ordinary dates was a difference at least as large as yours?]{.dq}
+[What sentence did you write for the city in Step 8?]{.dq}
+:::
+
+## Exit ticket · 5 minutes {#exit .activity}
+
+[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+
+:::: {.columns}
+::: {.column width="64%"}
+::: {.prompt}
+An engineer compares 1-minute reactor temperatures for one day before and one day after a controller retune and finds p = 10⁻²⁰. Name two reasons this p overstates the evidence, and one better comparison.
+:::
+
+Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+
+No name or student ID is recorded. Wait for **"Response received."**
+:::
+::: {.column width="32%" .qr-col}
+![](figures/exit-qr-s12.png){.qr fig-alt="QR code for the Session 12 exit ticket and feedback form"}
+
+[Open the Session 12 form](exit.html?s=12){target="_blank"}
+:::
+::::
+
+## Next session {#next}
+
+::: {.beforeafter}
+::: {}
+[Session 13 · Raw file to decision]{.label}
+Week 7 brings the course together: one raw file, every check from Weeks 1 to 6, and a decision you can defend.
+:::
+::: {}
+[Before you come]{.label}
+Submit your Lab 06 study file. Look back at your Lab 01 audit: which check would you run first on a new file?
+:::
+:::
+
+[Submit the Lab 06 study file on myCourseVille by the date shown there.]{.note-line}

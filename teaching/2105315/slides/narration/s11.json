@@ -1,0 +1,358 @@
+{
+ "title-slide": {
+  "text": [
+   {
+    "en": "Session eleven. Did the change work?",
+    "th": "คาบที่สิบเอ็ด การเปลี่ยนแปลงได้ผลไหม"
+   },
+   {
+    "en": "A process was changed on one date. Today we ask whether the data after it differ from the data before by more than chance, and what p tells us.",
+    "th": "กระบวนการถูกเปลี่ยนในวันหนึ่ง วันนี้เราถามว่าข้อมูลหลังวันนั้นต่างจากก่อนหน้ามากกว่าความบังเอิญหรือไม่ และค่า p บอกอะไรเรา"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.83
+    ],
+    [
+     3.18,
+     13.19
+    ]
+   ]
+  }
+ },
+ "course-map": {
+  "text": [
+   {
+    "en": "This is the first session of week six. Week five asked whether two variables move together.",
+    "th": "นี่คือคาบแรกของสัปดาห์ที่หก สัปดาห์ที่ห้าเราถามว่าตัวแปรสองตัวเคลื่อนไหวไปด้วยกันหรือไม่"
+   },
+   {
+    "en": "This week asks whether one variable moved after a change: a new setpoint, a new catalyst, a new traffic plan.",
+    "th": "สัปดาห์นี้ถามว่าตัวแปรหนึ่งเปลี่ยนไปหลังการเปลี่ยนแปลงหรือไม่ เช่น ค่าตั้งใหม่ ตัวเร่งปฏิกิริยาใหม่ หรือแผนจราจรใหม่"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/course-map.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.12
+    ],
+    [
+     6.47,
+     14.36
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   {
+    "en": "We start with the change you chose. Then what p measures, shown by shuffling real data.",
+    "th": "เราเริ่มจากการเปลี่ยนแปลงที่คุณเลือก จากนั้นดูว่าค่า p วัดอะไร โดยสลับข้อมูลจริง"
+   },
+   {
+    "en": "Then six results to judge, what to report, and Lab 06, Steps 1 to 3.",
+    "th": "แล้วตัดสินผลลัพธ์หกข้อ ดูว่าควรรายงานอะไร และทำแล็บที่หก ขั้นที่หนึ่งถึงสาม"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.16
+    ],
+    [
+     6.51,
+     12.5
+    ]
+   ]
+  }
+ },
+ "warmup": {
+  "text": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. Tell your neighbor the change you chose and the data that would show it worked.",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที บอกเพื่อนถึงการเปลี่ยนแปลงที่คุณเลือก และข้อมูลที่จะแสดงว่ามันได้ผล"
+   },
+   {
+    "en": "Then name what else changed at the same time: the season, the feed, the load, a shutdown.",
+    "th": "จากนั้นบอกว่ามีอะไรอีกที่เปลี่ยนในช่วงเดียวกัน เช่น ฤดูกาล วัตถุดิบ ภาระการผลิต หรือการหยุดเดินเครื่อง"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/warmup.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.14
+    ],
+    [
+     7.49,
+     13.38
+    ]
+   ]
+  }
+ },
+ "shuffle": {
+  "text": [
+   {
+    "en": "These are twenty-eight daily means of benzene, fourteen before a change and fourteen after. After the change, the mean was one point seven lower.",
+    "th": "นี่คือค่าเฉลี่ยรายวันของเบนซีนยี่สิบแปดค่า สิบสี่วันก่อนการเปลี่ยนแปลงและสิบสี่วันหลัง หลังการเปลี่ยนแปลงค่าเฉลี่ยต่ำลงหนึ่งจุดเจ็ด"
+   },
+   {
+    "en": "If the change did nothing, the labels before and after mean nothing. Press Shuffle once: the same values, with the labels mixed, give a new difference.",
+    "th": "ถ้าการเปลี่ยนแปลงไม่มีผล ป้ายก่อนและหลังก็ไม่มีความหมาย กดปุ่มสลับหนึ่งครั้ง ค่าชุดเดิมที่สลับป้ายจะให้ผลต่างใหม่"
+   },
+   {
+    "en": "Now shuffle a thousand times. About one shuffle in eight gives a difference at least as large as the one we measured.",
+    "th": "ต่อไปสลับหนึ่งพันครั้ง ประมาณหนึ่งในแปดของการสลับให้ผลต่างที่มากอย่างน้อยเท่ากับที่เราวัดได้"
+   },
+   {
+    "en": "That share is what p measures. The t-test on these daily means gives zero point one three.",
+    "th": "สัดส่วนนั้นคือสิ่งที่ค่า p วัด การทดสอบทีกับค่าเฉลี่ยรายวันชุดนี้ให้ศูนย์จุดหนึ่งสาม"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/shuffle.en.mp3",
+   "cues": [
+    [
+     0.25,
+     10.53
+    ],
+    [
+     10.88,
+     21.12
+    ],
+    [
+     21.47,
+     29.32
+    ],
+    [
+     29.67,
+     36.07
+    ]
+   ]
+  }
+ },
+ "reading-p": {
+  "text": [
+   {
+    "en": "p is the share of comparisons that would show a difference this large if nothing had changed.",
+    "th": "ค่า p คือสัดส่วนของการเปรียบเทียบที่จะให้ผลต่างมากเท่านี้ ถ้าไม่มีอะไรเปลี่ยน"
+   },
+   {
+    "en": "It is not the probability that the change worked, and it is not the size of the change.",
+    "th": "มันไม่ใช่ความน่าจะเป็นที่การเปลี่ยนแปลงได้ผล และไม่ใช่ขนาดของการเปลี่ยนแปลง"
+   },
+   {
+    "en": "It assumes independent values and nothing else changing. Next session tests both assumptions on plant data.",
+    "th": "มันตั้งสมมติฐานว่าค่าต่างๆ เป็นอิสระต่อกัน และไม่มีอะไรอื่นเปลี่ยน คาบหน้าจะทดสอบสมมติฐานทั้งสองกับข้อมูลโรงงาน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/reading-p.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.18
+    ],
+    [
+     6.53,
+     12.12
+    ],
+    [
+     12.47,
+     20.13
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   {
+    "en": "Activity one, in pairs, ten minutes, no computer needed. Six results, each with a p.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที ไม่ต้องใช้คอมพิวเตอร์ ผลลัพธ์หกข้อ แต่ละข้อมีค่า p"
+   },
+   {
+    "en": "For each: is the change shown, is it large enough to matter, and is the sentence a correct reading of p? Decide, then reveal.",
+    "th": "สำหรับแต่ละข้อ การเปลี่ยนแปลงถูกแสดงไหม ใหญ่พอจะมีความหมายไหม และประโยคนั้นอ่านค่า p ถูกไหม ตัดสินก่อนแล้วจึงกดดูคำตอบ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.44
+    ],
+    [
+     6.79,
+     15.55
+    ]
+   ]
+  }
+ },
+ "report": {
+  "text": [
+   {
+    "en": "Report the difference with its unit, a ninety-five percent interval, the number of independent values, and p.",
+    "th": "รายงานผลต่างพร้อมหน่วย ช่วงความเชื่อมั่นเก้าสิบห้าเปอร์เซ็นต์ จำนวนค่าที่เป็นอิสระ และค่า p"
+   },
+   {
+    "en": "For Demo A, the interval runs from a fall of three point nine to a rise of zero point five. Both fit these data.",
+    "th": "สำหรับตัวอย่าง A ช่วงนี้มีตั้งแต่ลดลงสามจุดเก้า ถึงเพิ่มขึ้นศูนย์จุดห้า ทั้งสองแบบเข้ากับข้อมูลนี้"
+   },
+   {
+    "en": "The interval carries more than p: its width shows how much the data can tell, and its position shows the size.",
+    "th": "ช่วงความเชื่อมั่นบอกได้มากกว่าค่า p ความกว้างบอกว่าข้อมูลบอกได้มากแค่ไหน และตำแหน่งบอกขนาด"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/report.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.7
+    ],
+    [
+     8.05,
+     16.75
+    ],
+    [
+     17.1,
+     24.67
+    ]
+   ]
+  }
+ },
+ "act2": {
+  "text": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 06 and load your own data set. Read the consultant’s result and write one question you would ask before accepting it.",
+    "th": "เปิดแล็บที่หกและโหลดชุดข้อมูลของคุณ อ่านผลของที่ปรึกษา และเขียนคำถามหนึ่งข้อที่จะถามก่อนยอมรับ"
+   },
+   {
+    "en": "Make your two predictions in Step 3, then download your study in Step 10 to keep your work.",
+    "th": "ทำนายสองข้อในขั้นที่สาม แล้วดาวน์โหลดไฟล์งานในขั้นที่สิบเพื่อเก็บงานไว้"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/act2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.69
+    ],
+    [
+     6.04,
+     15.77
+    ],
+    [
+     16.12,
+     22.11
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   {
+    "en": "What p did the consultant report for your date, and how many hourly values was it based on?",
+    "th": "ที่ปรึกษารายงานค่า p เท่าไรสำหรับวันของคุณ และใช้ค่ารายชั่วโมงกี่ค่า"
+   },
+   {
+    "en": "What share of ordinary dates did you predict the hourly test would call significant?",
+    "th": "คุณทำนายว่าการทดสอบรายชั่วโมงจะบอกว่ามีนัยสำคัญกี่เปอร์เซ็นต์ของวันปกติ"
+   },
+   {
+    "en": "Which result in Activity one was significant but not important?",
+    "th": "ผลลัพธ์ข้อไหนในกิจกรรมที่หนึ่งมีนัยสำคัญแต่ไม่สำคัญในทางปฏิบัติ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.56
+    ],
+    [
+     6.91,
+     12.48
+    ],
+    [
+     12.83,
+     17.31
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "A report says steam use fell by two percent, p equals zero point zero four, so there is a ninety-six percent chance the controller saves steam. What is wrong, and what would you report instead?",
+    "th": "รายงานบอกว่าการใช้ไอน้ำลดลงสองเปอร์เซ็นต์ ค่า p เท่ากับศูนย์จุดศูนย์สี่ จึงมีโอกาสเก้าสิบหกเปอร์เซ็นต์ที่ตัวควบคุมช่วยประหยัดไอน้ำ ผิดตรงไหน และคุณจะรายงานอะไรแทน"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.27
+    ],
+    [
+     6.62,
+     20.85
+    ],
+    [
+     21.2,
+     26.53
+    ]
+   ]
+  }
+ },
+ "next": {
+  "text": [
+   {
+    "en": "Next session: tests on plant data. Why six hundred and seventy hourly values are not six hundred and seventy measurements.",
+    "th": "คาบหน้า การทดสอบกับข้อมูลโรงงาน ทำไมค่ารายชั่วโมงหกร้อยเจ็ดสิบค่าจึงไม่ใช่การวัดหกร้อยเจ็ดสิบครั้ง"
+   },
+   {
+    "en": "Before you come, download your file in Lab 06, Step 5, and ask an AI assistant for code that reports the three numbers there. Read the code before you run it.",
+    "th": "ก่อนมาเรียน ดาวน์โหลดไฟล์ในแล็บที่หก ขั้นที่ห้า แล้วขอให้ AI เขียนโค้ดที่รายงานตัวเลขสามค่าในขั้นนั้น อ่านโค้ดก่อนรัน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s11/next.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.74
+    ],
+    [
+     9.09,
+     21.59
+    ]
+   ]
+  }
+ }
+}

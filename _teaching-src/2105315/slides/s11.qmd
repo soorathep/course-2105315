@@ -1,0 +1,261 @@
+---
+title: "Did the change work?"
+subtitle: "Session 11 of 14 · 90 minutes · Before and after, and what p means"
+author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where this session sits {#course-map}
+
+::: {.coursemap14}
+[Week 1 · Import and audit]{.wk} [1 · Data you can trust]{.cm} [2 · Audit and the AI's code]{.cm}
+[Week 2 · Missing data]{.wk} [3 · Why values go missing]{.cm} [4 · Filling gaps you can defend]{.cm}
+[Week 3 · Outliers and noise]{.wk} [5 · Spike or real event?]{.cm} [6 · Smoothing without lying]{.cm}
+[Week 4 · Visualization]{.wk} [7 · Trends and distributions]{.cm} [8 · Figures that tell the truth]{.cm}
+[Week 5 · Correlation and anomalies]{.wk} [9 · Correlated or driven?]{.cm} [10 · When did it start?]{.cm}
+[Week 6 · Hypothesis tests]{.wk .now} [11 · Did the change work?]{.cm .now} [12 · Tests on plant data]{.cm}
+[Week 7 · Integrated case]{.wk} [13 · Raw file to decision]{.cm} [14 · Defend your decision]{.cm}
+:::
+
+
+::: {.bridge}
+Week 5 asked whether two variables move together. Week 6 asks whether one variable moved after a change: a new setpoint, a new catalyst, a new traffic plan.
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .act}
+[0–10]{.t} **Warm-up** [A change at your plant]{.d}
+:::
+::: {.seg .concept}
+[10–30]{.t} **Concepts** [What p measures]{.d}
+:::
+::: {.seg .act}
+[30–42]{.t} **Activity 1** [Significant, or important?]{.d}
+:::
+::: {.seg .concept}
+[42–55]{.t} **Concepts** [Size, interval, p]{.d}
+:::
+::: {.seg .act}
+[55–80]{.t} **Activity 2** [Lab 06, Steps 1 to 3]{.d}
+:::
+::: {.seg .wrap}
+[80–90]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: benzene was 1.7 µg/m³ lower in the two weeks after a change. Could ordinary day-to-day scatter produce that?
+:::
+
+## Warm-up · A change at your plant {#warmup .activity}
+
+[Pairs · 8 minutes · your homework]{.act-label}
+
+::: {.prompt}
+Tell your neighbor the change you chose and the data that would show it worked. What else changed at the same time?
+:::
+
+::: {.checks3}
+::: {.c4}
+[1 · The change]{.label}
+What was changed, and on which date?
+:::
+::: {.c4}
+[2 · The evidence]{.label}
+Which variable, how long before and after, at what time scale?
+:::
+::: {.c4}
+[3 · What else]{.label}
+Season, feed, load, a shutdown: anything that changed at the same time.
+:::
+:::
+
+::: {.selfstudy}
+Studying alone: write the three answers for your change.
+:::
+
+## What p measures {#shuffle data-hold="true"}
+
+```{=html}
+<div class="pm" id="pm">
+  <div class="sm-controls">
+    <div class="sm-mode pm-mode" role="group" aria-label="Shuffle">
+      <button type="button" data-a="one">Shuffle once</button>
+      <button type="button" data-a="many">Shuffle 1000 times</button>
+      <button type="button" data-a="reset">Start again</button>
+    </div>
+  </div>
+  <svg id="pm-plot" viewBox="0 0 1160 380" role="img" aria-label="Daily means before and after, and the differences after shuffling the labels"></svg>
+  <p class="sm-readout" id="pm-out" aria-live="polite"></p>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('pm'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Real daily mean benzene, 15 July to 11 August 2004 (UCI Air Quality). Lab 06, Demo A: change on 29 July.
+  const D = {"before":[12.55,12.4,8.62,6.05,12.13,13.98,12.97,14.89,13.23,7.27,3.65,7.86,7.09,11.1],"after":[11.3,12.12,9.23,5.81,9.24,10.15,8.5,7.62,10.47,6.63,4.96,8.13,8.9,7.12],"diff":-1.69,"p":0.131};
+  const all = D.before.concat(D.after), OBS = D.diff, W = 1160, H = 380;
+  let sims = [], last = null;
+  const mean = (v) => v.reduce((a, b) => a + b, 0) / v.length;
+  function shuffleDiff() { const x = all.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return { d: mean(x.slice(14)) - mean(x.slice(0, 14)), lab: x }; }
+  function draw() {
+    let g = '';
+    // top: the 28 days, coloured by the label they carry now
+    const L = 70, R = 20, top = 30, h1 = 125, X = (k) => L + (k + 0.5) / 28 * (W - L - R), V = (v) => top + (1 - v / 16) * h1;
+    const labels = last ? last.lab : all;
+    g += `<text x="${L}" y="${top - 12}" font-size="16" fill="#66727C">${last ? 'after one shuffle: the same 28 values, labels mixed' : 'the 28 daily means, as measured'}</text>`;
+    g += `<line x1="${L}" x2="${W - R}" y1="${V(0)}" y2="${V(0)}" stroke="#333F4A" stroke-width="1.5"/><line x1="${X(13.5)}" x2="${X(13.5)}" y1="${top}" y2="${V(0)}" stroke="#333F4A" stroke-dasharray="5 4"/>`;
+    [0, 5, 10, 15].forEach((v) => { g += `<text x="${L - 10}" y="${V(v) + 5}" text-anchor="end" font-size="15" fill="#333F4A">${v}</text>`; });
+    labels.forEach((v, k) => { g += `<rect x="${X(k) - 12}" y="${V(v)}" width="24" height="${V(0) - V(v)}" fill="${k < 14 ? '#0F6E6B' : '#E29A2D'}"/>`; });
+    g += `<text x="${X(6.5)}" y="${V(0) + 22}" text-anchor="middle" font-size="16" fill="#0F6E6B" font-weight="600">"before"</text><text x="${X(20.5)}" y="${V(0) + 22}" text-anchor="middle" font-size="16" fill="#9a5f10" font-weight="600">"after"</text>`;
+    // bottom: histogram of shuffled differences
+    const b0 = 215, b1 = 340, lo = -5, hi = 5, bw = 0.5, nb = 20, XB = (v) => L + (v - lo) / (hi - lo) * (W - L - R);
+    const counts = new Array(nb).fill(0); sims.forEach((d) => { const b = Math.floor((d - lo) / bw); if (b >= 0 && b < nb) counts[b]++; });
+    const cmax = Math.max(5, ...counts), VB = (c) => b1 - c / cmax * (b1 - b0);
+    counts.forEach((c, b) => { if (!c) return; const mid = lo + (b + 0.5) * bw; g += `<rect x="${XB(lo + b * bw) + 1}" y="${VB(c)}" width="${XB(lo + bw) - XB(lo) - 2}" height="${b1 - VB(c)}" fill="${Math.abs(mid) >= Math.abs(OBS) ? '#E29A2D' : '#B9C1C6'}"/>`; });
+    g += `<line x1="${L}" x2="${W - R}" y1="${b1}" y2="${b1}" stroke="#333F4A" stroke-width="1.5"/>`;
+    for (let v = -4; v <= 4; v += 2) g += `<text x="${XB(v)}" y="${b1 + 22}" text-anchor="middle" font-size="15" fill="#333F4A">${String(v).replace('-', '−')}</text>`;
+    g += `<text x="${(L + W - R) / 2}" y="${H - 4}" text-anchor="middle" font-size="15" fill="#66727C">"after" minus "before", µg/m³ (bar height: number of shuffles)</text>`;
+    for (const v of [OBS, -OBS]) g += `<line x1="${XB(v)}" x2="${XB(v)}" y1="${b0 - 10}" y2="${b1}" stroke="${v === OBS ? '#1C242B' : '#66727C'}" stroke-width="${v === OBS ? 2.5 : 1.5}" stroke-dasharray="6 4"/>`;
+    g += `<text x="${XB(OBS) - 6}" y="${b0 - 14}" text-anchor="end" font-size="16" font-weight="700" fill="#1C242B">measured −1.69</text>`;
+    if (last) g += `<circle cx="${XB(Math.max(lo, Math.min(hi, last.d)))}" cy="${b0 - 4}" r="7" fill="#E29A2D" stroke="#1C242B"/>`;
+    document.getElementById('pm-plot').innerHTML = g;
+    const far = sims.filter((d) => Math.abs(d) >= Math.abs(OBS) - 1e-9).length;
+    document.getElementById('pm-out').textContent = sims.length === 0
+      ? 'If the change did nothing, the labels "before" and "after" are arbitrary. Shuffle them and see what differences chance alone gives.'
+      : `${sims.length} ${sims.length === 1 ? 'shuffle' : 'shuffles'}. ${far} gave a difference at least as large as 1.69 in size: ${(100 * far / sims.length).toFixed(1)} %. The t-test on these daily means gives p = ${D.p}.`;
+  }
+  root.querySelectorAll('[data-a]').forEach((b) => b.addEventListener('click', () => {
+    const a = b.dataset.a;
+    if (a === 'reset') { sims = []; last = null; }
+    else { const n = a === 'one' ? 1 : 1000; for (let i = 0; i < n; i++) { last = shuffleDiff(); sims.push(last.d); } }
+    draw();
+  }));
+  draw();
+})();
+</script>
+```
+
+[Lab 06, Demo A: benzene, 15 July to 11 August 2004, change on 29 July. Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
+
+## Reading p {#reading-p}
+
+::: {.checks3}
+::: {.c4}
+[What it is]{.label}
+If nothing had changed, the share of comparisons that would show a difference at least this large. Demo A: about 13 %.
+:::
+::: {.c4}
+[What it is not]{.label}
+Not the probability that the change worked, and not the size of the change. p = 0.001 can belong to a difference too small to matter.
+:::
+::: {.c4}
+[What it assumes]{.label}
+That the values are independent and that "nothing changed" is the only alternative. Session 12 tests both on plant data.
+:::
+:::
+
+[0.05 is a convention, not a law. Report the p you got, not only which side of 0.05 it fell on.]{.note-line}
+
+## Activity 1 · Significant, or important? {#act1 .activity data-hold="true"}
+
+[Pairs · 10 minutes · no computer needed]{.act-label}
+
+```{=html}
+<div class="stories" id="sig">
+  <div class="story"><p>Yield rose from 91.2 to 91.3 %, p = 0.0004, over 40 000 batches.</p><button type="button">Reveal</button><p class="ans" hidden><b>Significant, not important:</b> 0.1 point is real but may not pay for the change. Ask for the size in money.</p></div>
+  <div class="story"><p>Energy use fell by 8 %, p = 0.20, over six weeks.</p><button type="button">Reveal</button><p class="ans" hidden><b>Not shown, not disproved.</b> The interval is wide: it includes zero and a large saving. Collect more weeks.</p></div>
+  <div class="story"><p>"p = 0.03, so there is a 97 % chance the new catalyst works."</p><button type="button">Reveal</button><p class="ans" hidden><b>Wrong reading.</b> p is computed assuming no change. It is not the probability of either hypothesis.</p></div>
+  <div class="story"><p>Twenty tags were compared before and after a shutdown. One gave p = 0.04.</p><button type="button">Reveal</button><p class="ans" hidden><b>Expected by chance:</b> one in twenty tests falls below 0.05 when nothing changed.</p></div>
+  <div class="story"><p>Off-spec rate before 4.1 %, after 2.9 %; 95 % interval of the change −2.0 to −0.4 points.</p><button type="button">Reveal</button><p class="ans" hidden><b>Useful report:</b> size and interval. The interval excludes zero, so p &lt; 0.05 without saying it.</p></div>
+  <div class="story"><p>Benzene: 1.7 µg/m³ lower after the change, p = 0.13 on daily means.</p><button type="button">Reveal</button><p class="ans" hidden><b>Not shown.</b> Shuffled labels give a difference this large about one time in eight.</p></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('sig'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  root.querySelectorAll('.story button').forEach((b) => b.addEventListener('click', () => { b.hidden = true; b.nextElementSibling.hidden = false; }));
+})();
+</script>
+```
+
+::: {.prompt .small}
+For each result: is the change shown, is it large enough to matter, and is the sentence a correct reading of p?
+:::
+
+## Size, interval, p {#report}
+
+::: {.beforeafter}
+::: {}
+[Report this]{.label}
+The difference with its unit, a 95 % interval, the number of independent values, and p. Demo A: −1.7 µg/m³ (−3.9 to 0.5), 14 + 14 days, p = 0.13.
+:::
+::: {}
+[Then say]{.label}
+What the interval allows: "a fall of up to 3.9 or a rise of up to 0.5 µg/m³ fits these data". And what else changed in the same weeks.
+:::
+:::
+
+[The interval carries more than p: its width shows how much the data can tell, and its position shows the size.]{.note-line}
+
+## Activity 2 · Lab 06, Steps 1 to 3 {#act2 .activity}
+
+[Individual · 25 minutes · laptop or phone]{.act-label}
+
+1. Open **Lab 06** and enter your name and student ID. Press **My data set**.
+2. Step 2: read the consultant's result and write one question you would ask before accepting it.
+3. Step 3: predict whether the daily means give p below 0.05, and how often the hourly test would fire at ordinary dates.
+4. Do not test the daily means yet. Download your study in Step 10 to keep your work.
+
+[Open Lab 06](../labs/shift.html){.lab-button target="_blank"}
+
+::: {.selfstudy}
+Studying alone: do Steps 1 to 3, then download your study in Step 10.
+:::
+
+## Debrief {#debrief}
+
+::: {.debrief-q}
+[What p did the consultant report for your date, and how many hourly values was it based on?]{.dq}
+[What share of ordinary dates did you predict the hourly test would call significant?]{.dq}
+[Which result in Activity 1 was significant but not important?]{.dq}
+:::
+
+## Exit ticket · 5 minutes {#exit .activity}
+
+[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+
+:::: {.columns}
+::: {.column width="64%"}
+::: {.prompt}
+A report says: "After the new controller, steam use fell by 2 %, p = 0.04, so there is a 96 % chance the controller saves steam." What is wrong with the sentence, and what would you report instead?
+:::
+
+Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+
+No name or student ID is recorded. Wait for **"Response received."**
+:::
+::: {.column width="32%" .qr-col}
+![](figures/exit-qr-s11.png){.qr fig-alt="QR code for the Session 11 exit ticket and feedback form"}
+
+[Open the Session 11 form](exit.html?s=11){target="_blank"}
+:::
+::::
+
+## Next session {#next}
+
+::: {.beforeafter}
+::: {}
+[Session 12 · Tests on plant data]{.label}
+Why 670 hourly values are not 670 measurements, and how ordinary dates tell you what a real change looks like.
+:::
+::: {}
+[Before you come]{.label}
+Download your file in Lab 06, Step 5. Ask an AI assistant for code that reports the three numbers there, and read the code before you run it.
+:::
+:::
+
+[Lab 06 is due after Session 12. Submit the study file on myCourseVille.]{.note-line}

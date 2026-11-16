@@ -251,3 +251,16 @@
 .reveal #cusum-steps tbody tr:nth-child(n+6) td { color: #9a5f10; }
 .reveal .calc-note { font-size: .54em; line-height: 1.4; color: #1C242B; background: #F3F0EB; border-left: 4px solid #E29A2D; padding: 10px 16px; }
 .reveal .calc-note p { margin: 0 0 .55em; }
+
+/* ---------- Session 11 ---------- */
+.reveal .pm { margin-top: .3em; font-family: "Source Sans 3", sans-serif; }
+.reveal .pm svg { width: 100%; height: auto; display: block; }
+.reveal #pm-out { font-size: .5em; margin: .2em 0 0; }
+.reveal .pm-mode button { font-size: .95em; }
+.reveal .pm-mode button:active { background: #0F6E6B; color: #fff; }
+
+/* ---------- Session 12 ---------- */
+.reveal .pl { margin-top: .3em; font-family: "Source Sans 3", sans-serif; }
+.reveal .pl svg { width: 100%; height: auto; display: block; }
+.reveal #pl-out { font-size: .5em; margin: .2em 0 0; }
+.reveal .pl-mode button { font-size: .95em; }

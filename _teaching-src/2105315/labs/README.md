@@ -73,6 +73,17 @@ described in De Vito et al. (2008). Engine: `assets/relations-engine.js`.
 
     python3 _teaching-src/2105315/labs/tests/relations_vs_pandas.py # needs Node.js; engine = pandas
 
+## Lab 06 · Did the change really shift the process?
+
+A change date (97 choices: the dates where a Welch t-test on hourly benzene, 14 days before against 14 days
+after, gives p < 0.01, and all four Extension windows have enough data) is tested three ways: the hourly t-test, a Welch t-test on daily means (days with
+at least 18 hours, at least 12 days a side), and the same comparison at every placebo date in the record
+(about 300). At those dates the hourly test calls 58 % significant and the daily test 25 %; the student's
+difference is ranked among the placebo differences. Extension: windows of 7, 14, 21 and 28 days. Engine:
+`assets/shift-engine.js`.
+
+    python3 _teaching-src/2105315/labs/tests/shift_vs_pandas.py # needs Node.js and scipy; engine = scipy
+
 ## Grading
 
 The study file carries the question text with each answer, so it can be read by a person or by an AI
