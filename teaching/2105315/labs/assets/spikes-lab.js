@@ -4,7 +4,7 @@ import { spikeChart } from './charts.js';
 import { initStudentFields, readStudent, fillStudent, withStudent, studentFileName, downloadJson, downloadText, readJsonFile } from '/teaching/shared/labs-kit/submission.js';
 
 const SCHEMA = 'skh-2105315-lab03-spikes-v1';
-const PAGE_VERSION = '2027.1';
+const PAGE_VERSION = '2026.2';
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 

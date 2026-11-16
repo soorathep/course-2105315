@@ -4,7 +4,7 @@ import { lagChart, alertChart } from './charts.js';
 import { initStudentFields, readStudent, fillStudent, withStudent, studentFileName, downloadJson, downloadText, readJsonFile } from '/teaching/shared/labs-kit/submission.js';
 
 const SCHEMA = 'skh-2105315-lab07-decision-v1';
-const PAGE_VERSION = '2027.1';
+const PAGE_VERSION = '2026.2';
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const num = (id) => { const t = ($(id)?.value || '').trim().replace(',', '.').replace('−', '-').replace('%', '').replace('+', ''); const v = t === '' ? NaN : Number(t); return Number.isFinite(v) ? v : null; };
