@@ -195,3 +195,20 @@
 .rule-table td:first-child { font-family: inherit; font-size: inherit; }
 .rule-table td.good { color: var(--teal); font-weight: 700; }
 .rule-table td.bad { color: #8A4B12; font-weight: 700; }
+
+/* ===== Lab 04 figures ===== */
+.bar-solid-ref { fill: var(--teal); }
+.bar-label { fill: var(--palette-ink, #1C242B); font-size: 14px; font-weight: 700; font-family: "Source Sans 3", sans-serif; }
+.report-tag { fill: var(--muted); font-size: 12px; font-style: italic; font-family: "Source Sans 3", sans-serif; }
+.whisk { stroke-width: 2; } .iqr { stroke-width: 9; stroke-linecap: butt; }
+.whisk.ref, .iqr.ref { stroke: var(--teal); } .whisk.eff, .iqr.eff { stroke: var(--amber); }
+.pt-ref { fill: white; stroke: var(--teal); stroke-width: 3; } .pt-eff { fill: white; stroke: var(--amber); stroke-width: 3; }
+.pt-ref-small { fill: var(--teal); opacity: .75; }
+.trend-line { stroke: var(--amber); stroke-width: 3; }
+.ratio-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: white; margin: 12px 0; }
+.ratio-grid > div { padding: 12px 14px; } .ratio-grid > div + div { border-left: 1px solid var(--border); }
+.ratio-grid dt { font-size: .84rem; color: var(--muted); } .ratio-grid dd { margin: 4px 0 0; font-family: "Source Serif 4", Georgia, serif; font-size: 1.8rem; font-variant-numeric: tabular-nums; }
+.ratio-grid .bad dd { color: #8A4B12; } .ratio-grid .ok dd { color: var(--teal); }
+.stat-table td { font-variant-numeric: tabular-nums; } .stat-table td:first-child { font-family: inherit; font-size: inherit; }
+@media (max-width: 640px) { .ratio-grid { grid-template-columns: 1fr; } .ratio-grid > div + div { border-left: 0; border-top: 1px solid var(--border); } }
+.month-select { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 520px; }

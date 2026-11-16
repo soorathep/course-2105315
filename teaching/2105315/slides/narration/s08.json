@@ -1,0 +1,383 @@
+{
+ "title-slide": {
+  "text": [
+   {
+    "en": "Session eight. Figures that tell the truth.",
+    "th": "คาบที่แปด กราฟที่บอกความจริง"
+   },
+   {
+    "en": "The numbers on a figure can be correct while the drawing misleads. Today we learn to spot it and to fix it.",
+    "th": "ตัวเลขบนกราฟอาจถูกต้อง แต่การวาดทำให้เข้าใจผิดได้ วันนี้เราจะเรียนวิธีสังเกตและแก้ไข"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.13
+    ],
+    [
+     3.48,
+     10.29
+    ]
+   ]
+  }
+ },
+ "course-map": {
+  "text": [
+   {
+    "en": "This is the second session of week four. Last time we chose the view that answers the question.",
+    "th": "นี่คือคาบที่สองของสัปดาห์ที่สี่ คาบที่แล้วเราเลือกมุมมองที่ตอบคำถาม"
+   },
+   {
+    "en": "Today we draw it so that the reader sees what the data say, and no more.",
+    "th": "วันนี้เราวาดให้ผู้อ่านเห็นสิ่งที่ข้อมูลบอก และไม่เกินกว่านั้น"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/course-map.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.27
+    ],
+    [
+     6.62,
+     11.1
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   {
+    "en": "We start with your homework numbers. Then two ways a correct figure misleads: the axis and the time window.",
+    "th": "เราเริ่มจากตัวเลขการบ้าน จากนั้นสองวิธีที่กราฟซึ่งตัวเลขถูกต้องทำให้เข้าใจผิด คือแกนและช่วงเวลา"
+   },
+   {
+    "en": "Then the AI's bar chart, four rules for an honest figure, and you finish Lab 04.",
+    "th": "แล้วดูกราฟแท่งของ AI กฎสี่ข้อสำหรับกราฟที่ซื่อตรง และทำแล็บที่สี่ให้เสร็จ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.42
+    ],
+    [
+     7.77,
+     14.45
+    ]
+   ]
+  }
+ },
+ "warmup": {
+  "text": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. Compare your two monthly means, and work out how many times higher one is.",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที เปรียบเทียบค่าเฉลี่ยรายเดือนสองค่า และคำนวณว่าค่าหนึ่งสูงกว่าอีกค่ากี่เท่า"
+   },
+   {
+    "en": "Keep that ratio. In a few minutes you will see how tall the report made it look.",
+    "th": "จำอัตราส่วนนั้นไว้ อีกไม่กี่นาทีจะได้เห็นว่ารายงานทำให้ดูสูงแค่ไหน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/warmup.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.5
+    ],
+    [
+     7.85,
+     12.97
+    ]
+   ]
+  }
+ },
+ "baseline": {
+  "text": [
+   {
+    "en": "Two bars, April and October. Move the slider to start the axis higher.",
+    "th": "กราฟแท่งสองแท่ง เดือนเมษายนและตุลาคม เลื่อนแถบเพื่อให้แกนเริ่มที่ค่าสูงขึ้น"
+   },
+   {
+    "en": "The numbers do not change, but the second bar starts to look three times as tall.",
+    "th": "ตัวเลขไม่เปลี่ยน แต่แท่งที่สองเริ่มดูสูงเป็นสามเท่า"
+   },
+   {
+    "en": "The lie factor is the change the reader sees divided by the change in the data. An honest bar chart has a lie factor of one.",
+    "th": "ค่าความบิดเบือน คือการเปลี่ยนแปลงที่ผู้อ่านเห็น หารด้วยการเปลี่ยนแปลงในข้อมูล กราฟแท่งที่ซื่อตรงมีค่านี้เท่ากับหนึ่ง"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/baseline.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.39
+    ],
+    [
+     5.74,
+     11.16
+    ],
+    [
+     11.51,
+     20.92
+    ]
+   ]
+  }
+ },
+ "window": {
+  "text": [
+   {
+    "en": "These are the daily means for a whole year, with a straight line fitted to the months you choose.",
+    "th": "นี่คือค่าเฉลี่ยรายวันตลอดทั้งปี พร้อมเส้นตรงที่ลากผ่านเดือนที่คุณเลือก"
+   },
+   {
+    "en": "From August to October benzene rises by almost three per month. From October to February it falls by one and a half.",
+    "th": "จากเดือนสิงหาคมถึงตุลาคม เบนซีนเพิ่มขึ้นเกือบสามต่อเดือน จากเดือนตุลาคมถึงกุมภาพันธ์ลดลงหนึ่งจุดห้า"
+   },
+   {
+    "en": "Same station, same year. A trend is only as honest as the window, so say which months you chose and why.",
+    "th": "สถานีเดียวกัน ปีเดียวกัน แนวโน้มจะซื่อตรงได้เท่ากับช่วงเวลาที่เลือก จึงต้องบอกว่าเลือกเดือนไหนและเพราะอะไร"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/window.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.16
+    ],
+    [
+     6.51,
+     14.96
+    ],
+    [
+     15.31,
+     22.94
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   {
+    "en": "Activity one, in pairs, ten minutes. This is the code behind the report's figure.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที นี่คือโค้ดที่สร้างกราฟในรายงาน"
+   },
+   {
+    "en": "Every number on the chart is correct. Name two lines that make it mislead, and rewrite the title.",
+    "th": "ตัวเลขทุกตัวบนกราฟถูกต้อง บอกสองบรรทัดที่ทำให้เข้าใจผิด และเขียนชื่อกราฟใหม่"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.14
+    ],
+    [
+     6.49,
+     13.23
+    ]
+   ]
+  }
+ },
+ "act1-fix": {
+  "text": [
+   {
+    "en": "Line three starts the axis just below the smaller mean, so the reader compares the leftover tips of the bars.",
+    "th": "บรรทัดที่สามทำให้แกนเริ่มต่ำกว่าค่าเฉลี่ยที่น้อยกว่าเพียงเล็กน้อย ผู้อ่านจึงเปรียบเทียบเฉพาะปลายแท่งที่เหลือ"
+   },
+   {
+    "en": "Line four states a judgement the figure was drawn to support. A title should state the numbers.",
+    "th": "บรรทัดที่สี่เขียนข้อสรุปที่กราฟถูกวาดขึ้นมาเพื่อสนับสนุน ชื่อกราฟควรบอกตัวเลข"
+   },
+   {
+    "en": "The code did what it was asked. The request was the problem.",
+    "th": "โค้ดทำตามที่ถูกขอ ปัญหาอยู่ที่คำขอ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/act1-fix.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.63
+    ],
+    [
+     7.98,
+     14.3
+    ],
+    [
+     14.65,
+     18.53
+    ]
+   ]
+  }
+ },
+ "rules": {
+  "text": [
+   {
+    "en": "Four rules. Bars start at zero. Show the spread, not only the mean.",
+    "th": "กฎสี่ข้อ กราฟแท่งเริ่มที่ศูนย์ แสดงการกระจาย ไม่ใช่แค่ค่าเฉลี่ย"
+   },
+   {
+    "en": "Say which time window you used and why. And let the title state the finding, with numbers.",
+    "th": "บอกช่วงเวลาที่ใช้และเหตุผล และให้ชื่อกราฟบอกสิ่งที่พบ พร้อมตัวเลข"
+   },
+   {
+    "en": "Ask the AI for the figure that answers a question, not for one that shows the difference clearly.",
+    "th": "ขอให้ AI สร้างกราฟที่ตอบคำถาม ไม่ใช่กราฟที่แสดงความแตกต่างให้ชัด"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/rules.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.28
+    ],
+    [
+     5.63,
+     11.99
+    ],
+    [
+     12.34,
+     18.68
+    ]
+   ]
+  }
+ },
+ "act2": {
+  "text": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 04. Enter your three homework numbers in Step 5 before you rebuild the figure.",
+    "th": "เปิดแล็บที่สี่ ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนสร้างกราฟใหม่"
+   },
+   {
+    "en": "Rebuild it three ways, compare the distributions, answer Steps 8 and 9, then download one file and upload it to myCourseVille.",
+    "th": "สร้างกราฟใหม่สามแบบ เปรียบเทียบการกระจาย ตอบขั้นที่แปดและเก้า แล้วดาวน์โหลดไฟล์เดียว และอัปโหลดไปที่ myCourseVille"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/act2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.69
+    ],
+    [
+     6.04,
+     12.87
+    ],
+    [
+     13.22,
+     22.48
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   {
+    "en": "What lie factor did the report's figure have for your two months?",
+    "th": "กราฟในรายงานมีค่าความบิดเบือนเท่าไรสำหรับสองเดือนของคุณ"
+   },
+   {
+    "en": "What share of your higher month's hours fell below the lower month's mean?",
+    "th": "กี่เปอร์เซ็นต์ของชั่วโมงในเดือนที่สูงกว่า ต่ำกว่าค่าเฉลี่ยของเดือนที่ต่ำกว่า"
+   },
+   {
+    "en": "Which window would you show the plant manager, and what would the title say?",
+    "th": "คุณจะแสดงช่วงเวลาไหนให้ผู้จัดการโรงงานดู และชื่อกราฟจะเขียนว่าอะไร"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.11
+    ],
+    [
+     4.46,
+     8.62
+    ],
+    [
+     8.97,
+     13.32
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "A slide shows forty-eight and fifty-two percent conversion, with the axis starting at forty-six. What is the lie factor, and what title would you write?",
+    "th": "สไลด์แสดงค่าการเปลี่ยนแปลงร้อยละสี่สิบแปดและห้าสิบสอง โดยแกนเริ่มที่สี่สิบหก ค่าความบิดเบือนเป็นเท่าไร และคุณจะตั้งชื่อกราฟว่าอะไร"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.27
+    ],
+    [
+     6.62,
+     17.26
+    ],
+    [
+     17.61,
+     22.94
+    ]
+   ]
+  }
+ },
+ "next": {
+  "text": [
+   {
+    "en": "Next session starts week five: correlated or driven? When two tags move together, and when a third one moves both.",
+    "th": "คาบหน้าเริ่มสัปดาห์ที่ห้า สัมพันธ์กันหรือเป็นเหตุและผล เมื่อไรสองแท็กเคลื่อนไหวไปด้วยกัน และเมื่อไรมีแท็กที่สามขับทั้งสองตัว"
+   },
+   {
+    "en": "Submit your Lab 04 file, and think of two plant variables that rise and fall together.",
+    "th": "ส่งไฟล์แล็บที่สี่ และลองคิดถึงตัวแปรในโรงงานสองตัวที่ขึ้นลงไปด้วยกัน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s08/next.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.21
+    ],
+    [
+     8.56,
+     14.79
+    ]
+   ]
+  }
+ }
+}

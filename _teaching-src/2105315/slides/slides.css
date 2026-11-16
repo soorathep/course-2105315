@@ -228,3 +228,9 @@
 .reveal .spk { margin-top: .3em; font-family: "Source Sans 3", sans-serif; }
 .reveal .spk svg { width: 100%; height: auto; display: block; }
 .reveal #spk-out { font-size: .52em; margin: .2em 0 0; }
+
+/* ---------- Session 7 ---------- */
+.reveal .ts { margin-top: .4em; font-family: "Source Sans 3", sans-serif; }
+.reveal .ts svg { width: 100%; height: auto; display: block; }
+.reveal #ts-out { font-size: .52em; margin: .3em 0 0; }
+.reveal .ts-mode button { font-size: .95em; }

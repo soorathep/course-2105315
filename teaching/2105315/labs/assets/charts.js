@@ -202,3 +202,66 @@ export function spikeChart(svg, t, y, { marks = [], sensor = null, smoothed = nu
   }
   svg.append(g);
 }
+
+/** Lab 04 · two monthly summaries. mode 'bars': bars from `base`; 'dots': mean as a dot with the
+ * interquartile range (thick) and the 10th to 90th percentile (thin), on an axis from zero. */
+export function monthFigure(svg, items, { mode = 'bars', base = 0, report = false, unit = 'µg m⁻³' } = {}) {
+  const top = Math.max(...items.map((d) => (mode === 'dots' ? d.p90 : d.mean))) * 1.12;
+  const lo = mode === 'bars' ? base : 0;
+  const y = (v) => M.t + (1 - (v - lo) / (top - lo)) * (H - M.t - M.b);
+  frame(svg, mode === 'bars'
+    ? `Bar chart of the monthly mean benzene, axis starting at ${lo}.`
+    : 'Monthly mean benzene as dots, with the middle half of the hours (thick line) and the 10th to 90th percentile (thin line), axis from zero.');
+  yAxis(svg, y, niceTicks(lo, top, 5).filter((v) => v >= lo), `mean benzene / ${unit}`);
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  const slot = (W - M.l - M.r) / items.length;
+  items.forEach((d, k) => {
+    const cx = M.l + slot * (k + 0.5), cls = k ? 'bar-effect' : 'bar-solid-ref';
+    ax.append(el('text', { x: cx, y: H - M.b + 20, 'text-anchor': 'middle' }, d.label));
+    if (mode === 'bars') {
+      svg.append(el('rect', { class: cls, x: cx - slot * 0.22, y: y(d.mean), width: slot * 0.44, height: Math.max(0, H - M.b - y(d.mean)) }));
+      svg.append(el('text', { class: 'bar-label', x: cx, y: y(d.mean) - 8, 'text-anchor': 'middle' }, d.mean.toFixed(1)));
+    } else {
+      svg.append(el('line', { class: `whisk ${k ? 'eff' : 'ref'}`, x1: cx, x2: cx, y1: y(d.p10), y2: y(d.p90) }));
+      svg.append(el('line', { class: `iqr ${k ? 'eff' : 'ref'}`, x1: cx, x2: cx, y1: y(d.q1), y2: y(d.q3) }));
+      svg.append(el('circle', { class: k ? 'pt-eff' : 'pt-ref', cx, cy: y(d.mean), r: 8 }));
+      svg.append(el('text', { class: 'bar-label', x: cx + 16, y: y(d.mean) + 5 }, d.mean.toFixed(1)));
+    }
+  });
+  if (report) svg.append(el('text', { class: 'report-tag', x: W - M.r, y: M.t + 12, 'text-anchor': 'end' }, 'figure as published in the report'));
+  svg.append(ax);
+}
+
+/** Lab 04 · share of hours per bin for two months: teal outline (lower month), amber fill (higher month). */
+export function histChart(svg, a, b, w, labels, unit = 'µg m⁻³') {
+  const n = a.length, top = Math.max(...a, ...b) * 1.12;
+  frame(svg, `Share of hours in ${w}-${unit} bins. Amber bars: ${labels[1]}. Teal outlines: ${labels[0]}.`);
+  const x = (v) => M.l + (v / (n * w)) * (W - M.l - M.r), y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
+  yAxis(svg, y, niceTicks(0, top, 4), 'share of hours', (v) => `${Math.round(v * 100)}%`);
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  for (const v of niceTicks(0, n * w, 8)) ax.append(el('text', { x: x(v), y: H - M.b + 18, 'text-anchor': 'middle' }, String(v)));
+  ax.append(el('text', { class: 'ax-label', x: M.l + (W - M.l - M.r) / 2, y: H - 6, 'text-anchor': 'middle' }, `benzene / ${unit}`));
+  svg.append(ax);
+  b.forEach((v, k) => svg.append(el('rect', { class: 'bar-effect', x: x(k * w) + 1, y: y(v), width: Math.max(1, x(w) - x(0) - 2), height: H - M.b - y(v) })));
+  a.forEach((v, k) => svg.append(el('rect', { class: 'bar-ref', x: x(k * w) + 1, y: y(v), width: Math.max(1, x(w) - x(0) - 2), height: H - M.b - y(v) })));
+}
+
+/** Lab 04 · daily means for the year (teal points), the chosen window shaded, and its trend line (amber). */
+export function trendChart(svg, days, fit, from, to, unit = 'µg m⁻³') {
+  const n = days.length, vals = days.filter((d) => Number.isFinite(d.mean)).map((d) => d.mean), top = Math.max(...vals) * 1.08;
+  frame(svg, 'Daily mean benzene, April 2004 to March 2005, with a straight line fitted to the chosen months.');
+  const x = (k) => M.l + (k / (n - 1)) * (W - M.l - M.r), y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
+  const k0 = days.findIndex((d) => d.month >= from), k1 = days.length - 1 - [...days].reverse().findIndex((d) => d.month <= to);
+  svg.append(el('rect', { class: 'threshold-band', x: x(k0), y: M.t, width: x(k1) - x(k0), height: H - M.t - M.b }));
+  yAxis(svg, y, niceTicks(0, top, 5), `daily mean / ${unit}`);
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  days.forEach((d, k) => { if (d.day.endsWith('-01')) { ax.append(el('line', { x1: x(k), x2: x(k), y1: H - M.b, y2: H - M.b + 5 })); ax.append(el('text', { x: x(k + 15), y: H - M.b + 18, 'text-anchor': 'middle' }, d.day.slice(5, 7) + '/' + d.day.slice(2, 4))); } });
+  svg.append(ax);
+  const g = el('g');
+  days.forEach((d, k) => { if (Number.isFinite(d.mean)) g.append(el('circle', { class: 'pt-ref-small', cx: x(k), cy: y(d.mean), r: 2.6 })); });
+  svg.append(g);
+  svg.append(el('line', { class: 'trend-line', x1: x(fit.x0), x2: x(fit.x1), y1: y(fit.intercept + fit.slope * fit.x0), y2: y(fit.intercept + fit.slope * fit.x1) }));
+}

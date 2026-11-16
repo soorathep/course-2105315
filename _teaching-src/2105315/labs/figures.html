@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Lab 04 · Does this figure tell the truth about the process? · 2105315 Data Analytics Labs</title>
+  <meta name="description" content="Check a report's figure against the data: axis baselines, the lie factor, what a mean hides, distributions, and choosing a time window for a trend.">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="assets/labs.css?v=4">
+  <script type="module" src="assets/mode.js?v=1"></script>
+  <script type="module" src="assets/figures-lab.js?v=1"></script>
+</head>
+<body data-mode="core">
+  <a class="skip-link" href="#lab">Skip to the lab</a>
+  <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html">Lab 01</a><a href="gaps.html">Lab 02</a><a href="spikes.html">Lab 03</a><a href="figures.html" aria-current="page">Lab 04</a><a href="index.html">All labs</a></nav></header>
+  <main class="page da-page" id="lab">
+    <p class="eyebrow">2105315 Data Analytics in Chemical Engineering · Lab 04 · Week 4</p>
+    <h1>Does this figure tell the truth about the process?</h1>
+    <div class="logbook" role="group" aria-label="Monitoring log">
+      <div class="logbook-row"><p class="logbook-time"><strong>14:00</strong>log</p><p class="logbook-entry">A draft report compares benzene in two months with one bar chart. The caption says one month was far worse. The figure was made with code from an AI assistant.</p></div>
+      <div class="logbook-row"><p class="logbook-time"><strong>TASK</strong>you</p><p class="task-line">Decide whether the figure shows what the data show. Then make one that does.</p></div>
+    </div>
+
+    <fieldset class="mode-switch"><legend>View</legend><div class="mode-options"><label><input type="radio" name="lab-mode" value="core" checked><span>Core</span></label><label><input type="radio" name="lab-mode" value="graduate"><span>Extension</span></label></div><p class="core-only">Core: Steps 1 to 8, about 40 minutes.</p><p class="grad-only">Extension: the core steps plus Step 9, choosing the months for a trend.</p></fieldset>
+
+    <section class="lab-step" aria-labelledby="s1">
+      <div class="step-head"><span class="step-number">01</span><div><h2 id="s1">Choose your data</h2><p>Practice on a demo, then load your own pair of months. The pair is chosen from your student ID.</p></div></div>
+      <fieldset class="student-fields"><legend>Your details</legend><p class="input-help">Your student ID picks your data set. All three go into the file you submit.</p><div class="student-grid"><div><label for="student-first-name">First name</label><input id="student-first-name" type="text" maxlength="80" autocomplete="given-name"></div><div><label for="student-last-name">Last name</label><input id="student-last-name" type="text" maxlength="80" autocomplete="family-name"></div><div><label for="student-id">Student ID</label><input id="student-id" type="text" maxlength="20" inputmode="numeric" autocomplete="off"></div></div></fieldset>
+      <div class="case-buttons" role="group" aria-label="Data set">
+        <button type="button" data-case="spring" aria-pressed="true">Demo A<span class="case-sub">April and October 2004</span></button>
+        <button type="button" data-case="winter" aria-pressed="false">Demo B<span class="case-sub">February 2005 and June 2004</span></button>
+        <button type="button" data-case="student" aria-pressed="false">My data set<span class="case-sub">from my student ID</span></button>
+      </div>
+      <p id="id-note" class="id-note" role="status" aria-live="polite"></p>
+      <p id="dataset-line" class="dataset-line">Loading the station record…</p>
+      <details class="source-box"><summary>Where the data come from</summary>
+        <p>Hourly benzene, C6H6(GT), from the reference analyzer of the road-level station used in Labs 01 to 03. Missing hours (-200 in the source) are left out. Nothing else is changed.</p>
+        <p>Source: S. De Vito, Air Quality, UCI Machine Learning Repository, <a href="https://doi.org/10.24432/C59K5F">doi:10.24432/C59K5F</a>, CC BY 4.0. Paper: De Vito et al., Sensors and Actuators B 129 (2008) 750–757, <a href="https://doi.org/10.1016/j.snb.2007.09.060">doi:10.1016/j.snb.2007.09.060</a>.</p>
+      </details>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s2">
+      <div class="step-head"><span class="step-number">02</span><div><h2 id="s2">Read the report's figure</h2><p>Look at the figure as a reader of the report would, without checking the numbers on the bars.</p></div></div>
+      <figure class="figure-block"><div class="figure-scroll"><svg id="report-chart"></svg></div><figcaption id="report-caption"></figcaption></figure>
+      <div class="notebook-list">
+        <div class="notebook-item"><label for="p-looks">By eye, how many times taller is the second bar than the first?</label><input id="p-looks" type="text" inputmode="decimal" autocomplete="off"></div>
+        <div class="notebook-item"><label for="p-ratio">Now read the numbers on the bars. How many times higher is the second mean than the first?</label><input id="p-ratio" type="text" inputmode="decimal" autocomplete="off"></div>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s3">
+      <div class="step-head"><span class="step-number">03</span><div><h2 id="s3">Predict the spread</h2><p>A monthly mean summarizes about 700 hours. Before you see them, predict.</p></div></div>
+      <div class="notebook-list">
+        <div class="notebook-item"><label for="p-overlap">What share of the hours in the higher month would you expect to be below the mean of the lower month? (%)</label><input id="p-overlap" type="text" inputmode="decimal" autocomplete="off"></div>
+      </div>
+      <label for="p-claim">Write the one sentence the report's caption should say instead. You may change it after Step 6.</label>
+      <textarea id="p-claim" rows="2" maxlength="3000"></textarea>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s4">
+      <div class="step-head"><span class="step-number">04</span><div><h2 id="s4">Check the AI's code</h2><p>The report's author asked an AI assistant: "Make a bar chart that shows the difference between the two months clearly." It returned this.</p></div></div>
+      <pre class="code-block" aria-label="Code written by an AI assistant"><span class="ln">monthly = df[<span class="s">"C6H6_ugm3"</span>].resample(<span class="s">"MS"</span>).mean()</span><span class="ln">fig, ax = plt.subplots()</span><span class="ln">ax.bar(monthly.index.strftime(<span class="s">"%b %Y"</span>), monthly.values)</span><span class="ln">ax.set_ylim(int(0.9 * monthly.min()), monthly.max() * 1.05)   <span class="c"># zoom in on the difference</span></span><span class="ln">ax.set_title(<span class="s">"Benzene was far worse in the second month"</span>)</span></pre>
+      <div class="concept-question">
+        <h3>The numbers on the bars are correct. What makes the figure mislead, and how would you notice?</h3>
+        <label for="ai-answer" class="visually-hidden">Your answer</label>
+        <textarea id="ai-answer" rows="3" maxlength="3000" placeholder="Write your answer first (at least one full sentence)."></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer">
+          <p>A bar shows a value by its length. The <code>set_ylim</code> line starts the axis just below the smaller mean, so most of each bar is cut off and what remains is mostly the difference. A 30 % difference can look like a bar three or four times taller. The data are right; the drawing is not.</p>
+          <p>You notice by reading the axis: if a bar chart's axis does not start at zero, compare the numbers, not the heights. The title then states a conclusion the figure has manufactured, and a monthly mean hides the spread of about 700 hours, most of which overlap between the two months.</p>
+          <p class="fix-line">ax.set_ylim(0, None)          # bars start at zero
+# or: points with the interquartile range, and a title that states the numbers</p>
+        </div></details>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s5">
+      <div class="step-head"><span class="step-number">05</span><div><h2 id="s5">Your notebook numbers</h2><p>Download your file (both months, one row per hour, empty where missing). Ask an AI assistant for code that reports the three numbers below, read it before you run it, and enter what you get.</p></div></div>
+      <p><button id="download-csv" class="secondary-button" type="button">Download my file (CSV)</button></p>
+      <div id="notebook-list" class="notebook-list"></div>
+      <p id="locked-note" class="locked-note">Enter your numbers before you rebuild the figure. Rebuilding locks your numbers and your predictions.</p>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s6">
+      <div class="step-head"><span class="step-number">06</span><div><h2 id="s6">Rebuild the figure</h2><p>Same data, different drawing. Compare what the reader sees with what the data say.</p></div></div>
+      <button id="run-rebuild" class="primary-button calculate-button" type="button" disabled>Rebuild with the data</button>
+      <div id="results" hidden>
+        <div class="chart-toggle" role="group" aria-label="Figure style"><button type="button" data-fig="report" aria-pressed="false">As in the report</button><button type="button" data-fig="zero" aria-pressed="true">Bars from zero</button><button type="button" data-fig="dots" aria-pressed="false">Points with spread</button></div>
+        <figure class="figure-block"><div class="figure-scroll"><svg id="fig-chart"></svg></div><figcaption id="fig-caption"></figcaption></figure>
+        <dl class="ratio-grid"><div id="rg-seen"><dt>The reader sees</dt><dd id="r-seen">–</dd></div><div class="ok"><dt>The data say</dt><dd id="r-data">–</dd></div><div id="rg-lie"><dt>Lie factor (seen change ÷ real change)</dt><dd id="r-lie">–</dd></div></dl>
+        <p id="pred-verdict" class="ext-readout"></p>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s7">
+      <div class="step-head"><span class="step-number">07</span><div><h2 id="s7">Look at the hours, not only the mean</h2><p>The share of hours in each band of concentration, for both months.</p></div></div>
+      <div class="range-row"><label for="bin">Bin width</label><output id="bin-out" for="bin">2 µg/m³</output><input id="bin" type="range" min="0.5" max="6" step="0.5" value="2" aria-describedby="bin-out"></div>
+      <figure class="figure-block"><div class="figure-scroll"><svg id="hist-chart"></svg></div><figcaption id="hist-caption"></figcaption></figure>
+      <div class="table-scroll" role="region" aria-label="Summary statistics" tabindex="0"><table class="audit-table stat-table"><thead><tr><th scope="col">Month</th><th scope="col">Valid hours</th><th scope="col">Mean</th><th scope="col">Median</th><th scope="col">Middle half</th><th scope="col">Above 10</th></tr></thead><tbody id="stat-body"></tbody></table></div>
+      <label for="h-answer">What does the distribution show that the two means did not? Two sentences.</label>
+      <textarea id="h-answer" rows="3" maxlength="3000"></textarea>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s8">
+      <div class="step-head"><span class="step-number">08</span><div><h2 id="s8">Check your understanding</h2><p>Write first, then compare.</p></div></div>
+      <div class="concept-question">
+        <h3>A bar chart must start at zero. A line chart of reactor temperature from 340 to 360 °C need not. Why the difference?</h3>
+        <label for="c-zero" class="visually-hidden">Your answer</label>
+        <textarea id="c-zero" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>A bar encodes a value by its length, so the reader compares lengths; cutting the bottom off changes the ratio of lengths. A line or a point encodes a value by its position, so the reader compares positions against the axis; a narrow range shows small changes that matter, such as 5 °C in a reactor. The axis must still be labelled, and the range should match the changes that matter for the process, not be chosen to make a change look large.</p></div></details>
+      </div>
+      <div class="concept-question">
+        <h3>In every month the mean is above the median. What does that say about benzene, and which would you report?</h3>
+        <label for="c-skew" class="visually-hidden">Your answer</label>
+        <textarea id="c-skew" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>The distribution is skewed to the right: most hours are low, and a few rush-hour hours are much higher and pull the mean up. The median describes a typical hour; the mean is what an exposure or an emission total depends on. Report the one that answers the question, say which one it is, and show the spread, for example the middle half of the hours.</p></div></details>
+      </div>
+    </section>
+
+    <section class="lab-step graduate-section grad-only" aria-labelledby="s9">
+      <div class="step-head"><span class="step-number">09</span><div><h2 id="s9">Extension: choose the months for a trend</h2><p>A straight line through daily means gives a trend. The answer depends on where you start and stop.</p></div></div>
+      <div class="graduate-step">
+        <div class="month-select"><div><label for="t-from">From</label><select id="t-from"></select></div><div><label for="t-to">To</label><select id="t-to"></select></div></div>
+        <button id="run-trend" class="secondary-button" type="button" disabled>Fit the trend</button>
+        <figure class="figure-block" id="trend-figure" hidden><div class="figure-scroll"><svg id="trend-chart"></svg></div><figcaption>Teal: daily means (days with at least 18 valid hours). Shaded: the months you chose. Amber: the fitted straight line.</figcaption></figure>
+        <p id="trend-readout" class="ext-readout"></p>
+        <label for="e-trend">Find a window that shows benzene rising and one that shows it falling. Which statement about the year could you defend, and what would you show with it?</label>
+        <textarea id="e-trend" rows="3" maxlength="3000"></textarea>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s10">
+      <div class="step-head"><span class="step-number">10</span><div><h2 id="s10">Submit</h2><p>Download one file and upload it to the assignment on myCourseVille.</p></div></div>
+      <ul class="submit-list"><li>The file holds your details, data set, predictions, answers, notebook numbers and the figure checks.</li><li>It stays on your computer until you upload it. Nothing is sent from this page.</li><li>Open it here later to continue where you stopped.</li></ul>
+      <div class="study-actions"><button id="export-study" class="primary-button" type="button" disabled>Download my study</button><div class="file-control"><label for="import-study">Open a saved study</label><input id="import-study" type="file" accept=".json,application/json"></div></div>
+      <p id="status" class="study-status" role="status" aria-live="polite"></p>
+    </section>
+    <noscript><p class="error-summary">This lab needs JavaScript.</p></noscript>
+  </main>
+  <footer class="site-footer"><span>2105315 Data Analytics in Chemical Engineering · Chulalongkorn University</span><span>Data: De Vito, UCI Air Quality, CC BY 4.0</span></footer>
+</body>
+</html>

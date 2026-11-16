@@ -51,6 +51,17 @@ peak and the lag. Engine: `assets/spikes-engine.js`.
 
     python3 _teaching-src/2105315/labs/tests/spikes_vs_pandas.py   # needs Node.js; engine = pandas
 
+## Lab 04 · Does this figure tell the truth about the process?
+
+Data: hourly benzene, whole months April 2004 to March 2005, -200 left out, nothing else changed. The
+student ID picks one of 50 month pairs whose means differ by 10 % to 100 % (pairs repeat across a large
+class; the questions are about the figure, not the number). The report's bar chart starts its axis at
+floor(0.9 × the smaller mean), as the AI code does; Step 6 shows the lie factor (Tufte). Step 7 compares the
+two distributions; Step 9 fits a line through daily means for a chosen span of months.
+Engine: `assets/figures-engine.js`.
+
+    python3 _teaching-src/2105315/labs/tests/figures_vs_pandas.py  # needs Node.js; engine = pandas/numpy
+
 ## Grading
 
 The study file carries the question text with each answer, so it can be read by a person or by an AI
