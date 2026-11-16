@@ -21,4 +21,6 @@ for path in sorted((HERE / '_site').rglob('*')):
 fonts = REPO / 'teaching/shared/fonts'
 fonts.mkdir(parents=True, exist_ok=True)
 for name in ('Sarabun-Regular.ttf', 'LICENSE_SARABUN.txt'):
-    shutil.copyfile(REPO / 'teaching/2105603/assets' / name, fonts / name)
+    src = REPO / 'teaching/2105603/assets' / name
+    if src.exists():          # course-2105315 repo already carries the shared copy
+        shutil.copyfile(src, fonts / name)

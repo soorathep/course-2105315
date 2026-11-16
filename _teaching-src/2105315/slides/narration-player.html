@@ -106,7 +106,8 @@
   audio.addEventListener('play', paintButtons);
   audio.addEventListener('pause', paintButtons);
   audio.addEventListener('timeupdate', () => { if (on()) syncCaption(); });
-  audio.addEventListener('ended', () => { if (state.auto && !Reveal.isLastSlide()) Reveal.next(); });
+  // Interactive slides (data-hold) wait for the teacher instead of auto-advancing.
+  audio.addEventListener('ended', () => { if (state.auto && !Reveal.isLastSlide() && !Reveal.getCurrentSlide()?.hasAttribute('data-hold')) Reveal.next(); });
   $('nr-pause').addEventListener('click', (e) => { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); e.currentTarget.blur(); });
   $('nr-replay').addEventListener('click', (e) => { if (slide) { audio.currentTime = 0; audio.play().catch(() => {}); } e.currentTarget.blur(); });
   $('nr-sound').addEventListener('click', (e) => { state.sound = nextVoice(state.sound); store.set('sound', state.sound); paintButtons(); load(); e.currentTarget.blur(); });

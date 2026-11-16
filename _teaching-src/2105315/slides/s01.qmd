@@ -95,13 +95,56 @@ A concentration cannot be negative. Nothing crashed, yet the number is wrong. To
 | 2026-01-07 13:00:02 | FI-101 | 0.0 | m³/h | bad: I/O timeout |
 | 2026-01-07 14:00:00 | LAB-NH3 | 0.42 | wt% | lab, 1 per shift |
 
-::: {.anatomy-notes}
-[Timestamp]{.k} local or UTC? daylight saving? [Tag]{.k} which instrument, which unit operation. [Value + unit]{.k} the number means nothing without its unit. [Quality]{.k} the historian often says when a value is bad. A zero can be a reading or a failure.
-:::
+```{=html}
+<figure class="datapath" aria-labelledby="datapath-cap">
+<svg viewBox="0 0 1160 196" role="img" aria-label="Path of a plant value from sensor to CSV file. Sensor and transmitter add the value and unit; risk: unit or range set wrong. Control system adds the tag and quality flag; risk: a failed read stored as 0.0. Historian adds the timestamp; risk: compression keeps fewer points. CSV export gives you the file; risk: time zone changed or quality column dropped.">
+  <defs><marker id="dp-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0F6E6B"/></marker></defs>
+  <g font-family="Source Sans 3, sans-serif">
+    <g transform="translate(0,0)">
+      <rect x="1" y="1" width="250" height="96" rx="4" fill="#F3F0EB" stroke="#0F6E6B" stroke-width="2"/>
+      <text x="16" y="32" font-size="21" font-weight="700" fill="#1C242B">Sensor + transmitter</text>
+      <text x="16" y="62" font-size="16" fill="#66727C">adds</text>
+      <text x="56" y="62" font-size="17" font-family="IBM Plex Mono, monospace" font-weight="600" fill="#0F6E6B">Value, Unit</text>
+      <circle cx="10" cy="128" r="6" fill="#E29A2D"/>
+      <text x="24" y="134" font-size="17" fill="#333F4A">Unit or range set wrong</text>
+    </g>
+    <line x1="256" y1="49" x2="298" y2="49" stroke="#0F6E6B" stroke-width="2.5" marker-end="url(#dp-arrow)"/>
+    <g transform="translate(303,0)">
+      <rect x="1" y="1" width="250" height="96" rx="4" fill="#F3F0EB" stroke="#0F6E6B" stroke-width="2"/>
+      <text x="16" y="32" font-size="21" font-weight="700" fill="#1C242B">Control system (DCS)</text>
+      <text x="16" y="62" font-size="16" fill="#66727C">adds</text>
+      <text x="56" y="62" font-size="17" font-family="IBM Plex Mono, monospace" font-weight="600" fill="#0F6E6B">Tag, Quality</text>
+      <circle cx="10" cy="128" r="6" fill="#E29A2D"/>
+      <text x="24" y="134" font-size="17" fill="#333F4A">Failed read stored as 0.0</text>
+    </g>
+    <line x1="559" y1="49" x2="601" y2="49" stroke="#0F6E6B" stroke-width="2.5" marker-end="url(#dp-arrow)"/>
+    <g transform="translate(606,0)">
+      <rect x="1" y="1" width="250" height="96" rx="4" fill="#F3F0EB" stroke="#0F6E6B" stroke-width="2"/>
+      <text x="16" y="32" font-size="21" font-weight="700" fill="#1C242B">Historian</text>
+      <text x="16" y="62" font-size="16" fill="#66727C">adds</text>
+      <text x="56" y="62" font-size="17" font-family="IBM Plex Mono, monospace" font-weight="600" fill="#0F6E6B">Timestamp</text>
+      <circle cx="10" cy="128" r="6" fill="#E29A2D"/>
+      <text x="24" y="134" font-size="17" fill="#333F4A">Compression keeps fewer points</text>
+    </g>
+    <line x1="862" y1="49" x2="904" y2="49" stroke="#0F6E6B" stroke-width="2.5" marker-end="url(#dp-arrow)"/>
+    <g transform="translate(909,0)">
+      <rect x="1" y="1" width="248" height="96" rx="4" fill="#fff" stroke="#333F4A" stroke-width="2"/>
+      <text x="16" y="32" font-size="21" font-weight="700" fill="#1C242B">CSV export</text>
+      <text x="16" y="62" font-size="16" fill="#66727C">you receive</text>
+      <text x="104" y="62" font-size="17" font-family="IBM Plex Mono, monospace" font-weight="600" fill="#333F4A">the file</text>
+      <circle cx="10" cy="128" r="6" fill="#E29A2D"/>
+      <text x="24" y="134" font-size="17" fill="#333F4A">Time zone changed,</text>
+      <text x="24" y="156" font-size="17" fill="#333F4A">quality column dropped</text>
+    </g>
+  </g>
+</svg>
+<figcaption id="datapath-cap"><span class="dot"></span>where an error can enter on the way to your file</figcaption>
+</figure>
+```
 
 [Illustrative rows written for this slide; tag names follow common ISA practice.]{.source}
 
-## Sampling rates do not agree {#sampling}
+## Sampling rates do not agree {#sampling data-hold="true"}
 
 ::: {.rates}
 ::: {.rate}
@@ -126,9 +169,104 @@ Sampled by hand, results hours later
 :::
 :::
 
-::: {.bridge}
-Joining a 1-second flow with a once-per-shift assay forces a choice: average, take the last value, or wait. Week 1, Lab 02 is about that choice.
-:::
+```{=html}
+<div class="sampler" id="sampler">
+  <div class="sm-controls">
+    <label class="sm-slider">Recording interval <strong id="sm-step-label">1 min</strong>
+      <input type="range" id="sm-step" min="0" max="5" step="1" value="2" aria-describedby="sm-readout">
+    </label>
+    <div class="sm-mode" role="group" aria-label="How each recorded point is made">
+      <button type="button" data-mode="snap" aria-pressed="true">Snapshot</button>
+      <button type="button" data-mode="avg" aria-pressed="false">Average</button>
+    </div>
+  </div>
+  <svg id="sm-plot" viewBox="0 0 1160 330" role="img" aria-label="Simulated one-hour flow signal and the values a recorder would keep at the chosen interval"></svg>
+  <div class="sm-readout" id="sm-readout" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('sampler');
+  if (!root) return;
+  // Clicks inside the widget must not advance the slide.
+  root.addEventListener('click', (e) => e.stopPropagation());
+
+  // Simulated 1-s flow signal for one hour (m3/h): steady flow with small noise,
+  // a 40-s pump trip at 22:05 and a 15-s surge at 41:10. Deterministic, so every screen shows the same data.
+  const N = 3600, BASE = 12.4, TRIP = [1325, 1365], SURGE = [2470, 2485];
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const y = new Float64Array(N);
+  for (let t = 0; t < N; t++) {
+    let v = BASE + 0.25 * Math.sin(t / 420) + (rnd() - 0.5) * 0.5;
+    if (t >= TRIP[0] && t < TRIP[1]) v = 2.0 + (rnd() - 0.5) * 0.2;
+    if (t >= SURGE[0] && t < SURGE[1]) v = 17.0 + (rnd() - 0.5) * 0.3;
+    y[t] = v;
+  }
+  const STEPS = [[1, '1 s'], [10, '10 s'], [60, '1 min'], [300, '5 min'], [900, '15 min'], [3600, '1 h']];
+  let mode = 'snap';
+
+  function record(step) {
+    const pts = [];
+    for (let t0 = 0; t0 < N; t0 += step) {
+      if (mode === 'snap') pts.push([t0, y[t0]]);
+      else { let s = 0; for (let t = t0; t < t0 + step; t++) s += y[t]; pts.push([t0 + step / 2, s / step]); }
+    }
+    return pts;
+  }
+  const W = 1160, H = 330, L = 64, R = 16, T = 14, B = 44;
+  const X = (t) => L + (t / N) * (W - L - R), Y = (v) => T + (1 - v / 20) * (H - T - B);
+  const path = (pts) => pts.map(([t, v], i) => (i ? 'L' : 'M') + X(t).toFixed(1) + ',' + Y(v).toFixed(1)).join('');
+
+  function inWin(pts, w, step) {
+    // Value the record shows over an event window: the most extreme recorded point that touches it.
+    const near = pts.filter(([t]) => mode === 'snap' ? (t >= w[0] && t < w[1]) : (t + step / 2 > w[0] && t - step / 2 < w[1]));
+    return near;
+  }
+  function verdict(pts, w, step, trueV, low) {
+    const near = inWin(pts, w, step);
+    if (!near.length) return ['missed', 'missed'];
+    const v = low ? Math.min(...near.map((p) => p[1])) : Math.max(...near.map((p) => p[1]));
+    const full = Math.abs(v - trueV) < 1.0, gone = Math.abs(v - BASE) < 1.0;
+    return [gone ? 'missed' : full ? 'seen' : 'blurred', v.toFixed(1)];
+  }
+
+  function draw() {
+    const [step, label] = STEPS[+document.getElementById('sm-step').value];
+    document.getElementById('sm-step-label').textContent = label;
+    const pts = record(step);
+    let g = '';
+    for (const v of [0, 5, 10, 15, 20]) g += `<line x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}" stroke="#B9C1C6" stroke-width="1"/><text x="${L - 10}" y="${Y(v) + 6}" text-anchor="end" font-size="17" fill="#333F4A">${v}</text>`;
+    for (const m of [0, 10, 20, 30, 40, 50, 60]) g += `<text x="${X(m * 60)}" y="${H - 14}" text-anchor="${m === 60 ? 'end' : 'middle'}" font-size="17" fill="#333F4A">${m === 60 ? '60 min' : m}</text>`;
+    g += `<line x1="${L}" x2="${L}" y1="${T}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/><line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/>`;
+    g += `<text transform="translate(18 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle" font-size="16" fill="#66727C">flow, m³/h</text>`;
+    // event bands
+    for (const [w, name] of [[TRIP, 'pump trip'], [SURGE, 'surge']]) g += `<rect x="${X(w[0]) - 3}" y="${T}" width="${Math.max(6, X(w[1]) - X(w[0]) + 6)}" height="${H - T - B}" fill="#DFC98F" opacity=".45"/><text x="${X(w[0]) + 8}" y="${T + 18}" font-size="15" fill="#333F4A">${name}</text>`;
+    // what really happened (reference, teal) and what was recorded (amber)
+    g += `<path d="${path(Array.from(y, (v, t) => [t, v]))}" fill="none" stroke="#0F6E6B" stroke-width="1.5" opacity=".55"/>`;
+    if (step > 1) {
+      g += `<path d="${path(pts)}" fill="none" stroke="#E29A2D" stroke-width="3"/>`;
+      if (pts.length <= 400) g += pts.map(([t, v]) => `<circle cx="${X(t)}" cy="${Y(v)}" r="${pts.length > 100 ? 3 : 5}" fill="#E29A2D"/>`).join('');
+    }
+    document.getElementById('sm-plot').innerHTML = g;
+    const [tv, tval] = verdict(pts, TRIP, step, 2.0, true), [sv, sval] = verdict(pts, SURGE, step, 17.0, false);
+    const word = { seen: 'seen', blurred: 'blurred', missed: 'missed' };
+    const chip = (name, v, val, trueV) => `<span class="sm-chip ${v}">${name}: <b>${word[v]}</b>${v === 'missed' ? '' : ` (${val}, true ${trueV})`}</span>`;
+    document.getElementById('sm-readout').innerHTML =
+      `<span class="sm-key"><i class="k-true"></i>what happened, every second <i class="k-rec"></i>what the file keeps</span>` +
+      `<span class="sm-n">${pts.length} ${pts.length === 1 ? "point" : "points"} kept</span>` + chip('Pump trip, 40 s', tv, tval, '2.0') + chip('Surge, 15 s', sv, sval, '17.0');
+  }
+  document.getElementById('sm-step').addEventListener('input', draw);
+  root.querySelectorAll('[data-mode]').forEach((b) => b.addEventListener('click', () => {
+    mode = b.dataset.mode;
+    root.querySelectorAll('[data-mode]').forEach((o) => o.setAttribute('aria-pressed', o === b));
+    draw();
+  }));
+  draw();
+})();
+</script>
+```
+
+[Simulated 1-second flow signal, one hour, written for this slide.]{.source}
+
 
 ## Missing data wears many disguises {#codes}
 
