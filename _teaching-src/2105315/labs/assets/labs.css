@@ -177,6 +177,7 @@
 .method-table td { font-variant-numeric: tabular-nums; }
 .method-table td:first-child { font-family: inherit; font-size: inherit; }
 #predict-list select { width: 100%; }
+#p-onset { min-width: 230px; }
 
 /* ===== Lab 03 spikes ===== */
 .series-sensor { fill: none; stroke: var(--palette-graphite, #333F4A); stroke-width: 1.5; stroke-dasharray: 4 3; opacity: .75; }
@@ -212,3 +213,15 @@
 .stat-table td { font-variant-numeric: tabular-nums; } .stat-table td:first-child { font-family: inherit; font-size: inherit; }
 @media (max-width: 640px) { .ratio-grid { grid-template-columns: 1fr; } .ratio-grid > div + div { border-left: 0; border-top: 1px solid var(--border); } }
 .month-select { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 520px; }
+
+/* ===== Lab 05 relations ===== */
+.trend-ref { fill: none; stroke: var(--teal); stroke-width: 2.5; stroke-dasharray: 7 4; }
+.trend-eff { fill: none; stroke: #9a5f10; stroke-width: 2.5; stroke-dasharray: 7 4; }
+.limit-line { stroke: var(--palette-graphite, #333F4A); stroke-width: 1.2; stroke-dasharray: 5 4; }
+.mk-guess { stroke: var(--palette-graphite, #333F4A); stroke-width: 2; stroke-dasharray: 3 3; } .mk-guess-t { fill: var(--palette-graphite, #333F4A); font-size: 11px; font-family: "Source Sans 3", sans-serif; }
+.mk-onset { stroke: var(--amber); stroke-width: 2; stroke-dasharray: 6 3; } .mk-onset-t { fill: #9a5f10; font-size: 11px; font-weight: 700; font-family: "Source Sans 3", sans-serif; }
+.mk-alarm { stroke: var(--amber); stroke-width: 3; } .mk-alarm-t { fill: #9a5f10; font-size: 11px; font-weight: 700; font-family: "Source Sans 3", sans-serif; }
+.mk-thr { stroke: #BE654C; stroke-width: 2.5; } .mk-thr-t { fill: #8A3F2C; font-size: 11px; font-weight: 700; font-family: "Source Sans 3", sans-serif; }
+.two-figs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+.two-figs > * { min-width: 0; }
+@media (max-width: 760px) { .two-figs { grid-template-columns: minmax(0, 1fr); } }

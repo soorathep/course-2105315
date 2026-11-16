@@ -1,0 +1,383 @@
+{
+ "title-slide": {
+  "text": [
+   {
+    "en": "Session ten. When did it start?",
+    "th": "คาบที่สิบ เริ่มเมื่อไร"
+   },
+   {
+    "en": "A sensor can drift a little every day. Today we find the day it started, and compare two rules that look for it.",
+    "th": "เซนเซอร์อาจเลื่อนไปทีละน้อยทุกวัน วันนี้เราจะหาวันที่มันเริ่มเลื่อน และเปรียบเทียบกฎสองแบบที่ใช้ตรวจหา"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.58
+    ],
+    [
+     2.93,
+     10.39
+    ]
+   ]
+  }
+ },
+ "course-map": {
+  "text": [
+   {
+    "en": "This is the second session of week five. Last time, a correlation that was mostly the season.",
+    "th": "นี่คือคาบที่สองของสัปดาห์ที่ห้า คาบที่แล้วเป็นสหสัมพันธ์ที่ส่วนใหญ่มาจากฤดูกาล"
+   },
+   {
+    "en": "Today, a sensor that slowly moves away from the analyzer.",
+    "th": "วันนี้เป็นเซนเซอร์ที่ค่อยๆ เลื่อนออกจากเครื่องวิเคราะห์"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/course-map.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.86
+    ],
+    [
+     7.21,
+     11.03
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   {
+    "en": "We start with your homework numbers and the AI’s sentence about them.",
+    "th": "เราเริ่มจากตัวเลขการบ้านและประโยคของ AI เกี่ยวกับตัวเลขนั้น"
+   },
+   {
+    "en": "Then a drifting sensor, the CUSUM chart, and you finish Lab 05.",
+    "th": "จากนั้นดูเซนเซอร์ที่ค่าเลื่อน แผนภูมิ CUSUM และทำแล็บที่ห้าให้เสร็จ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.67
+    ],
+    [
+     5.02,
+     10.03
+    ]
+   ]
+  }
+ },
+ "warmup": {
+  "text": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. Compare the three numbers your code reported in Lab 05, Step 5.",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที เปรียบเทียบตัวเลขสามค่าที่โค้ดของคุณรายงานในแล็บที่ห้า ขั้นที่ห้า"
+   },
+   {
+    "en": "If they differ from your neighbor’s, is it the data set or the code? Keep the two correlations for the next activity.",
+    "th": "ถ้าต่างจากของเพื่อน เป็นเพราะชุดข้อมูลหรือโค้ด เก็บค่าสหสัมพันธ์สองค่าไว้ใช้ในกิจกรรมถัดไป"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/warmup.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.23
+    ],
+    [
+     8.58,
+     16.17
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   {
+    "en": "Activity one, in pairs, ten minutes. The analyst asked an AI assistant whether temperature affects NOx. This is what came back.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที นักวิเคราะห์ถาม AI ว่าอุณหภูมิมีผลต่อ NOx ไหม นี่คือสิ่งที่ได้กลับมา"
+   },
+   {
+    "en": "The number is correct. What is wrong with the sentence under it, and what would you check before writing any sentence?",
+    "th": "ตัวเลขถูกต้อง ประโยคข้างใต้ผิดอย่างไร และคุณจะตรวจสอบอะไรก่อนเขียนประโยคใดๆ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     10.17
+    ],
+    [
+     10.52,
+     17.6
+    ]
+   ]
+  }
+ },
+ "act1-fix": {
+  "text": [
+   {
+    "en": "Explains and cause claim a direction the code never tested.",
+    "th": "คำว่าอธิบาย และเป็นสาเหตุ อ้างทิศทางที่โค้ดไม่เคยทดสอบ"
+   },
+   {
+    "en": "For Demo A, the correlation falls from minus zero point five seven to zero point one four once both seasonal trends are removed. The season moved both.",
+    "th": "สำหรับตัวอย่าง A ค่าสหสัมพันธ์ลดจากลบศูนย์จุดห้าเจ็ด เหลือศูนย์จุดหนึ่งสี่ เมื่อเอาแนวโน้มตามฤดูกาลของทั้งสองออก ฤดูกาลขับทั้งคู่"
+   },
+   {
+    "en": "A sentence the data allow states the period, both correlations, and says associated with. Before any sentence, plot both series over time.",
+    "th": "ประโยคที่ข้อมูลรองรับต้องบอกช่วงเวลา ค่าสหสัมพันธ์ทั้งสองค่า และใช้คำว่ามีความสัมพันธ์ ก่อนเขียนประโยคใดๆ ให้พล็อตทั้งสองอนุกรมตามเวลาก่อน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/act1-fix.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.52
+    ],
+    [
+     4.87,
+     16.94
+    ],
+    [
+     17.29,
+     27.45
+    ]
+   ]
+  }
+ },
+ "drift": {
+  "text": [
+   {
+    "en": "Part B. A cheap sensor was calibrated against the benzene analyzer on the first fourteen days. Each point is one day’s mean difference between the two.",
+    "th": "ส่วน B เซนเซอร์ราคาถูกถูกสอบเทียบกับเครื่องวิเคราะห์เบนซีนในสิบสี่วันแรก แต่ละจุดคือค่าเฉลี่ยรายวันของผลต่างระหว่างทั้งสอง"
+   },
+   {
+    "en": "Around the twentieth of April the points move up and stay up. The sensor now reads low.",
+    "th": "ราวยี่สิบเมษายน จุดเลื่อนขึ้นและอยู่สูงต่อไป ตอนนี้เซนเซอร์อ่านค่าต่ำกว่าความจริง"
+   },
+   {
+    "en": "Press three sigma rule. It waits for one day beyond the mean plus three standard deviations. That day is the tenth of May, three weeks late.",
+    "th": "กดปุ่มกฎสามซิกมา กฎนี้รอวันแรกที่เกินค่าเฉลี่ยบวกสามเท่าของส่วนเบี่ยงเบนมาตรฐาน วันนั้นคือสิบพฤษภาคม ช้าไปสามสัปดาห์"
+   },
+   {
+    "en": "Press CUSUM. It adds up each day’s excess and raises the alarm on the twenty-second of April. The last day the sum stood at zero marks the start: the nineteenth.",
+    "th": "กดปุ่ม CUSUM มันรวมส่วนเกินของแต่ละวันสะสมไว้ และส่งสัญญาณเตือนในวันที่ยี่สิบสองเมษายน วันสุดท้ายที่ผลรวมเป็นศูนย์บอกจุดเริ่ม คือวันที่สิบเก้า"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/drift.en.mp3",
+   "cues": [
+    [
+     0.25,
+     10.81
+    ],
+    [
+     11.16,
+     16.81
+    ],
+    [
+     17.16,
+     26.81
+    ],
+    [
+     27.16,
+     38.74
+    ]
+   ]
+  }
+ },
+ "cusum-steps": {
+  "text": [
+   {
+    "en": "Here is the arithmetic. Each day, take the difference, subtract the calibration mean and an allowance k of half a standard deviation, and add it to the sum.",
+    "th": "นี่คือการคำนวณ แต่ละวันนำผลต่างมาลบค่าเฉลี่ยช่วงสอบเทียบ และลบค่าเผื่อ k เท่ากับครึ่งหนึ่งของส่วนเบี่ยงเบนมาตรฐาน แล้วบวกเข้ากับผลรวม"
+   },
+   {
+    "en": "The sum never goes below zero. From day twenty-one it grows by three to four each day and passes the limit h, eight point seven four, on day twenty-three.",
+    "th": "ผลรวมไม่ต่ำกว่าศูนย์ ตั้งแต่วันที่ยี่สิบเอ็ดผลรวมเพิ่มวันละสามถึงสี่ และเกินขีดจำกัด h ที่แปดจุดเจ็ดสี่ ในวันที่ยี่สิบสาม"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/cusum-steps.en.mp3",
+   "cues": [
+    [
+     0.25,
+     11.15
+    ],
+    [
+     11.5,
+     22.55
+    ]
+   ]
+  }
+ },
+ "two-rules": {
+  "text": [
+   {
+    "en": "Two rules, one drift. The three sigma rule is good for a sudden step. For this drift it alarmed on day forty-one.",
+    "th": "กฎสองแบบ การเลื่อนหนึ่งครั้ง กฎสามซิกมาเหมาะกับการเปลี่ยนแบบขั้นบันไดทันที สำหรับการเลื่อนนี้มันเตือนในวันที่สี่สิบเอ็ด"
+   },
+   {
+    "en": "CUSUM adds small differences that keep the same sign, so it alarmed on day twenty-three. A smaller k or h alarms sooner, and also more often on noise.",
+    "th": "CUSUM รวมผลต่างเล็กๆ ที่มีเครื่องหมายเดียวกัน จึงเตือนในวันที่ยี่สิบสาม ค่า k หรือ h ที่เล็กลงจะเตือนเร็วขึ้น แต่ก็เตือนผิดจากสัญญาณรบกวนบ่อยขึ้นด้วย"
+   },
+   {
+    "en": "Both rules need a calibration period that was in control. If the sensor had already drifted then, neither rule can see it.",
+    "th": "กฎทั้งสองต้องการช่วงสอบเทียบที่ระบบอยู่ในการควบคุม ถ้าเซนเซอร์เลื่อนไปแล้วตั้งแต่ตอนนั้น ทั้งสองกฎจะมองไม่เห็น"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/two-rules.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.59
+    ],
+    [
+     8.94,
+     20.82
+    ],
+    [
+     21.17,
+     29.54
+    ]
+   ]
+  }
+ },
+ "act2": {
+  "text": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 05. Enter your three homework numbers in Step 5 before you remove the trend.",
+    "th": "เปิดแล็บที่ห้า ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนเอาแนวโน้มออก"
+   },
+   {
+    "en": "In Step 7, mark the day you think your sensor started to drift, then run both rules. Answer Step 8, then download one file and upload it to myCourseVille.",
+    "th": "ในขั้นที่เจ็ด เลือกวันที่คุณคิดว่าเซนเซอร์เริ่มเลื่อน แล้วรันกฎทั้งสอง ตอบขั้นที่แปด แล้วดาวน์โหลดไฟล์เดียว และอัปโหลดไปที่ myCourseVille"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/act2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.69
+    ],
+    [
+     6.04,
+     12.91
+    ],
+    [
+     13.26,
+     24.67
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   {
+    "en": "How far did r fall for your sixteen weeks once the trend was removed?",
+    "th": "ค่า r ของสิบหกสัปดาห์ของคุณลดลงเท่าไรเมื่อเอาแนวโน้มออก"
+   },
+   {
+    "en": "How many days before the three sigma rule did CUSUM alarm for your sensor, and how close was your own guess?",
+    "th": "CUSUM เตือนก่อนกฎสามซิกมากี่วันสำหรับเซนเซอร์ของคุณ และการเดาของคุณใกล้เคียงแค่ไหน"
+   },
+   {
+    "en": "Does a small r after removing the trend prove that temperature has no effect on NOx?",
+    "th": "ค่า r ที่เล็กหลังเอาแนวโน้มออก พิสูจน์ว่าอุณหภูมิไม่มีผลต่อ NOx หรือไม่"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.99
+    ],
+    [
+     5.34,
+     12.48
+    ],
+    [
+     12.83,
+     19.04
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "A pH probe agrees with the lab assay during calibration, with a standard deviation of zero point one. Then its error grows by zero point zero two per day. About how many days until the three sigma rule alarms, and would CUSUM alarm earlier?",
+    "th": "หัววัดพีเอชให้ค่าตรงกับผลวิเคราะห์ในห้องแล็บช่วงสอบเทียบ โดยมีส่วนเบี่ยงเบนมาตรฐานศูนย์จุดหนึ่ง จากนั้นความคลาดเคลื่อนเพิ่มวันละศูนย์จุดศูนย์สอง ประมาณกี่วันกฎสามซิกมาจะเตือน และ CUSUM จะเตือนเร็วกว่าไหม"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.27
+    ],
+    [
+     6.62,
+     25.07
+    ],
+    [
+     25.42,
+     30.75
+    ]
+   ]
+  }
+ },
+ "next": {
+  "text": [
+   {
+    "en": "Next session starts week six: did the change work? A process change, a shift in the mean, and how sure you can be that it is real.",
+    "th": "คาบหน้าเริ่มสัปดาห์ที่หก การเปลี่ยนแปลงได้ผลไหม การเปลี่ยนกระบวนการ ค่าเฉลี่ยที่เลื่อน และเรามั่นใจได้แค่ไหนว่าเป็นของจริง"
+   },
+   {
+    "en": "Submit your Lab 05 file, and think of one change at a plant and the data that would show it worked.",
+    "th": "ส่งไฟล์แล็บที่ห้า และลองคิดถึงการเปลี่ยนแปลงหนึ่งอย่างในโรงงาน กับข้อมูลที่จะแสดงว่ามันได้ผล"
+   }
+  ],
+  "en": {
+   "audio": "narration/s10/next.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.93
+    ],
+    [
+     9.28,
+     16.13
+    ]
+   ]
+  }
+ }
+}

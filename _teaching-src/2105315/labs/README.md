@@ -62,6 +62,17 @@ Engine: `assets/figures-engine.js`.
 
     python3 _teaching-src/2105315/labs/tests/figures_vs_pandas.py  # needs Node.js; engine = pandas/numpy
 
+## Lab 05 · Correlated, or driven by a third variable?
+
+Part A: daily NOx(GT) and temperature over 16 weeks (47 windows, June to August 2004 starts, where |r| is at
+least 0.4 and at least 70 days have both). The correlation is compared with the correlation after
+subtracting a 29-day centered rolling mean from each series. Part B: the sensor PT08.S1(CO) is fitted to
+benzene on the first 14 days of another 16-week window (278 choices); daily mean residuals are watched with a
+two-sided CUSUM (k = 0.5σ, h = 5σ, σ from the calibration days) and with a 3σ rule. The drift is real, as
+described in De Vito et al. (2008). Engine: `assets/relations-engine.js`.
+
+    python3 _teaching-src/2105315/labs/tests/relations_vs_pandas.py # needs Node.js; engine = pandas
+
 ## Grading
 
 The study file carries the question text with each answer, so it can be read by a person or by an AI

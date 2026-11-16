@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Lab 05 · Correlated, or driven by a third variable? · 2105315 Data Analytics Labs</title>
+  <meta name="description" content="Test whether a correlation between temperature and NOx survives removing the seasonal trend, then find when a calibrated sensor started to drift, with a CUSUM chart.">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="assets/labs.css?v=5">
+  <script type="module" src="assets/mode.js?v=1"></script>
+  <script type="module" src="assets/relations-lab.js?v=1"></script>
+</head>
+<body data-mode="core">
+  <a class="skip-link" href="#lab">Skip to the lab</a>
+  <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html">Lab 01</a><a href="gaps.html">Lab 02</a><a href="spikes.html">Lab 03</a><a href="figures.html">Lab 04</a><a href="relations.html" aria-current="page">Lab 05</a><a href="index.html">All labs</a></nav></header>
+  <main class="page da-page" id="lab">
+    <p class="eyebrow">2105315 Data Analytics in Chemical Engineering · Lab 05 · Week 5</p>
+    <h1>Correlated, or driven by a third variable?</h1>
+    <div class="logbook" role="group" aria-label="Monitoring log">
+      <div class="logbook-row"><p class="logbook-time"><strong>10:15</strong>log</p><p class="logbook-entry">An analyst reports a strong correlation between daily temperature and NOx and suggests that cold days raise NOx. Separately, maintenance asks when the low-cost sensor began to disagree with the analyzer.</p></div>
+      <div class="logbook-row"><p class="logbook-time"><strong>TASK</strong>you</p><p class="task-line">Part A: decide whether the correlation is temperature, or something that moves both. Part B: find when the sensor's drift started.</p></div>
+    </div>
+
+    <fieldset class="mode-switch"><legend>View</legend><div class="mode-options"><label><input type="radio" name="lab-mode" value="core" checked><span>Core</span></label><label><input type="radio" name="lab-mode" value="graduate"><span>Extension</span></label></div><p class="core-only">Core: Steps 1 to 8, about 45 minutes.</p><p class="grad-only">Extension: the core steps plus Step 9, tuning the CUSUM chart.</p></fieldset>
+
+    <section class="lab-step" aria-labelledby="s1">
+      <div class="step-head"><span class="step-number">01</span><div><h2 id="s1">Choose your data</h2><p>Practice on a demo, then load your own two 16-week windows, one for each part. Both are chosen from your student ID.</p></div></div>
+      <fieldset class="student-fields"><legend>Your details</legend><p class="input-help">Your student ID picks your data set. All three go into the file you submit.</p><div class="student-grid"><div><label for="student-first-name">First name</label><input id="student-first-name" type="text" maxlength="80" autocomplete="given-name"></div><div><label for="student-last-name">Last name</label><input id="student-last-name" type="text" maxlength="80" autocomplete="family-name"></div><div><label for="student-id">Student ID</label><input id="student-id" type="text" maxlength="20" inputmode="numeric" autocomplete="off"></div></div></fieldset>
+      <div class="case-buttons" role="group" aria-label="Data set">
+        <button type="button" data-case="a" aria-pressed="true">Demo A<span class="case-sub">from 20 Jun and 31 Mar 2004</span></button>
+        <button type="button" data-case="b" aria-pressed="false">Demo B<span class="case-sub">from 15 Aug and 4 Jun 2004</span></button>
+        <button type="button" data-case="student" aria-pressed="false">My data set<span class="case-sub">from my student ID</span></button>
+      </div>
+      <p id="id-note" class="id-note" role="status" aria-live="polite"></p>
+      <p id="dataset-line" class="dataset-line">Loading the station record…</p>
+      <details class="source-box"><summary>Where the data come from</summary>
+        <p>The road-level station of Labs 01 to 04: NOx(GT) from the reference analyzer, air temperature T, benzene C6H6(GT), and the low-cost sensor PT08.S1(CO). Missing hours (-200) are left out; a daily mean needs at least 18 valid hours. Nothing else is changed.</p>
+        <p>Part A windows are the 16-week windows (about 50, all starting in June to August 2004) where the daily correlation of temperature and NOx is at least 0.4 in size and at least 70 days have both. Part B windows are any 16 weeks with a usable 14-day calibration (about 280).</p>
+        <p>Source: S. De Vito, Air Quality, UCI Machine Learning Repository, <a href="https://doi.org/10.24432/C59K5F">doi:10.24432/C59K5F</a>, CC BY 4.0. The paper describes the sensor drift used in Part B: De Vito et al., Sensors and Actuators B 129 (2008) 750–757, <a href="https://doi.org/10.1016/j.snb.2007.09.060">doi:10.1016/j.snb.2007.09.060</a>.</p>
+      </details>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s2">
+      <div class="step-head"><span class="step-number">02</span><div><h2 id="s2">Part A · The analyst's correlation</h2><p>Daily temperature against daily NOx over your 16 weeks.</p></div></div>
+      <figure class="figure-block"><div class="figure-scroll"><svg id="scatter-raw"></svg></div><figcaption id="raw-caption"></figcaption></figure>
+      <label for="p-third">Name something other than temperature that changes over these 16 weeks and could move NOx too.</label>
+      <textarea id="p-third" rows="2" maxlength="3000"></textarea>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s3">
+      <div class="step-head"><span class="step-number">03</span><div><h2 id="s3">Predict</h2><p>Remove the slow seasonal change from both series (a 29-day centered rolling mean) and correlate what is left: the day-to-day ups and downs.</p></div></div>
+      <div class="notebook-list"><div class="notebook-item"><label for="p-r">Your estimate of r after removing the trend (−1 to 1)</label><input id="p-r" type="text" inputmode="decimal" autocomplete="off"></div></div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s4">
+      <div class="step-head"><span class="step-number">04</span><div><h2 id="s4">Check the AI's code</h2><p>The analyst asked an AI assistant: "Does temperature affect NOx in this data?" It returned this.</p></div></div>
+      <pre class="code-block" aria-label="Code written by an AI assistant"><span class="ln">daily = pd.read_csv(<span class="s">"nox_temp_daily.csv"</span>, index_col=<span class="s">"date"</span>)</span><span class="ln">r = daily[<span class="s">"T_degC"</span>].corr(daily[<span class="s">"NOx_ppb"</span>])</span><span class="ln">print(f<span class="s">"r = {r:.2f}, r² = {r**2:.0%}"</span>)</span><span class="ln"><span class="c"># "Temperature explains about 30 % of NOx: colder days cause higher NOx."</span></span></pre>
+      <div class="concept-question">
+        <h3>The number is computed correctly. What is wrong with the sentence under it, and what would you do before writing any sentence?</h3>
+        <label for="ai-answer" class="visually-hidden">Your answer</label>
+        <textarea id="ai-answer" rows="3" maxlength="3000" placeholder="Write your answer first (at least one full sentence)."></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer">
+          <p>"Explains" and "cause" are claims the correlation cannot make. Between summer and autumn, temperature falls and NOx rises, and other things change with the season too, for example traffic returning after the summer holidays, heating, and shallower mixing of the air in autumn. Any two series that both drift through a season correlate, whether or not one acts on the other.</p>
+          <p>Before writing the sentence, remove what both series share (here the seasonal trend; in Session 9, the hour of day) and look at whether the day-to-day changes still move together. Then say what you tested and what you did not.</p>
+          <p class="fix-line">trend = daily.rolling(29, center=True, min_periods=15).mean()
+print((daily - trend)["T_degC"].corr((daily - trend)["NOx_ppb"]))</p>
+        </div></details>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s5">
+      <div class="step-head"><span class="step-number">05</span><div><h2 id="s5">Your notebook numbers</h2><p>Download your Part A file (one row per day). Ask an AI assistant for code that reports the three numbers below, read it before you run it, and enter what you get.</p></div></div>
+      <p><button id="download-csv" class="secondary-button" type="button">Download my file (CSV)</button></p>
+      <div id="notebook-list" class="notebook-list"></div>
+      <p id="locked-note" class="locked-note">Enter your numbers before you remove the trend. Doing so locks your numbers and your prediction.</p>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s6">
+      <div class="step-head"><span class="step-number">06</span><div><h2 id="s6">Remove the trend</h2><p>Both series, then what is left after the seasonal trend is taken out.</p></div></div>
+      <button id="run-detrend" class="primary-button calculate-button" type="button" disabled>Remove the seasonal trend</button>
+      <div id="results" hidden>
+        <figure class="figure-block"><div class="figure-scroll"><svg id="series-chart"></svg></div><figcaption>Amber: NOx. Teal: temperature. Each drawn as standard deviations from its own mean; dashed: the 29-day trend.</figcaption></figure>
+        <div class="two-figs"><figure class="figure-block"><div class="figure-scroll"><svg id="scatter-a"></svg></div><figcaption>As reported: daily values.</figcaption></figure><figure class="figure-block"><div class="figure-scroll"><svg id="scatter-b"></svg></div><figcaption>After removing both trends.</figcaption></figure></div>
+        <p id="detrend-readout" class="result-lead"></p>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s7">
+      <div class="step-head"><span class="step-number">07</span><div><h2 id="s7">Part B · When did the drift start?</h2><p>The sensor was calibrated against benzene on the first 14 days (shaded). Each point is a day's mean difference between benzene and the calibrated sensor. Before any rule, mark the day you think the drift started.</p></div></div>
+      <figure class="figure-block"><div class="figure-scroll"><svg id="drift-chart"></svg></div><figcaption>Dashed: the calibration mean ± 3 standard deviations of the 14 calibration days.</figcaption></figure>
+      <div class="notebook-list"><div class="notebook-item"><label for="p-onset">The day you think the drift started</label><select id="p-onset"></select></div></div>
+      <button id="run-cusum" class="primary-button calculate-button" type="button" disabled>Run the CUSUM chart and the 3σ rule</button>
+      <div id="cusum-box" hidden>
+        <figure class="figure-block"><div class="figure-scroll"><svg id="cusum-chart"></svg></div><figcaption>CUSUM adds up each day's distance from the calibration mean (minus an allowance k = 0.5σ). It raises an alarm when a sum passes h = 5σ.</figcaption></figure>
+        <p id="cusum-readout" class="result-lead"></p>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s8">
+      <div class="step-head"><span class="step-number">08</span><div><h2 id="s8">Check your understanding</h2><p>Write first, then compare.</p></div></div>
+      <div class="concept-question">
+        <h3>After removing the trend your correlation was small. Does that prove temperature has no effect on NOx?</h3>
+        <label for="c-effect" class="visually-hidden">Your answer</label>
+        <textarea id="c-effect" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>No. It shows that, in this window, day-to-day temperature changes do not move NOx much; it says nothing certain about the seasonal part, where temperature and the other seasonal causes cannot be separated with this data. Showing that temperature acts on NOx needs a variable that changes temperature alone (an experiment, a cold spell in a stable traffic period) or a mechanism you can measure. Correlation can point to a question; it cannot settle it.</p></div></details>
+      </div>
+      <div class="concept-question">
+        <h3>The 3σ rule waits for one day far from the mean. CUSUM adds up small differences. Why does CUSUM usually find a slow drift earlier?</h3>
+        <label for="c-cusum" class="visually-hidden">Your answer</label>
+        <textarea id="c-cusum" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>A drift of one standard deviation hardly ever produces a single day beyond 3σ, so the 3σ rule may wait weeks. CUSUM keeps a running total of the excess over the allowance; a small but persistent shift adds up day after day and crosses h within a few days. The last day the sum was zero is also a useful estimate of when the shift began, which the 3σ rule cannot give. The price is more false alarms if k and h are set too low.</p></div></details>
+      </div>
+    </section>
+
+    <section class="lab-step graduate-section grad-only" aria-labelledby="s9">
+      <div class="step-head"><span class="step-number">09</span><div><h2 id="s9">Extension: tune the CUSUM chart</h2><p>A smaller allowance k and limit h react sooner and alarm more often on noise.</p></div></div>
+      <div class="graduate-step">
+        <div class="range-row"><label for="ck">Allowance k (σ)</label><output id="ck-out" for="ck">0.5</output><input id="ck" type="range" min="0.25" max="1.5" step="0.25" value="0.5" aria-describedby="ck-out"></div>
+        <div class="range-row"><label for="ch">Decision limit h (σ)</label><output id="ch-out" for="ch">5</output><input id="ch" type="range" min="2" max="8" step="0.5" value="5" aria-describedby="ch-out"></div>
+        <button id="run-tune" class="secondary-button" type="button" disabled>Apply</button>
+        <p id="tune-readout" class="ext-readout"></p>
+        <label for="e-tune">The sensor feeds a weekly compliance report; a false alarm costs one lab sample to check. Choose k and h and defend them in two or three sentences.</label>
+        <textarea id="e-tune" rows="3" maxlength="3000"></textarea>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s10">
+      <div class="step-head"><span class="step-number">10</span><div><h2 id="s10">Submit</h2><p>Download one file and upload it to the assignment on myCourseVille.</p></div></div>
+      <ul class="submit-list"><li>The file holds your details, data sets, predictions, answers, notebook numbers and both results.</li><li>It stays on your computer until you upload it. Nothing is sent from this page.</li><li>Open it here later to continue where you stopped.</li></ul>
+      <div class="study-actions"><button id="export-study" class="primary-button" type="button" disabled>Download my study</button><div class="file-control"><label for="import-study">Open a saved study</label><input id="import-study" type="file" accept=".json,application/json"></div></div>
+      <p id="status" class="study-status" role="status" aria-live="polite"></p>
+    </section>
+    <noscript><p class="error-summary">This lab needs JavaScript.</p></noscript>
+  </main>
+  <footer class="site-footer"><span>2105315 Data Analytics in Chemical Engineering · Chulalongkorn University</span><span>Data: De Vito, UCI Air Quality, CC BY 4.0</span></footer>
+</body>
+</html>

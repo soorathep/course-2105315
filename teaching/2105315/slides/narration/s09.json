@@ -1,0 +1,358 @@
+{
+ "title-slide": {
+  "text": [
+   {
+    "en": "Session nine. Correlated, or driven?",
+    "th": "คาบที่เก้า สัมพันธ์กัน หรือถูกขับเคลื่อน"
+   },
+   {
+    "en": "Two variables can move together because one drives the other, or because a third one moves both. Today we learn to tell which.",
+    "th": "ตัวแปรสองตัวอาจเคลื่อนไหวไปด้วยกันเพราะตัวหนึ่งขับอีกตัว หรือเพราะมีตัวที่สามขับทั้งคู่ วันนี้เราจะเรียนวิธีแยกแยะ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.07
+    ],
+    [
+     3.42,
+     12.06
+    ]
+   ]
+  }
+ },
+ "course-map": {
+  "text": [
+   {
+    "en": "This is the first session of week five. Week four showed one variable honestly.",
+    "th": "นี่คือคาบแรกของสัปดาห์ที่ห้า สัปดาห์ที่สี่เราแสดงตัวแปรหนึ่งตัวอย่างซื่อตรง"
+   },
+   {
+    "en": "This week puts two side by side: today correlation, next time a sensor that drifts.",
+    "th": "สัปดาห์นี้วางสองตัวแปรเทียบกัน วันนี้เรื่องสหสัมพันธ์ คาบหน้าเรื่องเซนเซอร์ที่ค่าเลื่อน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/course-map.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.65
+    ],
+    [
+     6.0,
+     11.84
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   {
+    "en": "We start with the two plant variables you brought. Then one correlation seen three ways.",
+    "th": "เราเริ่มจากตัวแปรในโรงงานสองตัวที่คุณเตรียมมา จากนั้นดูสหสัมพันธ์หนึ่งค่าในสามมุมมอง"
+   },
+   {
+    "en": "Then six pairs to judge, four checks before you claim a cause, and Lab 05, Steps 1 to 3.",
+    "th": "แล้วตัดสินคู่ตัวแปรหกคู่ ดูการตรวจสอบสี่ข้อก่อนอ้างว่าเป็นสาเหตุ และทำแล็บที่ห้า ขั้นที่หนึ่งถึงสาม"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.99
+    ],
+    [
+     6.34,
+     13.81
+    ]
+   ]
+  }
+ },
+ "warmup": {
+  "text": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. Tell your neighbor the two plant variables you chose.",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที บอกเพื่อนถึงตัวแปรในโรงงานสองตัวที่คุณเลือก"
+   },
+   {
+    "en": "Do they rise and fall together? Which one would a report say drives the other? And what could move both?",
+    "th": "มันขึ้นลงไปด้วยกันไหม รายงานจะบอกว่าตัวไหนขับอีกตัว และอะไรที่อาจขับทั้งคู่"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/warmup.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.86
+    ],
+    [
+     6.21,
+     12.97
+    ]
+   ]
+  }
+ },
+ "views": {
+  "text": [
+   {
+    "en": "This is daily temperature against daily NOx over sixteen summer weeks. The correlation is minus zero point five seven: cooler days had more NOx.",
+    "th": "นี่คืออุณหภูมิรายวันเทียบกับ NOx รายวันตลอดสิบหกสัปดาห์ช่วงฤดูร้อน ค่าสหสัมพันธ์คือลบศูนย์จุดห้าเจ็ด วันที่เย็นกว่ามี NOx มากกว่า"
+   },
+   {
+    "en": "Press Both over time. Temperature stays high until mid-September, then falls. NOx is lowest in August and rises sharply in September.",
+    "th": "กดปุ่มดูทั้งสองตามเวลา อุณหภูมิสูงจนถึงกลางเดือนกันยายนแล้วลดลง NOx ต่ำสุดในเดือนสิงหาคมและเพิ่มขึ้นมากในเดือนกันยายน"
+   },
+   {
+    "en": "Both follow the calendar. Now press After removing the trend. Each value minus its own twenty-nine-day average leaves the day-to-day changes.",
+    "th": "ทั้งสองตามปฏิทิน ต่อไปกดปุ่มหลังเอาแนวโน้มออก ค่าแต่ละวันลบด้วยค่าเฉลี่ยยี่สิบเก้าวันของตัวเอง เหลือเฉพาะการเปลี่ยนแปลงรายวัน"
+   },
+   {
+    "en": "The correlation falls to zero point one four. Most of the reported correlation came from the season that moved both.",
+    "th": "ค่าสหสัมพันธ์ลดเหลือศูนย์จุดหนึ่งสี่ สหสัมพันธ์ส่วนใหญ่ที่รายงานมาจากฤดูกาลที่ขับทั้งสองตัว"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/views.en.mp3",
+   "cues": [
+    [
+     0.25,
+     12.03
+    ],
+    [
+     12.38,
+     22.74
+    ],
+    [
+     23.09,
+     33.36
+    ],
+    [
+     33.71,
+     41.58
+    ]
+   ]
+  }
+ },
+ "r-means": {
+  "text": [
+   {
+    "en": "The correlation r measures how closely the points follow one straight line, from minus one to plus one.",
+    "th": "ค่าสหสัมพันธ์ r วัดว่าจุดเรียงตัวใกล้เส้นตรงเส้นเดียวแค่ไหน มีค่าตั้งแต่ลบหนึ่งถึงบวกหนึ่ง"
+   },
+   {
+    "en": "It is not the slope, not the size of an effect, and not a direction of cause.",
+    "th": "มันไม่ใช่ความชัน ไม่ใช่ขนาดของผล และไม่บอกทิศทางของเหตุ"
+   },
+   {
+    "en": "Any variation the two series share feeds it, including a slow trend over weeks. So r squared is not the share that one variable explains in the other.",
+    "th": "ความแปรผันใดก็ตามที่สองอนุกรมมีร่วมกันส่งผลต่อค่านี้ รวมถึงแนวโน้มช้าๆ ข้ามสัปดาห์ ดังนั้น r กำลังสองไม่ใช่สัดส่วนที่ตัวแปรหนึ่งอธิบายอีกตัว"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/r-means.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.27
+    ],
+    [
+     7.62,
+     12.76
+    ],
+    [
+     13.11,
+     23.54
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   {
+    "en": "Activity one, in pairs, ten minutes, no computer needed. Six pairs of variables that move together.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที ไม่ต้องใช้คอมพิวเตอร์ ตัวแปรหกคู่ที่เคลื่อนไหวไปด้วยกัน"
+   },
+   {
+    "en": "For each pair, decide: does one drive the other, does something else move both, or can you not tell? Say what you would check, then reveal.",
+    "th": "สำหรับแต่ละคู่ ตัดสินว่าตัวหนึ่งขับอีกตัว มีอย่างอื่นขับทั้งคู่ หรือบอกไม่ได้ บอกว่าจะตรวจสอบอะไร แล้วจึงกดดูคำตอบ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.63
+    ],
+    [
+     7.98,
+     16.9
+    ]
+   ]
+  }
+ },
+ "checks": {
+  "text": [
+   {
+    "en": "Four checks before you claim a cause. First, remove what both share: a slow trend, the hour, the load, the season.",
+    "th": "การตรวจสอบสี่ข้อก่อนอ้างว่าเป็นสาเหตุ ข้อแรก เอาสิ่งที่ทั้งสองมีร่วมกันออก เช่น แนวโน้มช้า ช่วงเวลาของวัน ภาระการผลิต หรือฤดูกาล"
+   },
+   {
+    "en": "Second, look at the timing: a cause comes first. Third, name the mechanism, or write associated with instead of causes.",
+    "th": "ข้อสอง ดูลำดับเวลา สาเหตุต้องมาก่อน ข้อสาม ระบุกลไก ถ้าระบุไม่ได้ ให้เขียนว่ามีความสัมพันธ์ แทนคำว่าเป็นสาเหตุ"
+   },
+   {
+    "en": "Fourth, change it on purpose with a planned test. And a small r after removing the trend does not prove there is no effect either.",
+    "th": "ข้อสี่ เปลี่ยนตัวแปรโดยตั้งใจด้วยการทดสอบที่วางแผนไว้ และค่า r ที่เล็กหลังเอาแนวโน้มออก ก็ไม่ได้พิสูจน์ว่าไม่มีผลเช่นกัน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/checks.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.4
+    ],
+    [
+     8.75,
+     17.58
+    ],
+    [
+     17.93,
+     26.53
+    ]
+   ]
+  }
+ },
+ "act2": {
+  "text": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 05 and load your own data set. Read the analyst’s scatter plot, name a third variable, and predict r after the trend is removed.",
+    "th": "เปิดแล็บที่ห้าและโหลดชุดข้อมูลของคุณ อ่านกราฟการกระจายของนักวิเคราะห์ ระบุตัวแปรที่สาม และทำนายค่า r หลังเอาแนวโน้มออก"
+   },
+   {
+    "en": "Do not remove the trend yet. Download your study in Step 10 to keep your work.",
+    "th": "อย่าเพิ่งเอาแนวโน้มออก ดาวน์โหลดไฟล์งานในขั้นที่สิบเพื่อเก็บงานไว้"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/act2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.69
+    ],
+    [
+     6.04,
+     17.13
+    ],
+    [
+     17.48,
+     23.01
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   {
+    "en": "What r did the analyst report for your sixteen weeks, and what did you predict after removing the trend?",
+    "th": "นักวิเคราะห์รายงานค่า r เท่าไรสำหรับสิบหกสัปดาห์ของคุณ และคุณทำนายว่าหลังเอาแนวโน้มออกจะเป็นเท่าไร"
+   },
+   {
+    "en": "What third variable did you name, and what would you check to test it?",
+    "th": "คุณระบุตัวแปรที่สามว่าอะไร และจะตรวจสอบอะไรเพื่อทดสอบ"
+   },
+   {
+    "en": "Which pair from Activity one was hardest to decide, and why?",
+    "th": "คู่ไหนในกิจกรรมที่หนึ่งตัดสินยากที่สุด และเพราะอะไร"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.01
+    ],
+    [
+     7.36,
+     11.54
+    ],
+    [
+     11.89,
+     16.05
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "Over one year, a plant’s electricity use and its wastewater flow have a correlation of zero point eight. Name one third variable that could move both, and one check you would run.",
+    "th": "ตลอดหนึ่งปี การใช้ไฟฟ้าของโรงงานกับอัตราการไหลของน้ำเสียมีค่าสหสัมพันธ์ศูนย์จุดแปด ระบุตัวแปรที่สามหนึ่งตัวที่อาจขับทั้งคู่ และการตรวจสอบหนึ่งอย่างที่คุณจะทำ"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.27
+    ],
+    [
+     6.62,
+     19.54
+    ],
+    [
+     19.89,
+     25.23
+    ]
+   ]
+  }
+ },
+ "next": {
+  "text": [
+   {
+    "en": "Next session: when did it start? A sensor that slowly drifts away from the analyzer, and two rules that find the start.",
+    "th": "คาบหน้า เริ่มเมื่อไร เซนเซอร์ที่ค่าค่อยๆ เลื่อนออกจากเครื่องวิเคราะห์ และกฎสองแบบที่หาจุดเริ่ม"
+   },
+   {
+    "en": "Before you come, download your file in Lab 05, Step 5, and ask an AI assistant for code that reports the three numbers there. Read the code before you run it.",
+    "th": "ก่อนมาเรียน ดาวน์โหลดไฟล์ในแล็บที่ห้า ขั้นที่ห้า แล้วขอให้ AI เขียนโค้ดที่รายงานตัวเลขสามค่าในขั้นนั้น อ่านโค้ดก่อนรัน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/next.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.8
+    ],
+    [
+     9.15,
+     21.59
+    ]
+   ]
+  }
+ }
+}

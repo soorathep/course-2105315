@@ -265,3 +265,74 @@ export function trendChart(svg, days, fit, from, to, unit = 'µg m⁻³') {
   svg.append(g);
   svg.append(el('line', { class: 'trend-line', x1: x(fit.x0), x2: x(fit.x1), y1: y(fit.intercept + fit.slope * fit.x0), y2: y(fit.intercept + fit.slope * fit.x1) }));
 }
+
+/** Lab 05 · two daily series on their own scales (each drawn as z-scores), with dashed seasonal trends. */
+export function pairSeries(svg, days, a, b, ta, tb, labels) {
+  const z = (xs) => { const v = xs.filter(Number.isFinite), m = v.reduce((s, x) => s + x, 0) / v.length, sd = Math.sqrt(v.reduce((s, x) => s + (x - m) ** 2, 0) / (v.length - 1)); return [(x) => (x - m) / sd]; };
+  const [za] = z(a), [zb] = z(b), n = days.length;
+  frame(svg, `${labels[0]} (amber) and ${labels[1]} (teal), daily, each scaled to its own mean and spread, with dashed 29-day trends.`);
+  const x = (k) => M.l + (k / (n - 1)) * (W - M.l - M.r), y = (v) => M.t + (1 - (v + 3) / 6) * (H - M.t - M.b);
+  yAxis(svg, y, [-2, 0, 2], 'standard deviations from mean', (v) => (v > 0 ? `+${v}` : String(v)));
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  days.forEach((d, k) => { if (d.endsWith('-01')) ax.append(el('text', { x: x(k), y: H - M.b + 18, 'text-anchor': 'middle' }, `1/${d.slice(5, 7)}`)); });
+  svg.append(ax);
+  const line = (xs, f, cls) => { let d = '', pen = false; xs.forEach((v, k) => { if (!Number.isFinite(v)) { pen = false; return; } d += `${pen ? 'L' : 'M'}${x(k).toFixed(1)},${y(Math.max(-3, Math.min(3, f(v)))).toFixed(1)}`; pen = true; }); svg.append(el('path', { class: cls, d })); };
+  line(b, zb, 'series-ref'); line(a, za, 'series-effect');
+  line(tb, zb, 'trend-ref'); line(ta, za, 'trend-eff');
+}
+
+/** Lab 05 · scatter of two series with their r. Points coloured by position in the window (sequential teal). */
+export function scatter(svg, xs, ys, labels, r) {
+  const p = xs.map((v, i) => [v, ys[i], i]).filter(([a, b]) => Number.isFinite(a) && Number.isFinite(b));
+  const lo = (v) => Math.min(...v), hi = (v) => Math.max(...v), ax0 = lo(p.map((q) => q[0])), ax1 = hi(p.map((q) => q[0])), ay0 = lo(p.map((q) => q[1])), ay1 = hi(p.map((q) => q[1]));
+  const padx = (ax1 - ax0) * 0.06 || 1, pady = (ay1 - ay0) * 0.08 || 1;
+  frame(svg, `Scatter of ${labels[1]} against ${labels[0]}; r = ${r.toFixed(2)}. Darker points are later in the window.`);
+  const x = (v) => M.l + ((v - ax0 + padx) / (ax1 - ax0 + 2 * padx)) * (W - M.l - M.r), y = (v) => M.t + (1 - (v - ay0 + pady) / (ay1 - ay0 + 2 * pady)) * (H - M.t - M.b);
+  yAxis(svg, y, niceTicks(ay0 - pady, ay1 + pady, 5), labels[1], (v) => String(+v.toFixed(2)));
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  for (const v of niceTicks(ax0 - padx, ax1 + padx, 6)) ax.append(el('text', { x: x(v), y: H - M.b + 18, 'text-anchor': 'middle' }, String(+v.toFixed(2))));
+  ax.append(el('text', { class: 'ax-label', x: M.l + (W - M.l - M.r) / 2, y: H - 6, 'text-anchor': 'middle' }, labels[0]));
+  svg.append(ax);
+  const n = Math.max(...p.map((q) => q[2])) || 1, ramp = ['#C7E3E1', '#8CC5C1', '#4E9E99', '#0F6E6B', '#08403E'];
+  for (const [a, b, i] of p) svg.append(el('circle', { cx: x(a), cy: y(b), r: 4.5, fill: ramp[Math.min(4, Math.floor((i / n) * 5))], stroke: '#1C242B', 'stroke-width': 0.4 }));
+  svg.append(el('text', { class: 'bar-label', x: W - M.r - 6, y: M.t + 16, 'text-anchor': 'end' }, `r = ${r.toFixed(2).replace('-', '−')}`));
+}
+
+/** Lab 05 · daily mean residual of the calibrated sensor. Sand band: calibration days. Dashed: mean ± 3 sigma.
+ * Vertical marks: the student's guess (graphite), the CUSUM onset and alarm (amber), the 3-sigma alarm (rust). */
+export function driftChart(svg, days, daily, mu, sigma, marks = {}) {
+  const n = days.length, v = daily.filter(Number.isFinite), top = Math.max(...v, mu + 3.5 * sigma), bot = Math.min(...v, mu - 3.5 * sigma);
+  frame(svg, 'Daily mean difference between benzene and the calibrated sensor, over 16 weeks.');
+  const x = (k) => M.l + ((k + 0.5) / n) * (W - M.l - M.r), y = (val) => M.t + (1 - (val - bot) / (top - bot)) * (H - M.t - M.b);
+  svg.append(el('rect', { class: 'threshold-band', x: M.l, y: M.t, width: x(13.5) - M.l, height: H - M.t - M.b }));
+  yAxis(svg, y, niceTicks(bot, top, 5), 'residual / µg m⁻³', (q) => String(+q.toFixed(1)));
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  days.forEach((d, k) => { if (k % 14 === 0) ax.append(el('text', { x: x(k), y: H - M.b + 18, 'text-anchor': 'middle' }, `${d.slice(8, 10)}/${d.slice(5, 7)}`)); });
+  svg.append(ax);
+  for (const lvl of [mu - 3 * sigma, mu + 3 * sigma]) svg.append(el('line', { class: 'limit-line', x1: M.l, x2: W - M.r, y1: y(lvl), y2: y(lvl) }));
+  svg.append(el('line', { class: 'zero-line', x1: M.l, x2: W - M.r, y1: y(mu), y2: y(mu) }));
+  const ms = [[marks.guess, 'mk-guess', 'your guess'], [marks.onset, 'mk-onset', 'CUSUM: start'], [marks.alarm, 'mk-alarm', 'CUSUM alarm'], [marks.thr, 'mk-thr', '3σ alarm']]
+    .filter((m) => Number.isInteger(m[0])).map((m, i) => ({ k: m[0], cls: m[1], label: m[2], dy: 12 + 14 * i }));
+  for (const m of ms) svg.append(el('line', { class: m.cls, x1: x(m.k), x2: x(m.k), y1: M.t, y2: H - M.b }));
+  // Labels of lines that sit close together start to the right of the rightmost line in the group.
+  for (const m of ms) { const near = ms.filter((o) => Math.abs(x(o.k) - x(m.k)) < 60).map((o) => x(o.k)); svg.append(el('text', { class: `${m.cls}-t`, x: Math.max(...near) + 5, y: M.t + m.dy }, m.label)); }
+  daily.forEach((val, k) => { if (Number.isFinite(val)) svg.append(el('circle', { class: k < 14 ? 'pt-ref' : 'pt-ref-small', cx: x(k), cy: y(val), r: k < 14 ? 3.5 : 3 })); });
+}
+
+/** Lab 05 · the two CUSUM sums and the decision limit h. */
+export function cusumChart(svg, days, up, down, Hs) {
+  const n = days.length, top = Math.max(Hs * 1.3, ...up, ...down);
+  frame(svg, 'CUSUM sums: amber for upward drift, teal for downward drift; dashed line: the decision limit.');
+  const x = (k) => M.l + ((k + 0.5) / n) * (W - M.l - M.r), y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
+  yAxis(svg, y, niceTicks(0, top, 4), 'CUSUM / µg m⁻³', (q) => String(+q.toFixed(1)));
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  days.forEach((d, k) => { if (k % 14 === 0) ax.append(el('text', { x: x(k), y: H - M.b + 18, 'text-anchor': 'middle' }, `${d.slice(8, 10)}/${d.slice(5, 7)}`)); });
+  svg.append(ax);
+  svg.append(el('line', { class: 'limit-line', x1: M.l, x2: W - M.r, y1: y(Hs), y2: y(Hs) }));
+  const line = (xs, cls) => svg.append(el('path', { class: cls, d: xs.map((v, k) => `${k ? 'L' : 'M'}${x(k).toFixed(1)},${y(v).toFixed(1)}`).join('') }));
+  line(down, 'series-ref'); line(up, 'series-effect');
+}

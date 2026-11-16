@@ -1,0 +1,270 @@
+---
+title: "Correlated, or driven?"
+subtitle: "Session 9 of 14 · 90 minutes · When two variables move together"
+author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where this session sits {#course-map}
+
+::: {.coursemap14}
+[Week 1 · Import and audit]{.wk} [1 · Data you can trust]{.cm} [2 · Audit and the AI's code]{.cm}
+[Week 2 · Missing data]{.wk} [3 · Why values go missing]{.cm} [4 · Filling gaps you can defend]{.cm}
+[Week 3 · Outliers and noise]{.wk} [5 · Spike or real event?]{.cm} [6 · Smoothing without lying]{.cm}
+[Week 4 · Visualization]{.wk} [7 · Trends and distributions]{.cm} [8 · Figures that tell the truth]{.cm}
+[Week 5 · Correlation and anomalies]{.wk .now} [9 · Correlated or driven?]{.cm .now} [10 · When did it start?]{.cm}
+[Week 6 · Hypothesis tests]{.wk} [11 · Did the change work?]{.cm} [12 · Tests on plant data]{.cm}
+[Week 7 · Integrated case]{.wk} [13 · Raw file to decision]{.cm} [14 · Defend your decision]{.cm}
+:::
+
+::: {.bridge}
+Week 4 was about showing one variable honestly. Week 5 puts two side by side. Today: when two variables move together, and when a third one moves both.
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .act}
+[0–10]{.t} **Warm-up** [Two tags that move together]{.d}
+:::
+::: {.seg .concept}
+[10–30]{.t} **Concepts** [One correlation, three views]{.d}
+:::
+::: {.seg .act}
+[30–42]{.t} **Activity 1** [Correlated or driven?]{.d}
+:::
+::: {.seg .concept}
+[42–55]{.t} **Concepts** [Checks before a cause]{.d}
+:::
+::: {.seg .act}
+[55–80]{.t} **Activity 2** [Lab 05, Steps 1 to 3]{.d}
+:::
+::: {.seg .wrap}
+[80–90]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: a correlation of −0.57 was reported. How much of it is the effect the report claims?
+:::
+
+## Warm-up · Two tags that move together {#warmup .activity}
+
+[Pairs · 8 minutes · your homework]{.act-label}
+
+::: {.prompt}
+Tell your neighbor the two plant variables you chose. Do they rise and fall together? Is one driving the other, or does something else move both?
+:::
+
+::: {.checks3}
+::: {.c4}
+[1 · The pair]{.label}
+Which two variables, and in which direction do they move together?
+:::
+::: {.c4}
+[2 · The claim]{.label}
+Which one would a report say drives the other?
+:::
+::: {.c4}
+[3 · A third one]{.label}
+Name one thing that could move both: load, season, feed, a shift change.
+:::
+:::
+
+::: {.selfstudy}
+Studying alone: write the three answers for your pair.
+:::
+
+## One correlation, three views {#views data-hold="true"}
+
+```{=html}
+<div class="rl" id="rl">
+  <div class="sm-controls">
+    <div class="sm-mode rl-mode" role="group" aria-label="View">
+      <button type="button" data-v="raw" aria-pressed="true">As reported</button>
+      <button type="button" data-v="time" aria-pressed="false">Both over time</button>
+      <button type="button" data-v="det" aria-pressed="false">After removing the trend</button>
+    </div>
+  </div>
+  <svg id="rl-plot" viewBox="0 0 1160 380" role="img" aria-label="Daily NOx and temperature, Demo A"></svg>
+  <p class="sm-readout" id="rl-out" aria-live="polite"></p>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('rl'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Real daily means, 20 June to 9 October 2004 (UCI Air Quality). Trends: 29-day centered rolling mean, min_periods 15.
+  const D = {"temp":[null,25.43,25.5,27.22,27.81,27.88,28.09,31.24,31.1,31.12,31.61,30.45,30.19,28.71,29.07,29.56,30.54,32.39,32.47,29,26.62,25.77,22.75,24.89,27.61,27.85,28.62,29.82,30.55,31.13,32.23,32.36,33,32.56,30.11,26.76,30.11,28.02,28.37,29.45,30.03,31.1,30.65,30.55,30.7,30.58,26.3,26.48,29.1,28.04,28.19,31.55,31.5,30.74,29.81,29.96,29.81,30.08,30.39,29.84,32.23,30.62,26.79,27.54,28,27.99,28.61,null,null,27.88,27.52,27.08,27.3,27.07,28.92,29.98,30.37,29.2,26.63,27.52,null,28.53,27.91,27.21,24.65,26.26,25.2,22.84,21.43,21.8,24.03,24.83,25.57,24.7,24.6,25.5,21.13,17.85,18.43,19.02,19.89,21,21.29,22.07,22.82,23.01,22.18,23.16,22.78,23.13,23.29,24.88],"nox":[64,112,170,178,92,142,94,76,136,146,162,140,146,97,63,155,193,203,181,138,71,64,147,192,190,154,164,93,63,145,152,128,161,132,73,48,94,94,117,120,117,96,52,84,133,null,null,127,63,48,63,81,67,65,57,46,34,71,null,null,41,null,null,null,null,92,89,79,108,null,null,null,null,258,null,null,null,null,null,null,null,334,291,null,null,null,null,null,305,236,180,216,307,338,310,257,306,109,197,307,386,343,null,null,null,null,null,null,null,null,317,288],"tT":[null,29,29.1,29.29,29.47,29.44,29.3,29.13,28.84,28.67,28.63,28.6,28.6,28.64,28.71,28.79,29.03,29.26,29.46,29.63,29.7,29.66,29.62,29.51,29.42,29.34,29.33,29.36,29.43,29.48,29.52,29.52,29.31,29.1,29.11,29.15,29.24,29.54,29.77,29.88,29.94,29.99,29.99,29.97,29.95,29.87,29.86,29.78,29.58,29.49,29.54,29.46,29.48,29.52,29.52,29.45,29.31,29.18,29.06,28.93,28.86,29,29.14,29.15,29.1,29.07,28.98,28.86,28.75,28.65,28.45,28.31,28.12,27.83,27.51,27.11,26.86,26.78,26.7,26.58,26.45,26.33,26.14,25.84,25.5,25.2,24.94,24.72,24.51,24.27,24.01,23.75,23.5,23.37,23.2,23.2,23.02,22.92,22.76,22.69,22.55,22.45,22.43,22.48,22.51,22.43,22.31,22.14,22,21.85,21.62,21.65],"tN":[121,123,128,132,134,134,131,128,129,132,134,135,136,134,132,135,136,135,134,135,133,131,132,131,130,128,127,126,124,125,124,122,119,117,114,113,113,110,106,101,98,93,91,91,89,87,83,80,78,78,79,79,79,77,77,75,74,75,74,82,82,82,79,80,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,263,271,275,276,276,276,276,276,276,276,276,275,275,275,275,275,275,275,273,null,null,null,null,null,null,null,null],"dT":[null,-3.57,-3.59,-2.07,-1.66,-1.56,-1.21,2.11,2.26,2.45,2.98,1.85,1.59,0.07,0.36,0.77,1.51,3.12,3.01,-0.63,-3.08,-3.89,-6.87,-4.62,-1.81,-1.49,-0.71,0.46,1.12,1.65,2.71,2.84,3.69,3.46,1,-2.4,0.87,-1.52,-1.4,-0.43,0.08,1.11,0.66,0.57,0.76,0.71,-3.56,-3.3,-0.48,-1.45,-1.35,2.08,2.02,1.22,0.28,0.51,0.5,0.89,1.33,0.91,3.37,1.62,-2.35,-1.61,-1.09,-1.08,-0.36,null,null,-0.78,-0.93,-1.23,-0.82,-0.76,1.41,2.87,3.51,2.42,-0.07,0.94,null,2.2,1.78,1.37,-0.85,1.06,0.25,-1.88,-3.08,-2.47,0.01,1.08,2.07,1.33,1.4,2.3,-1.89,-5.07,-4.34,-3.67,-2.66,-1.45,-1.15,-0.4,0.31,0.58,-0.14,1.01,0.78,1.28,1.67,3.23],"dN":[-57,-11,42,46,-42,8,-37,-52,7,14,28,5,10,-37,-69,20,57,69,47,2,-62,-68,14,62,60,26,36,-33,-61,20,28,6,43,16,-40,-65,-19,-17,11,19,19,3,-39,-7,44,null,null,46,-15,-30,-17,2,-12,-12,-19,-28,-40,-4,null,null,-41,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,28,-40,-96,-61,31,62,34,-20,30,-166,-78,31,111,68,null,null,null,null,null,null,null,null,null,null]};
+  const W = 1160, H = 380, L = 78, R = 20, T = 16, B = 52, n = D.temp.length;
+  const grid = (ys, V, fmt) => ys.map((v) => `<line x1="${L}" x2="${W - R}" y1="${V(v)}" y2="${V(v)}" stroke="#B9C1C6"/><text x="${L - 10}" y="${V(v) + 6}" text-anchor="end" font-size="17" fill="#333F4A">${fmt(v)}</text>`).join('');
+  const frame = (xl, yl) => `<line x1="${L}" x2="${L}" y1="${T}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/><line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/><text x="${(L + W - R) / 2}" y="${H - 8}" text-anchor="middle" font-size="16" fill="#66727C">${xl}</text><text transform="translate(20 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle" font-size="16" fill="#66727C">${yl}</text>`;
+  const ramp = (k) => { const t = k / (n - 1); const a = [185, 222, 219], b = [8, 62, 60]; return `rgb(${a.map((c, i) => Math.round(c + (b[i] - c) * t)).join(',')})`; };
+  function scatter(xs, ys, xr, yr, xt, yt, xl, yl, r) {
+    const X = (v) => L + ((v - xr[0]) / (xr[1] - xr[0])) * (W - L - R), V = (v) => T + (1 - (v - yr[0]) / (yr[1] - yr[0])) * (H - T - B);
+    const mn = (v) => String(v).replace('-', '−');
+    let g = grid(yt, V, mn) + xt.map((v) => `<text x="${X(v)}" y="${H - B + 22}" text-anchor="middle" font-size="17" fill="#333F4A">${mn(v)}</text>`).join('') + frame(xl, yl);
+    xs.forEach((x, k) => { const y = ys[k]; if (x === null || y === null) return; g += `<circle cx="${X(x).toFixed(1)}" cy="${V(y).toFixed(1)}" r="7" fill="${ramp(k)}" stroke="#fff" stroke-width="1"/>`; });
+    g += `<text x="${W - R - 8}" y="${T + 24}" text-anchor="end" font-size="24" font-weight="700" fill="#1C242B">r = ${r}</text>`;
+    return g;
+  }
+  function series() {
+    const z = (xs) => { const v = xs.filter((x) => x !== null), m = v.reduce((s, x) => s + x, 0) / v.length, sd = Math.sqrt(v.reduce((s, x) => s + (x - m) ** 2, 0) / (v.length - 1)); return (x) => (x - m) / sd; };
+    const zt = z(D.temp), zn = z(D.nox);
+    const X = (k) => L + (k / (n - 1)) * (W - L - R), V = (v) => T + (1 - (v + 3) / 6) * (H - T - B);
+    let g = grid([-2, 0, 2], V, (v) => (v > 0 ? '+' + v : String(v).replace('-', '−'))) + frame('2004', 'standard deviations from mean');
+    [['2004-07-01', 11], ['2004-08-01', 42], ['2004-09-01', 73], ['2004-10-01', 103]].forEach(([d, k]) => { g += `<text x="${X(k)}" y="${H - B + 22}" text-anchor="middle" font-size="17" fill="#333F4A">1/${d.slice(5, 7)}</text>`; });
+    const path = (xs, f, attr) => { let d = '', pen = false; xs.forEach((v, k) => { if (v === null) { pen = false; return; } d += (pen ? 'L' : 'M') + X(k).toFixed(1) + ',' + V(f(v)).toFixed(1); pen = true; }); return `<path d="${d}" fill="none" ${attr}/>`; };
+    g += path(D.temp, zt, 'stroke="#0F6E6B" stroke-width="2"') + path(D.nox, zn, 'stroke="#E29A2D" stroke-width="2.5"');
+    g += path(D.tT, zt, 'stroke="#0A4E4C" stroke-width="3" stroke-dasharray="8 6"') + path(D.tN, zn, 'stroke="#9a5f10" stroke-width="3" stroke-dasharray="8 6"');
+    g += `<text x="${L + 12}" y="${T + 22}" font-size="18" fill="#0F6E6B" font-weight="600">temperature</text><text x="${L + 140}" y="${T + 22}" font-size="18" fill="#9a5f10" font-weight="600">NOx</text><text x="${L + 200}" y="${T + 22}" font-size="17" fill="#66727C">dashed: 29-day trend</text>`;
+    return g;
+  }
+  const NOTE = {
+    raw: '77 days with both. r = −0.57: cooler days had more NOx. Darker points are later in the window.',
+    time: 'Temperature stays near 29 °C until mid-September, then falls. NOx is lowest in August and rises sharply in September. Both follow the calendar.',
+    det: 'Each value minus its own 29-day trend (70 days). r = 0.14: the day-to-day changes hardly move together.',
+  };
+  function draw(v) {
+    let g;
+    if (v === 'raw') g = scatter(D.temp, D.nox, [16, 34], [0, 400], [20, 25, 30], [0, 100, 200, 300, 400], 'daily mean temperature, °C', 'daily mean NOx, ppb', '−0.57');
+    else if (v === 'det') g = scatter(D.dT, D.dN, [-8, 6], [-200, 150], [-6, -4, -2, 0, 2, 4], [-200, -100, 0, 100], 'temperature minus its trend, °C', 'NOx minus its trend, ppb', '0.14');
+    else g = series();
+    document.getElementById('rl-plot').innerHTML = g;
+    document.getElementById('rl-out').textContent = NOTE[v];
+    root.querySelectorAll('[data-v]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.v === v));
+  }
+  root.querySelectorAll('[data-v]').forEach((b) => b.addEventListener('click', () => draw(b.dataset.v)));
+  draw('raw');
+})();
+</script>
+```
+
+[Lab 05, Demo A, 20 June to 9 October 2004. Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
+
+## What r measures {#r-means}
+
+::: {.checks3}
+::: {.c4}
+[What it is]{.label}
+How closely the points follow one straight line, from −1 to +1. The sign gives the direction.
+:::
+::: {.c4}
+[What it is not]{.label}
+Not the slope, not the size of an effect, and not a direction of cause. r = −0.57 does not say temperature changes NOx.
+:::
+::: {.c4}
+[What feeds it]{.label}
+Any variation the two series share. A slow trend that both follow, over weeks, can produce most of r.
+:::
+:::
+
+[r² = 0.32 is often read as "temperature explains 32 % of NOx". That sentence claims a cause the number cannot carry.]{.note-line}
+
+## Activity 1 · Correlated or driven? {#act1 .activity data-hold="true"}
+
+[Pairs · 10 minutes · no computer needed]{.act-label}
+
+```{=html}
+<div class="stories" id="driven">
+  <div class="story"><p>Cooling-water return temperature and product impurity rise together on most afternoons.</p><button type="button">Reveal</button><p class="ans" hidden><b>Third variable:</b> the time of day. Ambient heat raises both. Compare afternoons with afternoons.</p></div>
+  <div class="story"><p>Over a year, steam use and reactor yield fall together.</p><button type="button">Reveal</button><p class="ans" hidden><b>Third variable:</b> throughput. Low-load months use less steam and run off the design point.</p></div>
+  <div class="story"><p>Days with more operator log entries have more off-spec batches.</p><button type="button">Reveal</button><p class="ans" hidden><b>Reverse direction:</b> problems cause the log entries, not the other way round.</p></div>
+  <div class="story"><p>After a new catalyst lot arrived, conversion rose. Feed purity also improved that month.</p><button type="button">Reveal</button><p class="ans" hidden><b>Two changes at once.</b> The data cannot separate them. Session 11 returns to this.</p></div>
+  <div class="story"><p>Column pressure and top temperature move together within every hour.</p><button type="button">Reveal</button><p class="ans" hidden><b>Driven, with a mechanism:</b> boiling point rises with pressure. The physics gives the direction.</p></div>
+  <div class="story"><p>Daily temperature and NOx: r = −0.57 over 16 summer weeks.</p><button type="button">Reveal</button><p class="ans" hidden><b>Mostly the calendar:</b> holidays and season move both. After removing the trend, r = 0.14.</p></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('driven'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  root.querySelectorAll('.story button').forEach((b) => b.addEventListener('click', () => { b.hidden = true; b.nextElementSibling.hidden = false; }));
+})();
+</script>
+```
+
+::: {.prompt .small}
+For each pair: does one drive the other, does something else move both, or can you not tell? Say what you would check.
+:::
+
+## Checks before a cause {#checks}
+
+::: {.checks4}
+::: {.c4}
+[Remove what both share]{.label}
+Subtract each series' slow trend, or compare like with like: same hour, same load, same season.
+:::
+::: {.c4}
+[Look at the timing]{.label}
+A cause comes first. Does one series change before the other, by a consistent lag?
+:::
+::: {.c4}
+[Name a mechanism]{.label}
+Write the physical or chemical reason. If you cannot, say "associated with", not "causes".
+:::
+::: {.c4}
+[Change it on purpose]{.label}
+A planned step test or trial settles what observation cannot. Weeks 6 and 7.
+:::
+:::
+
+[A small r after removing the trend does not prove "no effect" either. It says the day-to-day data show little. Lab 05, Step 8 asks you to explain this.]{.note-line}
+
+## Activity 2 · Lab 05, Steps 1 to 3 {#act2 .activity}
+
+[Individual · 25 minutes · laptop or phone]{.act-label}
+
+1. Open **Lab 05** and enter your name and student ID. Press **My data set**.
+2. Step 2: read the analyst's scatter plot and its r. Name a third variable that could move both.
+3. Step 3: predict r after the seasonal trend is removed.
+4. Do not remove the trend yet. Download your study in Step 10 to keep your work.
+
+[Open Lab 05](../labs/relations.html){.lab-button target="_blank"}
+
+::: {.selfstudy}
+Studying alone: do Steps 1 to 3, then download your study in Step 10.
+:::
+
+## Debrief {#debrief}
+
+::: {.debrief-q}
+[What r did the analyst report for your 16 weeks, and what did you predict after removing the trend?]{.dq}
+[What third variable did you name, and what would you check to test it?]{.dq}
+[Which pair from Activity 1 was hardest to decide, and why?]{.dq}
+:::
+
+## Exit ticket · 5 minutes {#exit .activity}
+
+[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+
+:::: {.columns}
+::: {.column width="64%"}
+::: {.prompt}
+Over one year, a plant's electricity use and its wastewater flow have r = 0.8. Name one third variable that could move both, and one check you would run before saying one drives the other.
+:::
+
+Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+
+No name or student ID is recorded. Wait for **"Response received."**
+:::
+::: {.column width="32%" .qr-col}
+![](figures/exit-qr-s09.png){.qr fig-alt="QR code for the Session 9 exit ticket and feedback form"}
+
+[Open the Session 9 form](exit.html?s=9){target="_blank"}
+:::
+::::
+
+## Next session {#next}
+
+::: {.beforeafter}
+::: {}
+[Session 10 · When did it start?]{.label}
+Part B of Lab 05: a sensor that slowly drifts away from the analyzer, and two rules that find the start.
+:::
+::: {}
+[Before you come]{.label}
+Download your file in Lab 05, Step 5. Ask an AI assistant for code that reports the three numbers there, and read the code before you run it.
+:::
+:::
+
+[Lab 05 is due after Session 10. Submit the study file on myCourseVille.]{.note-line}

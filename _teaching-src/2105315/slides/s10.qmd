@@ -1,0 +1,287 @@
+---
+title: "When did it start?"
+subtitle: "Session 10 of 14 · 90 minutes · Finding a slow drift"
+author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where this session sits {#course-map}
+
+::: {.coursemap14}
+[Week 1 · Import and audit]{.wk} [1 · Data you can trust]{.cm} [2 · Audit and the AI's code]{.cm}
+[Week 2 · Missing data]{.wk} [3 · Why values go missing]{.cm} [4 · Filling gaps you can defend]{.cm}
+[Week 3 · Outliers and noise]{.wk} [5 · Spike or real event?]{.cm} [6 · Smoothing without lying]{.cm}
+[Week 4 · Visualization]{.wk} [7 · Trends and distributions]{.cm} [8 · Figures that tell the truth]{.cm}
+[Week 5 · Correlation and anomalies]{.wk .now} [9 · Correlated or driven?]{.cm} [10 · When did it start?]{.cm .now}
+[Week 6 · Hypothesis tests]{.wk} [11 · Did the change work?]{.cm} [12 · Tests on plant data]{.cm}
+[Week 7 · Integrated case]{.wk} [13 · Raw file to decision]{.cm} [14 · Defend your decision]{.cm}
+:::
+
+::: {.bridge}
+Session 9: a correlation that was mostly the season. Today: a sensor that slowly moves away from the analyzer, and how to find the day it started.
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .act}
+[0–10]{.t} **Warm-up** [Your three numbers]{.d}
+:::
+::: {.seg .act}
+[10–22]{.t} **Activity 1** [The AI's sentence]{.d}
+:::
+::: {.seg .concept}
+[22–50]{.t} **Concepts** [A drifting sensor; CUSUM]{.d}
+:::
+::: {.seg .act}
+[50–80]{.t} **Activity 2** [Lab 05, Steps 4 to 10]{.d}
+:::
+::: {.seg .wrap}
+[80–90]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: a sensor drifts a little every day. Which rule tells you first, and how close does it get to the true start?
+:::
+
+## Warm-up · Your three numbers {#warmup .activity}
+
+[Pairs · 8 minutes · your homework]{.act-label}
+
+::: {.prompt}
+Compare the three numbers your code reported for Lab 05, Step 5. If they differ from your neighbor's, is it the data set or the code?
+:::
+
+::: {.checks3}
+::: {.c4}
+[1 · Days with both]{.label}
+Days where NOx and temperature are both present.
+:::
+::: {.c4}
+[2 · r, as reported]{.label}
+Daily temperature against daily NOx.
+:::
+::: {.c4}
+[3 · r, after the trend]{.label}
+Each series minus its 29-day centered rolling mean.
+:::
+:::
+
+[Keep the second and third numbers. Activity 1 asks what sentence they allow.]{.note-line}
+
+::: {.selfstudy}
+Studying alone: write your three numbers down.
+:::
+
+## Activity 1 · The AI's sentence {#act1 .activity}
+
+[Pairs · 10 minutes · Lab 05, Step 4]{.act-label}
+
+```{=html}
+<pre class="code-slide"><span>daily = pd.read_csv("nox_temp_daily.csv", index_col="date")</span><span>r = daily["T_degC"].corr(daily["NOx_ppb"])</span><span>print(f"r = {r:.2f}, r² = {r**2:.0%}")</span><span><b class="c"># "Temperature explains about 30 % of NOx: colder days cause higher NOx."</b></span></pre>
+```
+
+::: {.prompt .small}
+The number is computed correctly. What is wrong with the sentence under it, and what would you check before writing any sentence?
+:::
+
+::: {.selfstudy}
+Studying alone: write your answer, then go on.
+:::
+
+## What to change {#act1-fix}
+
+::: {.beforeafter}
+::: {}
+[The sentence]{.label}
+"Explains" and "cause" claim a direction the code never tested. For Demo A, r = −0.57 falls to 0.14 once both seasonal trends are removed: r² drops from 32 % to 2 %. The season moved both.
+:::
+::: {}
+[A sentence the data allow]{.label}
+"From 20 June to 9 October 2004, cooler days had more NOx (r = −0.57, 77 days). After removing each series' 29-day trend, r = 0.14. Most of the association follows the season."
+:::
+:::
+
+[Before any sentence: plot both series over time, then remove what they share.]{.note-line}
+
+## A sensor that drifts {#drift data-hold="true"}
+
+```{=html}
+<div class="dr" id="dr">
+  <div class="sm-controls">
+    <div class="sm-mode dr-mode" role="group" aria-label="View">
+      <button type="button" data-v="res" aria-pressed="true">Daily differences</button>
+      <button type="button" data-v="thr" aria-pressed="false">3σ rule</button>
+      <button type="button" data-v="cus" aria-pressed="false">CUSUM</button>
+    </div>
+  </div>
+  <svg id="dr-plot" viewBox="0 0 1160 360" role="img" aria-label="Daily mean difference between benzene and the calibrated sensor, Demo A"></svg>
+  <p class="sm-readout" id="dr-out" aria-live="polite"></p>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('dr'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Real data, 31 March to 20 July 2004 (UCI Air Quality). Benzene minus (a + b x sensor PT08.S1), fitted on days 1 to 14; daily means.
+  const D = {"res":[-1.82,0.56,0.58,-2.24,-3.07,-1.64,0.72,0.81,3,null,1.29,0.94,-0.5,1.62,1.64,0.94,-0.41,-0.04,-0.68,1.58,4.17,4.87,5.02,3.93,-0.86,1.65,2.2,3.18,2.44,2.66,0.42,1.25,1,2.3,2.22,3.27,4.01,4.8,2.31,1.37,5.37,5.12,3.02,2.78,4.95,3.12,1.26,3.85,3.41,2.84,2.05,2.16,-0.05,0.08,4.47,6.15,null,5.66,4.94,3.98,4.42,6.07,3.92,3.12,6.44,5.61,4.28,4.26,8.44,7.81,6.82,6.76,7.33,2.91,2.4,3.51,7.24,5.36,5.83,6.56,null,null,7.33,7.26,6.39,3.03,5.61,3.52,3,5.23,4.75,4.6,3.91,4.34,3.74,2.57,5.49,6.6,6.02,4.1,4.55,3.88,3.55,5.11,8.26,8.9,6.89,6.71,3.56,1.54,3.87,4.07],"up":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.75,0.79,0,0,0,0.69,3.96,7.94,12.07,15.11,13.35,14.11,15.41,17.7,19.24,21.01,20.54,20.89,21,22.4,23.72,26.11,29.22,33.12,34.54,35.02,39.5,43.73,45.86,47.74,51.8,54.02,54.38,57.34,59.85,61.79,62.96,64.22,63.28,62.46,66.04,71.3,71.3,76.06,80.11,83.2,86.73,91.91,94.94,97.17,102.71,107.43,110.82,114.18,121.72,128.64,134.57,140.43,146.87,148.88,150.39,153.01,159.35,163.82,168.76,174.42,174.42,174.42,180.87,187.23,192.73,194.86,199.58,202.21,204.31,208.66,212.51,216.21,219.23,222.67,225.52,227.21,231.81,237.51,242.64,245.85,249.5,252.48,255.14,259.36,266.73,274.73,280.72,286.54,289.21,289.86,292.84,296.01],"mu":0.02,"sigma":1.75,"H":8.74,"alarm":22,"onset":19,"thr":40,"dates":["31/03","01/04","02/04","03/04","04/04","05/04","06/04","07/04","08/04","09/04","10/04","11/04","12/04","13/04","14/04","15/04","16/04","17/04","18/04","19/04","20/04","21/04","22/04","23/04","24/04","25/04","26/04","27/04","28/04","29/04","30/04","01/05","02/05","03/05","04/05","05/05","06/05","07/05","08/05","09/05","10/05","11/05","12/05","13/05","14/05","15/05","16/05","17/05","18/05","19/05","20/05","21/05","22/05","23/05","24/05","25/05","26/05","27/05","28/05","29/05","30/05","31/05","01/06","02/06","03/06","04/06","05/06","06/06","07/06","08/06","09/06","10/06","11/06","12/06","13/06","14/06","15/06","16/06","17/06","18/06","19/06","20/06","21/06","22/06","23/06","24/06","25/06","26/06","27/06","28/06","29/06","30/06","01/07","02/07","03/07","04/07","05/07","06/07","07/07","08/07","09/07","10/07","11/07","12/07","13/07","14/07","15/07","16/07","17/07","18/07","19/07","20/07"]};
+  const W = 1160, H = 360, L = 78, R = 20, T = 16, B = 46, n = D.res.length, CAL = 14;
+  const X = (k) => L + ((k + 0.5) / n) * (W - L - R);
+  const mn = (v) => String(v).replace('-', '−');
+  function axes(lo, hi, ticks, label) {
+    const V = (v) => T + (1 - (v - lo) / (hi - lo)) * (H - T - B);
+    let g = `<rect x="${L}" y="${T}" width="${X(CAL - 0.5) - L}" height="${H - T - B}" fill="#DFC98F" opacity=".45"/><text x="${L + 8}" y="${T + 22}" font-size="16" fill="#66727C">calibration</text>`;
+    g += ticks.map((v) => `<line x1="${L}" x2="${W - R}" y1="${V(v)}" y2="${V(v)}" stroke="#B9C1C6"/><text x="${L - 10}" y="${V(v) + 6}" text-anchor="end" font-size="17" fill="#333F4A">${mn(v)}</text>`).join('');
+    for (let k = 0; k < n; k += 14) g += `<text x="${X(k)}" y="${H - B + 24}" text-anchor="middle" font-size="17" fill="#333F4A">${D.dates[k]}</text>`;
+    g += `<line x1="${L}" x2="${L}" y1="${T}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/><line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/>`;
+    g += `<text transform="translate(20 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle" font-size="16" fill="#66727C">${label}</text>`;
+    return [g, V];
+  }
+  const vline = (k, color, dash, text, dy, left) => `<line x1="${X(k)}" x2="${X(k)}" y1="${T}" y2="${H - B}" stroke="${color}" stroke-width="3" ${dash ? 'stroke-dasharray="7 5"' : ''}/><text x="${left ? X(k) - 7 : X(k) + 7}" y="${T + dy}" text-anchor="${left ? 'end' : 'start'}" font-size="18" font-weight="700" fill="${color}">${text}</text>`;
+  function draw(v) {
+    let g, V;
+    if (v === 'cus') {
+      [g, V] = axes(0, 40, [0, 10, 20, 30, 40], 'running sum, µg/m³');
+      g += `<line x1="${L}" x2="${W - R}" y1="${V(D.H)}" y2="${V(D.H)}" stroke="#333F4A" stroke-width="2" stroke-dasharray="7 5"/><text x="${W - R - 6}" y="${V(D.H) - 8}" text-anchor="end" font-size="17" fill="#333F4A">limit h = 5σ = ${D.H}</text>`;
+      let d = ''; D.up.forEach((u, k) => { d += (k ? 'L' : 'M') + X(k).toFixed(1) + ',' + V(Math.min(u, 60)).toFixed(1); });
+      g += `<clipPath id="dr-clip"><rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}"/></clipPath><path d="${d}" fill="none" stroke="#E29A2D" stroke-width="3.5" clip-path="url(#dr-clip)"/>`;
+      g += vline(D.onset, '#9a5f10', true, 'start: ' + D.dates[D.onset], 60, true) + vline(D.alarm, '#9a5f10', false, 'alarm: ' + D.dates[D.alarm], 60);
+      g += `<text x="${W - R - 6}" y="${T + 22}" text-anchor="end" font-size="16" fill="#66727C">sum leaves the top of the chart; it reaches ${Math.round(Math.max(...D.up))} by 20/07</text>`;
+    } else {
+      [g, V] = axes(-6, 10, [-5, 0, 5, 10], 'benzene minus sensor, µg/m³');
+      g += `<line x1="${L}" x2="${W - R}" y1="${V(D.mu)}" y2="${V(D.mu)}" stroke="#333F4A" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+      if (v === 'thr') {
+        for (const s of [-3, 3]) g += `<line x1="${L}" x2="${W - R}" y1="${V(D.mu + s * D.sigma)}" y2="${V(D.mu + s * D.sigma)}" stroke="#333F4A" stroke-width="2" stroke-dasharray="7 5"/>`;
+        g += `<text x="${W - R - 6}" y="${V(D.mu + 3 * D.sigma) - 8}" text-anchor="end" font-size="17" fill="#333F4A">mean + 3σ</text>`;
+        g += vline(D.thr, '#BE654C', false, '3σ alarm: ' + D.dates[D.thr], 26);
+      }
+      D.res.forEach((r, k) => { if (r === null) return; g += k < CAL ? `<circle cx="${X(k)}" cy="${V(r)}" r="6" fill="#fff" stroke="#0F6E6B" stroke-width="2.5"/>` : `<circle cx="${X(k)}" cy="${V(r)}" r="6" fill="${v === 'thr' && k === D.thr ? '#BE654C' : '#0F6E6B'}"/>`; });
+    }
+    document.getElementById('dr-plot').innerHTML = g;
+    document.getElementById('dr-out').textContent = {
+      res: 'Each point is one day: benzene from the analyzer minus the benzene the calibrated sensor predicts. Open points: the 14 calibration days, mean ' + D.mu + ', σ = ' + D.sigma + '.',
+      thr: 'The 3σ rule waits for one day beyond mean + 3σ (5.27). That day is ' + D.dates[D.thr] + ', day ' + (D.thr + 1) + '. The points had been high for three weeks.',
+      cus: 'CUSUM adds each day’s excess over the mean, minus an allowance k = 0.5σ, and never goes below zero. It passes h on ' + D.dates[D.alarm] + ' (day ' + (D.alarm + 1) + '); it last stood at zero on ' + D.dates[D.onset - 1] + ', so the estimated start is ' + D.dates[D.onset] + '.',
+    }[v];
+    root.querySelectorAll('[data-v]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.v === v));
+  }
+  root.querySelectorAll('[data-v]').forEach((b) => b.addEventListener('click', () => draw(b.dataset.v)));
+  draw('res');
+})();
+</script>
+```
+
+[Lab 05, Demo A, Part B. Drift of this sensor: De Vito et al., Sens. Actuators B 129 (2008) 750. Data: UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
+
+## How CUSUM adds up {#cusum-steps}
+
+:::: {.columns}
+::: {.column width="58%"}
+| Day | Date | Difference | minus mean, minus k | Running sum |
+|:--|:--|--:|--:|--:|
+| 15 | 14/04 | 1.64 | 0.75 | 0.75 |
+| 16 | 15/04 | 0.94 | 0.05 | 0.79 |
+| 17 | 16/04 | −0.41 | −1.30 | 0.00 |
+| 18 | 17/04 | −0.04 | −0.93 | 0.00 |
+| 19 | 18/04 | −0.68 | −1.57 | 0.00 |
+| 20 | 19/04 | 1.58 | 0.69 | 0.69 |
+| 21 | 20/04 | 4.17 | 3.28 | 3.96 |
+| 22 | 21/04 | 4.87 | 3.98 | 7.94 |
+| 23 | 22/04 | 5.02 | 4.13 | **12.07** |
+| 24 | 23/04 | 3.93 | 3.04 | 15.11 |
+:::
+::: {.column width="38%"}
+::: {.calc-note}
+Mean of the calibration days 0.02, σ = 1.75 µg/m³.
+
+Allowance k = 0.5σ = 0.87. Limit h = 5σ = 8.74.
+
+Sum = max(0, previous sum + difference − mean − k).
+
+The sum passes h on day 23. The last day it was zero, day 19, marks the estimated start: day 20.
+:::
+:::
+::::
+
+[A second sum does the same for differences below the mean. Values are rounded to 2 decimals.]{.note-line}
+
+## Two rules, one drift {#two-rules}
+
+::: {.checks3}
+::: {.c4}
+[3σ rule]{.label}
+Alarms on one day far from the mean. Good for a sudden step. For Demo A: day 41, three weeks after the drift began.
+:::
+::: {.c4}
+[CUSUM]{.label}
+Adds small differences that keep the same sign. Good for a slow drift. For Demo A: alarm day 23, estimated start day 20.
+:::
+::: {.c4}
+[The cost]{.label}
+A smaller k or h alarms sooner, and also alarms more often on noise. The Extension view, Step 9, lets you try.
+:::
+:::
+
+[Both rules need a calibration period that was in control. If the sensor had already drifted then, neither rule can see it.]{.note-line}
+
+## Activity 2 · Lab 05, Steps 4 to 10 {#act2 .activity}
+
+[Individual · 25 minutes · laptop or phone]{.act-label}
+
+1. Open **Lab 05**. Press **Open a saved study** if you saved one in Session 9.
+2. Step 4: write your answer before you compare.
+3. Step 5: enter your three homework numbers **before** you remove the trend.
+4. Step 6: remove the trend. Step 7: mark the day you think the drift started, then run both rules.
+5. Step 8, then the Extension view, Step 9.
+6. Step 10: download one file and upload it to myCourseVille.
+
+[Open Lab 05](../labs/relations.html){.lab-button target="_blank"}
+
+::: {.selfstudy}
+Studying alone: work through Steps 4 to 10 in order and submit in Step 10.
+:::
+
+## Debrief {#debrief}
+
+::: {.debrief-q}
+[How far did r fall for your 16 weeks once the trend was removed?]{.dq}
+[How many days before the 3σ rule did CUSUM alarm for your sensor? How close was your own guess to its start?]{.dq}
+[Does a small r after removing the trend prove temperature has no effect on NOx?]{.dq}
+:::
+
+## Exit ticket · 5 minutes {#exit .activity}
+
+[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+
+:::: {.columns}
+::: {.column width="64%"}
+::: {.prompt}
+A pH probe agrees with the lab assay during calibration (σ = 0.1 pH). Then its error grows by 0.02 pH per day. About how many days until the 3σ rule alarms? Would CUSUM alarm earlier, and why?
+:::
+
+Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+
+No name or student ID is recorded. Wait for **"Response received."**
+:::
+::: {.column width="32%" .qr-col}
+![](figures/exit-qr-s10.png){.qr fig-alt="QR code for the Session 10 exit ticket and feedback form"}
+
+[Open the Session 10 form](exit.html?s=10){target="_blank"}
+:::
+::::
+
+## Next session {#next}
+
+::: {.beforeafter}
+::: {}
+[Session 11 · Did the change work?]{.label}
+Week 6 starts hypothesis tests: a process change, a shift in the mean, and how sure you can be that it is real.
+:::
+::: {}
+[Before you come]{.label}
+Submit your Lab 05 study file. Think of one change at a plant: a new catalyst, a new setpoint. What data would show it worked?
+:::
+:::
+
+[Submit the Lab 05 study file on myCourseVille by the date shown there.]{.note-line}

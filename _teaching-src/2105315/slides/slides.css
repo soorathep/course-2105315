@@ -234,3 +234,20 @@
 .reveal .ts svg { width: 100%; height: auto; display: block; }
 .reveal #ts-out { font-size: .52em; margin: .3em 0 0; }
 .reveal .ts-mode button { font-size: .95em; }
+
+/* ---------- Session 9 ---------- */
+.reveal .rl { margin-top: .3em; font-family: "Source Sans 3", sans-serif; }
+.reveal .rl svg { width: 100%; height: auto; display: block; }
+.reveal #rl-out { font-size: .52em; margin: .2em 0 0; }
+.reveal .rl-mode button { font-size: .95em; }
+
+/* ---------- Session 10 ---------- */
+.reveal .dr { margin-top: .3em; font-family: "Source Sans 3", sans-serif; }
+.reveal .dr svg { width: 100%; height: auto; display: block; }
+.reveal #dr-out { font-size: .5em; margin: .2em 0 0; }
+.reveal .dr-mode button { font-size: .95em; }
+.reveal #cusum-steps table { font-size: .5em; width: 100%; }
+.reveal #cusum-steps td, .reveal #cusum-steps th { padding: 3px 10px; }
+.reveal #cusum-steps tbody tr:nth-child(n+6) td { color: #9a5f10; }
+.reveal .calc-note { font-size: .54em; line-height: 1.4; color: #1C242B; background: #F3F0EB; border-left: 4px solid #E29A2D; padding: 10px 16px; }
+.reveal .calc-note p { margin: 0 0 .55em; }
