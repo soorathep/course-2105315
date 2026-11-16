@@ -114,3 +114,49 @@ export function dailyChart(svg, days) {
   });
   svg.append(ax);
 }
+
+/** Lab 02 · benzene over 14 days with gaps. Sand bands mark missing hours. Before the reveal the teal line
+ * is the record as received (it breaks at gaps). After the reveal the teal line is the true record and the
+ * amber line shows what a fill method put into the gaps. */
+export function gapChart(svg, t, obs, gaps, { truth = null, filled = null, unit = 'µg m⁻³' } = {}) {
+  const n = t.length;
+  const vals = (truth || obs).filter((v) => Number.isFinite(v));
+  const top = Math.max(1, ...vals, ...(filled || []).filter((v) => Number.isFinite(v))) * 1.08;
+  const x = (k) => M.l + (k / Math.max(1, n - 1)) * (W - M.l - M.r);
+  const y = (v) => M.t + (1 - v / top) * (H - M.t - M.b);
+  frame(svg, truth
+    ? 'Benzene over 14 days. Teal line: the true record. Amber line: the values the chosen method put into the missing hours. Shaded bands: missing hours.'
+    : 'Benzene over 14 days as received. The line breaks at missing hours, shown as shaded bands.');
+  const miss = new Set(gaps);
+  const bands = el('g');
+  for (let k = 0; k < n; k++) {
+    if (!miss.has(k) || miss.has(k - 1)) continue;
+    let j = k; while (miss.has(j + 1)) j++;
+    const half = (W - M.l - M.r) / (n - 1) / 2;
+    bands.append(el('rect', { class: 'threshold-band', x: x(k) - half, y: M.t, width: x(j) - x(k) + 2 * half, height: H - M.t - M.b }));
+  }
+  svg.append(bands);
+  yAxis(svg, y, niceTicks(0, top, 5), `benzene / ${unit}`);
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  t.forEach((s, k) => {
+    if (s.hour !== 0) return;
+    ax.append(el('line', { x1: x(k), x2: x(k), y1: H - M.b, y2: H - M.b + 5 }));
+    if (k + 24 <= n) ax.append(el('text', { x: x(k + 12), y: H - M.b + 18, 'text-anchor': 'middle' }, `${s.day.slice(8, 10)}/${s.day.slice(5, 7)}`));
+  });
+  svg.append(ax);
+  const line = (xs, keep) => {
+    let d = '', pen = false;
+    xs.forEach((v, k) => {
+      if (!Number.isFinite(v) || !keep(k)) { pen = false; return; }
+      d += `${pen ? 'L' : 'M'}${x(k).toFixed(1)},${y(v).toFixed(1)}`; pen = true;
+    });
+    return d;
+  };
+  svg.append(el('path', { class: 'series-ref', d: line(truth || obs, () => true) }));
+  if (filled) {
+    // draw each filled run joined to its observed neighbours, so the amber segment shows the bridge
+    const show = (k) => miss.has(k) || miss.has(k - 1) || miss.has(k + 1);
+    svg.append(el('path', { class: 'series-effect', d: line(filled, show) }));
+  }
+}

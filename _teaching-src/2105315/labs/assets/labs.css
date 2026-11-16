@@ -167,3 +167,13 @@
   .lab-index li { grid-template-columns: 54px minmax(0, 1fr); }
   .lab-index .state { grid-column: 2; }
 }
+
+/* ===== Lab 02 method table ===== */
+.method-table tbody tr[tabindex] { cursor: pointer; }
+.method-table tbody tr[tabindex]:hover td { background: var(--soft-teal); }
+.method-table tbody tr[tabindex]:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }
+.method-table tbody tr.chosen td { background: #FBF0DE; }
+.method-table td.best { font-weight: 700; color: var(--teal); }
+.method-table td { font-variant-numeric: tabular-nums; }
+.method-table td:first-child { font-family: inherit; font-size: inherit; }
+#predict-list select { width: 100%; }

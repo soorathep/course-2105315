@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Lab 02 · Which gap-filling method biases the answer least? · 2105315 Data Analytics Labs</title>
+  <meta name="description" content="Fill gaps in a real two-week benzene record five ways, then compare each answer with the true values: which method you may use depends on the kind of gap.">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="assets/labs.css?v=2">
+  <script type="module" src="assets/mode.js?v=1"></script>
+  <script type="module" src="assets/gaps-lab.js?v=1"></script>
+</head>
+<body data-mode="core">
+  <a class="skip-link" href="#lab">Skip to the lab</a>
+  <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html">Lab 01</a><a href="gaps.html" aria-current="page">Lab 02</a><a href="index.html">All labs</a></nav></header>
+  <main class="page da-page" id="lab">
+    <p class="eyebrow">2105315 Data Analytics in Chemical Engineering · Lab 02 · Week 2</p>
+    <h1>Which gap-filling method biases the answer least?</h1>
+    <div class="logbook" role="group" aria-label="Monitoring log">
+      <div class="logbook-row"><p class="logbook-time"><strong>08:10</strong>log</p><p class="logbook-entry">The benzene analyzer at the road-level station has gaps: some single hours, the same hour every night, and one three-day outage. The weekly report needs the two-week mean and the typical daily peak.</p></div>
+      <div class="logbook-row"><p class="logbook-time"><strong>TASK</strong>you</p><p class="task-line">Decide how to fill each kind of gap. This time the true values are known, so you can measure how far each method moves the answer.</p></div>
+    </div>
+
+    <fieldset class="mode-switch"><legend>View</legend><div class="mode-options"><label><input type="radio" name="lab-mode" value="core" checked><span>Core</span></label><label><input type="radio" name="lab-mode" value="graduate"><span>Extension</span></label></div><p class="core-only">Core: Steps 1 to 7, about 40 minutes.</p><p class="grad-only">Extension: the core steps plus two decisions in Step 8: gaps caused by the value, and how long a gap you will fill.</p></fieldset>
+
+    <section class="lab-step" aria-labelledby="s1">
+      <div class="step-head"><span class="step-number">01</span><div><h2 id="s1">Choose your data</h2><p>Practise on a demo, then load your own 14 days. Your window and your gaps are chosen from your student ID.</p></div></div>
+      <fieldset class="student-fields"><legend>Your details</legend><p class="input-help">Your student ID picks your data set. All three go into the file you submit.</p><div class="student-grid"><div><label for="student-first-name">First name</label><input id="student-first-name" type="text" maxlength="80" autocomplete="given-name"></div><div><label for="student-last-name">Last name</label><input id="student-last-name" type="text" maxlength="80" autocomplete="family-name"></div><div><label for="student-id">Student ID</label><input id="student-id" type="text" maxlength="20" inputmode="numeric" autocomplete="off"></div></div></fieldset>
+      <div class="case-buttons" role="group" aria-label="Data set">
+        <button type="button" data-case="spring" aria-pressed="true">Demo A<span class="case-sub">26 Apr to 9 May 2004</span></button>
+        <button type="button" data-case="autumn" aria-pressed="false">Demo B<span class="case-sub">8 to 21 Nov 2004</span></button>
+        <button type="button" data-case="student" aria-pressed="false">My data set<span class="case-sub">from my student ID</span></button>
+      </div>
+      <p id="id-note" class="id-note" role="status" aria-live="polite"></p>
+      <p id="dataset-line" class="dataset-line">Loading the station record…</p>
+      <details class="source-box"><summary>Where the data come from</summary>
+        <p>Hourly benzene, C6H6(GT), from the reference analyzer of the same road-level station as Lab 01, March 2004 to April 2005. Every window in this lab is a real 14-day stretch with no missing benzene hour, so the true value of every hour is known.</p>
+        <p>Source: S. De Vito, Air Quality, UCI Machine Learning Repository, <a href="https://doi.org/10.24432/C59K5F">doi:10.24432/C59K5F</a>, CC BY 4.0. Paper: De Vito et al., Sensors and Actuators B 129 (2008) 750–757, <a href="https://doi.org/10.1016/j.snb.2007.09.060">doi:10.1016/j.snb.2007.09.060</a>.</p>
+        <p>Changed for this lab: the gaps are removed on purpose, in three patterns seen in the real record. The values that remain are the source values.</p>
+      </details>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s2">
+      <div class="step-head"><span class="step-number">02</span><div><h2 id="s2">See the gaps</h2><p>This is the record as you would receive it. Look at each kind of gap.</p></div></div>
+      <div class="chart-toggle" role="group" aria-label="Gap pattern"><button type="button" data-pattern="scattered" aria-pressed="false">Scattered hours</button><button type="button" data-pattern="daily" aria-pressed="false">Every day at 04:00</button><button type="button" data-pattern="outage" aria-pressed="false">Three-day outage</button><button type="button" data-pattern="combined" aria-pressed="true">All three</button></div>
+      <figure class="figure-block"><div class="figure-scroll"><svg id="gap-chart"></svg></div><figcaption id="gap-caption"></figcaption></figure>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s3">
+      <div class="step-head"><span class="step-number">03</span><div><h2 id="s3">Predict before you look</h2><p>For each kind of gap, choose the method you expect to keep both answers, the two-week mean and the typical daily peak, closest to the truth. Step 6 checks each choice.</p></div></div>
+      <div id="predict-list" class="notebook-list"></div>
+      <label for="p-reason">Which method would you use for the three-day outage, and why? One or two sentences.</label>
+      <textarea id="p-reason" rows="3" maxlength="3000"></textarea>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s4">
+      <div class="step-head"><span class="step-number">04</span><div><h2 id="s4">Check the AI's code</h2><p>A student asked an AI assistant: "Fill the missing values in this file and give me the mean benzene." It returned this. It runs without an error and reports no missing values.</p></div></div>
+      <pre class="code-block" aria-label="Code written by an AI assistant"><span class="ln"><span class="k">import</span> pandas <span class="k">as</span> pd</span><span class="ln"></span><span class="ln">df = pd.read_csv(<span class="s">"benzene.csv"</span>, parse_dates=[<span class="s">"datetime"</span>])</span><span class="ln">df[<span class="s">"C6H6_ugm3"</span>] = df[<span class="s">"C6H6_ugm3"</span>].interpolate()</span><span class="ln">print(df[<span class="s">"C6H6_ugm3"</span>].isna().sum())   <span class="c"># 0: no gaps left</span></span><span class="ln">print(df[<span class="s">"C6H6_ugm3"</span>].mean())</span></pre>
+      <div class="concept-question">
+        <h3>The code reports no missing values and a mean. What does it hide, and how would you notice?</h3>
+        <label for="ai-answer" class="visually-hidden">Your answer</label>
+        <textarea id="ai-answer" rows="3" maxlength="3000" placeholder="Write your answer first (at least one full sentence)."></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer">
+          <p>"0 missing" is true only because the code invented about 90 hours. Linear interpolation is reasonable across one missing hour. Across the three-day outage it draws a straight line from the last value before the gap to the first value after it, so three days of the daily cycle disappear: the mean can still look plausible, while the typical daily peak comes out too low.</p>
+          <p>You notice by counting what was filled before you trust the result, and by plotting the filled stretch: a straight line through three nights and three rush hours is not a measurement.</p>
+          <p class="fix-line">gap = s.isna().groupby(s.notna().cumsum()).transform("sum")
+filled = s.fillna(s.interpolate(limit_area="inside").where(gap &lt;= 3))</p>
+          <p>Then report how many hours were filled, by which method, and how many remain missing.</p>
+        </div></details>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s5">
+      <div class="step-head"><span class="step-number">05</span><div><h2 id="s5">Your notebook numbers</h2><p>Download your file (all three kinds of gap). Ask an AI assistant for code that reports the three numbers below, read the code before you run it, and enter what you get.</p></div></div>
+      <p><button id="download-csv" class="secondary-button" type="button">Download my file (CSV)</button></p>
+      <div id="notebook-list" class="notebook-list"></div>
+      <p id="locked-note" class="locked-note">Enter your numbers before you reveal the truth. The reveal locks them and records whether you entered them first.</p>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s6">
+      <div class="step-head"><span class="step-number">06</span><div><h2 id="s6">Compare with the truth</h2><p>The page fills the gaps five ways and compares each answer with the true record.</p></div></div>
+      <button id="run-reveal" class="primary-button calculate-button" type="button" disabled>Reveal the true record</button>
+      <div id="results" hidden>
+        <p id="result-lead" class="result-lead"></p>
+        <div class="chart-toggle" role="group" aria-label="Gap pattern to compare"><button type="button" data-cmp="scattered" aria-pressed="false">Scattered hours</button><button type="button" data-cmp="daily" aria-pressed="false">Every day at 04:00</button><button type="button" data-cmp="outage" aria-pressed="true">Three-day outage</button></div>
+        <div class="table-scroll" role="region" aria-label="Error of each method" tabindex="0"><table class="audit-table method-table"><caption class="visually-hidden">Two-week mean and typical daily peak for each fill method, with the error against the true record.</caption><thead><tr><th scope="col">Method</th><th scope="col">Two-week mean</th><th scope="col">Error</th><th scope="col">Typical daily peak</th><th scope="col">Error</th></tr></thead><tbody id="method-body"></tbody></table></div>
+        <p class="chip-key">Units: µg/m³. Bold: closest to the truth in that column. Choose a row to see what the method put into the gaps.</p>
+        <figure class="figure-block"><div class="figure-scroll"><svg id="fill-chart"></svg></div><figcaption id="fill-caption"></figcaption></figure>
+        <ul id="predict-verdicts" class="flag-list"></ul>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s7">
+      <div class="step-head"><span class="step-number">07</span><div><h2 id="s7">Check your understanding</h2><p>Write first, then compare.</p></div></div>
+      <div class="concept-question">
+        <h3>Filling with the mean leaves the two-week mean exactly where dropping the gaps puts it. Why is it still a poor choice?</h3>
+        <label for="c-mean" class="visually-hidden">Your answer</label>
+        <textarea id="c-mean" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>Mean filling adds no information about the mean: it repeats the answer you already had. What it does add is a flat run of identical values with no daily cycle. Anything beyond the mean is now wrong: the daily peaks inside a long gap disappear, the spread of the data shrinks, and a later step (a standard deviation, a count of hours above a limit, a trend) treats invented hours as measured ones.</p></div></details>
+      </div>
+      <div class="concept-question">
+        <h3>Linear interpolation was close for single missing hours and far off for the three-day outage. What decides how long a gap it can bridge?</h3>
+        <label for="c-linear" class="visually-hidden">Your answer</label>
+        <textarea id="c-linear" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>How fast the quantity changes, compared with the length of the gap. Benzene follows traffic, so it rises and falls within a day; a straight line is a fair guess across one or two hours and a poor one across a rush hour or a night. A slow variable, such as a tank level, can be bridged for longer. You can test it on your own data the way this lab does: remove values you know, fill them, and measure the error.</p></div></details>
+      </div>
+    </section>
+
+    <section class="lab-step graduate-section grad-only" aria-labelledby="s8">
+      <div class="step-head"><span class="step-number">08</span><div><h2 id="s8">Extension: two decisions about filling</h2><p>So far the gaps had nothing to do with the values. In plants that is often not true.</p></div></div>
+      <div class="graduate-step">
+        <h3>8a · When the value causes the gap</h3>
+        <p class="ext-intro">Suppose the analyzer cuts out when the concentration is high, so the 15 highest hours of your window are missing. This pattern is made for the exercise; real analyzers can drop out at the top of their range.</p>
+        <button id="run-byvalue" class="secondary-button" type="button" disabled>Fill the 15 highest hours</button>
+        <div class="table-scroll" id="byvalue-box" hidden><table class="audit-table method-table"><thead><tr><th scope="col">Method</th><th scope="col">Two-week mean</th><th scope="col">Error</th><th scope="col">Typical daily peak</th><th scope="col">Error</th></tr></thead><tbody id="byvalue-body"></tbody></table></div>
+        <p id="byvalue-readout" class="ext-readout"></p>
+        <label for="e-byvalue">No method recovers these hours. Why not, and what would you write in the report instead of a filled number?</label>
+        <textarea id="e-byvalue" rows="3" maxlength="3000"></textarea>
+      </div>
+      <div class="graduate-step">
+        <h3>8b · How long a gap will you fill?</h3>
+        <p class="ext-intro">Rule: fill a gap by linear interpolation only if it is at most this many hours long; leave longer gaps missing and report them. Applied to your file with all three kinds of gap.</p>
+        <div class="range-row"><label for="max-gap">Longest gap to fill</label><output id="max-gap-out" for="max-gap">3 h</output><input id="max-gap" type="range" min="1" max="72" step="1" value="3" aria-describedby="max-gap-out"></div>
+        <button id="run-maxgap" class="secondary-button" type="button" disabled>Apply the rule</button>
+        <p id="maxgap-readout" class="ext-readout"></p>
+        <label for="e-maxgap">Choose your longest gap and defend it in two or three sentences. Name what you gain and what you lose.</label>
+        <textarea id="e-maxgap" rows="3" maxlength="3000"></textarea>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s9">
+      <div class="step-head"><span class="step-number">09</span><div><h2 id="s9">Submit</h2><p>Download one file and upload it to the assignment on myCourseVille.</p></div></div>
+      <ul class="submit-list"><li>The file holds your details, data set, predictions, answers, notebook numbers and the comparison.</li><li>It stays on your computer until you upload it. Nothing is sent from this page.</li><li>Open it here later to continue where you stopped.</li></ul>
+      <div class="study-actions"><button id="export-study" class="primary-button" type="button" disabled>Download my study</button><div class="file-control"><label for="import-study">Open a saved study</label><input id="import-study" type="file" accept=".json,application/json"></div></div>
+      <p id="status" class="study-status" role="status" aria-live="polite"></p>
+    </section>
+    <noscript><p class="error-summary">This lab needs JavaScript to fill and compare the data.</p></noscript>
+  </main>
+  <footer class="site-footer"><span>2105315 Data Analytics in Chemical Engineering · Chulalongkorn University</span><span>Data: De Vito, UCI Air Quality, CC BY 4.0</span></footer>
+</body>
+</html>

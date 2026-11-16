@@ -1,0 +1,269 @@
+---
+title: "Filling gaps you can defend"
+subtitle: "Session 4 of 14 · 90 minutes · Fill, flag, report"
+author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where this session sits {#course-map}
+
+::: {.coursemap14}
+[Week 1 · Import and audit]{.wk} [1 · Data you can trust]{.cm} [2 · Audit and the AI's code]{.cm}
+[Week 2 · Missing data]{.wk .now} [3 · Why values go missing]{.cm} [4 · Filling gaps you can defend]{.cm .now}
+[Week 3 · Outliers and noise]{.wk} [5 · Spike or real event?]{.cm} [6 · Smoothing without lying]{.cm}
+[Week 4 · Visualization]{.wk} [7 · Trends and distributions]{.cm} [8 · Figures that tell the truth]{.cm}
+[Week 5 · Correlation and anomalies]{.wk} [9 · Correlated or driven?]{.cm} [10 · When did it start?]{.cm}
+[Week 6 · Hypothesis tests]{.wk} [11 · Did the change work?]{.cm} [12 · Tests on plant data]{.cm}
+[Week 7 · Integrated case]{.wk} [13 · Raw file to decision]{.cm} [14 · Defend your decision]{.cm}
+:::
+
+::: {.bridge}
+Session 3 asked why a value is missing. Today: which gaps you may fill, with what, and what the report must say about it.
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .act}
+[0–10]{.t} **Warm-up** [Your three homework numbers]{.d}
+:::
+::: {.seg .concept}
+[10–35]{.t} **Concepts** [Five methods; how long a gap you can bridge]{.d}
+:::
+::: {.seg .act}
+[35–45]{.t} **Activity 1** [What the AI's fill hides]{.d}
+:::
+::: {.seg .concept}
+[45–55]{.t} **Concepts** [Fill, flag, report]{.d}
+:::
+::: {.seg .act}
+[55–80]{.t} **Activity 2** [Lab 02, Steps 4 to 9]{.d}
+:::
+::: {.seg .wrap}
+[80–90]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: which gaps may you fill, with what, and what must the report say?
+:::
+
+## Warm-up · Your three numbers {#warmup .activity}
+
+[Pairs · 8 minutes · your homework]{.act-label}
+
+::: {.prompt}
+Compare your two means: after dropping the missing hours, and after linear interpolation.
+:::
+
+::: {.checks3}
+::: {.c4}
+[1 · Missing hours]{.label}
+How many hours are missing in your Lab 02 file?
+:::
+::: {.c4}
+[2 · Mean, dropped]{.label}
+Mean benzene of the hours you have.
+:::
+::: {.c4}
+[3 · Mean, interpolated]{.label}
+Mean benzene after a straight line through every gap.
+:::
+:::
+
+[Which of the two is larger in your file? Your neighbour's answer may differ. Find the gap that explains your difference.]{.note-line}
+
+::: {.selfstudy}
+Studying alone: write down which mean is larger and why you think so.
+:::
+
+## Five methods, five assumptions {#methods}
+
+| Method | It assumes | It fails when |
+|------|----------------|----------------|
+| Drop the missing hours | The missing hours are like the others | Gaps follow a pattern, or the value caused them |
+| Fill with the mean | Nothing changes over time | There is a daily cycle or a trend |
+| Linear interpolation | The value moves steadily between its two neighbours | The gap is longer than the time the process takes to change |
+| Carry the last value forward | Nothing changed since the last reading | The value moves; events appear late |
+| Same hour on other days | Today follows the usual daily pattern | The day is unusual, or no other day has that hour |
+
+[Every method is an assumption about the hours you did not measure. Choose the one whose assumption you can defend for this gap.]{.note-line}
+
+## How long a gap can you bridge? {#bridge data-hold="true"}
+
+```{=html}
+<div class="bridgew" id="bridgew">
+  <div class="sm-controls">
+    <label class="sm-slider">Gap length, starting 11:00 on 28 April <strong id="bw-label">2 h</strong>
+      <input type="range" id="bw-len" min="1" max="24" step="1" value="2">
+    </label>
+    <div class="sm-mode" role="group" aria-label="Fill method">
+      <button type="button" data-m="linear" aria-pressed="true">Linear</button>
+      <button type="button" data-m="hour" aria-pressed="false">Same hour</button>
+    </div>
+  </div>
+  <svg id="bw-plot" viewBox="0 0 1160 300" role="img" aria-label="Three days of real benzene with a gap that grows from 11:00 on 28 April; the filled values are drawn over the true record"></svg>
+  <div class="sm-readout" id="bw-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('bridgew'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Real benzene, µg/m³, 27 to 29 April 2004 (UCI Air Quality, reference analyzer), one value per hour.
+  const Y = [2.2,1.7,1.6,1.5,2.5,3.3,8.9,23.4,23.8,7.9,8.2,8.8,14.6,18,12,14.8,12.5,15.5,17.7,21.6,18.9,12.5,8.8,10.9,
+             8,4.4,2.8,2.7,2.2,2.5,7.5,30.4,22,24.7,18.4,16.8,14.2,15.7,21.9,20.8,16.2,19.8,28.9,28.3,24.9,13.1,8.6,9.5,
+             7.8,5.2,2.8,2.3,2.5,4.4,9.4,29.8,36.2,18,10.9,9,14.4,22.3,20.9,23.1,21.2,24.8,28.6,32.6,19.2,16.3,13.7,13.6];
+  // Mean of each hour of day over the other 13 days of the two-week window.
+  const P = [6.91,5.19,3.37,3.16,2.65,3.35,6.47,15.42,17.35,12.3,9.34,9.12,10.41,11.65,10.85,11.68,10.8,13.46,15.78,16.98,13.35,10.08,8.5,8.52];
+  const G0 = 35, N = Y.length;           // index 35 = 11:00 on 28 April
+  let method = 'linear';
+  const W = 1160, H = 300, L = 64, R = 16, T = 14, B = 44, top = 40;
+  const X = (k) => L + (k / (N - 1)) * (W - L - R), V = (v) => T + (1 - v / top) * (H - T - B);
+  function draw() {
+    const len = +document.getElementById('bw-len').value, end = G0 + len - 1;
+    document.getElementById('bw-label').textContent = len + ' h';
+    const fill = Y.map((v, k) => k < G0 || k > end ? null
+      : method === 'linear' ? Y[G0 - 1] + (Y[end + 1] - Y[G0 - 1]) * (k - G0 + 1) / (len + 1) : P[k % 24]);
+    let g = '';
+    for (const v of [0, 10, 20, 30, 40]) g += `<line x1="${L}" x2="${W - R}" y1="${V(v)}" y2="${V(v)}" stroke="#B9C1C6"/><text x="${L - 10}" y="${V(v) + 6}" text-anchor="end" font-size="17" fill="#333F4A">${v}</text>`;
+    for (let d = 0; d < 3; d++) g += `<line x1="${X(d * 24)}" x2="${X(d * 24)}" y1="${H - B}" y2="${H - B + 6}" stroke="#333F4A"/><text x="${X(d * 24 + 12)}" y="${H - 14}" text-anchor="middle" font-size="17" fill="#333F4A">${27 + d} April</text>`;
+    g += `<text transform="translate(18 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle" font-size="16" fill="#66727C">benzene, µg/m³</text>`;
+    g += `<rect x="${X(G0) - 7}" y="${T}" width="${X(end) - X(G0) + 14}" height="${H - T - B}" fill="#DFC98F" opacity=".45"/>`;
+    g += `<line x1="${L}" x2="${L}" y1="${T}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/><line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/>`;
+    g += `<path d="${Y.map((v, k) => (k ? 'L' : 'M') + X(k).toFixed(1) + ',' + V(v).toFixed(1)).join('')}" fill="none" stroke="#0F6E6B" stroke-width="2"/>`;
+    const seg = [G0 - 1, ...fill.map((v, k) => (v === null ? -1 : k)).filter((k) => k >= 0), end + 1];
+    const yv = (k) => (fill[k] === null ? Y[k] : fill[k]);
+    g += `<path d="${seg.map((k, i) => (i ? 'L' : 'M') + X(k).toFixed(1) + ',' + V(yv(k)).toFixed(1)).join('')}" fill="none" stroke="#E29A2D" stroke-width="3.5"/>`;
+    document.getElementById('bw-plot').innerHTML = g;
+    let worst = 0, sumT = 0, sumF = 0, peakT = -1, peakF = -1;
+    for (let k = G0; k <= end; k++) { worst = Math.max(worst, Math.abs(fill[k] - Y[k])); sumT += Y[k]; sumF += fill[k]; peakT = Math.max(peakT, Y[k]); peakF = Math.max(peakF, fill[k]); }
+    document.getElementById('bw-out').innerHTML = `<span class="sm-key"><i class="k-true"></i>true record <i class="k-rec"></i>filled</span>` +
+      `<span class="sm-chip ${worst < 3 ? 'seen' : worst < 10 ? 'blurred' : 'missed'}">largest error in the gap: <b>${worst.toFixed(1)}</b></span>` +
+      `<span class="sm-chip">highest hour in the gap: true <b>${peakT.toFixed(1)}</b>, filled <b>${peakF.toFixed(1)}</b></span>`;
+  }
+  document.getElementById('bw-len').addEventListener('input', draw);
+  root.querySelectorAll('[data-m]').forEach((b) => b.addEventListener('click', () => {
+    method = b.dataset.m; root.querySelectorAll('[data-m]').forEach((o) => o.setAttribute('aria-pressed', o === b)); draw();
+  }));
+  draw();
+})();
+</script>
+```
+
+[Real benzene, 27 to 29 April 2004 (Lab 02, Demo A). Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
+
+## Activity 1 · What the AI's fill hides {#act1 .activity}
+
+[Pairs · 10 minutes · Lab 02, Step 4]{.act-label}
+
+```{=html}
+<pre class="code-slide"><span>df = pd.read_csv("benzene.csv", parse_dates=["datetime"])</span><span>df["C6H6_ugm3"] = df["C6H6_ugm3"].interpolate()</span><span>print(df["C6H6_ugm3"].isna().sum())   <b class="c"># 0: no gaps left</b></span><span>print(df["C6H6_ugm3"].mean())</span></pre>
+```
+
+::: {.prompt .small}
+The code reports 0 missing values and a mean. What did it hide? Write the one sentence your report would need that this code cannot give you.
+:::
+
+::: {.selfstudy}
+Studying alone: write your sentence, then go on.
+:::
+
+## What it hid {#act1-fix}
+
+::: {.beforeafter}
+::: {}
+[What happened]{.label}
+About 90 hours were invented. Across the three-day outage the line is straight: three nights and three rush hours are gone. The mean can look plausible while the typical daily peak is too low.
+:::
+::: {}
+[A fill you can report]{.label}
+Fill only short gaps, and count what you did.
+:::
+:::
+
+```{=html}
+<pre class="code-slide"><span>gap = s.isna().groupby(s.notna().cumsum()).transform("sum")</span><span>filled = s.fillna(s.interpolate(limit_area="inside").where(gap &lt;= 3))</span><span>print("filled:", (s.isna() &amp; filled.notna()).sum(), " still missing:", filled.isna().sum())</span></pre>
+```
+
+[Read it line by line: the first line measures each gap, the second fills only gaps of 3 hours or less, the third reports both counts.]{.note-line}
+
+## Fill, flag, report {#rule}
+
+::: {.why3}
+::: {.w}
+[1 · Fill]{.label}
+**Only gaps that are short** compared with how fast the value changes. For benzene, which follows traffic, that is a few hours.
+:::
+::: {.w}
+[2 · Flag]{.label}
+**Keep a column that says which values were filled.** Later steps, such as a peak, a standard deviation or a count of exceedances, can then leave them out.
+:::
+::: {.w .hard}
+[3 · Report]{.label}
+**Next to the result:** hours measured, hours filled and by which method, hours still missing.
+:::
+:::
+
+[A filled value is an estimate, not a measurement. The reader of your report must be able to tell the two apart.]{.note-line}
+
+## Activity 2 · Lab 02, Steps 4 to 9 {#act2 .activity}
+
+[Individual · 25 minutes · laptop or phone]{.act-label}
+
+1. Open **Lab 02**. Press **Open a saved study** if you saved one in Session 3.
+2. Step 4: write your answer before you compare.
+3. Step 5: enter your three homework numbers **before** you reveal the truth.
+4. Step 6: reveal the truth. Compare each kind of gap, and choose rows to see each fill.
+5. Step 7, then the Extension view, Steps 8a and 8b.
+6. Step 9: download one file and upload it to myCourseVille.
+
+[Open Lab 02](../labs/gaps.html){.lab-button target="_blank"}
+
+::: {.selfstudy}
+Studying alone: work through Steps 4 to 9 in order and submit in Step 9.
+:::
+
+## Debrief {#debrief}
+
+::: {.debrief-q}
+[For your three-day outage, which method was closest, and was it the one you predicted?]{.dq}
+[In Step 8b, what longest gap did you choose, and how many hours did that leave missing?]{.dq}
+[What will your report say about the hours you filled?]{.dq}
+:::
+
+## Exit ticket · 5 minutes {#exit .activity}
+
+[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+
+:::: {.columns}
+::: {.column width="64%"}
+::: {.prompt}
+Your file has a two-hour gap and a two-day gap. Say how you would treat each one, and what your report would state about them.
+:::
+
+Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+
+No name or student ID is recorded. Wait for **"Response received."**
+:::
+::: {.column width="32%" .qr-col}
+![](figures/exit-qr-s04.png){.qr fig-alt="QR code for the Session 4 exit ticket and feedback form"}
+
+[Open the Session 4 form](exit.html?s=4){target="_blank"}
+:::
+::::
+
+## Next session {#next}
+
+::: {.beforeafter}
+::: {}
+[Session 5 · Spike or real event?]{.label}
+Week 3 starts with outliers: when a sharp value is an error, and when it is the most important hour in the file.
+:::
+::: {}
+[Before you come]{.label}
+Submit your Lab 02 study file. In your benzene chart, find the highest peak and decide whether you believe it. Write one reason.
+:::
+:::
+
+[Submit the Lab 02 study file on myCourseVille by the date shown there.]{.note-line}

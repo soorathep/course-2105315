@@ -1,0 +1,391 @@
+{
+ "title-slide": {
+  "text": [
+   {
+    "en": "Session four. Filling gaps you can defend.",
+    "th": "คาบที่สี่ การเติมช่องว่างอย่างมีเหตุผลรองรับ"
+   },
+   {
+    "en": "Today we decide which gaps to fill, with what, and what the report must say.",
+    "th": "วันนี้เราจะตัดสินว่าช่องว่างไหนควรเติม เติมด้วยอะไร และรายงานต้องบอกอะไร"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.32
+    ],
+    [
+     3.67,
+     8.64
+    ]
+   ]
+  }
+ },
+ "course-map": {
+  "text": [
+   {
+    "en": "This is the second session of week two. Last time we asked why a value is missing.",
+    "th": "นี่คือคาบที่สองของสัปดาห์ที่สอง คาบที่แล้วเราถามว่าทำไมค่าถึงหาย"
+   },
+   {
+    "en": "Today we fill gaps, but only in ways we can defend.",
+    "th": "วันนี้เราจะเติมช่องว่าง แต่ด้วยวิธีที่อธิบายเหตุผลได้เท่านั้น"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/course-map.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.73
+    ],
+    [
+     6.08,
+     9.84
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   {
+    "en": "We start with your homework numbers. Then five fill methods, and how long a gap each can bridge.",
+    "th": "เราเริ่มจากตัวเลขการบ้านของทุกคน จากนั้นวิธีเติมค่าห้าแบบ และแต่ละแบบเติมช่องว่างได้ยาวแค่ไหน"
+   },
+   {
+    "en": "Then you look at what the AI's fill hides, learn a simple rule for reporting, and finish Lab 02.",
+    "th": "แล้วดูว่าการเติมค่าของ AI ซ่อนอะไรไว้ เรียนกฎง่ายๆ สำหรับการรายงาน และทำแล็บที่สองให้เสร็จ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.52
+    ],
+    [
+     6.87,
+     14.08
+    ]
+   ]
+  }
+ },
+ "warmup": {
+  "text": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. Compare your two means: after dropping the missing hours, and after linear interpolation.",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที เปรียบเทียบค่าเฉลี่ยสองค่า คือหลังตัดชั่วโมงที่หายทิ้ง และหลังเติมด้วยการประมาณค่าเชิงเส้น"
+   },
+   {
+    "en": "Which one is larger in your file? Find the gap that explains the difference.",
+    "th": "ในไฟล์ของคุณค่าไหนมากกว่า หาช่องว่างที่อธิบายความต่างนั้น"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/warmup.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.46
+    ],
+    [
+     8.81,
+     13.63
+    ]
+   ]
+  }
+ },
+ "methods": {
+  "text": [
+   {
+    "en": "Every fill method is an assumption about the hours you did not measure.",
+    "th": "วิธีเติมค่าทุกแบบคือสมมติฐานเกี่ยวกับชั่วโมงที่เราไม่ได้วัด"
+   },
+   {
+    "en": "Dropping assumes the missing hours are like the others. Filling with the mean assumes nothing changes over time.",
+    "th": "การตัดทิ้งสมมติว่าชั่วโมงที่หายเหมือนกับชั่วโมงอื่น การเติมด้วยค่าเฉลี่ยสมมติว่าไม่มีอะไรเปลี่ยนตามเวลา"
+   },
+   {
+    "en": "Linear interpolation assumes a steady change between two neighbours. Carrying the last value assumes nothing changed. The same hour on other days assumes a usual day.",
+    "th": "การประมาณค่าเชิงเส้นสมมติว่าค่าเปลี่ยนอย่างสม่ำเสมอระหว่างสองจุดข้างเคียง การใช้ค่าล่าสุดสมมติว่าไม่มีอะไรเปลี่ยน การใช้ชั่วโมงเดียวกันของวันอื่นสมมติว่าเป็นวันปกติ"
+   },
+   {
+    "en": "Choose the method whose assumption you can defend for this gap.",
+    "th": "เลือกวิธีที่เราอธิบายสมมติฐานได้สำหรับช่องว่างนั้น"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/methods.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.14
+    ],
+    [
+     5.49,
+     13.1
+    ],
+    [
+     13.45,
+     25.7
+    ],
+    [
+     26.05,
+     29.91
+    ]
+   ]
+  }
+ },
+ "bridge": {
+  "text": [
+   {
+    "en": "Here are three real days of benzene. A gap starts at eleven in the morning on the middle day.",
+    "th": "นี่คือข้อมูลเบนซีนจริงสามวัน ช่องว่างเริ่มตอนสิบเอ็ดโมงเช้าของวันตรงกลาง"
+   },
+   {
+    "en": "Move the slider to make the gap longer. For one or two hours, the straight line stays within a few units of the truth.",
+    "th": "เลื่อนแถบให้ช่องว่างยาวขึ้น ถ้ายาวหนึ่งหรือสองชั่วโมง เส้นตรงยังห่างจากค่าจริงเพียงไม่กี่หน่วย"
+   },
+   {
+    "en": "Once the gap covers the evening rush and the night, it misses by more than fifteen.",
+    "th": "เมื่อช่องว่างครอบคลุมช่วงเร่งด่วนตอนเย็นและกลางคืน ค่าจะพลาดไปมากกว่าสิบห้า"
+   },
+   {
+    "en": "Switch to the same hour on other days. It keeps the daily pattern, but it cannot know that this day was busier than usual.",
+    "th": "ลองเปลี่ยนเป็นชั่วโมงเดียวกันของวันอื่น วิธีนี้รักษารูปแบบรายวันไว้ได้ แต่ไม่รู้ว่าวันนี้มีรถมากกว่าปกติ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/bridge.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.48
+    ],
+    [
+     6.83,
+     14.49
+    ],
+    [
+     14.84,
+     20.15
+    ],
+    [
+     20.5,
+     28.95
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   {
+    "en": "Activity one, in pairs, ten minutes. This is the code from Lab 02, Step 4.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที นี่คือโค้ดจากขั้นที่สี่ของแล็บที่สอง"
+   },
+   {
+    "en": "It reports zero missing values and a mean. What did it hide? Write the one sentence your report would need that this code cannot give you.",
+    "th": "โค้ดรายงานว่าไม่มีค่าหายและให้ค่าเฉลี่ย มันซ่อนอะไรไว้ เขียนหนึ่งประโยคที่รายงานต้องมี แต่โค้ดนี้ให้ไม่ได้"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.56
+    ],
+    [
+     6.91,
+     16.22
+    ]
+   ]
+  }
+ },
+ "act1-fix": {
+  "text": [
+   {
+    "en": "About ninety hours were invented. Across the three-day outage the line is straight, so three nights and three rush hours are gone.",
+    "th": "มีประมาณเก้าสิบชั่วโมงที่ถูกสร้างขึ้นเอง ในช่วงที่เครื่องหยุดสามวัน เส้นเป็นเส้นตรง กลางคืนสามคืนและช่วงเร่งด่วนสามช่วงจึงหายไป"
+   },
+   {
+    "en": "The corrected code fills only gaps of three hours or less, and prints how many hours were filled and how many are still missing.",
+    "th": "โค้ดที่แก้แล้วเติมเฉพาะช่องว่างที่ยาวไม่เกินสามชั่วโมง และพิมพ์จำนวนชั่วโมงที่เติมและที่ยังหายอยู่"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/act1-fix.en.mp3",
+   "cues": [
+    [
+     0.25,
+     9.06
+    ],
+    [
+     9.41,
+     17.73
+    ]
+   ]
+  }
+ },
+ "rule": {
+  "text": [
+   {
+    "en": "A rule you can defend has three parts. Fill only gaps that are short compared with how fast the value changes.",
+    "th": "กฎที่อธิบายเหตุผลได้มีสามส่วน เติมเฉพาะช่องว่างที่สั้นเมื่อเทียบกับความเร็วที่ค่าเปลี่ยน"
+   },
+   {
+    "en": "Flag every filled value in its own column, so later steps can leave it out.",
+    "th": "ทำเครื่องหมายค่าที่เติมทุกค่าไว้ในคอลัมน์แยก เพื่อให้ขั้นตอนต่อไปเลือกตัดออกได้"
+   },
+   {
+    "en": "And report, next to the result, how many hours were measured, filled, and still missing. A filled value is an estimate, not a measurement.",
+    "th": "และรายงานไว้ข้างผลลัพธ์ ว่ามีกี่ชั่วโมงที่วัดได้ ที่เติม และที่ยังหาย ค่าที่เติมคือค่าประมาณ ไม่ใช่ค่าที่วัดได้"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/rule.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.23
+    ],
+    [
+     8.58,
+     13.61
+    ],
+    [
+     13.96,
+     23.22
+    ]
+   ]
+  }
+ },
+ "act2": {
+  "text": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 02. Enter your three homework numbers in Step 5 before you reveal the truth.",
+    "th": "เปิดแล็บที่สอง ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนเปิดดูค่าจริง"
+   },
+   {
+    "en": "Compare each kind of gap, answer Steps 7 and 8, then download one file in Step 9 and upload it to myCourseVille.",
+    "th": "เปรียบเทียบช่องว่างแต่ละแบบ ตอบขั้นที่เจ็ดและแปด แล้วดาวน์โหลดไฟล์เดียวในขั้นที่เก้า และอัปโหลดไปที่ myCourseVille"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/act2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.69
+    ],
+    [
+     6.04,
+     12.78
+    ],
+    [
+     13.13,
+     21.62
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   {
+    "en": "For your outage, which method was closest, and was it the one you predicted?",
+    "th": "สำหรับช่วงที่เครื่องหยุดในไฟล์ของคุณ วิธีไหนใกล้ค่าจริงที่สุด และตรงกับที่ทำนายไว้หรือไม่"
+   },
+   {
+    "en": "What longest gap did you choose in Step 8b, and how many hours did that leave missing?",
+    "th": "ในขั้นที่ 8b คุณเลือกช่องว่างยาวที่สุดเท่าไร และเหลือชั่วโมงที่หายอยู่กี่ชั่วโมง"
+   },
+   {
+    "en": "What will your report say about the hours you filled?",
+    "th": "รายงานของคุณจะบอกอะไรเกี่ยวกับชั่วโมงที่เติม"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.96
+    ],
+    [
+     5.31,
+     11.25
+    ],
+    [
+     11.6,
+     14.62
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "Your file has a two-hour gap and a two-day gap. Say how you would treat each one, and what your report would state.",
+    "th": "ไฟล์ของคุณมีช่องว่างสองชั่วโมงและช่องว่างสองวัน บอกว่าจะจัดการแต่ละช่องอย่างไร และรายงานจะระบุอะไร"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.27
+    ],
+    [
+     6.62,
+     14.1
+    ],
+    [
+     14.45,
+     19.79
+    ]
+   ]
+  }
+ },
+ "next": {
+  "text": [
+   {
+    "en": "Next session starts week three: spike or real event? When a sharp value is an error, and when it is the most important hour in the file.",
+    "th": "คาบหน้าเริ่มสัปดาห์ที่สาม ค่าพุ่งผิดปกติหรือเหตุการณ์จริง เมื่อไรค่าที่พุ่งขึ้นคือความผิดพลาด และเมื่อไรคือชั่วโมงที่สำคัญที่สุดในไฟล์"
+   },
+   {
+    "en": "Submit your Lab 02 file. In your benzene chart, find the highest peak, decide whether you believe it, and write one reason.",
+    "th": "ส่งไฟล์แล็บที่สอง ในกราฟเบนซีนของคุณ หาค่ายอดที่สูงที่สุด ตัดสินว่าเชื่อหรือไม่ และเขียนเหตุผลหนึ่งข้อ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s04/next.en.mp3",
+   "cues": [
+    [
+     0.25,
+     10.19
+    ],
+    [
+     10.54,
+     19.48
+    ]
+   ]
+  }
+ }
+}

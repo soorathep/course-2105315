@@ -194,3 +194,32 @@
 .reveal .rep-day.short { background: #fff; color: #0F6E6B; }
 .reveal .rep-day.none { border-style: dashed; border-color: #B9C1C6; color: #66727C; }
 .reveal .rep-out { margin: 0; font-size: .58em; color: #333F4A; }
+
+/* ---------- Session 3 ---------- */
+.reveal .why3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: .8em; }
+.reveal .why3 .w { border-top: 4px solid #0F6E6B; padding-top: 12px; font-size: .72em; color: #333F4A; }
+.reveal .why3 .w.hard { border-top-color: #E29A2D; }
+.reveal .why3 .w p { margin: 0 0 .5em; }
+.reveal .why3 .w strong { color: #1C242B; }
+.reveal .why3 .eff { display: block; margin-top: .6em; font-weight: 600; color: #1C242B; }
+.reveal .why3 .term { display: block; margin-top: .4em; font-size: .82em; color: #66727C; }
+
+.reveal .stories { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: .3em; }
+.reveal .story { background: #F3F0EB; border-radius: 4px; padding: 12px 14px; font-size: .6em; line-height: 1.35; color: #1C242B; }
+.reveal .story p { margin: 0 0 .5em; }
+.reveal .story button { border: 1.5px solid #0F6E6B; background: #fff; color: #0F6E6B; border-radius: 4px; padding: 4px 12px; font: 600 .9em "Source Sans 3", sans-serif; cursor: pointer; }
+.reveal .story button[hidden], .reveal .story .ans[hidden] { display: none; }
+.reveal .story .ans { margin: 0; padding-top: .4em; border-top: 2px solid #E29A2D; color: #333F4A; }
+.reveal .story .ans b { color: #9a5f10; }
+
+.reveal .legend2 { font-size: .45em; color: #333F4A; margin-top: .2em; }
+.reveal .legend2 span { display: inline-block; width: 18px; height: 12px; margin: 0 6px 0 18px; vertical-align: -1px; }
+.reveal .legend2 .k1 { background: #0F6E6B; margin-left: 0; }
+.reveal .legend2 .k2 { background: #E29A2D; }
+
+/* ---------- Session 4 ---------- */
+.reveal .bridgew { margin-top: .4em; font-family: "Source Sans 3", sans-serif; }
+.reveal .bridgew svg { width: 100%; height: auto; display: block; }
+.reveal #methods table { font-size: .62em; width: 100%; }
+.reveal #act1-fix .code-slide { font-size: .5em; }
+.reveal #act1-key table { font-size: .58em; width: 100%; }

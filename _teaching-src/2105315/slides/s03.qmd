@@ -1,0 +1,246 @@
+---
+title: "Why values go missing"
+subtitle: "Session 3 of 14 · 90 minutes · The reason decides the fix"
+author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where this session sits {#course-map}
+
+::: {.coursemap14}
+[Week 1 · Import and audit]{.wk} [1 · Data you can trust]{.cm} [2 · Audit and the AI's code]{.cm}
+[Week 2 · Missing data]{.wk .now} [3 · Why values go missing]{.cm .now} [4 · Filling gaps you can defend]{.cm}
+[Week 3 · Outliers and noise]{.wk} [5 · Spike or real event?]{.cm} [6 · Smoothing without lying]{.cm}
+[Week 4 · Visualization]{.wk} [7 · Trends and distributions]{.cm} [8 · Figures that tell the truth]{.cm}
+[Week 5 · Correlation and anomalies]{.wk} [9 · Correlated or driven?]{.cm} [10 · When did it start?]{.cm}
+[Week 6 · Hypothesis tests]{.wk} [11 · Did the change work?]{.cm} [12 · Tests on plant data]{.cm}
+[Week 7 · Integrated case]{.wk} [13 · Raw file to decision]{.cm} [14 · Defend your decision]{.cm}
+:::
+
+::: {.bridge}
+Week 1 found the missing values and kept them missing. Week 2 asks what to do with them. Today: why they are missing. Next session: how to fill them.
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .act}
+[0–10]{.t} **Warm-up** [Your missing readings]{.d}
+:::
+::: {.seg .concept}
+[10–30]{.t} **Concepts** [Three reasons a value goes missing]{.d}
+:::
+::: {.seg .act}
+[30–45]{.t} **Activity 1** [Six gaps, three reasons]{.d}
+:::
+::: {.seg .concept}
+[45–55]{.t} **Concepts** [Count the gaps or count the hours?]{.d}
+:::
+::: {.seg .act}
+[55–80]{.t} **Activity 2** [Lab 02, Steps 1 to 3]{.d}
+:::
+::: {.seg .wrap}
+[80–90]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: before you choose how to fill a gap, what must you know about why it is there?
+:::
+
+## Warm-up · Your missing readings {#warmup .activity}
+
+[Pairs · 8 minutes · your homework example]{.act-label}
+
+::: {.prompt}
+Tell your neighbour the reading you brought: what went missing, and why.
+:::
+
+::: {.checks3}
+::: {.c4}
+[1 · What stopped it]{.label}
+A fault, a schedule, a person, or the process itself?
+:::
+::: {.c4}
+[2 · When]{.label}
+At random times, at the same time each day, or only in certain conditions?
+:::
+::: {.c4}
+[3 · The value]{.label}
+Would the missing value have been higher, lower, or the same as the rest?
+:::
+:::
+
+[Keep question 3 in mind. It decides whether any fill method can be trusted.]{.note-line}
+
+::: {.selfstudy}
+Studying alone: write down one example and answer the three questions.
+:::
+
+## Three reasons a value goes missing {#why}
+
+::: {.why3}
+::: {.w}
+[Unrelated to anything]{.label}
+**A random loss.** A data packet is dropped, a cable is knocked.
+[Effect: fewer data, no bias.]{.eff}
+[Statisticians call this MCAR.]{.term}
+:::
+::: {.w}
+[Related to something recorded]{.label}
+**A schedule or a condition you can see.** The analyzer calibrates every night at 04:00.
+[Effect: bias, unless you compare like with like.]{.eff}
+[MAR: the reason is in the data.]{.term}
+:::
+::: {.w .hard}
+[Related to the missing value]{.label}
+**The value itself.** The analyzer goes over range when the concentration is high.
+[Effect: bias that no fill method removes.]{.eff}
+[MNAR: the reason is the value that is gone.]{.term}
+:::
+:::
+
+[The third kind is common in plants: instruments fail, and operators skip samples, exactly when the process is unusual.]{.note-line}
+
+## What the data can tell you {#diagnose}
+
+::: {.checks4}
+::: {.c4}
+[By time]{.label}
+Share missing by hour of day and day of week. A peak at one hour points to a schedule.
+:::
+::: {.c4}
+[By length]{.label}
+Single hours or long blocks? Long blocks are outages, and they hold most of the missing hours.
+:::
+::: {.c4}
+[Against another tag]{.label}
+Is the gap more likely when a related tag is high? A temperature, a load, a second sensor.
+:::
+::: {.c4}
+[At the edges]{.label}
+Are the values just before and after the gap unusually high or low?
+:::
+:::
+
+::: {.bridge}
+These checks can point to the third kind of gap. They cannot prove it: the value that caused the gap is the value you do not have.
+:::
+
+## Activity 1 · Six gaps, three reasons {#act1 .activity data-hold="true"}
+
+[Pairs · 12 minutes · no computer needed]{.act-label}
+
+```{=html}
+<div class="stories" id="stories">
+  <div class="story"><p>A flow signal drops out for a minute at random times when a forklift passes the cable tray.</p><button type="button">Reveal</button><p class="ans" hidden><b>Unrelated.</b> Short and random: fill short gaps; little bias.</p></div>
+  <div class="story"><p>A gas analyzer runs an automatic zero check every night at 04:00 and records nothing.</p><button type="button">Reveal</button><p class="ans" hidden><b>Recorded: time.</b> Dropping it raises the daily mean. Fill from neighbouring hours.</p></div>
+  <div class="story"><p>A level gauge stores nothing while the tank is above 95 %.</p><button type="button">Reveal</button><p class="ans" hidden><b>The value.</b> Any fill stays below 95 %. Report the time above range; use the high-level alarm.</p></div>
+  <div class="story"><p>No lab samples are taken on public holidays.</p><button type="button">Reveal</button><p class="ans" hidden><b>Recorded: calendar.</b> Fine if you compare like days; holiday operation may differ.</p></div>
+  <div class="story"><p>Operators skip the shift sample when the unit is upset and they are busy.</p><button type="button">Reveal</button><p class="ans" hidden><b>The value.</b> The record looks calmer than the plant was.</p></div>
+  <div class="story"><p>A pH probe is out for cleaning for three days.</p><button type="button">Reveal</button><p class="ans" hidden><b>Unrelated, but long.</b> Do not draw a line across three days. Leave it missing or use similar days, and report it.</p></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('stories'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  root.querySelectorAll('.story button').forEach((b) => b.addEventListener('click', () => { b.hidden = true; b.nextElementSibling.hidden = false; }));
+})();
+</script>
+```
+
+::: {.prompt .small}
+For each gap: which of the three reasons is it, and what would a plain mean of the remaining data get wrong? Decide before you reveal.
+:::
+
+::: {.selfstudy}
+Studying alone: write a reason for each card, then reveal.
+:::
+
+## Six gaps, the answers {#act1-key}
+
+| Gap | Reason | What goes wrong if you ignore it |
+|---|----|-----------------|
+| Forklift dropouts | Unrelated | Little: fewer data |
+| Zero check at 04:00 | Recorded: time of day | A daily mean without the night hours is too high |
+| Gauge over range | The missing value | Every fill stays below the range; the overflow time is lost |
+| No samples on holidays | Recorded: calendar | Holiday operation is never seen |
+| Samples skipped when upset | The missing value | The process looks more stable than it was |
+| Probe out for three days | Unrelated, but long | A straight line across three days invents a calm process |
+
+[Two of the six cannot be fixed by any method applied to the data alone. They can only be reported, or measured another way.]{.note-line}
+
+## Count the gaps, or count the hours? {#count}
+
+```{=html}
+<figure class="mar">
+<svg viewBox="0 0 1160 300" role="img" aria-label="CO(GT) gaps over the whole year by length. Single-hour gaps are 145 of 187 gaps but only 145 of 1,683 missing hours. The 12 gaps longer than 48 hours hold 1,139 missing hours." font-family="Source Sans 3, sans-serif"><line x1="150.0" x2="150.0" y1="24" y2="260" stroke="#B9C1C6" stroke-width="1"/><text x="150.0" y="284" text-anchor="middle" font-size="16" fill="#333F4A">0%</text><line x1="395.0" x2="395.0" y1="24" y2="260" stroke="#B9C1C6" stroke-width="1"/><text x="395.0" y="284" text-anchor="middle" font-size="16" fill="#333F4A">25%</text><line x1="640.0" x2="640.0" y1="24" y2="260" stroke="#B9C1C6" stroke-width="1"/><text x="640.0" y="284" text-anchor="middle" font-size="16" fill="#333F4A">50%</text><line x1="885.0" x2="885.0" y1="24" y2="260" stroke="#B9C1C6" stroke-width="1"/><text x="885.0" y="284" text-anchor="middle" font-size="16" fill="#333F4A">75%</text><line x1="1130.0" x2="1130.0" y1="24" y2="260" stroke="#B9C1C6" stroke-width="1"/><text x="1130.0" y="284" text-anchor="middle" font-size="16" fill="#333F4A">100%</text><text x="136" y="59.0" text-anchor="end" font-size="18" fill="#1C242B">1 h</text><rect x="150" y="36.0" width="759.9" height="15.0" fill="#0F6E6B"/><text x="917.9" y="47.0" font-size="15" fill="#0F6E6B">145 gaps</text><rect x="150" y="54.0" width="84.4" height="15.0" fill="#E29A2D"/><text x="242.4" y="65.0" font-size="15" fill="#9a5f10">145 hours</text><text x="136" y="105.0" text-anchor="end" font-size="18" fill="#1C242B">2–3 h</text><rect x="150" y="82.0" width="52.4" height="15.0" fill="#0F6E6B"/><text x="210.4" y="93.0" font-size="15" fill="#0F6E6B">10 gaps</text><rect x="150" y="100.0" width="12.2" height="15.0" fill="#E29A2D"/><text x="170.2" y="111.0" font-size="15" fill="#9a5f10">21 hours</text><text x="136" y="151.0" text-anchor="end" font-size="18" fill="#1C242B">4–12 h</text><rect x="150" y="128.0" width="47.2" height="15.0" fill="#0F6E6B"/><text x="205.2" y="139.0" font-size="15" fill="#0F6E6B">9 gaps</text><rect x="150" y="146.0" width="34.9" height="15.0" fill="#E29A2D"/><text x="192.9" y="157.0" font-size="15" fill="#9a5f10">60 hours</text><text x="136" y="197.0" text-anchor="end" font-size="18" fill="#1C242B">13–48 h</text><rect x="150" y="174.0" width="57.6" height="15.0" fill="#0F6E6B"/><text x="215.6" y="185.0" font-size="15" fill="#0F6E6B">11 gaps</text><rect x="150" y="192.0" width="185.2" height="15.0" fill="#E29A2D"/><text x="343.2" y="203.0" font-size="15" fill="#9a5f10">318 hours</text><text x="136" y="243.0" text-anchor="end" font-size="18" fill="#1C242B">over 48 h</text><rect x="150" y="220.0" width="62.9" height="15.0" fill="#0F6E6B"/><text x="220.9" y="231.0" font-size="15" fill="#0F6E6B">12 gaps</text><rect x="150" y="238.0" width="663.2" height="15.0" fill="#E29A2D"/><text x="821.2" y="249.0" font-size="15" fill="#9a5f10">1,139 hours</text><line x1="150" x2="150" y1="24" y2="260" stroke="#333F4A" stroke-width="1.5"/><text x="136" y="18" text-anchor="end" font-size="15" fill="#66727C">gap length</text></svg>
+<figcaption class="legend2"><span class="k1"></span>share of gaps <span class="k2"></span>share of missing hours</figcaption>
+</figure>
+```
+
+::: {.bridge}
+Most gaps in the real CO record are single hours: 145 of 187. They hold 9 % of the missing hours. The 12 gaps longer than two days hold 68 %. A plan for single hours does not cover the outages.
+:::
+
+[CO(GT), all 9,357 hours, March 2004 to April 2005, 1,683 hours at −200. Data: De Vito, UCI, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
+
+## Activity 2 · Lab 02, Steps 1 to 3 {#act2 .activity}
+
+[Individual · 25 minutes · laptop or phone]{.act-label}
+
+1. Open **Lab 02** and enter your name and student ID. Press **My data set**.
+2. Step 2: look at each kind of gap in your 14 days of benzene.
+3. Step 3: predict the best method for each kind of gap, and write your reason for the outage.
+4. Do not reveal the truth yet. Download your study in Step 9 to keep your work.
+
+[Open Lab 02](../labs/gaps.html){.lab-button target="_blank"}
+
+::: {.selfstudy}
+Studying alone: do Steps 1 to 3, then download your study in Step 9.
+:::
+
+## Debrief {#debrief}
+
+::: {.debrief-q}
+[Which of the six gaps did your pair disagree on, and why?]{.dq}
+[In your Lab 02 file, which kind of gap removes the most hours?]{.dq}
+[Which method did you predict for the outage, and what would make you change your mind?]{.dq}
+:::
+
+## Exit ticket · 5 minutes {#exit .activity}
+
+[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+
+:::: {.columns}
+::: {.column width="64%"}
+::: {.prompt}
+Give one plant example of a value that goes missing because of the value itself. Why can no fill method fix it?
+:::
+
+Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+
+No name or student ID is recorded. Wait for **"Response received."**
+:::
+::: {.column width="32%" .qr-col}
+![](figures/exit-qr-s03.png){.qr fig-alt="QR code for the Session 3 exit ticket and feedback form"}
+
+[Open the Session 3 form](exit.html?s=3){target="_blank"}
+:::
+::::
+
+## Next session {#next}
+
+::: {.beforeafter}
+::: {}
+[Session 4 · Filling gaps you can defend]{.label}
+Five fill methods, how long a gap each can bridge, and what a report must say about filled data.
+:::
+::: {}
+[Before you come]{.label}
+Download your file in Lab 02, Step 5. Ask an AI assistant for code that reports the three numbers there, and read the code before you run it.
+:::
+:::
+
+[Lab 02 is due after Session 4. Submit the study file on myCourseVille.]{.note-line}

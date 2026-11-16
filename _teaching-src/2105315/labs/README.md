@@ -7,7 +7,7 @@ From 2026/2 students do not write code from scratch. They learn the principle in
 assistant write notebook code, and check that code. Each lab therefore has:
 
 - a short incident and one question;
-- a prediction before the reveal (Lab 01: eight statements about the file);
+- a prediction before the reveal (Lab 01: eight statements about the file; Lab 02: a method for each kind of gap);
 - "Check the AI's code": plausible code with one realistic error, answered in writing before the explanation opens;
 - notebook numbers: the student runs AI-written code on their own data file and enters the results; the lab,
   which computes the same quantities independently in JavaScript, is the reference;
@@ -26,6 +26,19 @@ Checks before each push:
     python3 _teaching-src/2105315/labs/build.py
     python3 _teaching-src/2105315/labs/tests/smoke_test.py         # Playwright, desktop and 375 px
     python3 _teaching-src/2105315/labs/tests/engine_vs_pandas.py   # needs Node.js; engine = pandas
+
+## Lab 02 · Which gap-filling method biases the answer least?
+
+Data: benzene, C6H6(GT), from the same UCI file. Each window is a real 14-day stretch with no missing
+benzene hour (4,340 choices), so every hour has a true value. Gaps are removed on purpose, from a seed
+derived from the student ID: 12 scattered single hours, every 04:00, one 72-hour outage, and (Extension) the
+15 highest hours. Five methods (drop, mean, linear interpolation, forward fill, same hour on other days) are
+compared on the two-week mean and the typical daily peak (mean of daily maxima). Engine: `assets/gaps-engine.js`.
+
+    python3 _teaching-src/2105315/labs/tests/gaps_vs_pandas.py     # needs Node.js; engine = pandas
+
+The study file records `dataset.startIndex` and the predictions with the methods that were closest, so a
+grader can recompute everything from the student ID.
 
 ## Grading
 

@@ -16,7 +16,7 @@ _shared = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_shared)
 
 BASE = '/teaching/2105315/labs/'
-LABS = ['audit']
+LABS = ['audit', 'gaps']
 
 if __name__ == '__main__':
     _shared.main(BASE, LABS)

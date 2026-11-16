@@ -1,0 +1,202 @@
+{
+  "voice_en": "am_michael",
+  "note": "en = English caption and voice; th = Thai caption; th_say = what the Thai voice reads (Thai script only: English terms written as they sound, numbers in words). say = English voice text when it differs from en.",
+  "slides": {
+    "title-slide": [
+      {
+        "en": "Session three. Why values go missing.",
+        "th": "คาบที่สาม ทำไมค่าถึงหายไป",
+        "th_say": "คาบที่สาม ทำไมค่าถึงหายไป"
+      },
+      {
+        "en": "The reason a value is missing decides what you are allowed to do about it.",
+        "th": "เหตุผลที่ค่าหายไป เป็นตัวกำหนดว่าเราทำอะไรกับมันได้บ้าง",
+        "th_say": "เหตุผลที่ค่าหายไป เป็นตัวกำหนดว่าเราทำอะไรกับมันได้บ้าง"
+      }
+    ],
+    "course-map": [
+      {
+        "en": "Week two is about missing data. Week one found the missing values and kept them missing.",
+        "th": "สัปดาห์ที่สองว่าด้วยข้อมูลที่หายไป สัปดาห์แรกเราหาค่าที่หายเจอ และเก็บไว้เป็นค่าหาย",
+        "th_say": "สัปดาห์ที่สองว่าด้วยข้อมูลที่หายไป สัปดาห์แรกเราหาค่าที่หายเจอ และเก็บไว้เป็นค่าหาย"
+      },
+      {
+        "en": "Today we ask why they are missing. Next session we decide how to fill them.",
+        "th": "วันนี้เราถามว่าทำไมค่าถึงหาย คาบหน้าเราจะตัดสินใจว่าจะเติมค่าอย่างไร",
+        "th_say": "วันนี้เราถามว่าทำไมค่าถึงหาย คาบหน้าเราจะตัดสินใจว่าจะเติมค่าอย่างไร"
+      }
+    ],
+    "route": [
+      {
+        "en": "We start with your examples. Then three reasons a value goes missing, and six real situations to sort in pairs.",
+        "th": "เราเริ่มจากตัวอย่างของทุกคน จากนั้นเป็นสามเหตุผลที่ค่าหายไป และสถานการณ์จริงหกแบบให้จับคู่จัดกลุ่ม",
+        "th_say": "เราเริ่มจากตัวอย่างของทุกคน จากนั้นเป็นสามเหตุผลที่ค่าหายไป และสถานการณ์จริงหกแบบให้จับคู่จัดกลุ่ม"
+      },
+      {
+        "en": "After that, the real record shows why counting gaps can mislead. Then you start Lab 02.",
+        "th": "หลังจากนั้นข้อมูลจริงจะแสดงว่าการนับจำนวนช่องว่างทำให้เข้าใจผิดได้อย่างไร แล้วเริ่มทำแล็บที่สอง",
+        "th_say": "หลังจากนั้นข้อมูลจริงจะแสดงว่าการนับจำนวนช่องว่างทำให้เข้าใจผิดได้อย่างไร แล้วเริ่มทำแล็บที่สอง"
+      },
+      {
+        "en": "Keep the question in mind: before you choose how to fill a gap, what must you know about why it is there?",
+        "th": "จำคำถามไว้ ก่อนเลือกวิธีเติมช่องว่าง เราต้องรู้อะไรเกี่ยวกับสาเหตุที่มันหายไป",
+        "th_say": "จำคำถามไว้ ก่อนเลือกวิธีเติมช่องว่าง เราต้องรู้อะไรเกี่ยวกับสาเหตุที่มันหายไป"
+      }
+    ],
+    "warmup": [
+      {
+        "en": "Warm-up, in pairs, eight minutes. Tell your neighbour the missing reading you brought, and why it went missing.",
+        "th": "อุ่นเครื่อง จับคู่ แปดนาที เล่าให้เพื่อนฟังถึงค่าที่หายไปที่เตรียมมา และทำไมจึงหาย",
+        "th_say": "อุ่นเครื่อง จับคู่ แปดนาที เล่าให้เพื่อนฟังถึงค่าที่หายไปที่เตรียมมา และทำไมจึงหาย"
+      },
+      {
+        "en": "Ask three questions: what stopped it, when it happens, and whether the missing value would have been higher or lower than the rest.",
+        "th": "ถามสามข้อ อะไรทำให้มันหยุด เกิดขึ้นเมื่อไร และค่าที่หายไปน่าจะสูงหรือต่ำกว่าค่าอื่นหรือไม่",
+        "th_say": "ถามสามข้อ อะไรทำให้มันหยุด เกิดขึ้นเมื่อไร และค่าที่หายไปน่าจะสูงหรือต่ำกว่าค่าอื่นหรือไม่"
+      },
+      {
+        "en": "Keep the third question in mind. It decides whether any fill method can be trusted.",
+        "th": "จำคำถามข้อที่สามไว้ เพราะเป็นตัวตัดสินว่าวิธีเติมค่าแบบไหนเชื่อถือได้หรือไม่",
+        "th_say": "จำคำถามข้อที่สามไว้ เพราะเป็นตัวตัดสินว่าวิธีเติมค่าแบบไหนเชื่อถือได้หรือไม่"
+      }
+    ],
+    "why": [
+      {
+        "en": "A value can go missing for a reason unrelated to anything. Then you have fewer data, but no bias.",
+        "th": "ค่าอาจหายไปด้วยเหตุผลที่ไม่เกี่ยวกับอะไรเลย กรณีนี้ข้อมูลน้อยลง แต่ไม่เกิดความเอนเอียง",
+        "th_say": "ค่าอาจหายไปด้วยเหตุผลที่ไม่เกี่ยวกับอะไรเลย กรณีนี้ข้อมูลน้อยลง แต่ไม่เกิดความเอนเอียง"
+      },
+      {
+        "en": "It can go missing for a reason you can see in the data, such as a calibration every night at four. Then you must compare like with like.",
+        "th": "ค่าอาจหายด้วยเหตุผลที่เห็นได้ในข้อมูล เช่น การสอบเทียบทุกคืนตอนตีสี่ กรณีนี้ต้องเปรียบเทียบสิ่งที่เหมือนกัน",
+        "th_say": "ค่าอาจหายด้วยเหตุผลที่เห็นได้ในข้อมูล เช่น การสอบเทียบทุกคืนตอนตีสี่ กรณีนี้ต้องเปรียบเทียบสิ่งที่เหมือนกัน"
+      },
+      {
+        "en": "Or it can go missing because of the value itself, such as an analyzer that goes over range when the concentration is high.",
+        "th": "หรือค่าอาจหายเพราะตัวค่าเอง เช่น เครื่องวิเคราะห์ที่วัดเกินช่วงเมื่อความเข้มข้นสูง",
+        "th_say": "หรือค่าอาจหายเพราะตัวค่าเอง เช่น เครื่องวิเคราะห์ที่วัดเกินช่วงเมื่อความเข้มข้นสูง"
+      },
+      {
+        "en": "The third kind gives a bias that no fill method removes, and it is common in plants.",
+        "th": "แบบที่สามทำให้เกิดความเอนเอียงที่วิธีเติมค่าใดก็แก้ไม่ได้ และพบบ่อยในโรงงาน",
+        "th_say": "แบบที่สามทำให้เกิดความเอนเอียงที่วิธีเติมค่าใดก็แก้ไม่ได้ และพบบ่อยในโรงงาน"
+      }
+    ],
+    "diagnose": [
+      {
+        "en": "The data can tell you some of the reason. Look at missing values by time, by gap length, against another tag, and at the edges of each gap.",
+        "th": "ข้อมูลบอกเหตุผลได้ส่วนหนึ่ง ให้ดูค่าที่หายตามเวลา ตามความยาวของช่องว่าง เทียบกับแท็กอื่น และที่ขอบของแต่ละช่องว่าง",
+        "th_say": "ข้อมูลบอกเหตุผลได้ส่วนหนึ่ง ให้ดูค่าที่หายตามเวลา ตามความยาวของช่องว่าง เทียบกับแท็กอื่น และที่ขอบของแต่ละช่องว่าง"
+      },
+      {
+        "en": "These checks can point to the third kind of gap. They cannot prove it, because the value that caused the gap is the value you do not have.",
+        "th": "การตรวจเหล่านี้ชี้ไปที่ช่องว่างแบบที่สามได้ แต่พิสูจน์ไม่ได้ เพราะค่าที่ทำให้เกิดช่องว่างคือค่าที่เราไม่มี",
+        "th_say": "การตรวจเหล่านี้ชี้ไปที่ช่องว่างแบบที่สามได้ แต่พิสูจน์ไม่ได้ เพราะค่าที่ทำให้เกิดช่องว่างคือค่าที่เราไม่มี"
+      }
+    ],
+    "act1": [
+      {
+        "en": "Activity one, in pairs, twelve minutes. Six gaps from plant situations.",
+        "th": "กิจกรรมที่หนึ่ง จับคู่ สิบสองนาที ช่องว่างหกแบบจากสถานการณ์ในโรงงาน",
+        "th_say": "กิจกรรมที่หนึ่ง จับคู่ สิบสองนาที ช่องว่างหกแบบจากสถานการณ์ในโรงงาน"
+      },
+      {
+        "en": "For each one, decide which of the three reasons it is, and what a plain mean of the remaining data would get wrong. Then reveal.",
+        "th": "สำหรับแต่ละแบบ ตัดสินว่าเป็นเหตุผลแบบไหนในสามแบบ และค่าเฉลี่ยของข้อมูลที่เหลือจะผิดไปอย่างไร แล้วจึงเปิดดูคำตอบ",
+        "th_say": "สำหรับแต่ละแบบ ตัดสินว่าเป็นเหตุผลแบบไหนในสามแบบ และค่าเฉลี่ยของข้อมูลที่เหลือจะผิดไปอย่างไร แล้วจึงเปิดดูคำตอบ"
+      }
+    ],
+    "act1-key": [
+      {
+        "en": "Two are unrelated to the value, two follow something recorded, and two are caused by the value itself.",
+        "th": "สองแบบไม่เกี่ยวกับค่า สองแบบตามสิ่งที่บันทึกไว้ และอีกสองแบบเกิดจากตัวค่าเอง",
+        "th_say": "สองแบบไม่เกี่ยวกับค่า สองแบบตามสิ่งที่บันทึกไว้ และอีกสองแบบเกิดจากตัวค่าเอง"
+      },
+      {
+        "en": "The gauge over range and the skipped samples cannot be fixed by any method applied to the data alone. They can only be reported, or measured another way.",
+        "th": "เกจที่วัดเกินช่วงและตัวอย่างที่ข้ามไป แก้ไม่ได้ด้วยวิธีใดที่ใช้กับข้อมูลอย่างเดียว ทำได้เพียงรายงาน หรือวัดด้วยวิธีอื่น",
+        "th_say": "เกจที่วัดเกินช่วงและตัวอย่างที่ข้ามไป แก้ไม่ได้ด้วยวิธีใดที่ใช้กับข้อมูลอย่างเดียว ทำได้เพียงรายงาน หรือวัดด้วยวิธีอื่น"
+      }
+    ],
+    "count": [
+      {
+        "en": "This is the real CO record for the whole year. Teal is the share of gaps, amber the share of missing hours.",
+        "th": "นี่คือข้อมูล CO จริงทั้งปี สีเขียวคือสัดส่วนของจำนวนช่องว่าง สีส้มคือสัดส่วนของชั่วโมงที่หาย",
+        "th_say": "นี่คือข้อมูลซีโอจริงทั้งปี สีเขียวคือสัดส่วนของจำนวนช่องว่าง สีส้มคือสัดส่วนของชั่วโมงที่หาย"
+      },
+      {
+        "en": "Most gaps are single hours: one hundred forty-five of one hundred eighty-seven. But they hold only nine percent of the missing hours.",
+        "th": "ช่องว่างส่วนใหญ่ยาวชั่วโมงเดียว คือ 145 จาก 187 ช่อง แต่รวมกันเป็นเพียงร้อยละ 9 ของชั่วโมงที่หาย",
+        "th_say": "ช่องว่างส่วนใหญ่ยาวชั่วโมงเดียว คือหนึ่งร้อยสี่สิบห้าจากหนึ่งร้อยแปดสิบเจ็ดช่อง แต่รวมกันเป็นเพียงร้อยละเก้าของชั่วโมงที่หาย"
+      },
+      {
+        "en": "The twelve gaps longer than two days hold sixty-eight percent. A plan for single hours does not cover the outages.",
+        "th": "ช่องว่างสิบสองช่องที่ยาวเกินสองวัน รวมกันเป็นร้อยละ 68 แผนที่ใช้กับช่องว่างชั่วโมงเดียวจึงไม่ครอบคลุมช่วงที่เครื่องหยุดทำงาน",
+        "th_say": "ช่องว่างสิบสองช่องที่ยาวเกินสองวัน รวมกันเป็นร้อยละหกสิบแปด แผนที่ใช้กับช่องว่างชั่วโมงเดียวจึงไม่ครอบคลุมช่วงที่เครื่องหยุดทำงาน"
+      }
+    ],
+    "act2": [
+      {
+        "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+        "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้",
+        "th_say": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+      },
+      {
+        "en": "Open Lab 02 and load your own data set. Look at each kind of gap in your fourteen days of benzene.",
+        "th": "เปิดแล็บที่สองและโหลดชุดข้อมูลของตัวเอง ดูช่องว่างแต่ละแบบในข้อมูลเบนซีนสิบสี่วันของคุณ",
+        "th_say": "เปิดแล็บที่สองและโหลดชุดข้อมูลของตัวเอง ดูช่องว่างแต่ละแบบในข้อมูลเบนซีนสิบสี่วันของคุณ"
+      },
+      {
+        "en": "Predict the best method for each kind of gap, and write your reason for the outage. Do not reveal the truth yet. Download your study to keep your work.",
+        "th": "ทำนายวิธีที่ดีที่สุดสำหรับช่องว่างแต่ละแบบ และเขียนเหตุผลสำหรับช่วงที่เครื่องหยุด ยังไม่ต้องเปิดดูค่าจริง ดาวน์โหลดไฟล์งานเก็บไว้ก่อน",
+        "th_say": "ทำนายวิธีที่ดีที่สุดสำหรับช่องว่างแต่ละแบบ และเขียนเหตุผลสำหรับช่วงที่เครื่องหยุด ยังไม่ต้องเปิดดูค่าจริง ดาวน์โหลดไฟล์งานเก็บไว้ก่อน"
+      }
+    ],
+    "debrief": [
+      {
+        "en": "Which of the six gaps did your pair disagree on, and why?",
+        "th": "คู่ของคุณเห็นไม่ตรงกันในช่องว่างแบบไหน และเพราะอะไร",
+        "th_say": "คู่ของคุณเห็นไม่ตรงกันในช่องว่างแบบไหน และเพราะอะไร"
+      },
+      {
+        "en": "In your Lab 02 file, which kind of gap removes the most hours?",
+        "th": "ในไฟล์แล็บที่สองของคุณ ช่องว่างแบบไหนทำให้ชั่วโมงหายไปมากที่สุด",
+        "th_say": "ในไฟล์แล็บที่สองของคุณ ช่องว่างแบบไหนทำให้ชั่วโมงหายไปมากที่สุด"
+      },
+      {
+        "en": "Which method did you predict for the outage, and what would make you change your mind?",
+        "th": "คุณทำนายวิธีไหนสำหรับช่วงที่เครื่องหยุด และอะไรจะทำให้คุณเปลี่ยนใจ",
+        "th_say": "คุณทำนายวิธีไหนสำหรับช่วงที่เครื่องหยุด และอะไรจะทำให้คุณเปลี่ยนใจ"
+      }
+    ],
+    "exit": [
+      {
+        "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+        "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน",
+        "th_say": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+      },
+      {
+        "en": "Give one plant example of a value that goes missing because of the value itself, and say why no fill method can fix it.",
+        "th": "ยกตัวอย่างหนึ่งเรื่องในโรงงานที่ค่าหายไปเพราะตัวค่าเอง และบอกว่าทำไมไม่มีวิธีเติมค่าใดแก้ได้",
+        "th_say": "ยกตัวอย่างหนึ่งเรื่องในโรงงานที่ค่าหายไปเพราะตัวค่าเอง และบอกว่าทำไมไม่มีวิธีเติมค่าใดแก้ได้"
+      },
+      {
+        "en": "Scan the code or open the link. No name or student ID is recorded.",
+        "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต",
+        "th_say": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+      }
+    ],
+    "next": [
+      {
+        "en": "Next session: filling gaps you can defend. Five methods, how long a gap each can bridge, and what a report must say.",
+        "th": "คาบหน้า การเติมช่องว่างอย่างมีเหตุผลรองรับ วิธีเติมค่าห้าแบบ แต่ละแบบเติมช่องว่างได้ยาวแค่ไหน และรายงานต้องบอกอะไร",
+        "th_say": "คาบหน้า การเติมช่องว่างอย่างมีเหตุผลรองรับ วิธีเติมค่าห้าแบบ แต่ละแบบเติมช่องว่างได้ยาวแค่ไหน และรายงานต้องบอกอะไร"
+      },
+      {
+        "en": "Before you come, download your Lab 02 file, ask an AI assistant for code for the three numbers in Step 5, and read the code before you run it.",
+        "th": "ก่อนมาเรียน ดาวน์โหลดไฟล์จากแล็บที่สอง ขอให้ AI เขียนโค้ดหาตัวเลขสามค่าในขั้นที่ห้า และอ่านโค้ดก่อนรัน",
+        "th_say": "ก่อนมาเรียน ดาวน์โหลดไฟล์จากแล็บที่สอง ขอให้เอไอเขียนโค้ดหาตัวเลขสามค่าในขั้นที่ห้า และอ่านโค้ดก่อนรัน"
+      }
+    ]
+  }
+}
