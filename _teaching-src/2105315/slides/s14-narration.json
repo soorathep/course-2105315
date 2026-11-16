@@ -1,0 +1,198 @@
+{
+ "voice_en": "am_michael",
+ "note": "en = English caption and voice; th = Thai caption; th_say = what the Thai voice reads (Thai script only: English terms written as they sound, numbers in words). say = English voice text when it differs from en.",
+ "slides": {
+  "title-slide": [
+   {
+    "en": "Session fourteen. Defend your decision.",
+    "th": "คาบที่สิบสี่ ปกป้องการตัดสินใจของคุณ",
+    "th_say": "คาบที่สิบสี่ ปกป้องการตัดสินใจของคุณ"
+   },
+   {
+    "en": "Today we see what a wrong clock does to a calibration, and how to write a decision that someone can act on and check.",
+    "th": "วันนี้เราดูว่านาฬิกาที่ผิดส่งผลต่อการสอบเทียบอย่างไร และวิธีเขียนการตัดสินใจที่มีคนนำไปใช้และตรวจซ้ำได้",
+    "th_say": "วันนี้เราดูว่านาฬิกาที่ผิดส่งผลต่อการสอบเทียบอย่างไร และวิธีเขียนการตัดสินใจที่มีคนนำไปใช้และตรวจซ้ำได้"
+   }
+  ],
+  "course-map": [
+   {
+    "en": "This is the last session of the course. Last time we found the two clocks.",
+    "th": "นี่คือคาบสุดท้ายของวิชา คาบที่แล้วเราพบว่ามีนาฬิกาสองแบบ",
+    "th_say": "นี่คือคาบสุดท้ายของวิชา คาบที่แล้วเราพบว่ามีนาฬิกาสองแบบ"
+   },
+   {
+    "en": "Today you finish Lab 07 and write your decision memo.",
+    "th": "วันนี้คุณทำแล็บที่เจ็ดให้เสร็จ และเขียนบันทึกการตัดสินใจ",
+    "th_say": "วันนี้คุณทำแล็บที่เจ็ดให้เสร็จ และเขียนบันทึกการตัดสินใจ",
+    "say": "Today you finish Lab zero seven and write your decision memo."
+   }
+  ],
+  "route": [
+   {
+    "en": "We start with your homework numbers and the AI’s merge. Then a flattened fit, and the decision memo.",
+    "th": "เราเริ่มจากตัวเลขการบ้านและการรวมไฟล์ของ AI จากนั้นดูเส้นที่แบนลง และบันทึกการตัดสินใจ",
+    "th_say": "เราเริ่มจากตัวเลขการบ้านและการรวมไฟล์ของเอไอ จากนั้นดูเส้นที่แบนลง และบันทึกการตัดสินใจ"
+   },
+   {
+    "en": "Then you finish Lab 07, and we close with what the course covered.",
+    "th": "แล้วคุณทำแล็บที่เจ็ดให้เสร็จ และเราปิดด้วยสิ่งที่วิชานี้ครอบคลุม",
+    "th_say": "แล้วคุณทำแล็บที่เจ็ดให้เสร็จ และเราปิดด้วยสิ่งที่วิชานี้ครอบคลุม",
+    "say": "Then you finish Lab zero seven, and we close with what the course covered."
+   }
+  ],
+  "warmup": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. Compare the three numbers your code reported in Lab 07, Step 5.",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที เปรียบเทียบตัวเลขสามค่าที่โค้ดของคุณรายงานในแล็บที่เจ็ด ขั้นที่ห้า",
+    "th_say": "อุ่นเครื่อง จับคู่ แปดนาที เปรียบเทียบตัวเลขสามค่าที่โค้ดของคุณรายงานในแล็บที่เจ็ด ขั้นที่ห้า",
+    "say": "Warm-up, in pairs, eight minutes. Compare the three numbers your code reported in Lab zero seven, Step five."
+   },
+   {
+    "en": "If they differ from your neighbor’s, is it the data set or the code? Keep your slope for the next activity.",
+    "th": "ถ้าต่างจากของเพื่อน เป็นเพราะชุดข้อมูลหรือโค้ด เก็บค่าความชันไว้ใช้ในกิจกรรมถัดไป",
+    "th_say": "ถ้าต่างจากของเพื่อน เป็นเพราะชุดข้อมูลหรือโค้ด เก็บค่าความชันไว้ใช้ในกิจกรรมถัดไป"
+   }
+  ],
+  "act1": [
+   {
+    "en": "Activity one, in pairs, ten minutes. The analyst asked an AI assistant to merge the two files and calibrate the sensor on week one.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที นักวิเคราะห์ขอให้ AI รวมสองไฟล์และสอบเทียบเซนเซอร์ในสัปดาห์แรก",
+    "th_say": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที นักวิเคราะห์ขอให้เอไอรวมสองไฟล์และสอบเทียบเซนเซอร์ในสัปดาห์แรก"
+   },
+   {
+    "en": "The code runs without an error. Name two problems in the first three lines, and what each does to the calibration.",
+    "th": "โค้ดรันได้โดยไม่มีข้อผิดพลาด บอกปัญหาสองข้อในสามบรรทัดแรก และแต่ละข้อส่งผลต่อการสอบเทียบอย่างไร",
+    "th_say": "โค้ดรันได้โดยไม่มีข้อผิดพลาด บอกปัญหาสองข้อในสามบรรทัดแรก และแต่ละข้อส่งผลต่อการสอบเทียบอย่างไร"
+   }
+  ],
+  "act1-fix": [
+   {
+    "en": "Renaming both columns to t hides that one is in UTC. The merge pairs each sensor hour with benzene two hours later.",
+    "th": "การเปลี่ยนชื่อคอลัมน์ทั้งสองเป็น t ซ่อนความจริงที่ว่าคอลัมน์หนึ่งใช้เวลา UTC การรวมไฟล์จึงจับคู่เซนเซอร์แต่ละชั่วโมงกับเบนซีนที่ช้ากว่าสองชั่วโมง",
+    "th_say": "การเปลี่ยนชื่อคอลัมน์ทั้งสองเป็นที ซ่อนความจริงที่ว่าคอลัมน์หนึ่งใช้เวลายูทีซี การรวมไฟล์จึงจับคู่เซนเซอร์แต่ละชั่วโมงกับเบนซีนที่ช้ากว่าสองชั่วโมง"
+   },
+   {
+    "en": "And three sensor rows appear twice, so the merge copies them. Neither problem raises an error. Both change the number the decision rests on.",
+    "th": "และแถวของเซนเซอร์สามแถวซ้ำกัน การรวมไฟล์จึงคัดลอกแถวเหล่านั้น ทั้งสองปัญหาไม่ทำให้เกิดข้อผิดพลาด แต่ทั้งคู่เปลี่ยนตัวเลขที่การตัดสินใจอาศัยอยู่",
+    "th_say": "และแถวของเซนเซอร์สามแถวซ้ำกัน การรวมไฟล์จึงคัดลอกแถวเหล่านั้น ทั้งสองปัญหาไม่ทำให้เกิดข้อผิดพลาด แต่ทั้งคู่เปลี่ยนตัวเลขที่การตัดสินใจอาศัยอยู่"
+   }
+  ],
+  "flat": [
+   {
+    "en": "This is the calibration week as the plain merge pairs it. The points are scattered and the fitted line is flat: r is zero point five one.",
+    "th": "นี่คือสัปดาห์สอบเทียบตามที่การรวมไฟล์แบบตรงๆ จับคู่ไว้ จุดกระจาย และเส้นที่ลากได้แบน ค่า r คือศูนย์จุดห้าหนึ่ง",
+    "th_say": "นี่คือสัปดาห์สอบเทียบตามที่การรวมไฟล์แบบตรงๆ จับคู่ไว้ จุดกระจาย และเส้นที่ลากได้แบน ค่าอาร์คือศูนย์จุดห้าหนึ่ง"
+   },
+   {
+    "en": "Press Aligned files. The points close up around a steeper line: r is zero point nine two, and the slope doubles.",
+    "th": "กดปุ่มไฟล์ที่จัดเวลาแล้ว จุดรวมตัวรอบเส้นที่ชันขึ้น ค่า r คือศูนย์จุดเก้าสอง และความชันเพิ่มเป็นสองเท่า",
+    "th_say": "กดปุ่มไฟล์ที่จัดเวลาแล้ว จุดรวมตัวรอบเส้นที่ชันขึ้น ค่าอาร์คือศูนย์จุดเก้าสอง และความชันเพิ่มเป็นสองเท่า"
+   },
+   {
+    "en": "With the flat line, a rush-hour peak is predicted at about two thirds of its height. The alert flags fifty-one percent of the hours above fifteen instead of ninety-one.",
+    "th": "เมื่อใช้เส้นที่แบน ยอดช่วงเร่งด่วนถูกทำนายได้เพียงประมาณสองในสามของความสูงจริง การเตือนจับได้ห้าสิบเอ็ดเปอร์เซ็นต์ของชั่วโมงที่เกินสิบห้า แทนที่จะเป็นเก้าสิบเอ็ด",
+    "th_say": "เมื่อใช้เส้นที่แบน ยอดช่วงเร่งด่วนถูกทำนายได้เพียงประมาณสองในสามของความสูงจริง การเตือนจับได้ห้าสิบเอ็ดเปอร์เซ็นต์ของชั่วโมงที่เกินสิบห้า แทนที่จะเป็นเก้าสิบเอ็ด"
+   }
+  ],
+  "memo": [
+   {
+    "en": "A decision memo has four parts. The decision, in one sentence the manager can act on. The evidence, with numbers and their basis.",
+    "th": "บันทึกการตัดสินใจมีสี่ส่วน การตัดสินใจในหนึ่งประโยคที่ผู้จัดการนำไปใช้ได้ หลักฐานพร้อมตัวเลขและที่มา",
+    "th_say": "บันทึกการตัดสินใจมีสี่ส่วน การตัดสินใจในหนึ่งประโยคที่ผู้จัดการนำไปใช้ได้ หลักฐานพร้อมตัวเลขและที่มา"
+   },
+   {
+    "en": "What you did to the raw files. And the limits of the test.",
+    "th": "สิ่งที่คุณทำกับไฟล์ดิบ และข้อจำกัดของการทดสอบ",
+    "th_say": "สิ่งที่คุณทำกับไฟล์ดิบ และข้อจำกัดของการทดสอบ"
+   },
+   {
+    "en": "A reviewer with your two files and your memo should get the same numbers. That is what makes the decision defensible.",
+    "th": "ผู้ตรวจสอบที่มีสองไฟล์และบันทึกของคุณควรได้ตัวเลขเดียวกัน นั่นคือสิ่งที่ทำให้การตัดสินใจปกป้องได้",
+    "th_say": "ผู้ตรวจสอบที่มีสองไฟล์และบันทึกของคุณควรได้ตัวเลขเดียวกัน นั่นคือสิ่งที่ทำให้การตัดสินใจปกป้องได้"
+   }
+  ],
+  "act2": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้",
+    "th_say": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 07. Enter your three homework numbers in Step 5 before you audit and align.",
+    "th": "เปิดแล็บที่เจ็ด ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนตรวจสอบและจัดเวลา",
+    "th_say": "เปิดแล็บที่เจ็ด ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนตรวจสอบและจัดเวลา",
+    "say": "Open Lab zero seven. Enter your three homework numbers in Step five before you audit and align."
+   },
+   {
+    "en": "Calibrate, test and choose your decision in Step 7, write your memo in Step 8, then download one file and upload it to myCourseVille.",
+    "th": "สอบเทียบ ทดสอบ และเลือกการตัดสินใจในขั้นที่เจ็ด เขียนบันทึกในขั้นที่แปด แล้วดาวน์โหลดไฟล์เดียว และอัปโหลดไปที่ myCourseVille",
+    "th_say": "สอบเทียบ ทดสอบ และเลือกการตัดสินใจในขั้นที่เจ็ด เขียนบันทึกในขั้นที่แปด แล้วดาวน์โหลดไฟล์เดียว และอัปโหลดไปที่มายคอร์สวิลล์",
+    "say": "Calibrate, test and choose your decision in Step seven, write your memo in Step eight, then download one file and upload it to my Course Ville."
+   }
+  ],
+  "wrap": [
+   {
+    "en": "Seven weeks, seven questions: can I trust this file, what do I do with gaps, spike or real event, does the figure tell the truth.",
+    "th": "เจ็ดสัปดาห์ เจ็ดคำถาม ไฟล์นี้เชื่อถือได้ไหม จะทำอย่างไรกับช่องว่าง ค่าพุ่งหรือเหตุการณ์จริง กราฟบอกความจริงไหม",
+    "th_say": "เจ็ดสัปดาห์ เจ็ดคำถาม ไฟล์นี้เชื่อถือได้ไหม จะทำอย่างไรกับช่องว่าง ค่าพุ่งหรือเหตุการณ์จริง กราฟบอกความจริงไหม"
+   },
+   {
+    "en": "Correlated or driven, did the change work, and what do I decide.",
+    "th": "สัมพันธ์กันหรือถูกขับเคลื่อน การเปลี่ยนแปลงได้ผลไหม และจะตัดสินใจอย่างไร",
+    "th_say": "สัมพันธ์กันหรือถูกขับเคลื่อน การเปลี่ยนแปลงได้ผลไหม และจะตัดสินใจอย่างไร"
+   },
+   {
+    "en": "In every week the AI wrote the code. Your part was to know what to ask, to read what came back, and to check the numbers.",
+    "th": "ทุกสัปดาห์ AI เป็นผู้เขียนโค้ด ส่วนของคุณคือรู้ว่าจะถามอะไร อ่านสิ่งที่ได้กลับมา และตรวจสอบตัวเลข",
+    "th_say": "ทุกสัปดาห์เอไอเป็นผู้เขียนโค้ด ส่วนของคุณคือรู้ว่าจะถามอะไร อ่านสิ่งที่ได้กลับมา และตรวจสอบตัวเลข"
+   }
+  ],
+  "debrief": [
+   {
+    "en": "What slope did the plain merge give for your data set, and what did the aligned files give?",
+    "th": "การรวมไฟล์แบบตรงๆ ให้ความชันเท่าไรสำหรับชุดข้อมูลของคุณ และไฟล์ที่จัดเวลาแล้วให้เท่าไร",
+    "th_say": "การรวมไฟล์แบบตรงๆ ให้ความชันเท่าไรสำหรับชุดข้อมูลของคุณ และไฟล์ที่จัดเวลาแล้วให้เท่าไร"
+   },
+   {
+    "en": "Did your sensor meet the eighty percent rule? What did your memo say?",
+    "th": "เซนเซอร์ของคุณผ่านเกณฑ์แปดสิบเปอร์เซ็นต์หรือไม่ บันทึกของคุณเขียนว่าอะไร",
+    "th_say": "เซนเซอร์ของคุณผ่านเกณฑ์แปดสิบเปอร์เซ็นต์หรือไม่ บันทึกของคุณเขียนว่าอะไร"
+   },
+   {
+    "en": "Which check from the course would you now run first on a plant file, and why?",
+    "th": "ตอนนี้คุณจะใช้การตรวจสอบใดจากวิชานี้เป็นอย่างแรกกับไฟล์ของโรงงาน และเพราะอะไร",
+    "th_say": "ตอนนี้คุณจะใช้การตรวจสอบใดจากวิชานี้เป็นอย่างแรกกับไฟล์ของโรงงาน และเพราะอะไร"
+   }
+  ],
+  "exit": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน",
+    "th_say": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "Your memo says the sensor may run the alert. A reviewer gets sixty-two percent from the same two files. Which two steps would you ask them to check first, and why?",
+    "th": "บันทึกของคุณบอกว่าเซนเซอร์ใช้เตือนได้ ผู้ตรวจสอบได้หกสิบสองเปอร์เซ็นต์จากสองไฟล์เดียวกัน คุณจะขอให้เขาตรวจสองขั้นตอนใดก่อน และเพราะอะไร",
+    "th_say": "บันทึกของคุณบอกว่าเซนเซอร์ใช้เตือนได้ ผู้ตรวจสอบได้หกสิบสองเปอร์เซ็นต์จากสองไฟล์เดียวกัน คุณจะขอให้เขาตรวจสองขั้นตอนใดก่อน และเพราะอะไร"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต",
+    "th_say": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "next": [
+   {
+    "en": "Upload your Lab 07 study file on myCourseVille. All seven labs stay open on the course site.",
+    "th": "อัปโหลดไฟล์งานแล็บที่เจ็ดใน myCourseVille แล็บทั้งเจ็ดยังเปิดอยู่บนเว็บไซต์ของวิชา",
+    "th_say": "อัปโหลดไฟล์งานแล็บที่เจ็ดในมายคอร์สวิลล์ แล็บทั้งเจ็ดยังเปิดอยู่บนเว็บไซต์ของวิชา",
+    "say": "Upload your Lab zero seven study file on my Course Ville. All seven labs stay open on the course site."
+   },
+   {
+    "en": "Keep the order of the checks: audit, clean, align, analyze, decide. Thank you for fourteen sessions of careful work.",
+    "th": "จำลำดับการตรวจสอบไว้ ตรวจสอบ ทำความสะอาด จัดเวลา วิเคราะห์ และตัดสินใจ ขอบคุณสำหรับการทำงานอย่างตั้งใจตลอดสิบสี่คาบ",
+    "th_say": "จำลำดับการตรวจสอบไว้ ตรวจสอบ ทำความสะอาด จัดเวลา วิเคราะห์ และตัดสินใจ ขอบคุณสำหรับการทำงานอย่างตั้งใจตลอดสิบสี่คาบ"
+   }
+  ]
+ }
+}

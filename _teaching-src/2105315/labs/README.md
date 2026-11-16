@@ -84,6 +84,16 @@ difference is ranked among the placebo differences. Extension: windows of 7, 14,
 
     python3 _teaching-src/2105315/labs/tests/shift_vs_pandas.py # needs Node.js and scipy; engine = scipy
 
+## Lab 07 · From raw file to a defended decision
+
+Two raw files from one 28-day window (about 160 choices, all in summer time, 29 March to 30 October 2004):
+the sensor PT08.S1(CO) in local time with three repeated rows, and benzene C6H6(GT) stamped in UTC. Students
+audit both, find the clock offset with a lag scan (+2 h), calibrate the sensor on week 1 and test an hourly
+alert (benzene above 15 µg/m³, at least 80 % of such hours flagged) in weeks 2 to 4, for the aligned files and
+for the plain merge. Extension: an alert margin. Engine: `assets/decision-engine.js`.
+
+    python3 _teaching-src/2105315/labs/tests/decision_vs_pandas.py # needs Node.js; engine = pandas, from the raw files
+
 ## Grading
 
 The study file carries the question text with each answer, so it can be read by a person or by an AI

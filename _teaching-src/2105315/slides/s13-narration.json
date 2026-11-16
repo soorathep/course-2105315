@@ -1,0 +1,167 @@
+{
+ "voice_en": "am_michael",
+ "note": "en = English caption and voice; th = Thai caption; th_say = what the Thai voice reads (Thai script only: English terms written as they sound, numbers in words). say = English voice text when it differs from en.",
+ "slides": {
+  "title-slide": [
+   {
+    "en": "Session thirteen. Raw file to decision.",
+    "th": "คาบที่สิบสาม จากไฟล์ดิบสู่การตัดสินใจ",
+    "th_say": "คาบที่สิบสาม จากไฟล์ดิบสู่การตัดสินใจ"
+   },
+   {
+    "en": "Each week added one check. Today we run them in order on two new raw files, and end with a decision someone will act on.",
+    "th": "แต่ละสัปดาห์เพิ่มการตรวจสอบหนึ่งอย่าง วันนี้เราใช้ทั้งหมดตามลำดับกับไฟล์ดิบใหม่สองไฟล์ และจบด้วยการตัดสินใจที่มีคนนำไปใช้จริง",
+    "th_say": "แต่ละสัปดาห์เพิ่มการตรวจสอบหนึ่งอย่าง วันนี้เราใช้ทั้งหมดตามลำดับกับไฟล์ดิบใหม่สองไฟล์ และจบด้วยการตัดสินใจที่มีคนนำไปใช้จริง"
+   }
+  ],
+  "course-map": [
+   {
+    "en": "This is the first session of week seven, the last week of the course.",
+    "th": "นี่คือคาบแรกของสัปดาห์ที่เจ็ด สัปดาห์สุดท้ายของวิชา",
+    "th_say": "นี่คือคาบแรกของสัปดาห์ที่เจ็ด สัปดาห์สุดท้ายของวิชา"
+   },
+   {
+    "en": "The question: can a cheap sensor, calibrated on one week, run an hourly benzene alert in the next three?",
+    "th": "คำถามคือ เซนเซอร์ราคาถูกที่สอบเทียบในหนึ่งสัปดาห์ จะใช้เตือนเบนซีนรายชั่วโมงในสามสัปดาห์ถัดไปได้หรือไม่",
+    "th_say": "คำถามคือ เซนเซอร์ราคาถูกที่สอบเทียบในหนึ่งสัปดาห์ จะใช้เตือนเบนซีนรายชั่วโมงในสามสัปดาห์ถัดไปได้หรือไม่"
+   }
+  ],
+  "route": [
+   {
+    "en": "We start with the check you would run first. Then two files with two clocks, and six raw files to judge.",
+    "th": "เราเริ่มจากการตรวจสอบที่คุณจะทำเป็นอย่างแรก จากนั้นดูสองไฟล์ที่ใช้นาฬิกาต่างกัน และตัดสินไฟล์ดิบหกกรณี",
+    "th_say": "เราเริ่มจากการตรวจสอบที่คุณจะทำเป็นอย่างแรก จากนั้นดูสองไฟล์ที่ใช้นาฬิกาต่างกัน และตัดสินไฟล์ดิบหกกรณี"
+   },
+   {
+    "en": "Then the path from raw file to decision, and Lab 07, Steps 1 to 3.",
+    "th": "แล้วดูเส้นทางจากไฟล์ดิบสู่การตัดสินใจ และทำแล็บที่เจ็ด ขั้นที่หนึ่งถึงสาม",
+    "th_say": "แล้วดูเส้นทางจากไฟล์ดิบสู่การตัดสินใจ และทำแล็บที่เจ็ด ขั้นที่หนึ่งถึงสาม",
+    "say": "Then the path from raw file to decision, and Lab zero seven, Steps one to three."
+   }
+  ],
+  "warmup": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. You receive a new raw file from a plant. Name the first three checks you would run, in order.",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที คุณได้รับไฟล์ดิบใหม่จากโรงงาน บอกการตรวจสอบสามอย่างแรกที่จะทำ ตามลำดับ",
+    "th_say": "อุ่นเครื่อง จับคู่ แปดนาที คุณได้รับไฟล์ดิบใหม่จากโรงงาน บอกการตรวจสอบสามอย่างแรกที่จะทำ ตามลำดับ"
+   },
+   {
+    "en": "For each, say what it would catch.",
+    "th": "สำหรับแต่ละอย่าง บอกว่ามันจะจับปัญหาอะไรได้",
+    "th_say": "สำหรับแต่ละอย่าง บอกว่ามันจะจับปัญหาอะไรได้"
+   }
+  ],
+  "clocks": [
+   {
+    "en": "Two files from the same station. Amber is the sensor, stamped in local time. Teal is the analyzer, stamped in UTC.",
+    "th": "สองไฟล์จากสถานีเดียวกัน สีเหลืองอำพันคือเซนเซอร์ ประทับเวลาท้องถิ่น สีเขียวคือเครื่องวิเคราะห์ ประทับเวลา UTC",
+    "th_say": "สองไฟล์จากสถานีเดียวกัน สีเหลืองอำพันคือเซนเซอร์ ประทับเวลาท้องถิ่น สีเขียวคือเครื่องวิเคราะห์ ประทับเวลายูทีซี"
+   },
+   {
+    "en": "The plain merge pairs each sensor hour with the analyzer two hours later. The peaks do not line up, and over twenty-eight days the correlation is zero point five four.",
+    "th": "การรวมไฟล์แบบตรงๆ จับคู่เซนเซอร์แต่ละชั่วโมงกับเครื่องวิเคราะห์ที่ช้ากว่าสองชั่วโมง ยอดไม่ตรงกัน และตลอดยี่สิบแปดวันค่าสหสัมพันธ์คือศูนย์จุดห้าสี่",
+    "th_say": "การรวมไฟล์แบบตรงๆ จับคู่เซนเซอร์แต่ละชั่วโมงกับเครื่องวิเคราะห์ที่ช้ากว่าสองชั่วโมง ยอดไม่ตรงกัน และตลอดยี่สิบแปดวันค่าสหสัมพันธ์คือศูนย์จุดห้าสี่"
+   },
+   {
+    "en": "Press plus two hours. The peaks line up and the correlation rises to zero point nine three. The analyzer file was in UTC.",
+    "th": "กดปุ่มบวกสองชั่วโมง ยอดตรงกัน และค่าสหสัมพันธ์เพิ่มเป็นศูนย์จุดเก้าสาม ไฟล์ของเครื่องวิเคราะห์ใช้เวลา UTC",
+    "th_say": "กดปุ่มบวกสองชั่วโมง ยอดตรงกัน และค่าสหสัมพันธ์เพิ่มเป็นศูนย์จุดเก้าสาม ไฟล์ของเครื่องวิเคราะห์ใช้เวลายูทีซี"
+   },
+   {
+    "en": "Shifting one series hour by hour and watching the correlation is a lag scan. It is the check that finds a wrong clock.",
+    "th": "การเลื่อนอนุกรมหนึ่งทีละชั่วโมงแล้วดูค่าสหสัมพันธ์ เรียกว่าการสแกนการหน่วงเวลา เป็นการตรวจสอบที่หานาฬิกาที่ผิดได้",
+    "th_say": "การเลื่อนอนุกรมหนึ่งทีละชั่วโมงแล้วดูค่าสหสัมพันธ์ เรียกว่าการสแกนการหน่วงเวลา เป็นการตรวจสอบที่หานาฬิกาที่ผิดได้"
+   }
+  ],
+  "act1": [
+   {
+    "en": "Activity one, in pairs, ten minutes, no computer needed. Six raw files, each with a problem.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที ไม่ต้องใช้คอมพิวเตอร์ ไฟล์ดิบหกกรณี แต่ละกรณีมีปัญหา",
+    "th_say": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที ไม่ต้องใช้คอมพิวเตอร์ ไฟล์ดิบหกกรณี แต่ละกรณีมีปัญหา"
+   },
+   {
+    "en": "For each: what is the problem, what would it do to the result if missed, and which check finds it? Decide, then reveal.",
+    "th": "สำหรับแต่ละกรณี ปัญหาคืออะไร ถ้ามองข้ามจะส่งผลต่อผลลัพธ์อย่างไร และการตรวจสอบใดจะพบมัน ตัดสินก่อนแล้วจึงกดดูคำตอบ",
+    "th_say": "สำหรับแต่ละกรณี ปัญหาคืออะไร ถ้ามองข้ามจะส่งผลต่อผลลัพธ์อย่างไร และการตรวจสอบใดจะพบมัน ตัดสินก่อนแล้วจึงกดดูคำตอบ"
+   }
+  ],
+  "path": [
+   {
+    "en": "The path has five steps: audit, clean, align, analyze, decide. Each one comes from a week of the course.",
+    "th": "เส้นทางมีห้าขั้น ตรวจสอบ ทำความสะอาด จัดเวลาให้ตรงกัน วิเคราะห์ และตัดสินใจ แต่ละขั้นมาจากสัปดาห์หนึ่งของวิชา",
+    "th_say": "เส้นทางมีห้าขั้น ตรวจสอบ ทำความสะอาด จัดเวลาให้ตรงกัน วิเคราะห์ และตัดสินใจ แต่ละขั้นมาจากสัปดาห์หนึ่งของวิชา"
+   },
+   {
+    "en": "An error in an early step does not show as an error later. It shows as a confident wrong number.",
+    "th": "ความผิดพลาดในขั้นต้นจะไม่แสดงเป็นข้อผิดพลาดในขั้นหลัง แต่จะแสดงเป็นตัวเลขที่ผิดอย่างมั่นใจ",
+    "th_say": "ความผิดพลาดในขั้นต้นจะไม่แสดงเป็นข้อผิดพลาดในขั้นหลัง แต่จะแสดงเป็นตัวเลขที่ผิดอย่างมั่นใจ"
+   }
+  ],
+  "act2": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้",
+    "th_say": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 07 and load your own data set. Read the first rows of both raw files and write two things you would check before merging.",
+    "th": "เปิดแล็บที่เจ็ดและโหลดชุดข้อมูลของคุณ อ่านแถวแรกของไฟล์ดิบทั้งสอง และเขียนสองสิ่งที่จะตรวจสอบก่อนรวมไฟล์",
+    "th_say": "เปิดแล็บที่เจ็ดและโหลดชุดข้อมูลของคุณ อ่านแถวแรกของไฟล์ดิบทั้งสอง และเขียนสองสิ่งที่จะตรวจสอบก่อนรวมไฟล์",
+    "say": "Open Lab zero seven and load your own data set. Read the first rows of both raw files and write two things you would check before merging."
+   },
+   {
+    "en": "Make your predictions in Step 3, then download your study in Step 10 to keep your work.",
+    "th": "ทำนายในขั้นที่สาม แล้วดาวน์โหลดไฟล์งานในขั้นที่สิบเพื่อเก็บงานไว้",
+    "th_say": "ทำนายในขั้นที่สาม แล้วดาวน์โหลดไฟล์งานในขั้นที่สิบเพื่อเก็บงานไว้",
+    "say": "Make your predictions in Step three, then download your study in Step ten to keep your work."
+   }
+  ],
+  "debrief": [
+   {
+    "en": "What did you notice in the first rows of your two files?",
+    "th": "คุณสังเกตเห็นอะไรในแถวแรกของสองไฟล์",
+    "th_say": "คุณสังเกตเห็นอะไรในแถวแรกของสองไฟล์"
+   },
+   {
+    "en": "Which situation in Activity one have you met in a real plant or lab file?",
+    "th": "สถานการณ์ใดในกิจกรรมที่หนึ่งที่คุณเคยพบในไฟล์จริงของโรงงานหรือห้องแล็บ",
+    "th_say": "สถานการณ์ใดในกิจกรรมที่หนึ่งที่คุณเคยพบในไฟล์จริงของโรงงานหรือห้องแล็บ"
+   },
+   {
+    "en": "Did you predict that your sensor passes the eighty percent rule, and why?",
+    "th": "คุณทำนายว่าเซนเซอร์ของคุณผ่านเกณฑ์แปดสิบเปอร์เซ็นต์หรือไม่ และเพราะอะไร",
+    "th_say": "คุณทำนายว่าเซนเซอร์ของคุณผ่านเกณฑ์แปดสิบเปอร์เซ็นต์หรือไม่ และเพราะอะไร"
+   }
+  ],
+  "exit": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน",
+    "th_say": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "A purity assay is taken twice a day, and the reactor temperature is logged every ten seconds. How would you join the two, and what would you check first?",
+    "th": "ผลวิเคราะห์ความบริสุทธิ์เก็บวันละสองครั้ง และอุณหภูมิเครื่องปฏิกรณ์บันทึกทุกสิบวินาที คุณจะรวมข้อมูลทั้งสองอย่างไร และจะตรวจสอบอะไรเป็นอย่างแรก",
+    "th_say": "ผลวิเคราะห์ความบริสุทธิ์เก็บวันละสองครั้ง และอุณหภูมิเครื่องปฏิกรณ์บันทึกทุกสิบวินาที คุณจะรวมข้อมูลทั้งสองอย่างไร และจะตรวจสอบอะไรเป็นอย่างแรก"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต",
+    "th_say": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "next": [
+   {
+    "en": "Next session, the last one: align, calibrate, test, and write a decision a manager can act on and a reviewer can check.",
+    "th": "คาบหน้าเป็นคาบสุดท้าย จัดเวลาให้ตรง สอบเทียบ ทดสอบ และเขียนการตัดสินใจที่ผู้จัดการนำไปใช้ได้และผู้ตรวจสอบตรวจซ้ำได้",
+    "th_say": "คาบหน้าเป็นคาบสุดท้าย จัดเวลาให้ตรง สอบเทียบ ทดสอบ และเขียนการตัดสินใจที่ผู้จัดการนำไปใช้ได้และผู้ตรวจสอบตรวจซ้ำได้"
+   },
+   {
+    "en": "Before you come, download both files in Lab 07, Step 5, and ask an AI assistant for code that reports the three numbers there. Read the code before you run it.",
+    "th": "ก่อนมาเรียน ดาวน์โหลดทั้งสองไฟล์ในแล็บที่เจ็ด ขั้นที่ห้า แล้วขอให้ AI เขียนโค้ดที่รายงานตัวเลขสามค่าในขั้นนั้น อ่านโค้ดก่อนรัน",
+    "th_say": "ก่อนมาเรียน ดาวน์โหลดทั้งสองไฟล์ในแล็บที่เจ็ด ขั้นที่ห้า แล้วขอให้เอไอเขียนโค้ดที่รายงานตัวเลขสามค่าในขั้นนั้น อ่านโค้ดก่อนรัน",
+    "say": "Before you come, download both files in Lab zero seven, Step five, and ask an AI assistant for code that reports the three numbers there. Read the code before you run it."
+   }
+  ]
+ }
+}

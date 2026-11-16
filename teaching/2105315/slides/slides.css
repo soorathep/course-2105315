@@ -264,3 +264,21 @@
 .reveal .pl svg { width: 100%; height: auto; display: block; }
 .reveal #pl-out { font-size: .5em; margin: .2em 0 0; }
 .reveal .pl-mode button { font-size: .95em; }
+
+/* ---------- Session 13 ---------- */
+.reveal .ck { margin-top: .3em; font-family: "Source Sans 3", sans-serif; }
+.reveal .ck svg { width: 100%; height: auto; display: block; }
+.reveal #ck-out { font-size: .5em; margin: .2em 0 0; }
+.reveal .ck-mode button { font-size: .95em; }
+.reveal #path table { font-size: .56em; width: 100%; }
+.reveal #path th:first-child { width: 12%; }
+.reveal #path th:last-child { width: 9%; }
+
+/* ---------- Session 14 ---------- */
+.reveal .ff { margin-top: .3em; font-family: "Source Sans 3", sans-serif; }
+.reveal .ff svg { width: 100%; height: auto; display: block; }
+.reveal #ff-out { font-size: .5em; margin: .2em 0 0; }
+.reveal .ff-mode button { font-size: .95em; }
+.reveal #wrap table { font-size: .52em; width: 100%; }
+.reveal #wrap th:first-child { width: 8%; }
+.reveal #wrap th:nth-child(2) { width: 34%; }

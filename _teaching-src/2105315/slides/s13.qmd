@@ -1,0 +1,224 @@
+---
+title: "Raw file to decision"
+subtitle: "Session 13 of 14 · 90 minutes · Every check, in order, on new files"
+author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where this session sits {#course-map}
+
+::: {.coursemap14}
+[Week 1 · Import and audit]{.wk} [1 · Data you can trust]{.cm} [2 · Audit and the AI's code]{.cm}
+[Week 2 · Missing data]{.wk} [3 · Why values go missing]{.cm} [4 · Filling gaps you can defend]{.cm}
+[Week 3 · Outliers and noise]{.wk} [5 · Spike or real event?]{.cm} [6 · Smoothing without lying]{.cm}
+[Week 4 · Visualization]{.wk} [7 · Trends and distributions]{.cm} [8 · Figures that tell the truth]{.cm}
+[Week 5 · Correlation and anomalies]{.wk} [9 · Correlated or driven?]{.cm} [10 · When did it start?]{.cm}
+[Week 6 · Hypothesis tests]{.wk} [11 · Did the change work?]{.cm} [12 · Tests on plant data]{.cm}
+[Week 7 · Integrated case]{.wk .now} [13 · Raw file to decision]{.cm .now} [14 · Defend your decision]{.cm}
+:::
+
+
+::: {.bridge}
+Weeks 1 to 6 each added one check. Week 7 runs them in order on two new raw files and ends with a decision someone will act on.
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .act}
+[0–10]{.t} **Warm-up** [The check you run first]{.d}
+:::
+::: {.seg .concept}
+[10–30]{.t} **Concepts** [Two files, two clocks]{.d}
+:::
+::: {.seg .act}
+[30–42]{.t} **Activity 1** [What would you check first?]{.d}
+:::
+::: {.seg .concept}
+[42–55]{.t} **Concepts** [The path to a decision]{.d}
+:::
+::: {.seg .act}
+[55–80]{.t} **Activity 2** [Lab 07, Steps 1 to 3]{.d}
+:::
+::: {.seg .wrap}
+[80–90]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: can a cheap sensor, calibrated on one week, run an hourly benzene alert in the next three?
+:::
+
+## Warm-up · The check you run first {#warmup .activity}
+
+[Pairs · 8 minutes · your homework]{.act-label}
+
+::: {.prompt}
+You receive a new raw file from a plant. Tell your neighbor the first three checks you would run, in order, and what each would catch.
+:::
+
+::: {.checks3}
+::: {.c4}
+[1 · First check]{.label}
+From Lab 01: rows, columns, units, codes for missing.
+:::
+::: {.c4}
+[2 · Second check]{.label}
+Gaps, repeated rows, values that cannot be true.
+:::
+::: {.c4}
+[3 · Third check]{.label}
+The clock: interval, time zone, daylight saving.
+:::
+:::
+
+::: {.selfstudy}
+Studying alone: write your three checks and what each would catch.
+:::
+
+## Two files, two clocks {#clocks data-hold="true"}
+
+```{=html}
+<div class="ck" id="ck">
+  <div class="sm-controls">
+    <div class="sm-mode ck-mode" role="group" aria-label="Hours added to the analyzer timestamps">
+      <button type="button" data-h="0" aria-pressed="true">Plain merge</button>
+      <button type="button" data-h="1" aria-pressed="false">+1 h</button>
+      <button type="button" data-h="2" aria-pressed="false">+2 h</button>
+      <button type="button" data-h="3" aria-pressed="false">+3 h</button>
+    </div>
+  </div>
+  <svg id="ck-plot" viewBox="0 0 1160 360" role="img" aria-label="Sensor and analyzer over three days, with the analyzer timestamps shifted"></svg>
+  <p class="sm-readout" id="ck-out" aria-live="polite"></p>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('ck'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Real data, 13 to 15 September 2004 (UCI Air Quality), Lab 07 Demo A. sens: PT08.S1(CO), local time.
+  // benz: C6H6(GT), local time, with 6 hours before and after; the analyzer file stamps it in UTC (local minus 2 h).
+  const D = {"sens":[1038,934,900,870,875,940,1053,1509,1559,1313,1372,1320,1346,1307,1157,1154,1172,1241,1379,1570,1418,1317,1204,1014,956,891,856,863,911,936,1087,1540,1513,1409,1219,1286,1228,1140,1052,1282,1378,1506,1310,1204,1071,967,947,1011,971,886,908,901,915,940,1048,1298,1487,1327,1363,1393,1361,1289,1265,1339,1269,1299,1546,1571,1312,1074,1127,1040],"benz":[8,12.6,17.5,14.8,23.3,12.2,7.2,4.6,3.8,3.7,4,5.5,8.3,28.2,32.1,17.7,18.4,16.3,18.2,17.9,12.6,11.3,14.9,18.5,25.2,35.9,26.7,19.9,14.6,6.9,5.6,3.9,3.2,3.9,4.6,5,9.6,27.8,32.1,20.9,11.8,15.8,15.8,14,8.2,13.7,19.5,26.7,18.7,13.9,6.7,4.2,3.6,4.4,4.2,2.6,3.1,3,3.4,4,7.8,16.1,27.6,17.8,18.5,21.6,21,17.2,16.1,18.6,17.2,17.3,28.6,31.8,20.1,9.2,10.3,8.6,8.6,4.8,2.6,4.3,4.5,6.6],"scan":[[-2,0.17],[-1,0.32],[0,0.54],[1,0.78],[2,0.93],[3,0.79],[4,0.57]]};
+  const W = 1160, H = 360, L = 70, R = 70, T = 16, B = 46, n = D.sens.length;
+  const X = (j) => L + j / (n - 1) * (W - L - R), VB = (v) => T + (1 - v / 40) * (H - T - B), VS = (v) => T + (1 - (v - 700) / 1000) * (H - T - B);
+  const DAY = ['Mon 13 Sep', 'Tue 14 Sep', 'Wed 15 Sep'];
+  function path(vals, Y, attr) { let d = '', pen = false; vals.forEach((v, j) => { if (v === null) { pen = false; return; } d += (pen ? 'L' : 'M') + X(j).toFixed(1) + ',' + Y(v).toFixed(1); pen = true; }); return `<path d="${d}" fill="none" ${attr}/>`; }
+  function draw(h) {
+    let g = '';
+    [0, 10, 20, 30, 40].forEach((v) => { g += `<line x1="${L}" x2="${W - R}" y1="${VB(v)}" y2="${VB(v)}" stroke="#B9C1C6"/><text x="${L - 10}" y="${VB(v) + 6}" text-anchor="end" font-size="16" fill="#0F6E6B">${v}</text>`; });
+    [800, 1000, 1200, 1400, 1600].forEach((v) => { g += `<text x="${W - R + 10}" y="${VS(v) + 6}" font-size="16" fill="#9a5f10">${v}</text>`; });
+    for (let d = 0; d < 3; d++) g += `<line x1="${X(d * 24)}" x2="${X(d * 24)}" y1="${T}" y2="${H - B}" stroke="#B9C1C6" stroke-dasharray="3 4"/><text x="${X(d * 24 + 12)}" y="${H - B + 24}" text-anchor="middle" font-size="17" fill="#333F4A">${DAY[d]}</text>`;
+    g += `<text transform="translate(20 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle" font-size="16" fill="#0F6E6B">analyzer benzene, µg/m³</text><text transform="translate(${W - 12} ${(T + H - B) / 2}) rotate(90)" text-anchor="middle" font-size="16" fill="#9a5f10">sensor response</text>`;
+    const shifted = D.sens.map((_, j) => D.benz[j + 6 + 2 - h]);
+    g += path(D.sens, VS, 'stroke="#E29A2D" stroke-width="2.5"') + path(shifted, VB, 'stroke="#0F6E6B" stroke-width="2.5"');
+    document.getElementById('ck-plot').innerHTML = g;
+    const r = D.scan.find((s) => s[0] === h)[1];
+    document.getElementById('ck-out').textContent = h === 0
+      ? `The plain merge: each sensor hour is paired with the analyzer two hours later. The peaks do not line up. Over 28 days, r = ${r}.`
+      : `Analyzer timestamps plus ${h} h. ${h === 2 ? 'The peaks line up: the analyzer file was in UTC.' : 'Closer, but the peaks still do not line up.'} Over 28 days, r = ${r}.`;
+    root.querySelectorAll('[data-h]').forEach((b) => b.setAttribute('aria-pressed', Number(b.dataset.h) === h));
+  }
+  root.querySelectorAll('[data-h]').forEach((b) => b.addEventListener('click', () => draw(Number(b.dataset.h))));
+  draw(0);
+})();
+</script>
+```
+
+[Lab 07, Demo A: sensor PT08.S1(CO) and benzene C6H6(GT), 13 to 15 September 2004. Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
+
+## Activity 1 · What would you check first? {#act1 .activity data-hold="true"}
+
+[Pairs · 10 minutes · no computer needed]{.act-label}
+
+```{=html}
+<div class="stories" id="first">
+  <div class="story"><p>The reactor logger exports in UTC. The lab LIMS stamps samples in local time.</p><button type="button">Reveal</button><p class="ans" hidden><b>The clock.</b> Convert one to the other, then confirm with a lag scan on a variable both see.</p></div>
+  <div class="story"><p>The lab assay is taken once a day at about 09:00. The sensor logs every minute.</p><button type="button">Reveal</button><p class="ans" hidden><b>Join the slow to the fast:</b> the sensor value nearest the sample time (pandas merge_asof), or its mean over the sampling window.</p></div>
+  <div class="story"><p>The export contains −200 in some cells and blanks in others.</p><button type="button">Reveal</button><p class="ans" hidden><b>Missing codes:</b> both mean "no value". Convert before any mean (Lab 01).</p></div>
+  <div class="story"><p>After a network outage the logger re-sent its buffer. Some rows appear twice.</p><button type="button">Reveal</button><p class="ans" hidden><b>Repeated rows:</b> count them and drop exact duplicates before a merge copies them.</p></div>
+  <div class="story"><p>On 31 October the 02:00 hour appears twice; on 28 March there is no 02:00.</p><button type="button">Reveal</button><p class="ans" hidden><b>Daylight saving.</b> Store in UTC, convert only for display.</p></div>
+  <div class="story"><p>A flow meter reads exactly 41.2 for nine hours.</p><button type="button">Reveal</button><p class="ans" hidden><b>A stuck value,</b> not a steady plant. Treat as missing after checking the log (Lab 03).</p></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('first'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  root.querySelectorAll('.story button').forEach((b) => b.addEventListener('click', () => { b.hidden = true; b.nextElementSibling.hidden = false; }));
+})();
+</script>
+```
+
+::: {.prompt .small}
+For each file: what is the problem, what would it do to the result if missed, and which check finds it?
+:::
+
+## The path to a decision {#path}
+
+| Step | The question | Week |
+|:--|:--|:--|
+| Audit | What is in each file: rows, codes for missing, repeated rows, the clock? | 1 |
+| Clean | Which values are missing, and which are impossible? Fill only what you can defend. | 2, 3 |
+| Align | Do the two files mean the same hour? Check with a lag scan. | 5, 7 |
+| Analyze | Calibrate on one period, test on another. Compare with what ordinary periods give. | 5, 6 |
+| Decide | State the decision, the numbers, what you did to the data, and the limits. | 4, 7 |
+
+[An error in an early step does not show as an error later. It shows as a confident wrong number.]{.note-line}
+
+## Activity 2 · Lab 07, Steps 1 to 3 {#act2 .activity}
+
+[Individual · 25 minutes · laptop or phone]{.act-label}
+
+1. Open **Lab 07** and enter your name and student ID. Press **My data set**.
+2. Step 2: read the first rows of both raw files and write two things you would check before merging.
+3. Step 3: predict whether the sensor will flag at least 80 % of the hours above 15 µg/m³.
+4. Do not audit or align yet. Download your study in Step 10 to keep your work.
+
+[Open Lab 07](../labs/decision.html){.lab-button target="_blank"}
+
+::: {.selfstudy}
+Studying alone: do Steps 1 to 3, then download your study in Step 10.
+:::
+
+## Debrief {#debrief}
+
+::: {.debrief-q}
+[What did you notice in the first rows of your two files?]{.dq}
+[Which situation in Activity 1 have you met in a real plant or lab file?]{.dq}
+[Did you predict that your sensor passes the 80 % rule, and why?]{.dq}
+:::
+
+## Exit ticket · 5 minutes {#exit .activity}
+
+[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+
+:::: {.columns}
+::: {.column width="64%"}
+::: {.prompt}
+A lab assay of product purity is taken twice a day. The reactor temperature is logged every 10 seconds. Describe how you would join the two to ask whether temperature affects purity, and one check you would run first.
+:::
+
+Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+
+No name or student ID is recorded. Wait for **"Response received."**
+:::
+::: {.column width="32%" .qr-col}
+![](figures/exit-qr-s13.png){.qr fig-alt="QR code for the Session 13 exit ticket and feedback form"}
+
+[Open the Session 13 form](exit.html?s=13){target="_blank"}
+:::
+::::
+
+## Next session {#next}
+
+::: {.beforeafter}
+::: {}
+[Session 14 · Defend your decision]{.label}
+Align, calibrate, test, and write a decision that a site manager can act on and a reviewer can check.
+:::
+::: {}
+[Before you come]{.label}
+Download both files in Lab 07, Step 5. Ask an AI assistant for code that reports the three numbers there, and read the code before you run it.
+:::
+:::
+
+[Lab 07 is due after Session 14. Submit the study file on myCourseVille.]{.note-line}

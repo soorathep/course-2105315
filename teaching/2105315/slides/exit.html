@@ -100,6 +100,8 @@ const PROMPTS = {
   10: 'A pH probe agrees with the lab assay during calibration (σ = 0.1 pH). Then its error grows by 0.02 pH per day. About how many days until the 3σ rule alarms? Would CUSUM alarm earlier, and why?',
   11: 'A report says: "After the new controller, steam use fell by 2 %, p = 0.04, so there is a 96 % chance the controller saves steam." What is wrong with the sentence, and what would you report instead?',
   12: 'An engineer compares 1-minute reactor temperatures for one day before and one day after a controller retune and finds p = 10⁻²⁰. Name two reasons this p overstates the evidence, and one better comparison.',
+  13: 'A lab assay of product purity is taken twice a day. The reactor temperature is logged every 10 seconds. Describe how you would join the two to ask whether temperature affects purity, and one check you would run first.',
+  14: 'Your memo says the sensor may run the alert. A reviewer gets 62 % from the same two files. Name the two steps you would ask them to check first, and why.',
 };
 const TOTAL = 14;
 const $ = (id) => document.getElementById(id);

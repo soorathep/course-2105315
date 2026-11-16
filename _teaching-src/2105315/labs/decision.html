@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Lab 07 · From raw file to a defended decision · 2105315 Data Analytics Labs</title>
+  <meta name="description" content="Two raw files, a sensor and an analyzer: audit them, align their clocks, calibrate the sensor, and decide whether it can run an hourly benzene alert.">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="assets/labs.css?v=7">
+  <script type="module" src="assets/mode.js?v=1"></script>
+  <script type="module" src="assets/decision-lab.js?v=1"></script>
+</head>
+<body data-mode="core">
+  <a class="skip-link" href="#lab">Skip to the lab</a>
+  <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html">Lab 01</a><a href="gaps.html">Lab 02</a><a href="spikes.html">Lab 03</a><a href="figures.html">Lab 04</a><a href="relations.html">Lab 05</a><a href="shift.html">Lab 06</a><a href="decision.html" aria-current="page">Lab 07</a><a href="index.html">All labs</a></nav></header>
+      <main class="page da-page" id="lab">
+    <p class="eyebrow">2105315 Data Analytics in Chemical Engineering · Lab 07 · Week 7</p>
+    <h1>From raw file to a defended decision</h1>
+    <div class="logbook" role="group" aria-label="Monitoring log">
+      <div class="logbook-row"><p class="logbook-time"><strong>08:30</strong>log</p><p class="logbook-entry">The site wants to replace the analyzer's hourly benzene alert with the low-cost sensor. You receive two raw files: the sensor's export and the analyzer's export, 28 days each.</p></div>
+      <div class="logbook-row"><p class="logbook-time"><strong>RULE</strong>site</p><p class="logbook-entry">Calibrate the sensor on week 1. In weeks 2 to 4 it must flag at least 80 % of the hours in which the analyzer reads above 15 µg/m³.</p></div>
+      <div class="logbook-row"><p class="logbook-time"><strong>TASK</strong>you</p><p class="task-line">Decide whether the sensor meets the rule, and write a decision you can defend.</p></div>
+    </div>
+
+    <fieldset class="mode-switch"><legend>View</legend><div class="mode-options"><label><input type="radio" name="lab-mode" value="core" checked><span>Core</span></label><label><input type="radio" name="lab-mode" value="graduate"><span>Extension</span></label></div><p class="core-only">Core: Steps 1 to 8, about 45 minutes.</p><p class="grad-only">Extension: the core steps plus Step 9, an alert margin.</p></fieldset>
+
+    <section class="lab-step" aria-labelledby="s1">
+      <div class="step-head"><span class="step-number">01</span><div><h2 id="s1">Choose your data</h2><p>Practice on a demo, then load your own 28 days, chosen from your student ID.</p></div></div>
+      <fieldset class="student-fields"><legend>Your details</legend><p class="input-help">Your student ID picks your data set. All three go into the file you submit.</p><div class="student-grid"><div><label for="student-first-name">First name</label><input id="student-first-name" type="text" maxlength="80" autocomplete="given-name"></div><div><label for="student-last-name">Last name</label><input id="student-last-name" type="text" maxlength="80" autocomplete="family-name"></div><div><label for="student-id">Student ID</label><input id="student-id" type="text" maxlength="20" inputmode="numeric" autocomplete="off"></div></div></fieldset>
+      <div class="case-buttons" role="group" aria-label="Data set">
+        <button type="button" data-case="a" aria-pressed="true">Demo A<span class="case-sub">from 5 Sep 2004</span></button>
+        <button type="button" data-case="b" aria-pressed="false">Demo B<span class="case-sub">from 28 Apr 2004</span></button>
+        <button type="button" data-case="student" aria-pressed="false">My data set<span class="case-sub">from my student ID</span></button>
+      </div>
+      <p id="id-note" class="id-note" role="status" aria-live="polite"></p>
+      <p id="dataset-line" class="dataset-line">Loading the station record…</p>
+      <details class="source-box"><summary>Where the data come from</summary>
+        <p>The road-level station of Labs 01 to 06: the low-cost sensor PT08.S1(CO) and benzene C6H6(GT) from the reference analyzer, hour by hour. The values are the source values; -200 marks a missing hour, as in the source.</p>
+        <p>For the exercise, the analyzer file is stamped in UTC, as many data loggers are, while the sensor file is in local time (UTC + 2 in summer), and three sensor rows are repeated. Windows are any 28 days between 29 March and 30 October 2004 with enough data (about 160).</p>
+        <p>Source: S. De Vito, Air Quality, UCI Machine Learning Repository, <a href="https://doi.org/10.24432/C59K5F">doi:10.24432/C59K5F</a>, CC BY 4.0.</p>
+      </details>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s2">
+      <div class="step-head"><span class="step-number">02</span><div><h2 id="s2">The two raw files</h2><p>The first rows of each file, as exported.</p></div></div>
+      <div class="two-figs"><div class="table-scroll" role="region" aria-label="Sensor file" tabindex="0"><table class="audit-table" id="head-sensor"></table></div><div class="table-scroll" role="region" aria-label="Analyzer file" tabindex="0"><table class="audit-table" id="head-analyzer"></table></div></div>
+      <label for="p-check">The analyst will merge the two files on the timestamp. Name two things you would check first.</label>
+      <textarea id="p-check" rows="2" maxlength="3000"></textarea>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s3">
+      <div class="step-head"><span class="step-number">03</span><div><h2 id="s3">Predict</h2><p>The page records your predictions before it shows any result.</p></div></div>
+      <div class="notebook-list">
+        <div class="notebook-item"><label for="p-pass">Will the sensor flag at least 80 % of the hours above 15 µg/m³?</label><select id="p-pass"><option value="">Choose</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+        <div class="notebook-item"><label for="p-hit">Your estimate of the share it flags (%)</label><input id="p-hit" type="text" inputmode="decimal" autocomplete="off"></div>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s4">
+      <div class="step-head"><span class="step-number">04</span><div><h2 id="s4">Check the AI's code</h2><p>The analyst asked an AI assistant: "Merge the two files, calibrate the sensor on week 1 and count the alert hours." The first lines:</p></div></div>
+      <pre class="code-block" aria-label="Code written by an AI assistant"><span class="ln">s = pd.read_csv(<span class="s">"sensor.csv"</span>, parse_dates=[<span class="s">"datetime_local"</span>]).rename(columns={<span class="s">"datetime_local"</span>: <span class="s">"t"</span>})</span><span class="ln">a = pd.read_csv(<span class="s">"analyzer.csv"</span>, parse_dates=[<span class="s">"datetime_utc"</span>]).rename(columns={<span class="s">"datetime_utc"</span>: <span class="s">"t"</span>})</span><span class="ln">df = s.merge(a, on=<span class="s">"t"</span>).replace(-200, np.nan).dropna()</span><span class="ln">week1 = df[df.t &lt; df.t.min() + pd.Timedelta(days=7)]</span><span class="ln">slope, icept = np.polyfit(week1.PT08_S1_CO, week1.C6H6_ugm3, 1)</span></pre>
+      <div class="concept-question">
+        <h3>The code runs without an error. Name two problems in the first three lines, and what each does to the calibration.</h3>
+        <label for="ai-answer" class="visually-hidden">Your answer</label>
+        <textarea id="ai-answer" rows="3" maxlength="3000" placeholder="Write your answer first (at least one full sentence)."></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer">
+          <p>First, the files use different clocks. Renaming both columns to "t" hides it: the merge pairs each sensor hour with the analyzer hour two hours later. Benzene peaks at rush hour, so a two-hour offset pairs high sensor readings with falling benzene. The fit flattens (the slope is about half) and the calibrated sensor underestimates the peaks.</p>
+          <p>Second, the sensor file repeats three rows. The merge copies the matching analyzer rows, so those hours count twice in the fit. Here the effect is small, but an audit would have found it in one line.</p>
+          <p class="fix-line">s = s.drop_duplicates()
+a["t"] = a["t"] + pd.Timedelta(hours=2)   # UTC to local summer time; check with a lag scan (Step 6)</p>
+        </div></details>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s5">
+      <div class="step-head"><span class="step-number">05</span><div><h2 id="s5">Your notebook numbers</h2><p>Download both files. Ask an AI assistant for code that reports the three numbers below, read it before you run it, and enter what you get.</p></div></div>
+      <p class="study-actions"><button id="download-sensor" class="secondary-button" type="button">Download the sensor file (CSV)</button><button id="download-analyzer" class="secondary-button" type="button">Download the analyzer file (CSV)</button></p>
+      <div id="notebook-list" class="notebook-list"></div>
+      <p id="locked-note" class="locked-note">Enter your numbers before you audit and align. Doing so locks your numbers and your predictions.</p>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s6">
+      <div class="step-head"><span class="step-number">06</span><div><h2 id="s6">Audit and align</h2><p>Count what each file holds, then shift the analyzer's timestamps hour by hour and see where the two series agree best.</p></div></div>
+      <button id="run-align" class="primary-button calculate-button" type="button" disabled>Audit and align</button>
+      <div id="align-box" hidden>
+        <div class="table-scroll" role="region" aria-label="Audit" tabindex="0"><table class="audit-table" id="audit-table"><thead><tr><th scope="col">File</th><th scope="col">Rows</th><th scope="col">Repeated rows</th><th scope="col">Missing (-200)</th><th scope="col">First timestamp</th></tr></thead><tbody></tbody></table></div>
+        <figure class="figure-block"><div class="figure-scroll"><svg id="lag-chart"></svg></div><figcaption>Teal: the plain merge. Amber: the shift with the highest correlation.</figcaption></figure>
+        <p id="align-readout" class="result-lead"></p>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s7">
+      <div class="step-head"><span class="step-number">07</span><div><h2 id="s7">Calibrate and test</h2><p>Fit benzene on the sensor over week 1, then compare the calibrated sensor with the analyzer in weeks 2 to 4, with the plain merge and with the aligned files.</p></div></div>
+      <button id="run-test" class="primary-button calculate-button" type="button" disabled>Calibrate and test</button>
+      <div id="test-box" hidden>
+        <div class="case-buttons" role="group" aria-label="Which merge" id="merge-buttons"><button type="button" data-m="2" aria-pressed="true">Aligned files</button><button type="button" data-m="0" aria-pressed="false">Plain merge</button></div>
+        <figure class="figure-block"><div class="figure-scroll"><svg id="alert-chart"></svg></div><figcaption>Teal: the analyzer. Amber: the calibrated sensor. Dashed: the alert level. Rust ticks: hours above the level that the sensor missed.</figcaption></figure>
+        <div class="table-scroll" role="region" aria-label="Test results" tabindex="0"><table class="audit-table" id="result-table"><thead><tr><th scope="col">Merge</th><th scope="col">Slope</th><th scope="col">Hours above 15</th><th scope="col">Flagged</th><th scope="col">Missed</th><th scope="col">False alarms</th><th scope="col">Share flagged</th></tr></thead><tbody></tbody></table></div>
+        <p id="test-readout" class="result-lead"></p>
+        <div class="notebook-list"><div class="notebook-item"><label for="decision">Your decision: may the sensor run the hourly alert?</label><select id="decision"><option value="">Choose</option><option value="yes">Yes</option><option value="no">No</option></select></div></div>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s8">
+      <div class="step-head"><span class="step-number">08</span><div><h2 id="s8">Defend your decision</h2><p>Write first, then compare.</p></div></div>
+      <div class="concept-question">
+        <h3>Why does a two-hour offset make the fitted slope smaller, rather than just moving the predictions two hours?</h3>
+        <label for="c-slope" class="visually-hidden">Your answer</label>
+        <textarea id="c-slope" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>The fit pairs each sensor reading with the analyzer value two hours later. At 08:00 the sensor is high, but the paired benzene is the 10:00 value, which has already fallen. High sensor readings are matched with middling benzene and low readings with rising benzene, so the cloud of points is flatter and more scattered: r drops from about 0.9 to about 0.5 and the slope to about half. With half the slope, a rush-hour peak is predicted at about two thirds of its height, and the alert misses many of them. A misaligned calibration is not late; it is wrong.</p></div></details>
+      </div>
+      <div class="concept-question">
+        <h3>Write the decision for the site manager in four sentences: the decision, the evidence with numbers, what you did to the raw files, and one limit of the test.</h3>
+        <label for="c-memo" class="visually-hidden">Your answer</label>
+        <textarea id="c-memo" rows="5" maxlength="4000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>For Demo A: "The sensor may run the hourly alert. Calibrated on 5 to 11 September 2004, it flagged 146 of the 161 hours above 15 µg/m³ in the next three weeks (91 %), with 35 false alarms. The analyzer file was stamped in UTC; we added two hours after a lag scan (r 0.93 against 0.54 for the plain merge) and removed three repeated sensor rows. The test covers three autumn weeks only; the sensor drifts (Lab 05), so it should be checked against the analyzer every month." For Demo B the same steps give 68 %, so the answer is no.</p></div></details>
+      </div>
+    </section>
+
+    <section class="lab-step graduate-section grad-only" aria-labelledby="s9">
+      <div class="step-head"><span class="step-number">09</span><div><h2 id="s9">Extension: an alert margin</h2><p>Let the sensor alert a little below the level: at 15 minus a margin. It catches more peaks and raises more false alarms.</p></div></div>
+      <div class="graduate-step">
+        <div class="range-row"><label for="margin">Margin (µg/m³)</label><output id="margin-out" for="margin">0</output><input id="margin" type="range" min="0" max="6" step="1" value="0" aria-describedby="margin-out"></div>
+        <div class="table-scroll" role="region" aria-label="Margins" tabindex="0"><table class="audit-table" id="margin-table"><thead><tr><th scope="col">Margin</th><th scope="col">Alert when the sensor reads above</th><th scope="col">Share flagged</th><th scope="col">False alarms</th></tr></thead><tbody></tbody></table></div>
+        <label for="e-margin">Choose a margin for your data set and defend it in two or three sentences. Who pays for a missed hour, and who pays for a false alarm?</label>
+        <textarea id="e-margin" rows="3" maxlength="3000"></textarea>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s10">
+      <div class="step-head"><span class="step-number">10</span><div><h2 id="s10">Submit</h2><p>Download one file and upload it to the assignment on myCourseVille.</p></div></div>
+      <ul class="submit-list"><li>The file holds your details, data set, predictions, answers, notebook numbers, results and decision.</li><li>It stays on your computer until you upload it. Nothing is sent from this page.</li><li>Open it here later to continue where you stopped.</li></ul>
+      <div class="study-actions"><button id="export-study" class="primary-button" type="button" disabled>Download my study</button><div class="file-control"><label for="import-study">Open a saved study</label><input id="import-study" type="file" accept=".json,application/json"></div></div>
+      <p id="status" class="study-status" role="status" aria-live="polite"></p>
+    </section>
+    <noscript><p class="error-summary">This lab needs JavaScript.</p></noscript>
+  </main>
+  <footer class="site-footer"><span>2105315 Data Analytics in Chemical Engineering · Chulalongkorn University</span><span>Data: De Vito, UCI Air Quality, CC BY 4.0</span></footer>
+</body>
+</html>

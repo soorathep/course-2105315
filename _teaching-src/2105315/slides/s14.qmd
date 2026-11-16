@@ -1,0 +1,252 @@
+---
+title: "Defend your decision"
+subtitle: "Session 14 of 14 · 90 minutes · Align, calibrate, test, decide"
+author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where this session sits {#course-map}
+
+::: {.coursemap14}
+[Week 1 · Import and audit]{.wk} [1 · Data you can trust]{.cm} [2 · Audit and the AI's code]{.cm}
+[Week 2 · Missing data]{.wk} [3 · Why values go missing]{.cm} [4 · Filling gaps you can defend]{.cm}
+[Week 3 · Outliers and noise]{.wk} [5 · Spike or real event?]{.cm} [6 · Smoothing without lying]{.cm}
+[Week 4 · Visualization]{.wk} [7 · Trends and distributions]{.cm} [8 · Figures that tell the truth]{.cm}
+[Week 5 · Correlation and anomalies]{.wk} [9 · Correlated or driven?]{.cm} [10 · When did it start?]{.cm}
+[Week 6 · Hypothesis tests]{.wk} [11 · Did the change work?]{.cm} [12 · Tests on plant data]{.cm}
+[Week 7 · Integrated case]{.wk .now} [13 · Raw file to decision]{.cm} [14 · Defend your decision]{.cm .now}
+:::
+
+
+::: {.bridge}
+Session 13 found the two clocks. Today: what a wrong clock does to a calibration, and how to write a decision that someone can act on and check.
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .act}
+[0–10]{.t} **Warm-up** [Your three numbers]{.d}
+:::
+::: {.seg .act}
+[10–22]{.t} **Activity 1** [The AI's merge]{.d}
+:::
+::: {.seg .concept}
+[22–45]{.t} **Concepts** [A flattened fit; the decision memo]{.d}
+:::
+::: {.seg .act}
+[45–75]{.t} **Activity 2** [Lab 07, Steps 4 to 10]{.d}
+:::
+::: {.seg .wrap}
+[75–90]{.t} **Course wrap-up** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: what must a decision memo contain so that a reviewer can repeat your result?
+:::
+
+## Warm-up · Your three numbers {#warmup .activity}
+
+[Pairs · 8 minutes · your homework]{.act-label}
+
+::: {.prompt}
+Compare the three numbers your code reported for Lab 07, Step 5. If they differ from your neighbor's, is it the data set or the code?
+:::
+
+::: {.checks3}
+::: {.c4}
+[1 · Sensor rows]{.label}
+After removing exact duplicate rows.
+:::
+::: {.c4}
+[2 · The shift]{.label}
+Hours added to the analyzer stamps that give the highest r.
+:::
+::: {.c4}
+[3 · The slope]{.label}
+Benzene on the sensor, week 1, after aligning.
+:::
+:::
+
+[Keep your slope. Activity 1 shows what the plain merge does to it.]{.note-line}
+
+::: {.selfstudy}
+Studying alone: write your three numbers down.
+:::
+
+## Activity 1 · The AI's merge {#act1 .activity}
+
+[Pairs · 10 minutes · Lab 07, Step 4]{.act-label}
+
+```{=html}
+<pre class="code-slide"><span>s = pd.read_csv("sensor.csv", parse_dates=["datetime_local"]).rename(columns={"datetime_local": "t"})</span><span>a = pd.read_csv("analyzer.csv", parse_dates=["datetime_utc"]).rename(columns={"datetime_utc": "t"})</span><span>df = s.merge(a, on="t").replace(-200, np.nan).dropna()</span><span>week1 = df[df.t &lt; df.t.min() + pd.Timedelta(days=7)]</span><span>slope, icept = np.polyfit(week1.PT08_S1_CO, week1.C6H6_ugm3, 1)</span></pre>
+```
+
+::: {.prompt .small}
+The code runs without an error. Name two problems in the first three lines, and what each does to the calibration.
+:::
+
+::: {.selfstudy}
+Studying alone: write your answer, then go on.
+:::
+
+## What to change {#act1-fix}
+
+::: {.beforeafter}
+::: {}
+[Two clocks, one name]{.label}
+Renaming both columns to "t" hides that one is UTC. The merge pairs each sensor hour with benzene two hours later. Add two hours to the analyzer stamps, and confirm with a lag scan: r 0.54 becomes 0.93 for Demo A.
+:::
+::: {}
+[Repeated rows]{.label}
+Three sensor rows appear twice, and the merge copies their analyzer rows. Drop exact duplicates first. The effect is small here; the audit takes one line.
+:::
+:::
+
+[Neither problem raises an error. Both change the number that the decision rests on.]{.note-line}
+
+## A flattened fit {#flat data-hold="true"}
+
+```{=html}
+<div class="ff" id="ff">
+  <div class="sm-controls">
+    <div class="sm-mode ff-mode" role="group" aria-label="Merge">
+      <button type="button" data-v="p" aria-pressed="true">Plain merge</button>
+      <button type="button" data-v="a" aria-pressed="false">Aligned files</button>
+    </div>
+  </div>
+  <svg id="ff-plot" viewBox="0 0 1160 380" role="img" aria-label="Calibration week: benzene against the sensor, with the fitted line"></svg>
+  <p class="sm-readout" id="ff-out" aria-live="polite"></p>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('ff'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Real data, calibration week 5 to 11 September 2004 (Lab 07, Demo A): sensor PT08.S1(CO) and benzene C6H6(GT)
+  // as the plain merge pairs them (p) and after adding 2 hours to the analyzer stamps (a). fit: [slope, intercept, r].
+  const D = {"cal":{"s":[1399,1194,970,898,929,913,854,881,867,885,899,886,864,822,810,784,823,863,880,951,942,988,1008,965,957,921,854,826,828,892,954,1120,1096,1058,977,977,943,964,953,967,996,1091,1114,1133,1031,952,949,932,966,888,847,856,881,882,1016,1228,1311,1081,1104,991,1008,986,948,919,958,1037,1120,1205,1172,1088,1055,null,null,null,null,null,null,null,null,null,null,1297,null,null,null,null,null,null,null,null,1325,1383,1254,1221,1226,1100,999,980,859,814,806,813,889,1200,1289,1355,1277,1156,1054,1096,1160,1148,1166,1315,1425,1329,1299,1123,1089,1081,1031,969,881,869,866,895,933,1209,1417,1227,1093,1135,1112,1147,1086,1077,1110,1146,1211,1218,1136,1017,1063,1083,1077,968,898,859,849,886,932,1144,1222,1202,1323,1219,1121,1096,1019,1045,1147,1145,1202,1283,1148,1229,1287,1285],"a":[30.3,18.5,7.3,4.2,5.1,4.4,2.2,2.9,2.5,2.8,3,2.7,3,2.4,2.2,1.9,2.7,3.4,4.3,7,5.5,7,6.7,5.1,4.1,3.2,1.7,1,1,1.9,3.1,7.8,8.5,8,5.7,6.6,5.3,6,5.4,6.1,6.7,11.7,13.5,13.5,8.5,5.5,5.8,4.8,5.2,3,2.7,3.6,4.4,4,7.7,13.9,22,10.2,10.4,8,10.1,10.7,7.9,7.1,9,11.2,16,19.9,15.3,11.1,10,null,null,null,null,null,null,null,null,null,null,34.5,null,null,null,null,null,null,null,null,18.9,24.1,18.1,15.8,14.6,10.6,7.5,7.4,3.8,2.3,2.3,2.7,4.9,18.2,21.4,21.3,19.9,14.8,12.6,13,16.2,15,16.2,22.7,32.3,22.3,16.6,11,11.3,9.3,7.3,5.5,3.5,2.8,2.9,3.6,5.5,15.5,28.3,17.8,12.8,15.7,15.4,15.6,12.6,12.2,13.4,14.3,16.5,17.4,12.9,8.2,9.2,9.3,10.4,6.2,4.2,3.1,2.3,3.1,4,10.8,13,10.3,16.3,12.7,9.7,9.1,7,7,9.5,9.8,11.7,13.9,8.7,10.9,12.3,12.4],"p":[7.3,4.2,5.1,4.4,2.2,2.9,2.5,2.8,3,2.7,3,2.4,2.2,1.9,2.7,3.4,4.3,7,5.5,7,6.7,5.1,4.1,3.2,1.7,1,1,1.9,3.1,7.8,8.5,8,5.7,6.6,5.3,6,5.4,6.1,6.7,11.7,13.5,13.5,8.5,5.5,5.8,4.8,5.2,3,2.7,3.6,4.4,4,7.7,13.9,22,10.2,10.4,8,10.1,10.7,7.9,7.1,9,11.2,16,19.9,15.3,11.1,10,null,null,null,null,null,null,null,null,null,null,34.5,null,null,null,null,null,null,null,null,18.9,24.1,18.1,15.8,14.6,10.6,7.5,7.4,3.8,2.3,2.3,2.7,4.9,18.2,21.4,21.3,19.9,14.8,12.6,13,16.2,15,16.2,22.7,32.3,22.3,16.6,11,11.3,9.3,7.3,5.5,3.5,2.8,2.9,3.6,5.5,15.5,28.3,17.8,12.8,15.7,15.4,15.6,12.6,12.2,13.4,14.3,16.5,17.4,12.9,8.2,9.2,9.3,10.4,6.2,4.2,3.1,2.3,3.1,4,10.8,13,10.3,16.3,12.7,9.7,9.1,7,7,9.5,9.8,11.7,13.9,8.7,10.9,12.3,12.4,12.1,8]},"fit":{"a":[0.03887347286927546,-31.018124686174886,0.920866845570943],"p":[0.01933424764045083,-11.005936890048082,0.5142752025579175]}};
+  const W = 1160, H = 380, L = 80, R = 20, T = 16, B = 52;
+  const X = (v) => L + (v - 700) / 800 * (W - L - R), Y = (v) => T + (1 - v / 45) * (H - T - B);
+  function draw(v) {
+    let g = '';
+    [0, 10, 20, 30, 40].forEach((y) => { g += `<line x1="${L}" x2="${W - R}" y1="${Y(y)}" y2="${Y(y)}" stroke="#B9C1C6"/><text x="${L - 10}" y="${Y(y) + 6}" text-anchor="end" font-size="17" fill="#333F4A">${y}</text>`; });
+    [800, 1000, 1200, 1400].forEach((x) => { g += `<text x="${X(x)}" y="${H - B + 24}" text-anchor="middle" font-size="17" fill="#333F4A">${x}</text>`; });
+    g += `<line x1="${L}" x2="${L}" y1="${T}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/><line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/>`;
+    g += `<text x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle" font-size="16" fill="#66727C">sensor response</text><text transform="translate(22 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle" font-size="16" fill="#66727C">benzene from the analyzer, µg/m³</text>`;
+    const y = D.cal[v];
+    D.cal.s.forEach((s, j) => { if (s === null || y[j] === null) return; g += `<circle cx="${X(s).toFixed(1)}" cy="${Y(y[j]).toFixed(1)}" r="5" fill="${v === 'a' ? '#E29A2D' : '#0F6E6B'}" opacity=".75"/>`; });
+    for (const k of ['p', 'a']) { const [m, c] = D.fit[k], x0 = 760, x1 = 1480; g += `<line x1="${X(x0)}" x2="${X(x1)}" y1="${Y(m * x0 + c)}" y2="${Y(m * x1 + c)}" stroke="${k === 'a' ? '#9a5f10' : '#0A4E4C'}" stroke-width="${k === v ? 3.5 : 1.5}" ${k === v ? '' : 'stroke-dasharray="6 5" opacity=".6"'}/>`; }
+    document.getElementById('ff-plot').innerHTML = g;
+    const [m, , r] = D.fit[v];
+    document.getElementById('ff-out').textContent = v === 'p'
+      ? `Plain merge: each sensor reading is paired with benzene two hours later. r = ${r.toFixed(2)}, slope ${m.toFixed(4)}. A rush-hour peak is predicted at about two thirds of its height; the alert flags 51 % of the hours above 15.`
+      : `Aligned: r = ${r.toFixed(2)}, slope ${m.toFixed(4)}, twice the plain merge. The alert flags 91 % of the hours above 15 in weeks 2 to 4.`;
+    root.querySelectorAll('[data-v]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.v === v));
+  }
+  root.querySelectorAll('[data-v]').forEach((b) => b.addEventListener('click', () => draw(b.dataset.v)));
+  draw('p');
+})();
+</script>
+```
+
+[Lab 07, Demo A, calibration week 5 to 11 September 2004. Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
+
+## The decision memo {#memo}
+
+::: {.checks4}
+::: {.c4}
+[1 · The decision]{.label}
+One sentence the manager can act on. Demo A: the sensor may run the alert.
+:::
+::: {.c4}
+[2 · The evidence]{.label}
+Numbers with their basis: 146 of 161 hours above 15 µg/m³ flagged (91 %), 35 false alarms.
+:::
+::: {.c4}
+[3 · What you did]{.label}
+Removed 3 repeated rows; added 2 h to the UTC stamps (r 0.54 to 0.93); calibrated on 5 to 11 Sep.
+:::
+::: {.c4}
+[4 · The limits]{.label}
+Three autumn weeks only. The sensor drifts (Lab 05): check it against the analyzer each month.
+:::
+:::
+
+[A reviewer with your two files and your memo should get the same numbers. That is what makes the decision defensible.]{.note-line}
+
+## Activity 2 · Lab 07, Steps 4 to 10 {#act2 .activity}
+
+[Individual · 25 minutes · laptop or phone]{.act-label}
+
+1. Open **Lab 07**. Press **Open a saved study** if you saved one in Session 13.
+2. Step 4: write your answer before you compare.
+3. Step 5: enter your three homework numbers **before** you audit and align.
+4. Step 6: audit and align. Step 7: calibrate, test, and choose your decision.
+5. Step 8: write your memo. Then the Extension view, Step 9.
+6. Step 10: download one file and upload it to myCourseVille.
+
+[Open Lab 07](../labs/decision.html){.lab-button target="_blank"}
+
+::: {.selfstudy}
+Studying alone: work through Steps 4 to 10 in order and submit in Step 10.
+:::
+
+## What the course covered {#wrap}
+
+| Week | The question | What you can now do |
+|:--|:--|:--|
+| 1 | Can I trust this file? | Audit rows, codes for missing, units, the clock |
+| 2 | What do I do with gaps? | Choose a fill you can defend, or leave the gap |
+| 3 | Spike or real event? | Flag with robust rules; smooth without moving peaks |
+| 4 | Does the figure tell the truth? | Choose the view; start bars at zero; state the window |
+| 5 | Correlated, or driven? | Remove shared trends; find a drift with CUSUM |
+| 6 | Did the change work? | Count independent values; compare with ordinary periods |
+| 7 | What do I decide? | Run every check in order and write a memo that can be checked |
+
+[In every week the AI wrote the code. Your part was to know what to ask, to read what came back, and to check the numbers.]{.note-line}
+
+## Debrief {#debrief}
+
+::: {.debrief-q}
+[What slope did the plain merge give for your data set, and what did the aligned files give?]{.dq}
+[Did your sensor meet the 80 % rule? What did your memo say?]{.dq}
+[Which check from the course would you now run first on a plant file, and why?]{.dq}
+:::
+
+## Exit ticket · 5 minutes {#exit .activity}
+
+[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+
+:::: {.columns}
+::: {.column width="64%"}
+::: {.prompt}
+Your memo says the sensor may run the alert. A reviewer gets 62 % from the same two files. Name the two steps you would ask them to check first, and why.
+:::
+
+Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+
+No name or student ID is recorded. Wait for **"Response received."**
+:::
+::: {.column width="32%" .qr-col}
+![](figures/exit-qr-s14.png){.qr fig-alt="QR code for the Session 14 exit ticket and feedback form"}
+
+[Open the Session 14 form](exit.html?s=14){target="_blank"}
+:::
+::::
+
+## After the course {#next}
+
+::: {.beforeafter}
+::: {}
+[Submit]{.label}
+Upload your Lab 07 study file on myCourseVille by the date shown there. All seven labs stay open on the course site.
+:::
+::: {}
+[Keep]{.label}
+The order of the checks: audit, clean, align, analyze, decide. And the habit of reading the code before you trust its number.
+:::
+:::
+
+[Thank you for fourteen sessions of careful work.]{.note-line}

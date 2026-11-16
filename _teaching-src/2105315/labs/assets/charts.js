@@ -388,3 +388,42 @@ export function placeboChart(svg, list, diff) {
   for (const v of [diff, -diff]) svg.append(el('line', { x1: x(v), x2: x(v), y1: M.t, y2: H - M.b, stroke: v === diff ? '#1C242B' : '#66727C', 'stroke-width': v === diff ? 2.5 : 1.5, 'stroke-dasharray': '6 4' }));
   svg.append(el('text', { class: 'bar-label', x: x(diff) + (diff >= 0 ? 6 : -6), y: M.t + 14, 'text-anchor': diff >= 0 ? 'start' : 'end' }, `your date ${diff >= 0 ? '+' : '−'}${Math.abs(diff).toFixed(2)}`));
 }
+
+/** Lab 07 · correlation of sensor and analyzer for each shift of the analyzer timestamps.
+ * Amber: the shift with the highest r. The plain merge (shift 0) is labelled. */
+export function lagChart(svg, scan) {
+  const best = scan.reduce((a, b) => (b.r > a.r ? b : a));
+  frame(svg, `Correlation of sensor and analyzer for each number of hours added to the analyzer timestamps. Highest at ${best.shift} hours, r = ${best.r.toFixed(2)}.`);
+  const n = scan.length, slot = (W - M.l - M.r) / n, y = (v) => M.t + (1 - v) * (H - M.t - M.b);
+  yAxis(svg, y, [0, 0.25, 0.5, 0.75, 1], 'correlation r', (v) => String(v));
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  ax.append(el('text', { class: 'ax-label', x: M.l + (W - M.l - M.r) / 2, y: H - 6, 'text-anchor': 'middle' }, 'hours added to the analyzer timestamps'));
+  svg.append(ax);
+  scan.forEach((s, q) => {
+    const x0 = M.l + slot * q + slot * 0.2, w = slot * 0.6, top = y(Math.max(0, s.r));
+    svg.append(el('rect', { x: x0, y: top, width: w, height: H - M.b - top, fill: s === best ? '#E29A2D' : s.shift === 0 ? '#0F6E6B' : '#B9C1C6' }));
+    svg.append(el('text', { class: 'bar-label', x: x0 + w / 2, y: top - 6, 'text-anchor': 'middle' }, s.r.toFixed(2)));
+    ax.append(el('text', { x: x0 + w / 2, y: H - M.b + 18, 'text-anchor': 'middle' }, `${s.shift > 0 ? '+' : s.shift < 0 ? '−' : ''}${Math.abs(s.shift)}${s.shift === 0 ? ' (plain merge)' : ''}`));
+  });
+}
+
+/** Lab 07 · weeks 2 to 4, hour by hour: analyzer (teal) and the calibrated sensor (amber), with the alert level.
+ * Rust ticks along the top: hours above the level that the sensor missed. */
+export function alertChart(svg, r, { limit = 15, margin = 0, from = 7 * 24 } = {}) {
+  const t = r.truth.slice(from), p = r.pred.slice(from), n = t.length;
+  const top = Math.max(30, ...t.filter(Number.isFinite), ...p.filter(Number.isFinite)) * 1.05;
+  frame(svg, `Weeks 2 to 4, hourly: benzene from the analyzer and from the calibrated sensor, with the alert level ${limit} µg/m³.`);
+  const x = (j) => M.l + (j / (n - 1)) * (W - M.l - M.r), y = (v) => M.t + 8 + (1 - Math.max(0, v) / top) * (H - M.t - M.b - 8);
+  yAxis(svg, y, niceTicks(0, top, 5), 'benzene / µg m⁻³', (v) => String(v));
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  for (let d = 0; d < n / 24; d += 7) ax.append(el('text', { x: x(d * 24), y: H - M.b + 18, 'text-anchor': 'middle' }, `week ${2 + d / 7}`));
+  svg.append(ax);
+  const path = (v, stroke, w, op) => { let d = '', pen = false; v.forEach((q, j) => { if (!Number.isFinite(q)) { pen = false; return; } d += `${pen ? 'L' : 'M'}${x(j).toFixed(1)},${y(q).toFixed(1)}`; pen = true; }); svg.append(el('path', { d, fill: 'none', stroke, 'stroke-width': w, opacity: op })); };
+  path(t, '#0F6E6B', 1.4, 0.9); path(p, '#E29A2D', 1.6, 0.95);
+  svg.append(el('line', { x1: M.l, x2: W - M.r, y1: y(limit), y2: y(limit), stroke: '#333F4A', 'stroke-width': 1.5, 'stroke-dasharray': '6 4' }));
+  svg.append(el('text', { class: 'bar-label', x: W - M.r - 4, y: y(limit) - 6, 'text-anchor': 'end' }, `alert level ${limit}`));
+  if (margin) svg.append(el('line', { x1: M.l, x2: W - M.r, y1: y(limit - margin), y2: y(limit - margin), stroke: '#9a5f10', 'stroke-width': 1.2, 'stroke-dasharray': '2 3' }));
+  t.forEach((q, j) => { if (Number.isFinite(q) && Number.isFinite(p[j]) && q > limit && !(p[j] > limit - margin)) svg.append(el('line', { x1: x(j), x2: x(j), y1: M.t - 2, y2: M.t + 6, stroke: '#BE654C', 'stroke-width': 2 })); });
+}
