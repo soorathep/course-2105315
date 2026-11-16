@@ -7,13 +7,13 @@
   <title>Lab 01 · Is this file ready? · 2105315 Data Analytics Labs</title>
   <meta name="description" content="Audit a real two-week air-quality export before anyone averages it: import settings, missing-value codes, repeated rows, and checking code written by an AI assistant.">
   <link rel="icon" href="/favicon.png">
-  <link rel="stylesheet" href="assets/labs.css?v=2">
+  <link rel="stylesheet" href="assets/labs.css?v=3">
   <script type="module" src="assets/mode.js?v=1"></script>
   <script type="module" src="assets/audit-lab.js?v=1"></script>
 </head>
 <body data-mode="core">
   <a class="skip-link" href="#lab">Skip to the lab</a>
-  <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html" aria-current="page">Lab 01</a><a href="gaps.html">Lab 02</a><a href="index.html">All labs</a></nav></header>
+  <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html" aria-current="page">Lab 01</a><a href="gaps.html">Lab 02</a><a href="spikes.html">Lab 03</a><a href="index.html">All labs</a></nav></header>
   <main class="page da-page" id="lab">
     <p class="eyebrow">2105315 Data Analytics in Chemical Engineering · Lab 01 · Week 1</p>
     <h1>Is this file ready for the morning report?</h1>
@@ -25,7 +25,7 @@
     <fieldset class="mode-switch"><legend>View</legend><div class="mode-options"><label><input type="radio" name="lab-mode" value="core" checked><span>Core</span></label><label><input type="radio" name="lab-mode" value="graduate"><span>Extension</span></label></div><p class="core-only">Core: Steps 1 to 7, about 40 minutes.</p><p class="grad-only">Extension: the core steps plus two decisions about missing data in Step 8.</p></fieldset>
 
     <section class="lab-step" aria-labelledby="s1">
-      <div class="step-head"><span class="step-number">01</span><div><h2 id="s1">Choose your data</h2><p>Practise on a demo, then load your own 14 days. Your file is chosen from your student ID, so it differs from your classmates'.</p></div></div>
+      <div class="step-head"><span class="step-number">01</span><div><h2 id="s1">Choose your data</h2><p>Practice on a demo, then load your own 14 days. Your file is chosen from your student ID, so it differs from your classmates'.</p></div></div>
       <fieldset class="student-fields"><legend>Your details</legend><p class="input-help">Your student ID picks your data set. All three go into the file you submit.</p><div class="student-grid"><div><label for="student-first-name">First name</label><input id="student-first-name" type="text" maxlength="80" autocomplete="given-name"></div><div><label for="student-last-name">Last name</label><input id="student-last-name" type="text" maxlength="80" autocomplete="family-name"></div><div><label for="student-id">Student ID</label><input id="student-id" type="text" maxlength="20" inputmode="numeric" autocomplete="off"></div></div></fieldset>
       <div class="case-buttons" role="group" aria-label="Data set">
         <button type="button" data-case="spring" aria-pressed="true">Demo A<span class="case-sub">22 Apr to 5 May 2004</span></button>

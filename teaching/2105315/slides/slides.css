@@ -223,3 +223,8 @@
 .reveal #methods table { font-size: .62em; width: 100%; }
 .reveal #act1-fix .code-slide { font-size: .5em; }
 .reveal #act1-key table { font-size: .58em; width: 100%; }
+
+/* ---------- Session 5 ---------- */
+.reveal .spk { margin-top: .3em; font-family: "Source Sans 3", sans-serif; }
+.reveal .spk svg { width: 100%; height: auto; display: block; }
+.reveal #spk-out { font-size: .52em; margin: .2em 0 0; }

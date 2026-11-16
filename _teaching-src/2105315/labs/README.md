@@ -40,6 +40,17 @@ compared on the two-week mean and the typical daily peak (mean of daily maxima).
 The study file records `dataset.startIndex` and the predictions with the methods that were closest, so a
 grader can recompute everything from the student ID.
 
+## Lab 03 · Spike or real process event?
+
+Data: benzene C6H6(GT) and the co-located sensor PT08.S1(CO) (r = 0.88 over the year), 14-day windows with
+both complete. Eight one-hour transmitter faults are put into benzene only (four jumps of 15 to 30, two of
+6 to 10, two drops to 0.1), so each fault is known. Three rules are scored against them: z-score > 3 over
+the window, Hampel (7-hour centered median, 3 MAD), and the residual from a straight-line fit to the sensor
+(4 MAD). Step 7 smooths the true record (rolling mean, trailing or centered) and reports the typical daily
+peak and the lag. Engine: `assets/spikes-engine.js`.
+
+    python3 _teaching-src/2105315/labs/tests/spikes_vs_pandas.py   # needs Node.js; engine = pandas
+
 ## Grading
 
 The study file carries the question text with each answer, so it can be read by a person or by an AI

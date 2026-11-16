@@ -110,7 +110,7 @@
     "th": "การตัดทิ้งสมมติว่าชั่วโมงที่หายเหมือนกับชั่วโมงอื่น การเติมด้วยค่าเฉลี่ยสมมติว่าไม่มีอะไรเปลี่ยนตามเวลา"
    },
    {
-    "en": "Linear interpolation assumes a steady change between two neighbours. Carrying the last value assumes nothing changed. The same hour on other days assumes a usual day.",
+    "en": "Linear interpolation assumes a steady change between two neighbors. Carrying the last value assumes nothing changed. The same hour on other days assumes a usual day.",
     "th": "การประมาณค่าเชิงเส้นสมมติว่าค่าเปลี่ยนอย่างสม่ำเสมอระหว่างสองจุดข้างเคียง การใช้ค่าล่าสุดสมมติว่าไม่มีอะไรเปลี่ยน การใช้ชั่วโมงเดียวกันของวันอื่นสมมติว่าเป็นวันปกติ"
    },
    {

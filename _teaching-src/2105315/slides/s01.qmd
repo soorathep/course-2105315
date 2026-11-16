@@ -407,7 +407,7 @@ Add `na_values=[-200]` when reading. Then check: missing count 99, minimum above
 [Individual · 25 minutes · laptop or phone]{.act-label}
 
 1. Open **Lab 01** and enter your name and student ID.
-2. Press **My data set**. Your 14 days differ from your neighbour's.
+2. Press **My data set**. Your 14 days differ from your neighbor's.
 3. Step 2: choose the three import settings until the verdict turns teal.
 4. Step 3: tick every statement you think is true. Do not run the audit yet.
 
@@ -422,7 +422,7 @@ Studying alone: do Steps 1 to 3, then download your study in Step 9 to keep your
 ::: {.debrief-q}
 [Which import setting did you get wrong first, and what did the verdict say?]{.dq}
 [Which of the eight statements did your pair disagree on?]{.dq}
-[Your data set differs from your neighbour's. Which statements could be true for one of you and not the other?]{.dq}
+[Your data set differs from your neighbor's. Which statements could be true for one of you and not the other?]{.dq}
 :::
 
 ## Exit ticket · 5 minutes {#exit .activity}

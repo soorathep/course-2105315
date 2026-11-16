@@ -72,7 +72,7 @@ Mean benzene after a straight line through every gap.
 :::
 :::
 
-[Which of the two is larger in your file? Your neighbour's answer may differ. Find the gap that explains your difference.]{.note-line}
+[Which of the two is larger in your file? Your neighbor's answer may differ. Find the gap that explains your difference.]{.note-line}
 
 ::: {.selfstudy}
 Studying alone: write down which mean is larger and why you think so.
@@ -84,7 +84,7 @@ Studying alone: write down which mean is larger and why you think so.
 |------|----------------|----------------|
 | Drop the missing hours | The missing hours are like the others | Gaps follow a pattern, or the value caused them |
 | Fill with the mean | Nothing changes over time | There is a daily cycle or a trend |
-| Linear interpolation | The value moves steadily between its two neighbours | The gap is longer than the time the process takes to change |
+| Linear interpolation | The value moves steadily between its two neighbors | The gap is longer than the time the process takes to change |
 | Carry the last value forward | Nothing changed since the last reading | The value moves; events appear late |
 | Same hour on other days | Today follows the usual daily pattern | The day is unusual, or no other day has that hour |
 

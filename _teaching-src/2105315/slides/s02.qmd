@@ -54,7 +54,7 @@ Question for today: code runs without an error and prints a number. How do you d
 [Pairs · 8 minutes · your homework]{.act-label}
 
 ::: {.prompt}
-Show your neighbour the three numbers your AI-written code reported for your Lab 01 file.
+Show your neighbor the three numbers your AI-written code reported for your Lab 01 file.
 :::
 
 ::: {.checks3}
@@ -72,7 +72,7 @@ Mean CO(GT) if −200 is averaged as a number.
 :::
 :::
 
-[Your numbers differ from your neighbour's: each of you has a different 14 days. If your missing count is 0, find the line in your code that made it 0.]{.note-line}
+[Your numbers differ from your neighbor's: each of you has a different 14 days. If your missing count is 0, find the line in your code that made it 0.]{.note-line}
 
 ::: {.selfstudy}
 Studying alone: write your three numbers down before you go on.

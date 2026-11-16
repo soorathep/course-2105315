@@ -1,0 +1,325 @@
+{
+ "title-slide": {
+  "text": [
+   {
+    "en": "Session five. Spike or real event?",
+    "th": "คาบที่ห้า ค่าพุ่งผิดปกติหรือเหตุการณ์จริง"
+   },
+   {
+    "en": "A value can be unusual without being wrong. Today we learn to tell the two apart.",
+    "th": "ค่าหนึ่งอาจผิดปกติโดยไม่ได้ผิดพลาด วันนี้เราจะเรียนวิธีแยกสองอย่างนี้ออกจากกัน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.11
+    ],
+    [
+     3.46,
+     9.3
+    ]
+   ]
+  }
+ },
+ "course-map": {
+  "text": [
+   {
+    "en": "Week three is about outliers and noise. Week two dealt with values that are missing.",
+    "th": "สัปดาห์ที่สามว่าด้วยค่าผิดปกติและสัญญาณรบกวน สัปดาห์ที่สองเราจัดการกับค่าที่หายไป"
+   },
+   {
+    "en": "This week the values are there, but some may be wrong.",
+    "th": "สัปดาห์นี้ค่ามีอยู่ครบ แต่บางค่าอาจผิด"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/course-map.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.18
+    ],
+    [
+     6.53,
+     9.77
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   {
+    "en": "We start with the peak you found at home. Then three ways to call a value unusual, and a short activity with real data.",
+    "th": "เราเริ่มจากค่ายอดที่ทุกคนหามาจากบ้าน จากนั้นสามวิธีในการบอกว่าค่าหนึ่งผิดปกติ และกิจกรรมสั้นๆ กับข้อมูลจริง"
+   },
+   {
+    "en": "Then we see why the most common rule fails on data with a daily cycle, and you start Lab 03.",
+    "th": "แล้วเราจะดูว่าทำไมกฎที่ใช้กันมากที่สุดจึงใช้ไม่ได้กับข้อมูลที่มีรอบรายวัน และเริ่มทำแล็บที่สาม"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.57
+    ],
+    [
+     8.92,
+     15.75
+    ]
+   ]
+  }
+ },
+ "warmup": {
+  "text": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. Show your neighbor the highest peak in your Lab 02 chart, and say whether you believe it.",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที ให้เพื่อนดูค่ายอดที่สูงที่สุดในกราฟแล็บที่สองของคุณ และบอกว่าเชื่อหรือไม่"
+   },
+   {
+    "en": "Ask when it happened, what shape it has, and what evidence would convince you either way.",
+    "th": "ถามว่าเกิดเมื่อไร มีรูปร่างอย่างไร และหลักฐานอะไรที่จะทำให้คุณเชื่อหรือไม่เชื่อ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/warmup.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.53
+    ],
+    [
+     8.88,
+     14.51
+    ]
+   ]
+  }
+ },
+ "rules": {
+  "text": [
+   {
+    "en": "There are three ways to call a value unusual. A z-score measures distance from the mean of the whole record.",
+    "th": "มีสามวิธีในการบอกว่าค่าหนึ่งผิดปกติ ค่า z วัดระยะห่างจากค่าเฉลี่ยของข้อมูลทั้งชุด"
+   },
+   {
+    "en": "A Hampel filter measures distance from the nearby hours, so it follows the daily cycle.",
+    "th": "ตัวกรองแฮมเปลวัดระยะห่างจากชั่วโมงข้างเคียง จึงตามรอบรายวันได้"
+   },
+   {
+    "en": "A physical check asks whether a second measurement agrees. Only this one asks whether something really happened.",
+    "th": "การตรวจทางกายภาพถามว่าการวัดอีกตัวหนึ่งเห็นด้วยหรือไม่ วิธีนี้เท่านั้นที่ถามว่ามีอะไรเกิดขึ้นจริง"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/rules.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.35
+    ],
+    [
+     7.7,
+     13.66
+    ],
+    [
+     14.01,
+     21.09
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   {
+    "en": "Activity one, in pairs, twelve minutes. Four days of benzene from Lab 03, with seven numbered hours.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบสองนาที ข้อมูลเบนซีนสี่วันจากแล็บที่สาม มีเจ็ดชั่วโมงที่ใส่หมายเลขไว้"
+   },
+   {
+    "en": "Decide for each one: fault or real event? Then switch on the second sensor, then the z equals three line, then reveal.",
+    "th": "ตัดสินแต่ละจุดว่าเป็นความผิดพลาดของเครื่องหรือเหตุการณ์จริง แล้วเปิดเส้นเซนเซอร์ตัวที่สอง ตามด้วยเส้น z เท่ากับสาม แล้วจึงเปิดดูคำตอบ"
+   },
+   {
+    "en": "The z line catches one fault and one real rush hour, and misses both drops to zero.",
+    "th": "เส้น z จับความผิดพลาดได้หนึ่งจุดและจับชั่วโมงเร่งด่วนจริงไปหนึ่งจุด และพลาดค่าที่ตกลงไปใกล้ศูนย์ทั้งสองจุด"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.36
+    ],
+    [
+     8.71,
+     17.07
+    ],
+    [
+     17.42,
+     23.44
+    ]
+   ]
+  }
+ },
+ "zfail": {
+  "text": [
+   {
+    "en": "The z-score sees one mean and one standard deviation for the whole two weeks. A busy morning is far from that mean.",
+    "th": "ค่า z มองเห็นค่าเฉลี่ยและส่วนเบี่ยงเบนมาตรฐานเพียงชุดเดียวสำหรับสองสัปดาห์ เช้าที่รถมากจึงห่างจากค่าเฉลี่ยนั้น"
+   },
+   {
+    "en": "A drop to zero at noon is unusual for that hour, but not for the record, so the z-score keeps it.",
+    "th": "ค่าที่ตกลงไปใกล้ศูนย์ตอนเที่ยงผิดปกติสำหรับชั่วโมงนั้น แต่ไม่ผิดปกติสำหรับข้อมูลทั้งชุด ค่า z จึงเก็บไว้"
+   },
+   {
+    "en": "In the demo it flags two faults and two real rush hours, and misses six of the eight faults.",
+    "th": "ในข้อมูลตัวอย่าง กฎนี้จับความผิดพลาดได้สองจุดและจับชั่วโมงเร่งด่วนจริงไปสองจุด และพลาดความผิดพลาดหกจากแปดจุด"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/zfail.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.97
+    ],
+    [
+     8.32,
+     15.19
+    ],
+    [
+     15.54,
+     21.69
+    ]
+   ]
+  }
+ },
+ "act2": {
+  "text": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 03 and load your own data set. Look at the record alone, then with the second sensor.",
+    "th": "เปิดแล็บที่สามและโหลดชุดข้อมูลของตัวเอง ดูข้อมูลแบบเดียวก่อน แล้วดูพร้อมกับเซนเซอร์ตัวที่สอง"
+   },
+   {
+    "en": "Judge all fifteen numbered hours and write what you looked at. Do not run the rules yet. Download your study to keep your work.",
+    "th": "ตัดสินทั้งสิบห้าชั่วโมงที่มีหมายเลข และเขียนว่าคุณดูอะไร ยังไม่ต้องรันกฎ ดาวน์โหลดไฟล์งานเก็บไว้ก่อน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/act2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.69
+    ],
+    [
+     6.04,
+     13.27
+    ],
+    [
+     13.62,
+     21.98
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   {
+    "en": "Which numbered hour changed your mind when you switched on the second sensor?",
+    "th": "จุดไหนที่ทำให้คุณเปลี่ยนใจเมื่อเปิดเส้นเซนเซอร์ตัวที่สอง"
+   },
+   {
+    "en": "Find a fault that sits inside the normal daily range. Which rule could catch it?",
+    "th": "หาความผิดพลาดที่อยู่ในช่วงค่าปกติของวัน กฎไหนจับได้"
+   },
+   {
+    "en": "When would the second-sensor check fail?",
+    "th": "เมื่อไรการตรวจด้วยเซนเซอร์ตัวที่สองจะใช้ไม่ได้"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.62
+    ],
+    [
+     4.97,
+     10.26
+    ],
+    [
+     10.61,
+     13.15
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "A flow reading jumps to twice its normal value for one hour. Name two checks you would make before calling it a fault.",
+    "th": "ค่าการไหลพุ่งขึ้นเป็นสองเท่าของค่าปกติเป็นเวลาหนึ่งชั่วโมง บอกการตรวจสองข้อที่จะทำก่อนสรุปว่าเป็นความผิดพลาด"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.27
+    ],
+    [
+     6.62,
+     14.77
+    ],
+    [
+     15.12,
+     20.45
+    ]
+   ]
+  }
+ },
+ "next": {
+  "text": [
+   {
+    "en": "Next session: smoothing without lying. What a rolling mean does to peaks and timing.",
+    "th": "คาบหน้า การทำให้กราฟเรียบโดยไม่บิดเบือน ค่าเฉลี่ยเคลื่อนที่ทำอะไรกับค่ายอดและเวลา"
+   },
+   {
+    "en": "Before you come, download your Lab 03 file, ask an AI assistant for code for the three numbers in Step 5, and read it before you run it.",
+    "th": "ก่อนมาเรียน ดาวน์โหลดไฟล์แล็บที่สาม ขอให้ AI เขียนโค้ดหาตัวเลขสามค่าในขั้นที่ห้า และอ่านโค้ดก่อนรัน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/next.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.92
+    ],
+    [
+     6.27,
+     16.98
+    ]
+   ]
+  }
+ }
+}

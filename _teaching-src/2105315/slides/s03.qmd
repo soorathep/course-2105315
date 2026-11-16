@@ -54,7 +54,7 @@ Question for today: before you choose how to fill a gap, what must you know abou
 [Pairs · 8 minutes · your homework example]{.act-label}
 
 ::: {.prompt}
-Tell your neighbour the reading you brought: what went missing, and why.
+Tell your neighbor the reading you brought: what went missing, and why.
 :::
 
 ::: {.checks3}
@@ -135,7 +135,7 @@ These checks can point to the third kind of gap. They cannot prove it: the value
 ```{=html}
 <div class="stories" id="stories">
   <div class="story"><p>A flow signal drops out for a minute at random times when a forklift passes the cable tray.</p><button type="button">Reveal</button><p class="ans" hidden><b>Unrelated.</b> Short and random: fill short gaps; little bias.</p></div>
-  <div class="story"><p>A gas analyzer runs an automatic zero check every night at 04:00 and records nothing.</p><button type="button">Reveal</button><p class="ans" hidden><b>Recorded: time.</b> Dropping it raises the daily mean. Fill from neighbouring hours.</p></div>
+  <div class="story"><p>A gas analyzer runs an automatic zero check every night at 04:00 and records nothing.</p><button type="button">Reveal</button><p class="ans" hidden><b>Recorded: time.</b> Dropping it raises the daily mean. Fill from neighboring hours.</p></div>
   <div class="story"><p>A level gauge stores nothing while the tank is above 95 %.</p><button type="button">Reveal</button><p class="ans" hidden><b>The value.</b> Any fill stays below 95 %. Report the time above range; use the high-level alarm.</p></div>
   <div class="story"><p>No lab samples are taken on public holidays.</p><button type="button">Reveal</button><p class="ans" hidden><b>Recorded: calendar.</b> Fine if you compare like days; holiday operation may differ.</p></div>
   <div class="story"><p>Operators skip the shift sample when the unit is upset and they are busy.</p><button type="button">Reveal</button><p class="ans" hidden><b>The value.</b> The record looks calmer than the plant was.</p></div>

@@ -160,3 +160,45 @@ export function gapChart(svg, t, obs, gaps, { truth = null, filled = null, unit 
     svg.append(el('path', { class: 'series-effect', d: line(filled, show) }));
   }
 }
+
+/** Lab 03 · benzene record with numbered candidate hours. Optional: the second sensor scaled to benzene units
+ * (dashed graphite), a smoothed series (amber), and after the reveal each marker filled amber (fault) or
+ * outlined teal (real). */
+export function spikeChart(svg, t, y, { marks = [], sensor = null, smoothed = null, reveal = false, from = 0, to = null, unit = 'µg m⁻³' } = {}) {
+  const end = to ?? t.length - 1, n = end - from + 1;
+  const range = (xs) => xs.slice(from, end + 1).filter((v) => Number.isFinite(v));
+  const top = Math.max(1, ...range(y), ...(sensor ? range(sensor) : []), ...(smoothed ? range(smoothed) : [])) * 1.1;
+  const lo = Math.min(0, ...(sensor ? range(sensor) : [0]));
+  const x = (k) => M.l + ((k - from) / Math.max(1, n - 1)) * (W - M.l - M.r);
+  const yy = (v) => M.t + (1 - (v - lo) / (top - lo)) * (H - M.t - M.b);
+  frame(svg, smoothed ? 'Benzene over the window: teal, the record; amber, the rolling mean.'
+    : `Benzene over the window with ${marks.length} numbered hours to judge${sensor ? '; dashed line: the second sensor, scaled to benzene units' : ''}.`);
+  yAxis(svg, yy, niceTicks(lo, top, 5), `benzene / ${unit}`);
+  const ax = el('g', { class: 'ax' });
+  ax.append(el('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
+  for (let k = from; k <= end; k++) {
+    if (t[k].hour !== 0) continue;
+    ax.append(el('line', { x1: x(k), x2: x(k), y1: H - M.b, y2: H - M.b + 5 }));
+    if (k + 12 <= end) ax.append(el('text', { x: x(k + 12), y: H - M.b + 18, 'text-anchor': 'middle' }, `${t[k].day.slice(8, 10)}/${t[k].day.slice(5, 7)}`));
+  }
+  svg.append(ax);
+  const line = (xs) => {
+    let d = '', pen = false;
+    for (let k = from; k <= end; k++) {
+      if (!Number.isFinite(xs[k])) { pen = false; continue; }
+      d += `${pen ? 'L' : 'M'}${x(k).toFixed(1)},${yy(xs[k]).toFixed(1)}`; pen = true;
+    }
+    return d;
+  };
+  if (sensor) svg.append(el('path', { class: 'series-sensor', d: line(sensor) }));
+  svg.append(el('path', { class: 'series-ref', d: line(y) }));
+  if (smoothed) svg.append(el('path', { class: 'series-effect', d: line(smoothed) }));
+  const g = el('g');
+  for (const m of marks) {
+    if (m.i < from || m.i > end) continue;
+    const cls = reveal ? (m.fault ? 'mark-fault' : 'mark-real') : 'mark-open';
+    g.append(el('circle', { class: cls, cx: x(m.i), cy: yy(y[m.i]), r: 9 }));
+    g.append(el('text', { class: `mark-n ${cls}-n`, x: x(m.i), y: yy(y[m.i]) + 4, 'text-anchor': 'middle' }, String(m.n)));
+  }
+  svg.append(g);
+}

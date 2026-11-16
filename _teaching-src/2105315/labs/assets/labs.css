@@ -177,3 +177,21 @@
 .method-table td { font-variant-numeric: tabular-nums; }
 .method-table td:first-child { font-family: inherit; font-size: inherit; }
 #predict-list select { width: 100%; }
+
+/* ===== Lab 03 spikes ===== */
+.series-sensor { fill: none; stroke: var(--palette-graphite, #333F4A); stroke-width: 1.5; stroke-dasharray: 4 3; opacity: .75; }
+.mark-open { fill: white; stroke: var(--palette-graphite, #333F4A); stroke-width: 1.5; }
+.mark-fault { fill: var(--amber); stroke: var(--palette-ink, #1C242B); stroke-width: 1; }
+.mark-real { fill: white; stroke: var(--teal); stroke-width: 2; }
+.mark-n { font-size: 11px; font-weight: 700; fill: var(--palette-ink, #1C242B); pointer-events: none; }
+.judge-list { list-style: none; margin: 12px 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+.judge-list li { border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; background: white; font-size: .9rem; }
+.judge-list li.agree { border-color: var(--teal); }
+.judge-list li.disagree { border-color: var(--amber); background: #FBF0DE; }
+.judge-list .jn { font-weight: 700; margin-right: 6px; }
+.judge-list .jv { display: block; margin-top: 4px; font-size: .84rem; color: var(--muted); }
+.judge-list fieldset { border: 0; margin: 6px 0 0; padding: 0; display: flex; gap: 14px; }
+.judge-list label { font-size: .9rem; display: inline-flex; align-items: center; gap: 4px; margin: 0; }
+.rule-table td:first-child { font-family: inherit; font-size: inherit; }
+.rule-table td.good { color: var(--teal); font-weight: 700; }
+.rule-table td.bad { color: #8A4B12; font-weight: 700; }

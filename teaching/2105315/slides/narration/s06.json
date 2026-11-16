@@ -1,0 +1,375 @@
+{
+ "title-slide": {
+  "text": [
+   {
+    "en": "Session six. Smoothing without lying.",
+    "th": "คาบที่หก การทำให้กราฟเรียบโดยไม่บิดเบือน"
+   },
+   {
+    "en": "A calmer chart is easier to read. Today we make sure it still tells the truth.",
+    "th": "กราฟที่เรียบขึ้นอ่านง่ายกว่า วันนี้เราจะทำให้แน่ใจว่ามันยังบอกความจริง"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.02
+    ],
+    [
+     3.37,
+     8.66
+    ]
+   ]
+  }
+ },
+ "course-map": {
+  "text": [
+   {
+    "en": "This is the second session of week three. Last time we separated faults from real events.",
+    "th": "นี่คือคาบที่สองของสัปดาห์ที่สาม คาบที่แล้วเราแยกความผิดพลาดของเครื่องออกจากเหตุการณ์จริง"
+   },
+   {
+    "en": "Today we deal with noise, and what a rolling mean does to it.",
+    "th": "วันนี้เราจัดการกับสัญญาณรบกวน และดูว่าค่าเฉลี่ยเคลื่อนที่ทำอะไรกับมัน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/course-map.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.16
+    ],
+    [
+     6.51,
+     10.37
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   {
+    "en": "We start with your homework numbers. Then what a rolling mean does, and what the AI's outlier step did to your file.",
+    "th": "เราเริ่มจากตัวเลขการบ้าน จากนั้นดูว่าค่าเฉลี่ยเคลื่อนที่ทำอะไร และขั้นตอนตัดค่าผิดปกติของ AI ทำอะไรกับไฟล์ของคุณ"
+   },
+   {
+    "en": "Then four rules for honest smoothing, and you finish Lab 03.",
+    "th": "แล้วกฎสี่ข้อสำหรับการทำให้กราฟเรียบอย่างซื่อตรง และทำแล็บที่สามให้เสร็จ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.99
+    ],
+    [
+     8.34,
+     12.97
+    ]
+   ]
+  }
+ },
+ "warmup": {
+  "text": [
+   {
+    "en": "Warm-up, in pairs, eight minutes. How many hours did the AI code remove, and how much did the mean change?",
+    "th": "อุ่นเครื่อง จับคู่ แปดนาที โค้ดของ AI ตัดไปกี่ชั่วโมง และค่าเฉลี่ยเปลี่ยนไปเท่าไร"
+   },
+   {
+    "en": "The mean moves very little. Look at which hours were removed: faults, real rush hours, or both.",
+    "th": "ค่าเฉลี่ยเปลี่ยนไปน้อยมาก ให้ดูว่าชั่วโมงที่ถูกตัดคืออะไร ความผิดพลาด ชั่วโมงเร่งด่วนจริง หรือทั้งสองอย่าง"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/warmup.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.08
+    ],
+    [
+     8.43,
+     15.28
+    ]
+   ]
+  }
+ },
+ "smooth": {
+  "text": [
+   {
+    "en": "Here are four real days of benzene. The amber line is a rolling mean.",
+    "th": "นี่คือข้อมูลเบนซีนจริงสี่วัน เส้นสีส้มคือค่าเฉลี่ยเคลื่อนที่"
+   },
+   {
+    "en": "Make the window longer. The line gets calmer, and the peak on the twenty-ninth of April gets lower.",
+    "th": "ขยายหน้าต่างให้ยาวขึ้น เส้นจะเรียบขึ้น และค่ายอดของวันที่ยี่สิบเก้าเมษายนจะต่ำลง"
+   },
+   {
+    "en": "With a trailing window the peak also moves later. Switch to centered and most of the delay goes away, but the peak stays low.",
+    "th": "ถ้าเป็นหน้าต่างแบบย้อนหลัง ค่ายอดจะเลื่อนไปช้าลงด้วย ลองเปลี่ยนเป็นแบบกึ่งกลาง ความล่าช้าส่วนใหญ่จะหายไป แต่ค่ายอดยังต่ำอยู่"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/smooth.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.24
+    ],
+    [
+     5.59,
+     11.95
+    ],
+    [
+     12.3,
+     20.7
+    ]
+   ]
+  }
+ },
+ "effects": {
+  "text": [
+   {
+    "en": "Two effects cannot be avoided. A mean of several hours is never higher than the highest of them, so peaks get lower.",
+    "th": "มีสองผลที่หลีกเลี่ยงไม่ได้ ค่าเฉลี่ยของหลายชั่วโมงไม่มีทางสูงกว่าค่าที่สูงที่สุดในช่วงนั้น ค่ายอดจึงต่ำลง"
+   },
+   {
+    "en": "In the demo a six-hour mean lowers the typical daily peak by a quarter, and a twenty-four-hour mean by almost half.",
+    "th": "ในข้อมูลตัวอย่าง ค่าเฉลี่ยหกชั่วโมงลดค่ายอดรายวันโดยทั่วไปลงหนึ่งในสี่ และค่าเฉลี่ยยี่สิบสี่ชั่วโมงลดลงเกือบครึ่ง"
+   },
+   {
+    "en": "And a trailing mean runs late by about half its window. Both are fine, as long as the chart says which mean it shows.",
+    "th": "และค่าเฉลี่ยแบบย้อนหลังจะช้าไปประมาณครึ่งหนึ่งของหน้าต่าง ทั้งสองอย่างยอมรับได้ ตราบใดที่กราฟบอกว่าแสดงค่าเฉลี่ยแบบไหน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/effects.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.78
+    ],
+    [
+     8.13,
+     16.28
+    ],
+    [
+     16.63,
+     25.01
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   {
+    "en": "Activity one, in pairs, ten minutes. This is the AI's outlier code from Lab 03, Step 4.",
+    "th": "กิจกรรมที่หนึ่ง จับคู่ สิบนาที นี่คือโค้ดตัดค่าผิดปกติของ AI จากขั้นที่สี่ของแล็บที่สาม"
+   },
+   {
+    "en": "Name three things it does to your file that the printed numbers do not show, and say what you would do instead.",
+    "th": "บอกสามสิ่งที่โค้ดนี้ทำกับไฟล์ของคุณ ที่ตัวเลขที่พิมพ์ออกมาไม่ได้บอก และบอกว่าคุณจะทำอย่างไรแทน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.21
+    ],
+    [
+     8.56,
+     15.66
+    ]
+   ]
+  }
+ },
+ "act1-fix": {
+  "text": [
+   {
+    "en": "It deletes real rush hours, keeps faults that sit inside the normal range, and turns the hourly series into one with gaps.",
+    "th": "โค้ดลบชั่วโมงเร่งด่วนจริง เก็บความผิดพลาดที่อยู่ในช่วงค่าปกติไว้ และทำให้ข้อมูลรายชั่วโมงมีช่องว่าง"
+   },
+   {
+    "en": "Instead, flag hours that are far from their neighbors, check each one against the second sensor, and remove only what you can show is a fault.",
+    "th": "ทางที่ดีกว่าคือทำเครื่องหมายชั่วโมงที่ห่างจากชั่วโมงข้างเคียง ตรวจแต่ละจุดกับเซนเซอร์ตัวที่สอง และตัดเฉพาะจุดที่แสดงได้ว่าเป็นความผิดพลาด"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/act1-fix.en.mp3",
+   "cues": [
+    [
+     0.25,
+     9.15
+    ],
+    [
+     9.5,
+     18.86
+    ]
+   ]
+  }
+ },
+ "rules": {
+  "text": [
+   {
+    "en": "Four rules for honest smoothing. Say which mean the chart shows, and keep the raw record visible behind it.",
+    "th": "กฎสี่ข้อสำหรับการทำให้กราฟเรียบอย่างซื่อตรง บอกว่ากราฟแสดงค่าเฉลี่ยแบบไหน และแสดงข้อมูลดิบไว้ด้านหลัง"
+   },
+   {
+    "en": "Judge limits and time events on the raw record. Use a trailing mean for a live display and a centered one for a report.",
+    "th": "ตัดสินเทียบกับค่ามาตรฐานและหาเวลาของเหตุการณ์จากข้อมูลดิบ ใช้ค่าเฉลี่ยแบบย้อนหลังสำหรับจอแสดงผลแบบสด และแบบกึ่งกลางสำหรับรายงาน"
+   },
+   {
+    "en": "Smoothing is for the reader's eye. It is not a way to remove values you do not like.",
+    "th": "การทำให้เรียบมีไว้ช่วยให้ผู้อ่านดูง่าย ไม่ใช่วิธีลบค่าที่เราไม่ชอบ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/rules.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.33
+    ],
+    [
+     7.68,
+     16.02
+    ],
+    [
+     16.37,
+     21.94
+    ]
+   ]
+  }
+ },
+ "act2": {
+  "text": [
+   {
+    "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+    "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+   },
+   {
+    "en": "Open Lab 03. Enter your three homework numbers in Step 5 before you run the rules.",
+    "th": "เปิดแล็บที่สาม ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนรันกฎ"
+   },
+   {
+    "en": "Run the rules, choose a window for the weekly chart, answer Steps 8 and 9, then download one file and upload it to myCourseVille.",
+    "th": "รันกฎ เลือกหน้าต่างสำหรับกราฟรายสัปดาห์ ตอบขั้นที่แปดและเก้า แล้วดาวน์โหลดไฟล์เดียว และอัปโหลดไปที่ myCourseVille"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/act2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.69
+    ],
+    [
+     6.04,
+     12.76
+    ],
+    [
+     13.11,
+     22.65
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   {
+    "en": "Which rule caught the most faults in your file, and how many real hours did it flag by mistake?",
+    "th": "กฎไหนจับความผิดพลาดในไฟล์ของคุณได้มากที่สุด และจับชั่วโมงจริงผิดไปกี่ชั่วโมง"
+   },
+   {
+    "en": "Which window did you choose for the plant manager's chart, and what did you write under it?",
+    "th": "คุณเลือกหน้าต่างเท่าไรสำหรับกราฟของผู้จัดการโรงงาน และเขียนอะไรไว้ใต้กราฟ"
+   },
+   {
+    "en": "Name one decision that must always be made on the raw record.",
+    "th": "บอกการตัดสินใจหนึ่งเรื่องที่ต้องทำจากข้อมูลดิบเสมอ"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.35
+    ],
+    [
+     6.7,
+     11.86
+    ],
+    [
+     12.21,
+     16.54
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   {
+    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+   },
+   {
+    "en": "A colleague shows a twelve-hour trailing mean and says the peak came at two in the afternoon and stayed below the limit. What two things would you check on the raw record?",
+    "th": "เพื่อนร่วมงานแสดงค่าเฉลี่ยแบบย้อนหลังสิบสองชั่วโมง และบอกว่าค่ายอดเกิดตอนบ่ายสองโมงและไม่เกินค่ามาตรฐาน คุณจะตรวจอะไรสองข้อจากข้อมูลดิบ"
+   },
+   {
+    "en": "Scan the code or open the link. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.27
+    ],
+    [
+     6.62,
+     17.58
+    ],
+    [
+     17.93,
+     23.26
+    ]
+   ]
+  }
+ },
+ "next": {
+  "text": [
+   {
+    "en": "Next session starts week four, visualization: what a chart of a week, a month and a year can and cannot show.",
+    "th": "คาบหน้าเริ่มสัปดาห์ที่สี่ เรื่องการนำเสนอข้อมูลด้วยภาพ กราฟของหนึ่งสัปดาห์ หนึ่งเดือน และหนึ่งปี แสดงอะไรได้และไม่ได้"
+   },
+   {
+    "en": "Submit your Lab 03 file, and bring one chart from a report or the news that you think misleads.",
+    "th": "ส่งไฟล์แล็บที่สาม และนำกราฟหนึ่งรูปจากรายงานหรือข่าวที่คุณคิดว่าทำให้เข้าใจผิดมาด้วย"
+   }
+  ],
+  "en": {
+   "audio": "narration/s06/next.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.89
+    ],
+    [
+     8.24,
+     15.28
+    ]
+   ]
+  }
+ }
+}

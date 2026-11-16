@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Lab 03 · Spike or real process event? · 2105315 Data Analytics Labs</title>
+  <meta name="description" content="Tell instrument faults from real events in a two-week benzene record, compare three outlier rules with a second sensor, and see what smoothing does to peaks.">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="assets/labs.css?v=3">
+  <script type="module" src="assets/mode.js?v=1"></script>
+  <script type="module" src="assets/spikes-lab.js?v=1"></script>
+</head>
+<body data-mode="core">
+  <a class="skip-link" href="#lab">Skip to the lab</a>
+  <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html">Lab 01</a><a href="gaps.html">Lab 02</a><a href="spikes.html" aria-current="page">Lab 03</a><a href="index.html">All labs</a></nav></header>
+  <main class="page da-page" id="lab">
+    <p class="eyebrow">2105315 Data Analytics in Chemical Engineering · Lab 03 · Week 3</p>
+    <h1>Spike or real process event?</h1>
+    <div class="logbook" role="group" aria-label="Monitoring log">
+      <div class="logbook-row"><p class="logbook-time"><strong>09:30</strong>log</p><p class="logbook-entry">Maintenance reports that the benzene transmitter had loose wiring for two weeks. Some hours are faults. Others are real traffic peaks. A low-cost sensor next to the analyzer was not affected.</p></div>
+      <div class="logbook-row"><p class="logbook-time"><strong>TASK</strong>you</p><p class="task-line">Find the faults without deleting the real events. Then decide how much smoothing the weekly chart can take.</p></div>
+    </div>
+
+    <fieldset class="mode-switch"><legend>View</legend><div class="mode-options"><label><input type="radio" name="lab-mode" value="core" checked><span>Core</span></label><label><input type="radio" name="lab-mode" value="graduate"><span>Extension</span></label></div><p class="core-only">Core: Steps 1 to 8, about 45 minutes.</p><p class="grad-only">Extension: the core steps plus Step 9, choosing the threshold of the Hampel filter.</p></fieldset>
+
+    <section class="lab-step" aria-labelledby="s1">
+      <div class="step-head"><span class="step-number">01</span><div><h2 id="s1">Choose your data</h2><p>Practice on a demo, then load your own 14 days. Your window and your faults are chosen from your student ID.</p></div></div>
+      <fieldset class="student-fields"><legend>Your details</legend><p class="input-help">Your student ID picks your data set. All three go into the file you submit.</p><div class="student-grid"><div><label for="student-first-name">First name</label><input id="student-first-name" type="text" maxlength="80" autocomplete="given-name"></div><div><label for="student-last-name">Last name</label><input id="student-last-name" type="text" maxlength="80" autocomplete="family-name"></div><div><label for="student-id">Student ID</label><input id="student-id" type="text" maxlength="20" inputmode="numeric" autocomplete="off"></div></div></fieldset>
+      <div class="case-buttons" role="group" aria-label="Data set">
+        <button type="button" data-case="spring" aria-pressed="true">Demo A<span class="case-sub">26 Apr to 9 May 2004</span></button>
+        <button type="button" data-case="autumn" aria-pressed="false">Demo B<span class="case-sub">8 to 21 Nov 2004</span></button>
+        <button type="button" data-case="student" aria-pressed="false">My data set<span class="case-sub">from my student ID</span></button>
+      </div>
+      <p id="id-note" class="id-note" role="status" aria-live="polite"></p>
+      <p id="dataset-line" class="dataset-line">Loading the station record…</p>
+      <details class="source-box"><summary>Where the data come from</summary>
+        <p>Hourly benzene, C6H6(GT), from the reference analyzer, and the response of the low-cost metal-oxide sensor PT08.S1(CO) at the same road-level station, March 2004 to April 2005. Over the whole record the two follow each other closely (correlation 0.88). Every window in this lab has all 336 hours of both.</p>
+        <p>Source: S. De Vito, Air Quality, UCI Machine Learning Repository, <a href="https://doi.org/10.24432/C59K5F">doi:10.24432/C59K5F</a>, CC BY 4.0. Paper: De Vito et al., Sensors and Actuators B 129 (2008) 750–757, <a href="https://doi.org/10.1016/j.snb.2007.09.060">doi:10.1016/j.snb.2007.09.060</a>.</p>
+        <p>Changed for this lab: eight benzene hours are replaced by transmitter faults (jumps up, or drops to 0.1). The sensor and every other benzene hour are the source values.</p>
+      </details>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s2">
+      <div class="step-head"><span class="step-number">02</span><div><h2 id="s2">Look at the record</h2><p>Fifteen hours are numbered. Eight are faults; seven are real. Switch on the second sensor to compare.</p></div></div>
+      <div class="chart-toggle" role="group" aria-label="Second sensor"><button type="button" data-sensor="off" aria-pressed="true">Benzene only</button><button type="button" data-sensor="on" aria-pressed="false">With the second sensor</button></div>
+      <figure class="figure-block"><div class="figure-scroll"><svg id="spike-chart"></svg></div><figcaption id="spike-caption"></figcaption></figure>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s3">
+      <div class="step-head"><span class="step-number">03</span><div><h2 id="s3">Judge before you look</h2><p>For each numbered hour, decide: a fault, or a real event? Step 6 checks each answer.</p></div></div>
+      <ul id="judge-list" class="judge-list"></ul>
+      <label for="j-reason">What did you look at to decide? One or two sentences.</label>
+      <textarea id="j-reason" rows="3" maxlength="3000"></textarea>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s4">
+      <div class="step-head"><span class="step-number">04</span><div><h2 id="s4">Check the AI's code</h2><p>A student asked an AI assistant: "Remove the outliers from the benzene data and give me the mean." It returned this, and it runs without an error.</p></div></div>
+      <pre class="code-block" aria-label="Code written by an AI assistant"><span class="ln"><span class="k">import</span> pandas <span class="k">as</span> pd</span><span class="ln"></span><span class="ln">df = pd.read_csv(<span class="s">"benzene_sensor.csv"</span>, parse_dates=[<span class="s">"datetime"</span>])</span><span class="ln">z = (df[<span class="s">"C6H6_ugm3"</span>] - df[<span class="s">"C6H6_ugm3"</span>].mean()) / df[<span class="s">"C6H6_ugm3"</span>].std()</span><span class="ln">df = df[z.abs() &lt; 3]                 <span class="c"># remove outliers</span></span><span class="ln">print(len(df), df[<span class="s">"C6H6_ugm3"</span>].mean())</span></pre>
+      <div class="concept-question">
+        <h3>What can go wrong with this code on your file, and how would you notice?</h3>
+        <label for="ai-answer" class="visually-hidden">Your answer</label>
+        <textarea id="ai-answer" rows="3" maxlength="3000" placeholder="Write your answer first (at least one full sentence)."></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer">
+          <p>Three things. First, the rule asks only "is this hour far from the two-week mean?" Benzene follows traffic, so real rush-hour peaks are far from the mean and get deleted, while a fault in the middle of the normal daily range is kept. A drop to 0.1 at noon is not unusual for the whole record, only for that hour.</p>
+          <p>Second, it deletes whole rows, so the time series now has gaps (Lab 02), and the sensor reading at those hours is thrown away too. Third, the faults themselves inflate the standard deviation, which makes the rule less sensitive.</p>
+          <p>You notice by printing which hours were removed and looking at them on the plot next to the second sensor: if the sensor rose at the same hour, the event was real.</p>
+          <p class="fix-line">med = df["C6H6_ugm3"].rolling(7, center=True).median()   # compare with nearby hours
+df["suspect"] = (df["C6H6_ugm3"] - med).abs() &gt; 5     # flag, do not delete; then check the sensor</p>
+        </div></details>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s5">
+      <div class="step-head"><span class="step-number">05</span><div><h2 id="s5">Your notebook numbers</h2><p>Download your file. Ask an AI assistant for code that reports the three numbers below, read it before you run it, and enter what you get.</p></div></div>
+      <p><button id="download-csv" class="secondary-button" type="button">Download my file (CSV)</button></p>
+      <div id="notebook-list" class="notebook-list"></div>
+      <p id="locked-note" class="locked-note">Enter your numbers before you run the rules. Running them locks your numbers and your judgements.</p>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s6">
+      <div class="step-head"><span class="step-number">06</span><div><h2 id="s6">Run three rules, then see the faults</h2><p>Each rule flags hours. The page knows which hours are faults and counts what each rule caught and what it flagged by mistake.</p></div></div>
+      <button id="run-rules" class="primary-button calculate-button" type="button" disabled>Run the rules and show the faults</button>
+      <div id="results" hidden>
+        <p id="result-lead" class="result-lead"></p>
+        <div class="table-scroll" role="region" aria-label="Rules against the known faults" tabindex="0"><table class="audit-table rule-table"><caption class="visually-hidden">For each rule: faults caught out of eight, and real hours flagged by mistake.</caption><thead><tr><th scope="col">Rule</th><th scope="col">Faults caught (of 8)</th><th scope="col">Real hours flagged</th></tr></thead><tbody id="rule-body"></tbody></table></div>
+        <figure class="figure-block"><div class="figure-scroll"><svg id="reveal-chart"></svg></div><figcaption>Amber: faults. Teal outline: real hours. Dashed: the second sensor, scaled to benzene units.</figcaption></figure>
+        <ul id="judge-verdicts" class="judge-list"></ul>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s7">
+      <div class="step-head"><span class="step-number">07</span><div><h2 id="s7">Smoothing without lying</h2><p>A rolling mean makes a weekly chart calmer. Choose the window and see what it does to the real record (faults removed).</p></div></div>
+      <div class="range-row"><label for="win">Rolling-mean window</label><output id="win-out" for="win">6 h</output><input id="win" type="range" min="1" max="24" step="1" value="6" aria-describedby="win-out"></div>
+      <div class="chart-toggle" role="group" aria-label="Window position"><button type="button" data-align="trail" aria-pressed="true">Trailing (past hours)</button><button type="button" data-align="centre" aria-pressed="false">Centered</button></div>
+      <figure class="figure-block"><div class="figure-scroll"><svg id="smooth-chart"></svg></div><figcaption>First four days of your window. Teal: the record. Amber: the rolling mean.</figcaption></figure>
+      <p id="smooth-readout" class="ext-readout"></p>
+      <label for="s-choice">Which window and position would you use for a weekly chart for the plant manager, and what would you write under it?</label>
+      <textarea id="s-choice" rows="3" maxlength="3000"></textarea>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s8">
+      <div class="step-head"><span class="step-number">08</span><div><h2 id="s8">Check your understanding</h2><p>Write first, then compare.</p></div></div>
+      <div class="concept-question">
+        <h3>Why did comparing with the second sensor separate faults from real events better than the other two rules?</h3>
+        <label for="c-sensor" class="visually-hidden">Your answer</label>
+        <textarea id="c-sensor" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>The other rules look only at benzene, so they can ask only whether a value is unusual. A real rush hour is unusual too. The second sensor answers a different question: did something physical happen at that hour? Traffic raises both instruments; a loose wire changes one. Plants use the same idea with redundant transmitters, mass balances and lab samples. The rule fails if both instruments share the fault, for example a power dip that hits both.</p></div></details>
+      </div>
+      <div class="concept-question">
+        <h3>A trailing 12-hour mean shows the morning peak several hours late and much lower. When is that acceptable, and when is it not?</h3>
+        <label for="c-smooth" class="visually-hidden">Your answer</label>
+        <textarea id="c-smooth" rows="3" maxlength="3000"></textarea>
+        <details><summary>Compare with the explanation</summary><div class="concept-answer"><p>A trailing mean uses only past hours, so it is what a live display can compute, and it always lags by about half the window. It is acceptable for showing a slow trend over weeks, if the chart says it is a 12-hour mean. It is not acceptable for timing an event, judging a peak against a limit, or comparing with another tag. For a report written afterwards, a centered window removes most of the lag; neither keeps the peak height.</p></div></details>
+      </div>
+    </section>
+
+    <section class="lab-step graduate-section grad-only" aria-labelledby="s9">
+      <div class="step-head"><span class="step-number">09</span><div><h2 id="s9">Extension: choose the Hampel threshold</h2><p>A lower threshold catches more faults and flags more real hours. There is no setting that does both perfectly.</p></div></div>
+      <div class="graduate-step">
+        <div class="range-row"><label for="hk">Hampel threshold k (MADs)</label><output id="hk-out" for="hk">3.0</output><input id="hk" type="range" min="1.5" max="8" step="0.5" value="3" aria-describedby="hk-out"></div>
+        <button id="run-hk" class="secondary-button" type="button" disabled>Apply</button>
+        <p id="hk-readout" class="ext-readout"></p>
+        <label for="e-hk">Choose k for a plant where a missed fault means a wrong compliance report, and a false alarm means an engineer checks one hour by hand. Defend it in two or three sentences.</label>
+        <textarea id="e-hk" rows="3" maxlength="3000"></textarea>
+      </div>
+    </section>
+
+    <section class="lab-step" aria-labelledby="s10">
+      <div class="step-head"><span class="step-number">10</span><div><h2 id="s10">Submit</h2><p>Download one file and upload it to the assignment on myCourseVille.</p></div></div>
+      <ul class="submit-list"><li>The file holds your details, data set, judgements, answers, notebook numbers and the rule results.</li><li>It stays on your computer until you upload it. Nothing is sent from this page.</li><li>Open it here later to continue where you stopped.</li></ul>
+      <div class="study-actions"><button id="export-study" class="primary-button" type="button" disabled>Download my study</button><div class="file-control"><label for="import-study">Open a saved study</label><input id="import-study" type="file" accept=".json,application/json"></div></div>
+      <p id="status" class="study-status" role="status" aria-live="polite"></p>
+    </section>
+    <noscript><p class="error-summary">This lab needs JavaScript.</p></noscript>
+  </main>
+  <footer class="site-footer"><span>2105315 Data Analytics in Chemical Engineering · Chulalongkorn University</span><span>Data: De Vito, UCI Air Quality, CC BY 4.0</span></footer>
+</body>
+</html>

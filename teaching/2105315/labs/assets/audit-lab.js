@@ -87,7 +87,7 @@ function renderImport() {
   } else {
     ready = true;
     const co = p.columns.find((c) => c.name === 'CO(GT)');
-    lines.push(`Ready to analyse: all ${measured.length} measurement columns are numbers and -200 is read as missing (${co.missingCount} cells in CO(GT), repeated rows included).`);
+    lines.push(`Ready to analyze: all ${measured.length} measurement columns are numbers and -200 is read as missing (${co.missingCount} cells in CO(GT), repeated rows included).`);
     lines.push(`Still to handle: ${p.columns.filter((c) => c.kind === 'empty').length} empty columns, ${p.allEmptyRows} empty rows at the end, and any repeated rows.`);
   }
   const box = $('import-verdict');

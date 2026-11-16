@@ -1,0 +1,277 @@
+---
+title: "Smoothing without lying"
+subtitle: "Session 6 of 14 · 90 minutes · A calmer chart that still tells the truth"
+author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where this session sits {#course-map}
+
+::: {.coursemap14}
+[Week 1 · Import and audit]{.wk} [1 · Data you can trust]{.cm} [2 · Audit and the AI's code]{.cm}
+[Week 2 · Missing data]{.wk} [3 · Why values go missing]{.cm} [4 · Filling gaps you can defend]{.cm}
+[Week 3 · Outliers and noise]{.wk .now} [5 · Spike or real event?]{.cm} [6 · Smoothing without lying]{.cm .now}
+[Week 4 · Visualization]{.wk} [7 · Trends and distributions]{.cm} [8 · Figures that tell the truth]{.cm}
+[Week 5 · Correlation and anomalies]{.wk} [9 · Correlated or driven?]{.cm} [10 · When did it start?]{.cm}
+[Week 6 · Hypothesis tests]{.wk} [11 · Did the change work?]{.cm} [12 · Tests on plant data]{.cm}
+[Week 7 · Integrated case]{.wk} [13 · Raw file to decision]{.cm} [14 · Defend your decision]{.cm}
+:::
+
+::: {.bridge}
+Session 5 separated faults from real events. Today: noise. A rolling mean makes a chart calmer, and it changes the peaks and the timing.
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .act}
+[0–10]{.t} **Warm-up** [Your three homework numbers]{.d}
+:::
+::: {.seg .concept}
+[10–35]{.t} **Concepts** [What a rolling mean does]{.d}
+:::
+::: {.seg .act}
+[35–45]{.t} **Activity 1** [The AI deletes outliers]{.d}
+:::
+::: {.seg .concept}
+[45–55]{.t} **Concepts** [Rules for honest smoothing]{.d}
+:::
+::: {.seg .act}
+[55–80]{.t} **Activity 2** [Lab 03, Steps 4 to 10]{.d}
+:::
+::: {.seg .wrap}
+[80–90]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: how much smoothing can a chart take before it says something the data did not?
+:::
+
+## Warm-up · Your three numbers {#warmup .activity}
+
+[Pairs · 8 minutes · your homework]{.act-label}
+
+::: {.prompt}
+Compare your numbers: how many hours had |z| > 3, and how much did the mean change when those rows were removed?
+:::
+
+::: {.checks3}
+::: {.c4}
+[1 · Hours with |z| > 3]{.label}
+How many rows did the AI code remove?
+:::
+::: {.c4}
+[2 · Mean, all hours]{.label}
+Mean benzene before removing anything.
+:::
+::: {.c4}
+[3 · Mean, rows removed]{.label}
+Mean after the AI's outlier step.
+:::
+:::
+
+[The mean moves very little. Look at which hours were removed: faults, real rush hours, or both?]{.note-line}
+
+::: {.selfstudy}
+Studying alone: write down the hours your code removed.
+:::
+
+## What a rolling mean does {#smooth data-hold="true"}
+
+```{=html}
+<div class="bridgew" id="rollw">
+  <div class="sm-controls">
+    <label class="sm-slider">Window <strong id="rw-label">6 h</strong>
+      <input type="range" id="rw-len" min="1" max="24" step="1" value="6">
+    </label>
+    <div class="sm-mode" role="group" aria-label="Window position">
+      <button type="button" data-a="trail" aria-pressed="true">Trailing</button>
+      <button type="button" data-a="centre" aria-pressed="false">Centered</button>
+    </div>
+  </div>
+  <svg id="rw-plot" viewBox="0 0 1160 300" role="img" aria-label="Four days of real benzene with a rolling mean drawn over it; the window and its position can be changed"></svg>
+  <div class="sm-readout" id="rw-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('rollw'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Real benzene, µg/m³, 27 to 30 April 2004 (Lab 03, Demo A, faults removed).
+  const Y = [2.2,1.7,1.6,1.5,2.5,3.3,8.9,23.4,23.8,7.9,8.2,8.8,14.6,18,12,14.8,12.5,15.5,17.7,21.6,18.9,12.5,8.8,10.9,8,4.4,2.8,2.7,2.2,2.5,7.5,30.4,22,24.7,18.4,16.8,14.2,15.7,21.9,20.8,16.2,19.8,28.9,28.3,24.9,13.1,8.6,9.5,7.8,5.2,2.8,2.3,2.5,4.4,9.4,29.8,36.2,18,10.9,9,14.4,22.3,20.9,23.1,21.2,24.8,28.6,32.6,19.2,16.3,13.7,13.6,11.1,7.6,5.9,5,4,4.5,9.3,18.3,19.9,16.6,12.6,12.9,14.9,17.4,15.4,16.7,18,19.2,21,26.9,19.5,15.1,14.6,13.7];
+  let align = 'trail';
+  const N = Y.length, W = 1160, H = 300, L = 64, R = 16, T = 14, B = 44, top = 40;
+  const X = (k) => L + (k / (N - 1)) * (W - L - R), V = (v) => T + (1 - v / top) * (H - T - B);
+  const mean = (a) => a.reduce((s, v) => s + v, 0) / a.length;
+  function roll(w) {   // as pandas rolling(w).mean() and rolling(w, center=True).mean()
+    return Y.map((_, i) => { const a = align === 'trail' ? i - w + 1 : i - Math.floor(w / 2), b = a + w - 1; return a >= 0 && b < N ? mean(Y.slice(a, b + 1)) : null; });
+  }
+  function draw() {
+    const w = +document.getElementById('rw-len').value, S = roll(w);
+    document.getElementById('rw-label').textContent = w + ' h';
+    let g = '';
+    for (const v of [0, 10, 20, 30, 40]) g += `<line x1="${L}" x2="${W - R}" y1="${V(v)}" y2="${V(v)}" stroke="#B9C1C6"/><text x="${L - 10}" y="${V(v) + 6}" text-anchor="end" font-size="17" fill="#333F4A">${v}</text>`;
+    for (let d = 0; d < 4; d++) g += `<line x1="${X(d * 24)}" x2="${X(d * 24)}" y1="${H - B}" y2="${H - B + 6}" stroke="#333F4A"/><text x="${X(d * 24 + 12)}" y="${H - 14}" text-anchor="middle" font-size="17" fill="#333F4A">${27 + d} April</text>`;
+    g += `<text transform="translate(18 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle" font-size="16" fill="#66727C">benzene, µg/m³</text>`;
+    g += `<line x1="${L}" x2="${L}" y1="${T}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/><line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#333F4A" stroke-width="1.5"/>`;
+    g += `<path d="${Y.map((v, k) => (k ? 'L' : 'M') + X(k).toFixed(1) + ',' + V(v).toFixed(1)).join('')}" fill="none" stroke="#0F6E6B" stroke-width="1.8"/>`;
+    let d = '', pen = false;
+    S.forEach((v, k) => { if (v === null) { pen = false; return; } d += (pen ? 'L' : 'M') + X(k).toFixed(1) + ',' + V(v).toFixed(1); pen = true; });
+    g += `<path d="${d}" fill="none" stroke="#E29A2D" stroke-width="3.5"/>`;
+    // the 29 April morning peak: hour 56 (08:00) in the record
+    let best = -1, at = -1;
+    for (let k = 48; k < 72; k++) if (S[k] !== null && S[k] > best) { best = S[k]; at = k; }
+    g += `<circle cx="${X(56)}" cy="${V(Y[56])}" r="6" fill="#0F6E6B"/>`;
+    document.getElementById('rw-plot').innerHTML = g;
+    const lag = align === 'trail' ? (w - 1) / 2 : (w % 2 ? 0 : 0.5);
+    document.getElementById('rw-out').innerHTML = `<span class="sm-key"><i class="k-true"></i>record <i class="k-rec"></i>${w} h ${align === 'trail' ? 'trailing' : 'centered'} mean</span>` +
+      `<span class="sm-chip">highest hour on 29 April: record <b>${Y[56].toFixed(1)}</b>, smoothed <b>${best.toFixed(1)}</b></span>` +
+      `<span class="sm-chip ${lag >= 3 ? 'missed' : lag >= 1 ? 'blurred' : 'seen'}">the smoothed line runs <b>${lag.toFixed(1)} h</b> late</span>`;
+  }
+  document.getElementById('rw-len').addEventListener('input', draw);
+  root.querySelectorAll('[data-a]').forEach((b) => b.addEventListener('click', () => { align = b.dataset.a; root.querySelectorAll('[data-a]').forEach((o) => o.setAttribute('aria-pressed', o === b)); draw(); }));
+  draw();
+})();
+</script>
+```
+
+[Real benzene, 27 to 30 April 2004 (Lab 03, Demo A). Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
+
+## Two effects you cannot avoid {#effects}
+
+::: {.beforeafter}
+::: {}
+[Peaks get lower]{.label}
+A mean of w hours cannot be higher than the highest of them. In the Lab 03 demo, a 6-hour mean lowers the typical daily peak from 21.5 to 16.1 µg/m³ (−25 %), and a 24-hour mean to 11.5 (−46 %).
+:::
+::: {}
+[A trailing mean runs late]{.label}
+It uses only past hours, so it lags by (w − 1)/2 hours: 2.5 hours for a 6-hour mean, 5.5 for 12. A centered mean removes most of the lag but needs future hours, so a live display cannot use it.
+:::
+:::
+
+[Neither is a mistake. Both are mistakes if the chart does not say which mean it shows.]{.note-line}
+
+## Activity 1 · The AI deletes outliers {#act1 .activity}
+
+[Pairs · 10 minutes · Lab 03, Step 4]{.act-label}
+
+```{=html}
+<pre class="code-slide"><span>z = (df["C6H6_ugm3"] - df["C6H6_ugm3"].mean()) / df["C6H6_ugm3"].std()</span><span>df = df[z.abs() &lt; 3]                 <b class="c"># remove outliers</b></span><span>print(len(df), df["C6H6_ugm3"].mean())</span></pre>
+```
+
+::: {.prompt .small}
+Name three things this code does to your file that the printed numbers do not show. Then say what you would do instead.
+:::
+
+::: {.selfstudy}
+Studying alone: write your three things, then go on.
+:::
+
+## What it did {#act1-fix}
+
+::: {.why3}
+::: {.w}
+[1 · Deleted real events]{.label}
+**Rush hours above mean + 3 SD are removed.** They are the hours a benzene report is about.
+:::
+::: {.w}
+[2 · Kept faults]{.label}
+**A drop to 0.1 at noon stays in.** It is unusual for that hour, not for the record.
+:::
+::: {.w .hard}
+[3 · Made gaps]{.label}
+**Whole rows go**, so the series is no longer hourly, and the sensor value at those hours is lost too.
+:::
+:::
+
+```{=html}
+<pre class="code-slide"><span>med = df["C6H6_ugm3"].rolling(7, center=True).median()</span><span>df["suspect"] = (df["C6H6_ugm3"] - med).abs() &gt; 5     <b class="c"># flag, do not delete</b></span></pre>
+```
+
+[Flag, then check each flagged hour against the second sensor. Remove only what you can show is a fault, and report it.]{.note-line}
+
+## Rules for honest smoothing {#rules}
+
+::: {.checks4}
+::: {.c4}
+[Say it]{.label}
+Write the window and the position on the chart: "6-hour centered mean".
+:::
+::: {.c4}
+[Keep the raw]{.label}
+Draw the raw record lightly behind the smoothed line, so peaks stay visible.
+:::
+::: {.c4}
+[Raw for limits]{.label}
+Compare peaks with a limit, and time events, on the raw record, never on the smoothed one.
+:::
+::: {.c4}
+[Fit the use]{.label}
+Trailing for a live display, centered for a report written afterwards.
+:::
+:::
+
+[Smoothing is for the reader's eye. It is not a way to remove values you do not like.]{.note-line}
+
+## Activity 2 · Lab 03, Steps 4 to 10 {#act2 .activity}
+
+[Individual · 25 minutes · laptop or phone]{.act-label}
+
+1. Open **Lab 03**. Press **Open a saved study** if you saved one in Session 5.
+2. Step 4: write your answer before you compare.
+3. Step 5: enter your three homework numbers **before** you run the rules.
+4. Step 6: run the rules and see the faults. Step 7: choose a window for the weekly chart.
+5. Step 8, then the Extension view, Step 9.
+6. Step 10: download one file and upload it to myCourseVille.
+
+[Open Lab 03](../labs/spikes.html){.lab-button target="_blank"}
+
+::: {.selfstudy}
+Studying alone: work through Steps 4 to 10 in order and submit in Step 10.
+:::
+
+## Debrief {#debrief}
+
+::: {.debrief-q}
+[Which rule caught the most faults in your file, and how many real hours did it flag by mistake?]{.dq}
+[Which window did you choose for the plant manager's chart, and what did you write under it?]{.dq}
+[Name one decision that must always be made on the raw record.]{.dq}
+:::
+
+## Exit ticket · 5 minutes {#exit .activity}
+
+[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+
+:::: {.columns}
+::: {.column width="64%"}
+::: {.prompt}
+A colleague shows a 12-hour trailing mean and says the benzene peak came at 14:00 and stayed below the limit. What two things would you check on the raw record?
+:::
+
+Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+
+No name or student ID is recorded. Wait for **"Response received."**
+:::
+::: {.column width="32%" .qr-col}
+![](figures/exit-qr-s06.png){.qr fig-alt="QR code for the Session 6 exit ticket and feedback form"}
+
+[Open the Session 6 form](exit.html?s=6){target="_blank"}
+:::
+::::
+
+## Next session {#next}
+
+::: {.beforeafter}
+::: {}
+[Session 7 · Trends and distributions]{.label}
+Week 4 starts with visualization: what a chart of a week, a month and a year can and cannot show.
+:::
+::: {}
+[Before you come]{.label}
+Submit your Lab 03 study file. Find one chart in a report or the news that you think misleads, and bring it.
+:::
+:::
+
+[Submit the Lab 03 study file on myCourseVille by the date shown there.]{.note-line}
