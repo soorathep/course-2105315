@@ -7,7 +7,7 @@ import sys
 
 import qrcode
 
-URL = 'https://www.skhgroup.net/teaching/2105315/slides/exit.html?s={}'
+URL = 'https://soorathep.github.io/course-2105315/teaching/2105315/slides/exit.html?s={}'
 out = Path(__file__).resolve().parent / 'figures'
 out.mkdir(exist_ok=True)
 for s in [int(a) for a in sys.argv[1:]] or [1]:

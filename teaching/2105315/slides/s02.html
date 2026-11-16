@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="s02_files/libs/clipboard/clipboard.min.js"></script>
+<script src="s02_files/libs/quarto-html/tabby.min.js"></script>
+<script src="s02_files/libs/quarto-html/popper.min.js"></script>
+<script src="s02_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="s02_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="s02_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="s02_files/libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.11.9">
+
+  <meta name="author" content="Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering">
+  <title>Audit and the AI’s code</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="s02_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="s02_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="s02_files/libs/revealjs/dist/theme/quarto-b334f3268ccd5e08bfe37898af6488d3.css">
+  <link rel="stylesheet" href="slides.css">
+  <link href="s02_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="s02_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="s02_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="s02_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <meta name="robots" content="noindex">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#1C242B" class="quarto-title-block center">
+  <h1 class="title">Audit and the AI’s code</h1>
+  <p class="subtitle">Session 2 of 14 · 90 minutes · Checking code you did not write</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering
+</div>
+</div>
+</div>
+
+</section>
+<section id="course-map" class="slide level2">
+<h2>Where this session sits</h2>
+<div class="coursemap14">
+<p><span class="wk now">Week 1 · Import and audit</span> <span class="cm">1 · Data you can trust</span> <span class="cm now">2 · Audit and the AI’s code</span> <span class="wk">Week 2 · Missing data</span> <span class="cm">3 · Why values go missing</span> <span class="cm">4 · Filling gaps you can defend</span> <span class="wk">Week 3 · Outliers and noise</span> <span class="cm">5 · Spike or real event?</span> <span class="cm">6 · Smoothing without lying</span> <span class="wk">Week 4 · Visualization</span> <span class="cm">7 · Trends and distributions</span> <span class="cm">8 · Figures that tell the truth</span> <span class="wk">Week 5 · Correlation and anomalies</span> <span class="cm">9 · Correlated or driven?</span> <span class="cm">10 · When did it start?</span> <span class="wk">Week 6 · Hypothesis tests</span> <span class="cm">11 · Did the change work?</span> <span class="cm">12 · Tests on plant data</span> <span class="wk">Week 7 · Integrated case</span> <span class="cm">13 · Raw file to decision</span> <span class="cm">14 · Defend your decision</span></p>
+</div>
+<div class="bridge">
+<p>Session 1 asked what you must know about a file before computing anything. Today: the code runs and prints a number. Do you believe it?</p>
+</div>
+</section>
+<section id="route" class="slide level2">
+<h2>Today, minute by minute</h2>
+<div class="route">
+<div class="seg act">
+<p><span class="t">0–10</span> <strong>Warm-up</strong> <span class="d">Compare your three homework numbers</span></p>
+</div>
+<div class="seg concept">
+<p><span class="t">10–25</span> <strong>Concepts</strong> <span class="d">Reading AI code one line at a time</span></p>
+</div>
+<div class="seg act">
+<p><span class="t">25–40</span> <strong>Activity 1</strong> <span class="d">Three AI answers, one file</span></p>
+</div>
+<div class="seg concept">
+<p><span class="t">40–55</span> <strong>Concepts</strong> <span class="d">Is missing data random? When is a mean reportable?</span></p>
+</div>
+<div class="seg act">
+<p><span class="t">55–80</span> <strong>Activity 2</strong> <span class="d">Lab 01, Steps 4 to 9</span></p>
+</div>
+<div class="seg wrap">
+<p><span class="t">80–90</span> <strong>Debrief</strong> <span class="d">Exit ticket</span></p>
+</div>
+</div>
+<div class="route-question">
+<p>Question for today: code runs without an error and prints a number. How do you decide whether to report it?</p>
+</div>
+</section>
+<section id="warmup" class="slide level2 activity">
+<h2>Warm-up · Your three numbers</h2>
+<p><span class="act-label">Pairs · 8 minutes · your homework</span></p>
+<div class="prompt">
+<p>Show your neighbour the three numbers your AI-written code reported for your Lab 01 file.</p>
+</div>
+<div class="checks3">
+<div class="c4">
+<p><span class="label">1 · Missing CO hours</span> Hours where CO(GT) is −200, after removing repeated rows.</p>
+</div>
+<div class="c4">
+<p><span class="label">2 · Mean of valid hours</span> Mean CO(GT) with −200 treated as missing, mg/m³.</p>
+</div>
+<div class="c4">
+<p><span class="label">3 · Naive mean</span> Mean CO(GT) if −200 is averaged as a number.</p>
+</div>
+</div>
+<p><span class="note-line">Your numbers differ from your neighbour’s: each of you has a different 14 days. If your missing count is 0, find the line in your code that made it 0.</span></p>
+<div class="selfstudy">
+<p>Studying alone: write your three numbers down before you go on.</p>
+</div>
+</section>
+<section id="read-ai" class="slide level2" data-hold="true">
+<h2>Read AI code one line at a time</h2>
+<div class="annot" id="annot">
+  <ol class="annot-code" aria-label="Code lines; choose one to see what it assumes">
+    <li><button type="button" data-i="0"><span>df = pd.read_csv("my_air_quality.csv", sep=";",</span><span>decimal=",", na_values=[-200])</span></button></li>
+    <li><button type="button" data-i="1"><span>df = df.drop_duplicates()</span></button></li>
+    <li><button type="button" data-i="2"><span>df = df.dropna(how="all")</span></button></li>
+    <li><button type="button" data-i="3"><span>print(df["CO(GT)"].isna().sum())</span></button></li>
+    <li><button type="button" data-i="4"><span>print(df["CO(GT)"].mean())</span></button></li>
+  </ol>
+  <div class="annot-card" aria-live="polite">
+    <p class="annot-hint" id="annot-hint">Choose a line. For each one, ask two questions.</p>
+    <div id="annot-body" hidden="">
+      <p class="label">What this line assumes about the file</p><p id="annot-a"></p>
+      <p class="label">How you check it</p><p id="annot-c"></p>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('annot'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const N = [
+    ['Columns are split by a semicolon, the decimal mark is a comma, and −200 means missing in every column, not only in CO.',
+     'Look at df.dtypes: every measurement column should be float64, not object. Count missing values per column with df.isna().sum().'],
+    ['A row that repeats exactly is an error in the export, not two real hours with identical readings.',
+     'Count rows before and after. You should be able to say which rows were removed and why.'],
+    ['A row with no values at all carries no information and can be removed.',
+     'Count rows again. Only the empty rows at the end of the file should go.'],
+    ['Nothing new. It reports how many CO hours are missing, which the next line silently skips.',
+     'The count should match what you saw in the raw file. A count of 0 means the missing code was not declared.'],
+    ['The mean of the hours that are left describes the whole two weeks.',
+     'Ask which days those hours come from. If the analyzer was off for four days, the mean describes ten days, not fourteen.'],
+  ];
+  const btns = root.querySelectorAll('.annot-code button');
+  btns.forEach((b) => b.addEventListener('click', () => {
+    btns.forEach((o) => o.setAttribute('aria-pressed', o === b));
+    const [a, c] = N[+b.dataset.i];
+    document.getElementById('annot-hint').hidden = true;
+    document.getElementById('annot-body').hidden = false;
+    document.getElementById('annot-a').textContent = a;
+    document.getElementById('annot-c').textContent = c;
+  }));
+})();
+</script>
+<p><span class="note-line">This version declares the missing code. It can still mislead: see the last line.</span></p>
+</section>
+<section id="act1" class="slide level2 activity" data-hold="true">
+<h2>Activity 1 · Three AI answers, one file</h2>
+<p><span class="act-label">Pairs · 12 minutes · no computer needed</span></p>
+<div class="abc" id="abc">
+  <div class="abc-card" data-k="A">
+    <p class="abc-tag">A</p>
+<pre class="code-mini">df = pd.read_csv(f, sep=";",
+       decimal=",", na_values=[-200])
+df = df.dropna()
+print(df["CO(GT)"].mean())</pre>
+    <button type="button" class="abc-show">Show what it prints</button>
+    <p class="abc-out" hidden="">nan</p>
+  </div>
+  <div class="abc-card" data-k="B">
+    <p class="abc-tag">B</p>
+<pre class="code-mini">df = pd.read_csv(f, sep=";",
+       decimal=",")
+df = df.replace(-200, 0)
+print(df["CO(GT)"].mean())</pre>
+    <button type="button" class="abc-show">Show what it prints</button>
+    <p class="abc-out" hidden="">1.93</p>
+  </div>
+  <div class="abc-card" data-k="C">
+    <p class="abc-tag">C</p>
+<pre class="code-mini">df = pd.read_csv(f, sep=";",
+       decimal=",", na_values=[-200])
+print(df["CO(GT)"].isna().sum())
+print(df["CO(GT)"].mean())</pre>
+    <button type="button" class="abc-show">Show what it prints</button>
+    <p class="abc-out" hidden="">99<br>2.74</p>
+  </div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('abc'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  root.querySelectorAll('.abc-show').forEach((b) => b.addEventListener('click', () => {
+    b.hidden = true; b.nextElementSibling.hidden = false;
+  }));
+})();
+</script>
+<div class="prompt small">
+<p>Same file as Session 1: 336 hours, repeated and empty rows already removed, 99 CO hours at −200. Before you reveal anything: which code goes into the 09:00 report? For the other two, name the check that catches them.</p>
+</div>
+<div class="selfstudy">
+<p>Studying alone: write your choice and two checks, then reveal.</p>
+</div>
+</section>
+<section id="act1-answer" class="slide level2">
+<h2>What each one prints, and why</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 8%">
+<col style="width: 44%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Prints</th>
+<th>What happened</th>
+<th>The check that catches it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>nan</td>
+<td>NMHC(GT) is −200 in all 336 hours, so dropna() removes every row</td>
+<td>Count rows after each step: 0</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>1.93</td>
+<td>Each of the 99 missing hours enters the mean as 0.0 mg/m³</td>
+<td>Count zeros, or look at the minimum: a clean-air zero every time the analyzer was off</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>99 and 2.74</td>
+<td>−200 is declared missing; the mean skips the 99 hours</td>
+<td>The count matches the raw file; the minimum is above 0</td>
+</tr>
+</tbody>
+</table>
+<p><span class="note-line">A runs without an error and prints nothing useful. B prints a plausible number. B is the more dangerous one.</span></p>
+<p><span class="source">Data: S. De Vito, Air Quality, UCI Machine Learning Repository, doi:10.24432/C59K5F, CC BY 4.0. Window: 18 Dec 2004 02:00 to 1 Jan 2005 01:00.</span></p>
+</section>
+<section id="mar" class="slide level2">
+<h2>Is missing data random?</h2>
+<figure class="mar">
+<svg viewbox="0 0 1160 330" role="img" aria-label="Share of hours with CO(GT) recorded as -200, by hour of day, March 2004 to April 2005. 54 percent at 04:00; between 14 and 20 percent at every other hour." font-family="Source Sans 3, sans-serif"><line x1="70" x2="1144" y1="278.0" y2="278.0" stroke="#B9C1C6" stroke-width="1"></line><text x="60" y="284.0" text-anchor="end" font-size="17" fill="#333F4A">0%</text><line x1="70" x2="1144" y1="235.0" y2="235.0" stroke="#B9C1C6" stroke-width="1"></line><text x="60" y="241.0" text-anchor="end" font-size="17" fill="#333F4A">10%</text><line x1="70" x2="1144" y1="192.0" y2="192.0" stroke="#B9C1C6" stroke-width="1"></line><text x="60" y="198.0" text-anchor="end" font-size="17" fill="#333F4A">20%</text><line x1="70" x2="1144" y1="149.0" y2="149.0" stroke="#B9C1C6" stroke-width="1"></line><text x="60" y="155.0" text-anchor="end" font-size="17" fill="#333F4A">30%</text><line x1="70" x2="1144" y1="106.0" y2="106.0" stroke="#B9C1C6" stroke-width="1"></line><text x="60" y="112.0" text-anchor="end" font-size="17" fill="#333F4A">40%</text><line x1="70" x2="1144" y1="63.0" y2="63.0" stroke="#B9C1C6" stroke-width="1"></line><text x="60" y="69.0" text-anchor="end" font-size="17" fill="#333F4A">50%</text><line x1="70" x2="1144" y1="20.0" y2="20.0" stroke="#B9C1C6" stroke-width="1"></line><text x="60" y="26.0" text-anchor="end" font-size="17" fill="#333F4A">60%</text><rect x="76.7" y="210.9" width="31.3" height="67.1" fill="#0F6E6B"></rect><text x="92.4" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">00:00</text><rect x="121.5" y="204.0" width="31.3" height="74.0" fill="#0F6E6B"></rect><rect x="166.2" y="201.0" width="31.3" height="77.0" fill="#0F6E6B"></rect><rect x="211.0" y="192.0" width="31.3" height="86.0" fill="#0F6E6B"></rect><text x="226.6" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">03:00</text><rect x="255.7" y="45.4" width="31.3" height="232.6" fill="#E29A2D"></rect><text x="271.4" y="302" text-anchor="middle" font-size="17" fill="#9a5f10" font-weight="700">04:00</text><rect x="300.5" y="197.6" width="31.3" height="80.4" fill="#0F6E6B"></rect><rect x="345.2" y="201.0" width="31.3" height="77.0" fill="#0F6E6B"></rect><text x="360.9" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">06:00</text><rect x="390.0" y="201.9" width="31.3" height="76.1" fill="#0F6E6B"></rect><rect x="434.7" y="201.0" width="31.3" height="77.0" fill="#0F6E6B"></rect><rect x="479.5" y="208.3" width="31.3" height="69.7" fill="#0F6E6B"></rect><text x="495.1" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">09:00</text><rect x="524.2" y="208.3" width="31.3" height="69.7" fill="#0F6E6B"></rect><rect x="569.0" y="206.2" width="31.3" height="71.8" fill="#0F6E6B"></rect><rect x="613.7" y="207.5" width="31.3" height="70.5" fill="#0F6E6B"></rect><text x="629.4" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">12:00</text><rect x="658.5" y="207.5" width="31.3" height="70.5" fill="#0F6E6B"></rect><rect x="703.2" y="207.5" width="31.3" height="70.5" fill="#0F6E6B"></rect><rect x="748.0" y="207.0" width="31.3" height="71.0" fill="#0F6E6B"></rect><text x="763.6" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">15:00</text><rect x="792.7" y="211.8" width="31.3" height="66.2" fill="#0F6E6B"></rect><rect x="837.5" y="213.9" width="31.3" height="64.1" fill="#0F6E6B"></rect><rect x="882.2" y="215.2" width="31.3" height="62.8" fill="#0F6E6B"></rect><text x="897.9" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">18:00</text><rect x="927.0" y="216.1" width="31.3" height="61.9" fill="#0F6E6B"></rect><rect x="971.7" y="215.2" width="31.3" height="62.8" fill="#0F6E6B"></rect><rect x="1016.5" y="213.9" width="31.3" height="64.1" fill="#0F6E6B"></rect><text x="1032.1" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">21:00</text><rect x="1061.2" y="211.8" width="31.3" height="66.2" fill="#0F6E6B"></rect><rect x="1106.0" y="210.9" width="31.3" height="67.1" fill="#0F6E6B"></rect><text x="287.0" y="51.4" font-size="18" fill="#1C242B" font-weight="700" dx="8">54% at 04:00</text><text x="607.0" y="150" text-anchor="middle" font-size="17" fill="#333F4A">14% to 20% at every other hour</text><line x1="70" x2="70" y1="20" y2="278.0" stroke="#333F4A" stroke-width="1.5"></line><line x1="70" x2="1144" y1="278.0" y2="278.0" stroke="#333F4A" stroke-width="1.5"></line><text x="1144" y="324" text-anchor="end" font-size="15" fill="#66727C">hour of day</text></svg>
+</figure>
+<div class="bridge">
+<p>One hour of the day loses CO far more often than the rest. A mean of the valid hours under-weights 04:00. Treating −200 as missing is necessary; it does not make the remaining hours a fair sample.</p>
+</div>
+<p><span class="source">Share of hours with CO(GT) = −200, all 9,357 hours, March 2004 to April 2005. The source does not say why. Data: De Vito, UCI, doi:10.24432/C59K5F, CC BY 4.0.</span></p>
+</section>
+<section id="reportable" class="slide level2" data-hold="true">
+<h2>When is a daily mean worth reporting?</h2>
+<div class="rep" id="rep">
+  <label class="sm-slider">Minimum valid hours per day <strong id="rep-k">18 h</strong>
+    <input type="range" id="rep-min" min="1" max="24" step="1" value="18">
+  </label>
+  <div class="rep-days" id="rep-days"></div>
+  <p class="rep-out" id="rep-out" aria-live="polite"></p>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('rep'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Same window as Activity 1: [day, hours in file, valid CO hours, mean of valid CO hours]
+  const D = [["18 Dec",22,22,1.76],["19 Dec",24,23,2.73],["20 Dec",24,24,2.36],["21 Dec",24,24,2.03],["22 Dec",24,23,2.22],
+             ["23 Dec",24,24,4.06],["24 Dec",24,24,5.32],["25 Dec",24,23,3.92],["26 Dec",24,24,1.43],["27 Dec",24,24,1.57],
+             ["28 Dec",24,1,1.2],["29 Dec",24,0,null],["30 Dec",24,0,null],["31 Dec",24,0,null],["01 Jan",2,1,1.6]];
+  const input = document.getElementById('rep-min');
+  function draw() {
+    const k = +input.value; document.getElementById('rep-k').textContent = k + ' h';
+    let html = '', n = 0;
+    for (const [day, hrs, ok] of D) {
+      const kept = ok >= k; if (kept) n++;
+      html += '<div class="rep-day ' + (ok === 0 ? 'none' : kept ? 'kept' : 'short') + '"><b>' + ok + '</b><span>' + day + '</span></div>';
+    }
+    document.getElementById('rep-days').innerHTML = html;
+    const kept = D.filter((d) => d[2] >= k);
+    const mean = kept.length ? (kept.reduce((s, d) => s + d[3], 0) / kept.length).toFixed(2) : '–';
+    document.getElementById('rep-out').innerHTML = '<b>' + n + ' of 15</b> days reported · mean of reported daily means <b>' + mean + ' mg/m³</b> · the single two-week mean is 2.74';
+  }
+  input.addEventListener('input', draw); draw();
+})();
+</script>
+<div class="bridge">
+<p>The file covers 15 calendar days. CO was measured on about ten. The 18-hour rule is an assumption for this lab, not a regulation; you will choose your own in Step 8b.</p>
+</div>
+<p><span class="source">Numbers in each square: valid CO hours that day. Filled: reported. Open: below the minimum. Dashed: no valid hour.</span></p>
+</section>
+<section id="act2" class="slide level2 activity">
+<h2>Activity 2 · Lab 01, Steps 4 to 9</h2>
+<p><span class="act-label">Individual · 25 minutes · laptop or phone</span></p>
+<ol type="1">
+<li>Open <strong>Lab 01</strong>. Press <strong>Open my study</strong> if you saved one in Session 1.</li>
+<li>Step 4: write your answer before you compare.</li>
+<li>Step 5: enter your three homework numbers <strong>before</strong> you run the audit.</li>
+<li>Step 6: run the audit. For any number that does not match, find the line that explains it.</li>
+<li>Step 7, then the Extension view, Steps 8a and 8b.</li>
+<li>Step 9: download one file and upload it to myCourseVille.</li>
+</ol>
+<p><a href="../labs/audit.html" class="lab-button" target="_blank">Open Lab 01</a></p>
+<div class="selfstudy">
+<p>Studying alone: work through Steps 4 to 9 in order and submit in Step 9.</p>
+</div>
+</section>
+<section id="debrief" class="slide level2">
+<h2>Debrief</h2>
+<div class="debrief-q">
+<p><span class="dq">Which of your three numbers did not match the audit, and which line of your code explained it?</span> <span class="dq">In Step 8b, what minimum did you choose, and what did you lose by choosing it?</span> <span class="dq">Name one check you will now run on every mean that AI-written code gives you.</span></p>
+</div>
+</section>
+<section id="exit" class="slide level2 activity">
+<h2>Exit ticket · 5 minutes</h2>
+<p><span class="act-label">Exit ticket and feedback · alone · 5 minutes · anonymous</span></p>
+<div class="columns">
+<div class="column" style="width:64%;">
+<div class="prompt">
+<p>AI-written code prints a mean CO of 1.93 mg/m³ for your file, with no error. Name two checks you would run before reporting it, and what each would show.</p>
+</div>
+<p>Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.</p>
+<p>No name or student ID is recorded. Wait for <strong>“Response received.”</strong></p>
+</div><div class="column qr-col" style="width:32%;">
+<p><img data-src="figures/exit-qr-s02.png" class="qr" alt="QR code for the Session 2 exit ticket and feedback form"></p>
+<p><a href="exit.html?s=2" target="_blank">Open the Session 2 form</a></p>
+</div></div>
+</section>
+<section id="next" class="slide level2">
+<h2>Next session</h2>
+<div class="beforeafter">
+<div>
+<p><span class="label">Session 3 · Why values go missing</span> Week 2 starts with missing data: the kinds of missingness, and why the reason matters more than the count.</p>
+</div>
+<div>
+<p><span class="label">Before you come</span> Submit the Lab 01 study file. Bring one example, from a plant, a lab or daily life, of a reading that goes missing, and say why it goes missing.</p>
+</div>
+</div>
+<p><span class="note-line">Submit the Lab 01 study file on myCourseVille by the date shown there.</span></p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="s02_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="s02_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="s02_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="s02_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="s02_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="s02_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="s02_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="s02_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="s02_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"\u003ci class=\"fas fa-gear\">\u003c/i>","content":"\u003cul class=\"slide-menu-items\">\n\u003cli class=\"slide-tool-item active\" data-item=\"0\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\">\u003ckbd>f\u003c/kbd> Fullscreen\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"1\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\">\u003ckbd>s\u003c/kbd> Speaker View\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"2\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\">\u003ckbd>o\u003c/kbd> Slide Overview\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"3\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\">\u003ckbd>e\u003c/kbd> PDF Export Mode\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"4\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\">\u003ckbd>r\u003c/kbd> Scroll View Mode\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"5\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\">\u003ckbd>?\u003c/kbd> Keyboard Help\u003c/a>\u003c/li>\n\u003c/ul>"}],"openButton":false,"openButtonLabel":"Slide menu"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'visible',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 6.0e-2,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <!-- Click anywhere on a slide to advance.
+
+         Reveal.js has no built-in click-to-advance, so this adds it. Going back is
+         the ← key, or the arrow at the left edge of the screen
+         (controlsLayout: edges in _quarto.yml).
+
+         It deliberately does nothing when the click means something else: a link or
+         control, a double-click, a modified click, the overview (O), a drag that
+         selected text, or the click that dismisses a selection. Without those
+         guards a student trying to select a sentence would skip a slide instead.
+
+         Note the selection is checked on mousedown, not on click — the browser
+         clears the selection before the click event fires. -->
+    <script>
+    (function () {
+      var IGNORE = 'a, button, input, select, textarea, label, summary, video, audio,' +
+                   ' iframe, .controls, .slide-menu, .slide-menu-button, .progress,' +
+                   ' .speaker-controls, .pdf-page';
+      var DRAG_PX = 6;
+      var downX = 0, downY = 0, hadSelection = false;
+
+      document.addEventListener('mousedown', function (e) {
+        downX = e.clientX;
+        downY = e.clientY;
+        var s = window.getSelection();
+        hadSelection = !!(s && String(s).length > 0);
+      }, true);
+
+      function ready(fn) {
+        if (typeof Reveal !== 'undefined' && Reveal.isReady && Reveal.isReady()) return fn();
+        setTimeout(function () { ready(fn); }, 120);
+      }
+
+      ready(function () {
+        document.addEventListener('click', function (e) {
+          if (e.button !== 0) return;                        // left button only
+          if (e.detail > 1) return;                          // ignore double-clicks
+          if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+          if (e.target.closest && e.target.closest(IGNORE)) return;
+          if (Reveal.isOverview() || Reveal.isPaused()) return;
+          if (Math.abs(e.clientX - downX) > DRAG_PX ||
+              Math.abs(e.clientY - downY) > DRAG_PX) return; // that was a drag
+          if (hadSelection) { hadSelection = false; return; } // that click cleared a selection
+          Reveal.next();
+        }, false);
+      });
+    })();
+    </script>
+    <!-- Narration and captions for 2105315 decks (adapted from the 2105603 player).
+         Loads narration/<deck>.json (built by build_narration.py): per slide, the sentences in English
+         and Thai, and for each voice an MP3 with one cue per sentence.
+         Controls at the bottom left:
+           Narration: off / English / ไทย     Pause or Resume, Replay (while narration is on)
+           Captions:  off / English / ไทย     Auto-advance: off / on
+         Captions follow the voice sentence by sentence, in either language (Thai voice with English
+         captions works, and the reverse). With narration off and captions on, the slide's full text
+         is shown to read. Settings are remembered in this browser. -->
+    <style>
+    .nr-bar { position: fixed; left: 12px; bottom: 10px; z-index: 40; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100vw - 120px); font: 600 14px/1 "Source Sans 3", "Course Thai", sans-serif; }
+    .nr-bar button { border: 1.5px solid #0F6E6B; background: #fff; color: #0F6E6B; border-radius: 4px; padding: 8px 12px; cursor: pointer; font: inherit; }
+    .nr-bar button[aria-pressed="true"] { background: #0F6E6B; border-color: #0F6E6B; color: #fff; }
+    .nr-bar button:focus-visible { outline: 2px solid #E29A2D; outline-offset: 2px; }
+    /* When captions show, the slide area shrinks by --cc-band so captions never cover slide text. */
+    .reveal { height: calc(100% - var(--cc-band, 0px)) !important; }
+    .nr-caption { position: fixed; left: 50%; bottom: 56px; transform: translateX(-50%); z-index: 39; width: min(1100px, 92vw); max-height: 22vh; overflow-y: auto;
+      background: rgba(28,36,43,.92); color: #fff; border-radius: 4px; padding: 10px 16px; font: 400 21px/1.45 "Source Sans 3", "Course Thai", sans-serif; text-align: center; }
+    .nr-caption.transcript { text-align: left; font-size: 18px; }
+    .nr-caption.transcript p { margin: 0 0 .4em; }
+    .nr-caption[lang="th"] { font-family: "Course Thai", "Sarabun", sans-serif; }
+    .nr-voice-note { font: 400 12px/1 "Source Sans 3", sans-serif; color: #66727C; align-self: center; margin-left: 4px; }
+    .draft-mark { align-self: center; margin-left: 8px; font: 400 12px/1 "Source Sans 3", sans-serif; color: #66727C !important; text-decoration: none; }
+    .draft-mark:hover { text-decoration: underline; }
+    @media (max-width: 700px) { .nr-bar { font-size: 12px; } .nr-bar button { padding: 6px 8px; } .nr-caption { font-size: 17px; bottom: 92px; } .nr-voice-note, .draft-mark { display: none; } }
+    @media print { .nr-bar, .nr-caption { display: none !important; } }
+    </style>
+    <div class="nr-bar" role="toolbar" aria-label="Narration and captions">
+      <button type="button" id="nr-sound" aria-pressed="false">Narration: off</button>
+      <button type="button" id="nr-pause" hidden="">Pause</button>
+      <button type="button" id="nr-replay" hidden="">Replay slide</button>
+      <button type="button" id="nr-cc" aria-pressed="false">Captions: off</button>
+      <button type="button" id="nr-auto" aria-pressed="false">Auto-advance: off</button>
+      <span class="nr-voice-note" id="nr-voice-note" hidden="">Thai voice: draft recording</span>
+      <a class="draft-mark" href="../labs/index.html">2105315 labs</a>
+    </div>
+    <div class="nr-caption" id="nr-caption" aria-live="polite" hidden=""></div>
+    <script>
+    (function () {
+      const deck = location.pathname.split('/').pop().replace(/\.html$/, '') || 'index';
+      const store = { get(k, d) { try { return localStorage.getItem('nr315-' + k) ?? d; } catch { return d; } },
+                      set(k, v) { try { localStorage.setItem('nr315-' + k, v); } catch {} } };
+      const NEXT = { off: 'en', en: 'th', th: 'off' };
+      // Narration cycles only through voices this deck has (Thai is off until recordings are added).
+      let voices = ['en', 'th'];
+      const nextVoice = (v) => { const order = ['off', ...voices]; return order[(order.indexOf(v) + 1) % order.length]; };
+      const SOUND_LABEL = { off: 'Narration: off', en: 'Narration: English', th: 'Narration: ไทย' };
+      const CC_LABEL = { off: 'Captions: off', en: 'Captions: English', th: 'Captions: ไทย' };
+      const state = { sound: store.get('sound', 'off'), cc: store.get('cc', 'off'), auto: store.get('auto', 'off') === 'on' };
+      if (!NEXT[state.sound]) state.sound = 'off';
+      if (!NEXT[state.cc]) state.cc = 'off';
+      const audio = new Audio(); audio.preload = 'auto';
+      const box = document.getElementById('nr-caption');
+      const $ = (id) => document.getElementById(id);
+      let data = {}, slide = null, band = -1;
+
+      function setBand() {
+        const h = box.hidden ? 0 : box.offsetHeight + 64;
+        if (h === band) return;
+        band = h;
+        document.documentElement.style.setProperty('--cc-band', h + 'px');
+        if (window.Reveal && Reveal.isReady()) Reveal.layout();
+      }
+      new ResizeObserver(setBand).observe(box);
+
+      const on = () => state.sound !== 'off';
+      function paintButtons() {
+        $('nr-sound').textContent = SOUND_LABEL[state.sound]; $('nr-sound').setAttribute('aria-pressed', on());
+        $('nr-pause').hidden = !on(); $('nr-replay').hidden = !on();
+        $('nr-pause').textContent = audio.paused && audio.currentTime > 0 && !audio.ended ? 'Resume' : 'Pause';
+        $('nr-cc').textContent = CC_LABEL[state.cc]; $('nr-cc').setAttribute('aria-pressed', state.cc !== 'off');
+        $('nr-auto').textContent = 'Auto-advance: ' + (state.auto ? 'on' : 'off'); $('nr-auto').setAttribute('aria-pressed', state.auto);
+        $('nr-voice-note').hidden = state.sound !== 'th';
+      }
+      const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+      function show(html, transcript) {
+        if (state.cc === 'off' || !html) { box.hidden = true; return; }
+        box.lang = state.cc; box.classList.toggle('transcript', !!transcript); box.innerHTML = html; box.hidden = false;
+      }
+      function transcript() {
+        const text = slide?.text || [];
+        show(text.map((s) => '<p>' + esc(s[state.cc] || '') + '</p>').join(''), true);
+      }
+      function syncCaption() {
+        const track = slide?.[state.sound]; if (!track) return;
+        const t = audio.currentTime;
+        const i = track.cues.findIndex(([a, b]) => t >= a && t < b + 0.3);
+        if (i >= 0) show(esc(slide.text[i]?.[state.cc] || ''), false);
+      }
+      function load() {
+        const id = Reveal.getCurrentSlide()?.id;
+        slide = data[id] || null;
+        audio.pause();
+        if (!slide) { box.hidden = true; return; }
+        const track = on() ? slide[state.sound] : null;
+        if (track) {
+          audio.src = track.audio; audio.currentTime = 0;
+          audio.play().catch((err) => {
+            // A newer load interrupts an older play() (AbortError): not a failure. Blocked autoplay: fall back to text.
+            if (err && err.name === 'AbortError') return;
+            state.sound = 'off'; paintButtons(); transcript();
+          });
+          box.hidden = true;
+        } else transcript();
+      }
+      audio.addEventListener('play', paintButtons);
+      audio.addEventListener('pause', paintButtons);
+      audio.addEventListener('timeupdate', () => { if (on()) syncCaption(); });
+      // Interactive slides (data-hold) wait for the teacher instead of auto-advancing.
+      audio.addEventListener('ended', () => { if (state.auto && !Reveal.isLastSlide() && !Reveal.getCurrentSlide()?.hasAttribute('data-hold')) Reveal.next(); });
+      $('nr-pause').addEventListener('click', (e) => { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); e.currentTarget.blur(); });
+      $('nr-replay').addEventListener('click', (e) => { if (slide) { audio.currentTime = 0; audio.play().catch(() => {}); } e.currentTarget.blur(); });
+      $('nr-sound').addEventListener('click', (e) => { state.sound = nextVoice(state.sound); store.set('sound', state.sound); paintButtons(); load(); e.currentTarget.blur(); });
+      $('nr-cc').addEventListener('click', (e) => {
+        state.cc = NEXT[state.cc]; store.set('cc', state.cc); paintButtons();
+        if (on() && !audio.paused) syncCaption(); else if (on()) box.hidden = true; else transcript();
+        e.currentTarget.blur();
+      });
+      $('nr-auto').addEventListener('click', (e) => { state.auto = !state.auto; store.set('auto', state.auto ? 'on' : 'off'); paintButtons(); e.currentTarget.blur(); });
+
+      paintButtons();
+      fetch('narration/' + deck + '.json').then((r) => r.ok ? r.json() : {}).then((d) => {
+        data = d;
+        voices = ['en', 'th'].filter((v) => Object.values(d).some((s) => s[v]));
+        if (state.sound !== 'off' && !voices.includes(state.sound)) state.sound = voices[0] || 'off';
+        paintButtons();
+        if (Reveal.isReady()) load(); else Reveal.on('ready', load);
+        Reveal.on('slidechanged', load);
+      }).catch(() => { document.querySelector('.nr-bar').hidden = true; });
+    })();
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+          window.quartoDecorateExternalLinks = function (root) {
+         var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+              if (!link.classList.contains('no-external-icon')) {
+              }
+            }
+          }
+          };
+          window.quartoDecorateExternalLinks(window.document);
+        // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+        // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+        const hideOnEscAndFocusOut = {
+          name: 'hideOnEscAndFocusOut',
+          defaultValue: true,
+          fn(instance) {
+            const dismiss = () => {
+              // A show scheduled by the trigger delay would otherwise reopen it
+              instance.clearDelayTimeouts();
+              instance.hide();
+            };
+            const onKeyDown = (event) => {
+              if (event.key !== 'Escape') {
+                return;
+              }
+              // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+              // except an open reveal.js slide menu, which Esc should close too.
+              // The menu handles keys only when its keyboard option is on.
+              const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+                window.Reveal.getConfig().menu?.keyboard !== false;
+              if (!menuHandlesEsc) {
+                event.stopPropagation();
+              }
+              if (instance.popper.contains(window.document.activeElement)) {
+                // Disabled while refocusing so the focus trigger does not reopen it
+                instance.disable();
+                instance.reference.focus();
+                instance.enable();
+              }
+              dismiss();
+            };
+            const onFocusOut = (event) => {
+              const target = event.relatedTarget;
+              if (target && !instance.reference.contains(target) &&
+                  !instance.popper.contains(target)) {
+                dismiss();
+              }
+            };
+            // On the trigger too: a click trigger (code-annotations: select) has no
+            // blur handling. Attached for the instance's lifetime so leaving the
+            // trigger also cancels a show still pending on the trigger delay.
+            instance.reference.addEventListener('focusout', onFocusOut);
+            return {
+              onShow() {
+                window.document.addEventListener('keydown', onKeyDown, true);
+                instance.popper.addEventListener('focusout', onFocusOut);
+              },
+              onHide() {
+                window.document.removeEventListener('keydown', onKeyDown, true);
+                instance.popper.removeEventListener('focusout', onFocusOut);
+              },
+              onDestroy() {
+                instance.reference.removeEventListener('focusout', onFocusOut);
+              },
+            };
+          },
+        };
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+            plugins: [hideOnEscAndFocusOut],
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

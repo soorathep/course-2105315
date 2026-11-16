@@ -1,0 +1,227 @@
+{
+  "voice_en": "am_michael",
+  "note": "en = English caption and voice; th = Thai caption; th_say = what the Thai voice reads (Thai script only: English terms written as they sound, numbers in words). say = English voice text when it differs from en.",
+  "slides": {
+    "title-slide": [
+      {
+        "en": "Session two. Audit and the AI's code.",
+        "th": "คาบที่สอง การตรวจสอบข้อมูลและโค้ดที่ AI เขียน",
+        "th_say": "คาบที่สอง การตรวจสอบข้อมูลและโค้ดที่เอไอเขียน"
+      },
+      {
+        "en": "Today the code runs without an error and prints a number. Our job is to decide whether to believe it.",
+        "th": "วันนี้โค้ดทำงานได้โดยไม่มีข้อผิดพลาด และพิมพ์ตัวเลขออกมา หน้าที่ของเราคือตัดสินว่าจะเชื่อตัวเลขนั้นหรือไม่",
+        "th_say": "วันนี้โค้ดทำงานได้โดยไม่มีข้อผิดพลาด และพิมพ์ตัวเลขออกมา หน้าที่ของเราคือตัดสินว่าจะเชื่อตัวเลขนั้นหรือไม่"
+      }
+    ],
+    "course-map": [
+      {
+        "en": "We are still in week one. Last session asked what you must know about a file before computing anything.",
+        "th": "เรายังอยู่ในสัปดาห์แรก คาบที่แล้วเราถามว่าต้องรู้อะไรเกี่ยวกับไฟล์ก่อนจะคำนวณอะไร",
+        "th_say": "เรายังอยู่ในสัปดาห์แรก คาบที่แล้วเราถามว่าต้องรู้อะไรเกี่ยวกับไฟล์ก่อนจะคำนวณอะไร"
+      },
+      {
+        "en": "Today we check the code that does the computing, and the number it gives.",
+        "th": "วันนี้เราจะตรวจโค้ดที่ใช้คำนวณ และตัวเลขที่โค้ดให้ออกมา",
+        "th_say": "วันนี้เราจะตรวจโค้ดที่ใช้คำนวณ และตัวเลขที่โค้ดให้ออกมา"
+      }
+    ],
+    "route": [
+      {
+        "en": "We start with your homework numbers. Then we read AI code line by line, and you judge three AI answers in pairs.",
+        "th": "เราเริ่มจากตัวเลขการบ้านของทุกคน จากนั้นอ่านโค้ดของ AI ทีละบรรทัด แล้วจับคู่ตัดสินคำตอบจาก AI สามแบบ",
+        "th_say": "เราเริ่มจากตัวเลขการบ้านของทุกคน จากนั้นอ่านโค้ดของเอไอทีละบรรทัด แล้วจับคู่ตัดสินคำตอบจากเอไอสามแบบ"
+      },
+      {
+        "en": "After that, two questions about missing data. Then you finish Lab 01 and submit it.",
+        "th": "หลังจากนั้นมีสองคำถามเรื่องข้อมูลที่หายไป แล้วทุกคนทำแล็บที่หนึ่งให้เสร็จและส่งงาน",
+        "th_say": "หลังจากนั้นมีสองคำถามเรื่องข้อมูลที่หายไป แล้วทุกคนทำแล็บที่หนึ่งให้เสร็จและส่งงาน"
+      },
+      {
+        "en": "Keep today's question in mind. The code runs and prints a number. How do you decide whether to report it?",
+        "th": "จำคำถามของวันนี้ไว้ โค้ดทำงานและพิมพ์ตัวเลขออกมา เราจะตัดสินอย่างไรว่าจะรายงานตัวเลขนั้นหรือไม่",
+        "th_say": "จำคำถามของวันนี้ไว้ โค้ดทำงานและพิมพ์ตัวเลขออกมา เราจะตัดสินอย่างไรว่าจะรายงานตัวเลขนั้นหรือไม่"
+      }
+    ],
+    "warmup": [
+      {
+        "en": "Warm-up, in pairs, eight minutes. Show your neighbour the three numbers your AI-written code gave you.",
+        "th": "อุ่นเครื่อง จับคู่ แปดนาที ให้เพื่อนดูตัวเลขสามค่าที่โค้ดซึ่ง AI เขียนให้คำนวณได้",
+        "th_say": "อุ่นเครื่อง จับคู่ แปดนาที ให้เพื่อนดูตัวเลขสามค่าที่โค้ดซึ่งเอไอเขียนให้คำนวณได้"
+      },
+      {
+        "en": "Your numbers will differ, because each of you has a different fourteen days.",
+        "th": "ตัวเลขของแต่ละคนจะไม่เท่ากัน เพราะแต่ละคนได้ข้อมูลสิบสี่วันคนละช่วง",
+        "th_say": "ตัวเลขของแต่ละคนจะไม่เท่ากัน เพราะแต่ละคนได้ข้อมูลสิบสี่วันคนละช่วง"
+      },
+      {
+        "en": "If your count of missing hours is zero, find the line in your code that made it zero.",
+        "th": "ถ้าจำนวนชั่วโมงที่หายของใครเป็นศูนย์ ให้หาบรรทัดในโค้ดที่ทำให้มันเป็นศูนย์",
+        "th_say": "ถ้าจำนวนชั่วโมงที่หายของใครเป็นศูนย์ ให้หาบรรทัดในโค้ดที่ทำให้มันเป็นศูนย์"
+      }
+    ],
+    "read-ai": [
+      {
+        "en": "Here is code that declares the missing value correctly. Even so, every line makes an assumption about your file.",
+        "th": "นี่คือโค้ดที่ระบุค่าที่หายไว้ถูกต้องแล้ว แต่ทุกบรรทัดก็ยังมีสมมติฐานเกี่ยวกับไฟล์ของเรา",
+        "th_say": "นี่คือโค้ดที่ระบุค่าที่หายไว้ถูกต้องแล้ว แต่ทุกบรรทัดก็ยังมีสมมติฐานเกี่ยวกับไฟล์ของเรา"
+      },
+      {
+        "en": "Choose a line. For each one, ask what it assumes, and how you would check that assumption.",
+        "th": "เลือกทีละบรรทัด แล้วถามสองข้อ บรรทัดนี้สมมติอะไร และเราจะตรวจสมมติฐานนั้นอย่างไร",
+        "th_say": "เลือกทีละบรรทัด แล้วถามสองข้อ บรรทัดนี้สมมติอะไร และเราจะตรวจสมมติฐานนั้นอย่างไร"
+      },
+      {
+        "en": "Look at the last line. The mean of the hours that are left is not the same as the mean of the two weeks.",
+        "th": "ดูบรรทัดสุดท้าย ค่าเฉลี่ยของชั่วโมงที่เหลืออยู่ ไม่ใช่สิ่งเดียวกับค่าเฉลี่ยของสองสัปดาห์",
+        "th_say": "ดูบรรทัดสุดท้าย ค่าเฉลี่ยของชั่วโมงที่เหลืออยู่ ไม่ใช่สิ่งเดียวกับค่าเฉลี่ยของสองสัปดาห์"
+      }
+    ],
+    "act1": [
+      {
+        "en": "Activity one, in pairs, twelve minutes. Three AI answers for the same file as last session.",
+        "th": "กิจกรรมที่หนึ่ง จับคู่ สิบสองนาที คำตอบจาก AI สามแบบ สำหรับไฟล์เดียวกับคาบที่แล้ว",
+        "th_say": "กิจกรรมที่หนึ่ง จับคู่ สิบสองนาที คำตอบจากเอไอสามแบบ สำหรับไฟล์เดียวกับคาบที่แล้ว"
+      },
+      {
+        "en": "Before you reveal anything, decide which code goes into the nine o'clock report.",
+        "th": "ก่อนเปิดดูผล ตัดสินใจก่อนว่าโค้ดไหนควรใช้ในรายงานเก้าโมง",
+        "th_say": "ก่อนเปิดดูผล ตัดสินใจก่อนว่าโค้ดไหนควรใช้ในรายงานเก้าโมง"
+      },
+      {
+        "en": "For the other two, name the check that would catch the problem. Then reveal what each one prints.",
+        "th": "สำหรับอีกสองแบบ บอกว่าการตรวจแบบไหนจะจับปัญหาได้ แล้วค่อยเปิดดูว่าแต่ละแบบพิมพ์อะไร",
+        "th_say": "สำหรับอีกสองแบบ บอกว่าการตรวจแบบไหนจะจับปัญหาได้ แล้วค่อยเปิดดูว่าแต่ละแบบพิมพ์อะไร"
+      }
+    ],
+    "act1-answer": [
+      {
+        "en": "A prints nan. In this window one column is missing in every hour, so dropping rows with any missing value removes every row.",
+        "th": "แบบ A พิมพ์ nan เพราะในช่วงข้อมูลนี้มีคอลัมน์หนึ่งหายทุกชั่วโมง การลบแถวที่มีค่าหายแม้แต่ค่าเดียวจึงลบทุกแถว",
+        "th_say": "แบบเอ พิมพ์แนน เพราะในช่วงข้อมูลนี้มีคอลัมน์หนึ่งหายทุกชั่วโมง การลบแถวที่มีค่าหายแม้แต่ค่าเดียวจึงลบทุกแถว"
+      },
+      {
+        "en": "B prints one point nine three. Every missing hour enters the mean as zero, which looks like clean air.",
+        "th": "แบบ B พิมพ์ 1.93 เพราะทุกชั่วโมงที่หายถูกนับเป็นศูนย์ ซึ่งดูเหมือนอากาศสะอาด",
+        "th_say": "แบบบี พิมพ์ หนึ่งจุดเก้าสาม เพราะทุกชั่วโมงที่หายถูกนับเป็นศูนย์ ซึ่งดูเหมือนอากาศสะอาด"
+      },
+      {
+        "en": "C reports ninety-nine missing hours and a mean of two point seven four. That is the one to use.",
+        "th": "แบบ C รายงานชั่วโมงที่หาย 99 ชั่วโมง และค่าเฉลี่ย 2.74 แบบนี้คือแบบที่ควรใช้",
+        "th_say": "แบบซี รายงานชั่วโมงที่หายเก้าสิบเก้าชั่วโมง และค่าเฉลี่ย สองจุดเจ็ดสี่ แบบนี้คือแบบที่ควรใช้"
+      },
+      {
+        "en": "B is the more dangerous mistake, because its number looks plausible.",
+        "th": "แบบ B อันตรายกว่า เพราะตัวเลขที่ได้ดูสมเหตุสมผล",
+        "th_say": "แบบบี อันตรายกว่า เพราะตัวเลขที่ได้ดูสมเหตุสมผล"
+      }
+    ],
+    "mar": [
+      {
+        "en": "This is the whole year of data. The bars show how often CO is missing at each hour of the day.",
+        "th": "นี่คือข้อมูลทั้งปี แท่งกราฟแสดงว่าค่า CO หายบ่อยแค่ไหนในแต่ละชั่วโมงของวัน",
+        "th_say": "นี่คือข้อมูลทั้งปี แท่งกราฟแสดงว่าค่าซีโอหายบ่อยแค่ไหนในแต่ละชั่วโมงของวัน"
+      },
+      {
+        "en": "At four in the morning it is missing in more than half of the days. At every other hour, in about one day out of six.",
+        "th": "ตอนตีสี่ ค่าหายมากกว่าครึ่งหนึ่งของจำนวนวัน ส่วนชั่วโมงอื่นหายประมาณหนึ่งวันในหกวัน",
+        "th_say": "ตอนตีสี่ ค่าหายมากกว่าครึ่งหนึ่งของจำนวนวัน ส่วนชั่วโมงอื่นหายประมาณหนึ่งวันในหกวัน"
+      },
+      {
+        "en": "So missing values are not spread at random. Treating them as missing is necessary, but it does not make the remaining hours a fair sample.",
+        "th": "ดังนั้นค่าที่หายไม่ได้กระจายแบบสุ่ม การระบุว่าเป็นค่าหายเป็นสิ่งจำเป็น แต่ไม่ได้ทำให้ชั่วโมงที่เหลือเป็นตัวแทนที่เป็นธรรม",
+        "th_say": "ดังนั้นค่าที่หายไม่ได้กระจายแบบสุ่ม การระบุว่าเป็นค่าหายเป็นสิ่งจำเป็น แต่ไม่ได้ทำให้ชั่วโมงที่เหลือเป็นตัวแทนที่เป็นธรรม"
+      }
+    ],
+    "reportable": [
+      {
+        "en": "The same file, day by day. Each square shows how many valid CO hours that day has.",
+        "th": "ไฟล์เดิม แสดงเป็นรายวัน แต่ละช่องบอกว่าวันนั้นมีค่า CO ที่ใช้ได้กี่ชั่วโมง",
+        "th_say": "ไฟล์เดิม แสดงเป็นรายวัน แต่ละช่องบอกว่าวันนั้นมีค่าซีโอที่ใช้ได้กี่ชั่วโมง"
+      },
+      {
+        "en": "The last four days have almost nothing. The file covers fifteen calendar days, but CO was measured on about ten.",
+        "th": "สี่วันสุดท้ายแทบไม่มีข้อมูลเลย ไฟล์ครอบคลุมสิบห้าวันตามปฏิทิน แต่วัดค่า CO ได้จริงประมาณสิบวัน",
+        "th_say": "สี่วันสุดท้ายแทบไม่มีข้อมูลเลย ไฟล์ครอบคลุมสิบห้าวันตามปฏิทิน แต่วัดค่าซีโอได้จริงประมาณสิบวัน"
+      },
+      {
+        "en": "Move the slider to set the minimum number of valid hours a day needs before you report its mean. Watch which days drop out.",
+        "th": "เลื่อนแถบเพื่อกำหนดจำนวนชั่วโมงขั้นต่ำที่วันหนึ่งต้องมี ก่อนจะรายงานค่าเฉลี่ยของวันนั้น แล้วดูว่าวันไหนหลุดออกไป",
+        "th_say": "เลื่อนแถบเพื่อกำหนดจำนวนชั่วโมงขั้นต่ำที่วันหนึ่งต้องมี ก่อนจะรายงานค่าเฉลี่ยของวันนั้น แล้วดูว่าวันไหนหลุดออกไป"
+      },
+      {
+        "en": "Eighteen hours is an assumption for this lab, not a regulation. In Step 8b you choose your own and defend it.",
+        "th": "สิบแปดชั่วโมงเป็นสมมติฐานของแล็บนี้ ไม่ใช่ข้อกำหนดตามกฎหมาย ในขั้นที่ 8b ทุกคนต้องเลือกค่าของตัวเองและให้เหตุผล",
+        "th_say": "สิบแปดชั่วโมงเป็นสมมติฐานของแล็บนี้ ไม่ใช่ข้อกำหนดตามกฎหมาย ในขั้นที่แปดบี ทุกคนต้องเลือกค่าของตัวเองและให้เหตุผล"
+      }
+    ],
+    "act2": [
+      {
+        "en": "Activity two. Work on your own for twenty-five minutes, on a laptop or a phone.",
+        "th": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้",
+        "th_say": "กิจกรรมที่สอง ทำคนเดียว ยี่สิบห้านาที ใช้โน้ตบุ๊กหรือโทรศัพท์ก็ได้"
+      },
+      {
+        "en": "Open Lab 01. Enter your three homework numbers in Step 5 before you run the audit.",
+        "th": "เปิดแล็บที่หนึ่ง ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนกดตรวจสอบ",
+        "th_say": "เปิดแล็บที่หนึ่ง ใส่ตัวเลขการบ้านสามค่าในขั้นที่ห้า ก่อนกดตรวจสอบ"
+      },
+      {
+        "en": "If a number does not match the audit, find the line of code that explains the difference.",
+        "th": "ถ้าตัวเลขไหนไม่ตรงกับผลตรวจสอบ ให้หาบรรทัดของโค้ดที่อธิบายความต่างนั้น",
+        "th_say": "ถ้าตัวเลขไหนไม่ตรงกับผลตรวจสอบ ให้หาบรรทัดของโค้ดที่อธิบายความต่างนั้น"
+      },
+      {
+        "en": "Finish Steps 7 and 8, then download one file in Step 9 and upload it to myCourseVille.",
+        "th": "ทำขั้นที่เจ็ดและแปดให้เสร็จ แล้วดาวน์โหลดไฟล์เดียวในขั้นที่เก้า และอัปโหลดไปที่ myCourseVille",
+        "th_say": "ทำขั้นที่เจ็ดและแปดให้เสร็จ แล้วดาวน์โหลดไฟล์เดียวในขั้นที่เก้า และอัปโหลดไปที่มายคอร์สวิลล์"
+      }
+    ],
+    "debrief": [
+      {
+        "en": "Which of your numbers did not match the audit, and which line of your code explained it?",
+        "th": "ตัวเลขไหนของคุณไม่ตรงกับผลตรวจสอบ และบรรทัดไหนของโค้ดอธิบายเรื่องนี้",
+        "th_say": "ตัวเลขไหนของคุณไม่ตรงกับผลตรวจสอบ และบรรทัดไหนของโค้ดอธิบายเรื่องนี้"
+      },
+      {
+        "en": "What minimum did you choose in Step 8b, and what did you lose by choosing it?",
+        "th": "ในขั้นที่ 8b คุณเลือกค่าขั้นต่ำเท่าไร และเสียอะไรไปจากการเลือกนั้น",
+        "th_say": "ในขั้นที่แปดบี คุณเลือกค่าขั้นต่ำเท่าไร และเสียอะไรไปจากการเลือกนั้น"
+      },
+      {
+        "en": "Name one check you will now run on every mean that AI-written code gives you.",
+        "th": "บอกการตรวจหนึ่งข้อที่คุณจะใช้กับทุกค่าเฉลี่ยที่ได้จากโค้ดที่ AI เขียน",
+        "th_say": "บอกการตรวจหนึ่งข้อที่คุณจะใช้กับทุกค่าเฉลี่ยที่ได้จากโค้ดที่เอไอเขียน"
+      }
+    ],
+    "exit": [
+      {
+        "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
+        "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน",
+        "th_say": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+      },
+      {
+        "en": "AI-written code prints a mean CO of one point nine three for your file, with no error. Name two checks you would run before reporting it, and what each would show.",
+        "th": "โค้ดที่ AI เขียนพิมพ์ค่าเฉลี่ย CO ของไฟล์คุณเป็น 1.93 โดยไม่มีข้อผิดพลาด บอกการตรวจสองข้อที่จะทำก่อนรายงานค่านี้ และแต่ละข้อจะแสดงอะไร",
+        "th_say": "โค้ดที่เอไอเขียนพิมพ์ค่าเฉลี่ยซีโอของไฟล์คุณเป็น หนึ่งจุดเก้าสาม โดยไม่มีข้อผิดพลาด บอกการตรวจสองข้อที่จะทำก่อนรายงานค่านี้ และแต่ละข้อจะแสดงอะไร"
+      },
+      {
+        "en": "Scan the code or open the link. No name or student ID is recorded.",
+        "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต",
+        "th_say": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+      }
+    ],
+    "next": [
+      {
+        "en": "Next session starts week two: why values go missing, and why the reason matters more than the count.",
+        "th": "คาบหน้าเริ่มสัปดาห์ที่สอง เรื่องทำไมค่าถึงหายไป และทำไมเหตุผลที่หายสำคัญกว่าจำนวนที่หาย",
+        "th_say": "คาบหน้าเริ่มสัปดาห์ที่สอง เรื่องทำไมค่าถึงหายไป และทำไมเหตุผลที่หายสำคัญกว่าจำนวนที่หาย"
+      },
+      {
+        "en": "Submit your Lab 01 file. Bring one example of a reading that goes missing, and say why it goes missing.",
+        "th": "ส่งไฟล์แล็บที่หนึ่ง และเตรียมตัวอย่างหนึ่งเรื่องของค่าที่วัดแล้วหายไป พร้อมบอกว่าทำไมจึงหาย",
+        "th_say": "ส่งไฟล์แล็บที่หนึ่ง และเตรียมตัวอย่างหนึ่งเรื่องของค่าที่วัดแล้วหายไป พร้อมบอกว่าทำไมจึงหาย"
+      }
+    ]
+  }
+}

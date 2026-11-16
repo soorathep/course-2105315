@@ -1,0 +1,311 @@
+---
+title: "Audit and the AI's code"
+subtitle: "Session 2 of 14 · 90 minutes · Checking code you did not write"
+author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where this session sits {#course-map}
+
+::: {.coursemap14}
+[Week 1 · Import and audit]{.wk .now} [1 · Data you can trust]{.cm} [2 · Audit and the AI's code]{.cm .now}
+[Week 2 · Missing data]{.wk} [3 · Why values go missing]{.cm} [4 · Filling gaps you can defend]{.cm}
+[Week 3 · Outliers and noise]{.wk} [5 · Spike or real event?]{.cm} [6 · Smoothing without lying]{.cm}
+[Week 4 · Visualization]{.wk} [7 · Trends and distributions]{.cm} [8 · Figures that tell the truth]{.cm}
+[Week 5 · Correlation and anomalies]{.wk} [9 · Correlated or driven?]{.cm} [10 · When did it start?]{.cm}
+[Week 6 · Hypothesis tests]{.wk} [11 · Did the change work?]{.cm} [12 · Tests on plant data]{.cm}
+[Week 7 · Integrated case]{.wk} [13 · Raw file to decision]{.cm} [14 · Defend your decision]{.cm}
+:::
+
+::: {.bridge}
+Session 1 asked what you must know about a file before computing anything. Today: the code runs and prints a number. Do you believe it?
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .act}
+[0–10]{.t} **Warm-up** [Compare your three homework numbers]{.d}
+:::
+::: {.seg .concept}
+[10–25]{.t} **Concepts** [Reading AI code one line at a time]{.d}
+:::
+::: {.seg .act}
+[25–40]{.t} **Activity 1** [Three AI answers, one file]{.d}
+:::
+::: {.seg .concept}
+[40–55]{.t} **Concepts** [Is missing data random? When is a mean reportable?]{.d}
+:::
+::: {.seg .act}
+[55–80]{.t} **Activity 2** [Lab 01, Steps 4 to 9]{.d}
+:::
+::: {.seg .wrap}
+[80–90]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: code runs without an error and prints a number. How do you decide whether to report it?
+:::
+
+## Warm-up · Your three numbers {#warmup .activity}
+
+[Pairs · 8 minutes · your homework]{.act-label}
+
+::: {.prompt}
+Show your neighbour the three numbers your AI-written code reported for your Lab 01 file.
+:::
+
+::: {.checks3}
+::: {.c4}
+[1 · Missing CO hours]{.label}
+Hours where CO(GT) is −200, after removing repeated rows.
+:::
+::: {.c4}
+[2 · Mean of valid hours]{.label}
+Mean CO(GT) with −200 treated as missing, mg/m³.
+:::
+::: {.c4}
+[3 · Naive mean]{.label}
+Mean CO(GT) if −200 is averaged as a number.
+:::
+:::
+
+[Your numbers differ from your neighbour's: each of you has a different 14 days. If your missing count is 0, find the line in your code that made it 0.]{.note-line}
+
+::: {.selfstudy}
+Studying alone: write your three numbers down before you go on.
+:::
+
+## Read AI code one line at a time {#read-ai data-hold="true"}
+
+```{=html}
+<div class="annot" id="annot">
+  <ol class="annot-code" aria-label="Code lines; choose one to see what it assumes">
+    <li><button type="button" data-i="0"><span>df = pd.read_csv("my_air_quality.csv", sep=";",</span><span>decimal=",", na_values=[-200])</span></button></li>
+    <li><button type="button" data-i="1"><span>df = df.drop_duplicates()</span></button></li>
+    <li><button type="button" data-i="2"><span>df = df.dropna(how="all")</span></button></li>
+    <li><button type="button" data-i="3"><span>print(df["CO(GT)"].isna().sum())</span></button></li>
+    <li><button type="button" data-i="4"><span>print(df["CO(GT)"].mean())</span></button></li>
+  </ol>
+  <div class="annot-card" aria-live="polite">
+    <p class="annot-hint" id="annot-hint">Choose a line. For each one, ask two questions.</p>
+    <div id="annot-body" hidden>
+      <p class="label">What this line assumes about the file</p><p id="annot-a"></p>
+      <p class="label">How you check it</p><p id="annot-c"></p>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('annot'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const N = [
+    ['Columns are split by a semicolon, the decimal mark is a comma, and −200 means missing in every column, not only in CO.',
+     'Look at df.dtypes: every measurement column should be float64, not object. Count missing values per column with df.isna().sum().'],
+    ['A row that repeats exactly is an error in the export, not two real hours with identical readings.',
+     'Count rows before and after. You should be able to say which rows were removed and why.'],
+    ['A row with no values at all carries no information and can be removed.',
+     'Count rows again. Only the empty rows at the end of the file should go.'],
+    ['Nothing new. It reports how many CO hours are missing, which the next line silently skips.',
+     'The count should match what you saw in the raw file. A count of 0 means the missing code was not declared.'],
+    ['The mean of the hours that are left describes the whole two weeks.',
+     'Ask which days those hours come from. If the analyzer was off for four days, the mean describes ten days, not fourteen.'],
+  ];
+  const btns = root.querySelectorAll('.annot-code button');
+  btns.forEach((b) => b.addEventListener('click', () => {
+    btns.forEach((o) => o.setAttribute('aria-pressed', o === b));
+    const [a, c] = N[+b.dataset.i];
+    document.getElementById('annot-hint').hidden = true;
+    document.getElementById('annot-body').hidden = false;
+    document.getElementById('annot-a').textContent = a;
+    document.getElementById('annot-c').textContent = c;
+  }));
+})();
+</script>
+```
+
+[This version declares the missing code. It can still mislead: see the last line.]{.note-line}
+
+## Activity 1 · Three AI answers, one file {#act1 .activity data-hold="true"}
+
+[Pairs · 12 minutes · no computer needed]{.act-label}
+
+```{=html}
+<div class="abc" id="abc">
+  <div class="abc-card" data-k="A">
+    <p class="abc-tag">A</p>
+<pre class="code-mini">df = pd.read_csv(f, sep=";",
+       decimal=",", na_values=[-200])
+df = df.dropna()
+print(df["CO(GT)"].mean())</pre>
+    <button type="button" class="abc-show">Show what it prints</button>
+    <p class="abc-out" hidden>nan</p>
+  </div>
+  <div class="abc-card" data-k="B">
+    <p class="abc-tag">B</p>
+<pre class="code-mini">df = pd.read_csv(f, sep=";",
+       decimal=",")
+df = df.replace(-200, 0)
+print(df["CO(GT)"].mean())</pre>
+    <button type="button" class="abc-show">Show what it prints</button>
+    <p class="abc-out" hidden>1.93</p>
+  </div>
+  <div class="abc-card" data-k="C">
+    <p class="abc-tag">C</p>
+<pre class="code-mini">df = pd.read_csv(f, sep=";",
+       decimal=",", na_values=[-200])
+print(df["CO(GT)"].isna().sum())
+print(df["CO(GT)"].mean())</pre>
+    <button type="button" class="abc-show">Show what it prints</button>
+    <p class="abc-out" hidden>99<br>2.74</p>
+  </div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('abc'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  root.querySelectorAll('.abc-show').forEach((b) => b.addEventListener('click', () => {
+    b.hidden = true; b.nextElementSibling.hidden = false;
+  }));
+})();
+</script>
+```
+
+::: {.prompt .small}
+Same file as Session 1: 336 hours, repeated and empty rows already removed, 99 CO hours at −200. Before you reveal anything: which code goes into the 09:00 report? For the other two, name the check that catches them.
+:::
+
+::: {.selfstudy}
+Studying alone: write your choice and two checks, then reveal.
+:::
+
+## What each one prints, and why {#act1-answer}
+
+| Code | Prints | What happened | The check that catches it |
+|--|----|----------------------|----------------------|
+| A | nan | NMHC(GT) is −200 in all 336 hours, so dropna() removes every row | Count rows after each step: 0 |
+| B | 1.93 | Each of the 99 missing hours enters the mean as 0.0 mg/m³ | Count zeros, or look at the minimum: a clean-air zero every time the analyzer was off |
+| C | 99 and 2.74 | −200 is declared missing; the mean skips the 99 hours | The count matches the raw file; the minimum is above 0 |
+
+[A runs without an error and prints nothing useful. B prints a plausible number. B is the more dangerous one.]{.note-line}
+
+[Data: S. De Vito, Air Quality, UCI Machine Learning Repository, doi:10.24432/C59K5F, CC BY 4.0. Window: 18 Dec 2004 02:00 to 1 Jan 2005 01:00.]{.source}
+
+## Is missing data random? {#mar}
+
+```{=html}
+<figure class="mar">
+<svg viewBox="0 0 1160 330" role="img" aria-label="Share of hours with CO(GT) recorded as -200, by hour of day, March 2004 to April 2005. 54 percent at 04:00; between 14 and 20 percent at every other hour." font-family="Source Sans 3, sans-serif"><line x1="70" x2="1144" y1="278.0" y2="278.0" stroke="#B9C1C6" stroke-width="1"/><text x="60" y="284.0" text-anchor="end" font-size="17" fill="#333F4A">0%</text><line x1="70" x2="1144" y1="235.0" y2="235.0" stroke="#B9C1C6" stroke-width="1"/><text x="60" y="241.0" text-anchor="end" font-size="17" fill="#333F4A">10%</text><line x1="70" x2="1144" y1="192.0" y2="192.0" stroke="#B9C1C6" stroke-width="1"/><text x="60" y="198.0" text-anchor="end" font-size="17" fill="#333F4A">20%</text><line x1="70" x2="1144" y1="149.0" y2="149.0" stroke="#B9C1C6" stroke-width="1"/><text x="60" y="155.0" text-anchor="end" font-size="17" fill="#333F4A">30%</text><line x1="70" x2="1144" y1="106.0" y2="106.0" stroke="#B9C1C6" stroke-width="1"/><text x="60" y="112.0" text-anchor="end" font-size="17" fill="#333F4A">40%</text><line x1="70" x2="1144" y1="63.0" y2="63.0" stroke="#B9C1C6" stroke-width="1"/><text x="60" y="69.0" text-anchor="end" font-size="17" fill="#333F4A">50%</text><line x1="70" x2="1144" y1="20.0" y2="20.0" stroke="#B9C1C6" stroke-width="1"/><text x="60" y="26.0" text-anchor="end" font-size="17" fill="#333F4A">60%</text><rect x="76.7" y="210.9" width="31.3" height="67.1" fill="#0F6E6B"/><text x="92.4" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">00:00</text><rect x="121.5" y="204.0" width="31.3" height="74.0" fill="#0F6E6B"/><rect x="166.2" y="201.0" width="31.3" height="77.0" fill="#0F6E6B"/><rect x="211.0" y="192.0" width="31.3" height="86.0" fill="#0F6E6B"/><text x="226.6" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">03:00</text><rect x="255.7" y="45.4" width="31.3" height="232.6" fill="#E29A2D"/><text x="271.4" y="302" text-anchor="middle" font-size="17" fill="#9a5f10" font-weight="700">04:00</text><rect x="300.5" y="197.6" width="31.3" height="80.4" fill="#0F6E6B"/><rect x="345.2" y="201.0" width="31.3" height="77.0" fill="#0F6E6B"/><text x="360.9" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">06:00</text><rect x="390.0" y="201.9" width="31.3" height="76.1" fill="#0F6E6B"/><rect x="434.7" y="201.0" width="31.3" height="77.0" fill="#0F6E6B"/><rect x="479.5" y="208.3" width="31.3" height="69.7" fill="#0F6E6B"/><text x="495.1" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">09:00</text><rect x="524.2" y="208.3" width="31.3" height="69.7" fill="#0F6E6B"/><rect x="569.0" y="206.2" width="31.3" height="71.8" fill="#0F6E6B"/><rect x="613.7" y="207.5" width="31.3" height="70.5" fill="#0F6E6B"/><text x="629.4" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">12:00</text><rect x="658.5" y="207.5" width="31.3" height="70.5" fill="#0F6E6B"/><rect x="703.2" y="207.5" width="31.3" height="70.5" fill="#0F6E6B"/><rect x="748.0" y="207.0" width="31.3" height="71.0" fill="#0F6E6B"/><text x="763.6" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">15:00</text><rect x="792.7" y="211.8" width="31.3" height="66.2" fill="#0F6E6B"/><rect x="837.5" y="213.9" width="31.3" height="64.1" fill="#0F6E6B"/><rect x="882.2" y="215.2" width="31.3" height="62.8" fill="#0F6E6B"/><text x="897.9" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">18:00</text><rect x="927.0" y="216.1" width="31.3" height="61.9" fill="#0F6E6B"/><rect x="971.7" y="215.2" width="31.3" height="62.8" fill="#0F6E6B"/><rect x="1016.5" y="213.9" width="31.3" height="64.1" fill="#0F6E6B"/><text x="1032.1" y="302" text-anchor="middle" font-size="17" fill="#333F4A" font-weight="400">21:00</text><rect x="1061.2" y="211.8" width="31.3" height="66.2" fill="#0F6E6B"/><rect x="1106.0" y="210.9" width="31.3" height="67.1" fill="#0F6E6B"/><text x="287.0" y="51.4" font-size="18" fill="#1C242B" font-weight="700" dx="8">54% at 04:00</text><text x="607.0" y="150" text-anchor="middle" font-size="17" fill="#333F4A">14% to 20% at every other hour</text><line x1="70" x2="70" y1="20" y2="278.0" stroke="#333F4A" stroke-width="1.5"/><line x1="70" x2="1144" y1="278.0" y2="278.0" stroke="#333F4A" stroke-width="1.5"/><text x="1144" y="324" text-anchor="end" font-size="15" fill="#66727C">hour of day</text></svg>
+</figure>
+```
+
+::: {.bridge}
+One hour of the day loses CO far more often than the rest. A mean of the valid hours under-weights 04:00. Treating −200 as missing is necessary; it does not make the remaining hours a fair sample.
+:::
+
+[Share of hours with CO(GT) = −200, all 9,357 hours, March 2004 to April 2005. The source does not say why. Data: De Vito, UCI, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
+
+## When is a daily mean worth reporting? {#reportable data-hold="true"}
+
+```{=html}
+<div class="rep" id="rep">
+  <label class="sm-slider">Minimum valid hours per day <strong id="rep-k">18 h</strong>
+    <input type="range" id="rep-min" min="1" max="24" step="1" value="18">
+  </label>
+  <div class="rep-days" id="rep-days"></div>
+  <p class="rep-out" id="rep-out" aria-live="polite"></p>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('rep'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Same window as Activity 1: [day, hours in file, valid CO hours, mean of valid CO hours]
+  const D = [["18 Dec",22,22,1.76],["19 Dec",24,23,2.73],["20 Dec",24,24,2.36],["21 Dec",24,24,2.03],["22 Dec",24,23,2.22],
+             ["23 Dec",24,24,4.06],["24 Dec",24,24,5.32],["25 Dec",24,23,3.92],["26 Dec",24,24,1.43],["27 Dec",24,24,1.57],
+             ["28 Dec",24,1,1.2],["29 Dec",24,0,null],["30 Dec",24,0,null],["31 Dec",24,0,null],["01 Jan",2,1,1.6]];
+  const input = document.getElementById('rep-min');
+  function draw() {
+    const k = +input.value; document.getElementById('rep-k').textContent = k + ' h';
+    let html = '', n = 0;
+    for (const [day, hrs, ok] of D) {
+      const kept = ok >= k; if (kept) n++;
+      html += '<div class="rep-day ' + (ok === 0 ? 'none' : kept ? 'kept' : 'short') + '"><b>' + ok + '</b><span>' + day + '</span></div>';
+    }
+    document.getElementById('rep-days').innerHTML = html;
+    const kept = D.filter((d) => d[2] >= k);
+    const mean = kept.length ? (kept.reduce((s, d) => s + d[3], 0) / kept.length).toFixed(2) : '–';
+    document.getElementById('rep-out').innerHTML = '<b>' + n + ' of 15</b> days reported · mean of reported daily means <b>' + mean + ' mg/m³</b> · the single two-week mean is 2.74';
+  }
+  input.addEventListener('input', draw); draw();
+})();
+</script>
+```
+
+::: {.bridge}
+The file covers 15 calendar days. CO was measured on about ten. The 18-hour rule is an assumption for this lab, not a regulation; you will choose your own in Step 8b.
+:::
+
+[Numbers in each square: valid CO hours that day. Filled: reported. Open: below the minimum. Dashed: no valid hour.]{.source}
+
+## Activity 2 · Lab 01, Steps 4 to 9 {#act2 .activity}
+
+[Individual · 25 minutes · laptop or phone]{.act-label}
+
+1. Open **Lab 01**. Press **Open my study** if you saved one in Session 1.
+2. Step 4: write your answer before you compare.
+3. Step 5: enter your three homework numbers **before** you run the audit.
+4. Step 6: run the audit. For any number that does not match, find the line that explains it.
+5. Step 7, then the Extension view, Steps 8a and 8b.
+6. Step 9: download one file and upload it to myCourseVille.
+
+[Open Lab 01](../labs/audit.html){.lab-button target="_blank"}
+
+::: {.selfstudy}
+Studying alone: work through Steps 4 to 9 in order and submit in Step 9.
+:::
+
+## Debrief {#debrief}
+
+::: {.debrief-q}
+[Which of your three numbers did not match the audit, and which line of your code explained it?]{.dq}
+[In Step 8b, what minimum did you choose, and what did you lose by choosing it?]{.dq}
+[Name one check you will now run on every mean that AI-written code gives you.]{.dq}
+:::
+
+## Exit ticket · 5 minutes {#exit .activity}
+
+[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+
+:::: {.columns}
+::: {.column width="64%"}
+::: {.prompt}
+AI-written code prints a mean CO of 1.93 mg/m³ for your file, with no error. Name two checks you would run before reporting it, and what each would show.
+:::
+
+Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+
+No name or student ID is recorded. Wait for **"Response received."**
+:::
+::: {.column width="32%" .qr-col}
+![](figures/exit-qr-s02.png){.qr fig-alt="QR code for the Session 2 exit ticket and feedback form"}
+
+[Open the Session 2 form](exit.html?s=2){target="_blank"}
+:::
+::::
+
+## Next session {#next}
+
+::: {.beforeafter}
+::: {}
+[Session 3 · Why values go missing]{.label}
+Week 2 starts with missing data: the kinds of missingness, and why the reason matters more than the count.
+:::
+::: {}
+[Before you come]{.label}
+Submit the Lab 01 study file. Bring one example, from a plant, a lab or daily life, of a reading that goes missing, and say why it goes missing.
+:::
+:::
+
+[Submit the Lab 01 study file on myCourseVille by the date shown there.]{.note-line}
