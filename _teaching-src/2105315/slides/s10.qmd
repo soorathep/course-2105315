@@ -1,7 +1,8 @@
 ---
 title: "When did it start?"
 subtitle: "Session 10 of 14 · 90 minutes · Finding a slow drift"
-author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2105315 Data Analytics in Chemical Engineering · Chulalongkorn University"
 title-slide-attributes:
   data-background-color: "#1C242B"
 ---

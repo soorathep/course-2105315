@@ -282,3 +282,9 @@
 .reveal #wrap table { font-size: .52em; width: 100%; }
 .reveal #wrap th:first-child { width: 8%; }
 .reveal #wrap th:nth-child(2) { width: 34%; }
+
+/* Title slide: instructor name and course line, left-aligned under the subtitle */
+.reveal #title-slide .quarto-title-authors { display: block; margin: 1.4em 0 0; padding: 0; text-align: left; }
+.reveal #title-slide .quarto-title-author { padding: 0; }
+.reveal #title-slide .quarto-title-author-name { font-size: 0.72em; font-weight: 600; color: #F3F0EB; margin: 0; }
+.reveal #title-slide .quarto-title-affiliation { font-size: 0.56em; color: #B9C1C6; text-align: left; margin: 0.25em 0 0; }

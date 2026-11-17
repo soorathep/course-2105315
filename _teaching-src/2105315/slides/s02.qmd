@@ -1,7 +1,8 @@
 ---
 title: "Audit and the AI's code"
 subtitle: "Session 2 of 14 · 90 minutes · Checking code you did not write"
-author: "Soorathep Kheawhom · 2105315 Data Analytics in Chemical Engineering"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2105315 Data Analytics in Chemical Engineering · Chulalongkorn University"
 title-slide-attributes:
   data-background-color: "#1C242B"
 ---
