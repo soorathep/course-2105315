@@ -22,9 +22,10 @@ This notebook runs Python inside your web browser. You do not need an account, a
 Notes for this notebook:
 
 - pandas, NumPy, SciPy and Matplotlib are already available. You do not need `pip install` for them.
-- Your files stay in this browser on this computer. They are still here if you close the tab, but not on another computer or in another browser.
+- Your files stay in this browser on this computer. They are still here if you close the tab, but not on another computer, in another browser or in a private window.
 - To keep your notebook, use **File → Download**.
-- If something stops responding, use **Kernel → Restart Kernel and Run All Cells**."""),
+- If something stops responding, use **Kernel → Restart Kernel and Run All Cells**.
+- The full guide, with a request you can copy for the AI and a table of common errors: [course notebook guide](https://soorathep.github.io/course-2105315/teaching/2105315/labs/notebook.html)."""),
 ]
 nb.metadata["kernelspec"] = {"name": "python", "display_name": "Python (Pyodide)", "language": "python"}
 Path(__file__).with_name("content").joinpath("start.ipynb").write_text(nbf.writes(nb), encoding="utf-8")
