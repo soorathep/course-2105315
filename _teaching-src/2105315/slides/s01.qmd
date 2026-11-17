@@ -446,16 +446,16 @@ No name or student ID is recorded. Wait for **"Response received."**
 :::
 ::::
 
-## Your homework tool: Google Colab {#colab}
+## Your homework tool: a notebook in the browser {#colab}
 
 ::: {.checks4}
 ::: {.c4}
 [1 · Open]{.label}
-colab.research.google.com, sign in, **File → New notebook**. Nothing to install.
+The **course notebook** (no account) or **Google Colab** (Google account). Nothing to install.
 :::
 ::: {.c4}
 [2 · Upload]{.label}
-Folder icon on the left, then upload your lab file. Upload it again each time you return.
+Drag your lab file onto the file list on the left, or use the upload button. Check it with `os.listdir()`.
 :::
 ::: {.c4}
 [3 · Ask]{.label}
@@ -467,7 +467,7 @@ Read each line, run with **Shift + Enter**, check the count and the range, then 
 :::
 :::
 
-[Open the Colab guide](../labs/colab.html){.lab-button target="_blank"}
+[Open the guide](../labs/colab.html){.lab-button target="_blank"} [Open the course notebook](../lite/lab/index.html?path=start.ipynb){.lab-button target="_blank"}
 
 [The guide has a request you can copy and a table of the five most common error messages.]{.note-line}
 
@@ -480,7 +480,7 @@ Finish Lab 01: check the AI's code, enter your notebook numbers, run the audit, 
 :::
 ::: {}
 [Before you come]{.label}
-Download your file from Lab 01, Step 2. Follow the Colab guide: ask an AI assistant for code that reports the three numbers in Step 5, read it, and run it.
+Download your file from Lab 01, Step 2. Follow the guide to running code: ask an AI assistant for code that reports the three numbers in Step 5, read it, and run it.
 :::
 :::
 

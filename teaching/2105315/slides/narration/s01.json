@@ -588,8 +588,8 @@
  "colab": {
   "text": [
    {
-    "en": "Your homework needs one tool: Google Colab. It runs Python in your browser, so there is nothing to install.",
-    "th": "การบ้านต้องใช้เครื่องมือเดียวคือ Google Colab ซึ่งรัน Python ในเบราว์เซอร์ ไม่ต้องติดตั้งอะไร"
+    "en": "Your homework needs a notebook that runs Python in your browser, so there is nothing to install. Use the course notebook, which needs no account, or Google Colab.",
+    "th": "การบ้านต้องใช้โน้ตบุ๊กที่รัน Python ในเบราว์เซอร์ จึงไม่ต้องติดตั้งอะไร ใช้โน้ตบุ๊กของวิชาซึ่งไม่ต้องมีบัญชี หรือใช้ Google Colab ก็ได้"
    },
    {
     "en": "Open a notebook, upload your lab file, and give the AI the file name, its first lines and the three questions from Step 5.",
@@ -605,15 +605,15 @@
    "cues": [
     [
      0.25,
-     7.63
+     11.9
     ],
     [
-     7.98,
-     16.96
+     12.25,
+     21.23
     ],
     [
-     17.31,
-     25.65
+     21.58,
+     29.92
     ]
    ]
   }
@@ -625,8 +625,8 @@
     "th": "คาบหน้าเราจะทำแล็บที่หนึ่งให้เสร็จ ตรวจโค้ดของ AI ใส่ตัวเลขจากโน้ตบุ๊ก กดตรวจสอบ และตอบคำถาม"
    },
    {
-    "en": "Before you come, download your file and follow the Colab guide: ask an AI assistant for code that reports the three numbers in Step 5, read it, and run it.",
-    "th": "ก่อนมาเรียน ดาวน์โหลดไฟล์ของตัวเอง แล้วทำตามคู่มือ Colab ให้ AI เขียนโค้ดที่หาตัวเลขสามค่าในขั้นที่ห้า อ่านโค้ด แล้วจึงรัน"
+    "en": "Before you come, download your file and follow the guide to running code: ask an AI assistant for code that reports the three numbers in Step 5, read it, and run it.",
+    "th": "ก่อนมาเรียน ดาวน์โหลดไฟล์ของตัวเอง แล้วทำตามคู่มือการรันโค้ด ให้ AI เขียนโค้ดที่หาตัวเลขสามค่าในขั้นที่ห้า อ่านโค้ด แล้วจึงรัน"
    }
   ],
   "en": {
@@ -638,7 +638,7 @@
     ],
     [
      9.58,
-     21.06
+     21.68
     ]
    ]
   }

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>Run AI-written code in Google Colab · 2105315 Data Analytics Labs</title>
-  <meta name="description" content="How to run AI-written Python code on your lab file in Google Colab: upload, look at the raw file, ask the AI, read, run, check.">
+  <title>Run AI-written code on your lab file · 2105315 Data Analytics Labs</title>
+  <meta name="description" content="How to run AI-written Python code on your lab file in the course notebook or Google Colab: upload, look at the raw file, ask the AI, read, run, check.">
   <link rel="icon" href="/favicon.png">
   <link rel="stylesheet" href="assets/labs.css?v=8">
 </head>
@@ -14,25 +14,25 @@
   <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html">Lab 01</a><a href="gaps.html">Lab 02</a><a href="spikes.html">Lab 03</a><a href="figures.html">Lab 04</a><a href="relations.html">Lab 05</a><a href="shift.html">Lab 06</a><a href="decision.html">Lab 07</a><a href="index.html">All labs</a></nav></header>
     <main class="page da-page guide-page" id="main">
     <p class="eyebrow">2105315 · Homework guide · Use from Session 1</p>
-    <h1>Run AI-written code in Google Colab</h1>
-    <p class="intro-copy">Every lab asks you to run code on your own data file and enter three numbers. You do not need to install anything. Google Colab runs Python in your browser, with pandas and scipy already installed. This page shows the routine once; it is the same for all seven labs.</p>
-    <p class="guide-meta">About 15 minutes the first time · a laptop is easier than a phone · a Google account</p>
+    <h1>Run AI-written code on your lab file</h1>
+    <p class="intro-copy">Every lab asks you to run code on your own data file and enter three numbers. You do not need to install anything. Two places run Python in your browser, with pandas, scipy and matplotlib ready: the <strong>course notebook</strong>, which needs no account, and <strong>Google Colab</strong>, which needs a Google account. Use either; the code is the same. This page shows the routine once; it is the same for all seven labs.</p>
+    <p class="guide-meta">About 15 minutes the first time · a laptop is easier than a phone</p>
     <section class="lab-step" aria-labelledby="g1">
       <div class="step-head"><span class="step-number">01</span><div><h2 id="g1">Open a notebook</h2><p>A notebook is a page of cells. You type code into a cell and run it.</p></div></div>
-      <ol class="guide-list">
-        <li>Go to <a href="https://colab.research.google.com/">colab.research.google.com</a> and sign in with a Google account.</li>
-        <li>Choose <strong>File → New notebook</strong>. Rename it, for example <em>2105315 Lab 01</em>; it is saved in your Google Drive.</li>
-        <li>Type <code>print("hello")</code> in the first cell and press <strong>Shift + Enter</strong>. The answer appears under the cell. The first run takes a few seconds while Colab starts.</li>
-      </ol>
+      <div class="two-col">
+        <div><h3>Course notebook (no account)</h3><p>Open <a href="../lite/lab/index.html?path=start.ipynb">the course notebook</a>. It opens <em>start.ipynb</em>, which repeats Steps 1 to 3 of this page. Click the first code cell and press <strong>Shift + Enter</strong>. The first run takes up to a minute while Python loads into your browser; later runs are fast.</p></div>
+        <div><h3>Google Colab</h3><p>Go to <a href="https://colab.research.google.com/">colab.research.google.com</a>, sign in, and click <strong>New notebook</strong>. Rename it, for example <em>2105315 Lab 01</em>; it is saved in your Google Drive. Type <code>print("hello")</code> in the first cell and press <strong>Shift + Enter</strong>.</p></div>
+      </div>
     </section>
     <section class="lab-step" aria-labelledby="g2">
       <div class="step-head"><span class="step-number">02</span><div><h2 id="g2">Upload your lab file</h2><p>Download your file from the lab first (Step 2 or Step 5). Each student's file is different.</p></div></div>
-      <ol class="guide-list">
-        <li>Click the <strong>folder icon</strong> on the left, then the <strong>upload icon</strong>, and choose your CSV file.</li>
-        <li>Check that it arrived. Run this in a new cell; your file name should be in the list:</li>
-      </ol>
+      <div class="two-col">
+        <div><h3>Course notebook</h3><p>Drag the file onto the file list on the left, or click the <strong>Upload Files</strong> button (arrow pointing up) above the list. The file may open in its own tab; click the <em>start.ipynb</em> tab to go back.</p></div>
+        <div><h3>Google Colab</h3><p>Click the <strong>folder icon</strong> on the left, then the <strong>upload icon</strong>, and choose your CSV file.</p></div>
+      </div>
+      <p>Check that it arrived. Run this in a cell; your file name should be in the list:</p>
       <pre class="code-block"><span class="ln"><span class="k">import</span> os</span><span class="ln">print(os.listdir())</span></pre>
-      <p class="guide-warn">Uploaded files are deleted when the Colab session ends (after you close it or leave it idle). Upload the file again next time; your code stays in the notebook.</p>
+      <p class="guide-warn">Where your files are kept differs. The course notebook keeps files and notebooks in this browser on this computer, so they are gone on another computer or after you clear the browser data; use <strong>File → Download</strong> to keep a notebook. Colab deletes uploaded files when the session ends (after you close it or leave it idle), but keeps the notebook in your Drive; upload the file again next time.</p>
     </section>
     <section class="lab-step" aria-labelledby="g3">
       <div class="step-head"><span class="step-number">03</span><div><h2 id="g3">Look at the raw file</h2><p>Before any code from an AI, look at what the file really contains.</p></div></div>
@@ -57,8 +57,8 @@
         <tr><td><code>FileNotFoundError</code></td><td>The file is not uploaded, or the name in the code differs from yours.</td><td>Upload again (Step 2); copy the exact name from <code>os.listdir()</code>.</td></tr>
         <tr><td><code>KeyError: 'C6H6_ugm3'</code></td><td>The code uses a column name that is not in your file.</td><td>Compare with the first line of your file (Step 3).</td></tr>
         <tr><td>Only one column, or numbers read as text</td><td>The separator or decimal mark in <code>read_csv</code> is wrong.</td><td>Check <code>sep=</code> and <code>decimal=</code> against what you saw in Step 3.</td></tr>
-        <tr><td><code>NameError</code></td><td>A cell that defines a variable or an import was not run.</td><td>Run the cells from the top: <strong>Runtime → Run all</strong>.</td></tr>
-        <tr><td><code>ModuleNotFoundError</code></td><td>The code needs a package that Colab does not have.</td><td>Ask the assistant for a version that uses only pandas, numpy and scipy.</td></tr>
+        <tr><td><code>NameError</code></td><td>A cell that defines a variable or an import was not run.</td><td>Run the cells from the top: <strong>Run → Run All Cells</strong> (course notebook) or <strong>Runtime → Run all</strong> (Colab).</td></tr>
+        <tr><td><code>ModuleNotFoundError</code></td><td>The code needs a package that is not available.</td><td>Ask the assistant for a version that uses only pandas, numpy, scipy and matplotlib.</td></tr>
       </tbody></table></div>
     </section>
     <section class="lab-step" aria-labelledby="g6">
