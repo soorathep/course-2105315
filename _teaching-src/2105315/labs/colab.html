@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Run AI-written code in Google Colab · 2105315 Data Analytics Labs</title>
+  <meta name="description" content="How to run AI-written Python code on your lab file in Google Colab: upload, look at the raw file, ask the AI, read, run, check.">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="assets/labs.css?v=8">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the content</a>
+  <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html">Lab 01</a><a href="gaps.html">Lab 02</a><a href="spikes.html">Lab 03</a><a href="figures.html">Lab 04</a><a href="relations.html">Lab 05</a><a href="shift.html">Lab 06</a><a href="decision.html">Lab 07</a><a href="index.html">All labs</a></nav></header>
+    <main class="page da-page guide-page" id="main">
+    <p class="eyebrow">2105315 · Homework guide · Use from Session 1</p>
+    <h1>Run AI-written code in Google Colab</h1>
+    <p class="intro-copy">Every lab asks you to run code on your own data file and enter three numbers. You do not need to install anything. Google Colab runs Python in your browser, with pandas and scipy already installed. This page shows the routine once; it is the same for all seven labs.</p>
+    <p class="guide-meta">About 15 minutes the first time · a laptop is easier than a phone · a Google account</p>
+    <section class="lab-step" aria-labelledby="g1">
+      <div class="step-head"><span class="step-number">01</span><div><h2 id="g1">Open a notebook</h2><p>A notebook is a page of cells. You type code into a cell and run it.</p></div></div>
+      <ol class="guide-list">
+        <li>Go to <a href="https://colab.research.google.com/">colab.research.google.com</a> and sign in with a Google account.</li>
+        <li>Choose <strong>File → New notebook</strong>. Rename it, for example <em>2105315 Lab 01</em>; it is saved in your Google Drive.</li>
+        <li>Type <code>print("hello")</code> in the first cell and press <strong>Shift + Enter</strong>. The answer appears under the cell. The first run takes a few seconds while Colab starts.</li>
+      </ol>
+    </section>
+    <section class="lab-step" aria-labelledby="g2">
+      <div class="step-head"><span class="step-number">02</span><div><h2 id="g2">Upload your lab file</h2><p>Download your file from the lab first (Step 2 or Step 5). Each student's file is different.</p></div></div>
+      <ol class="guide-list">
+        <li>Click the <strong>folder icon</strong> on the left, then the <strong>upload icon</strong>, and choose your CSV file.</li>
+        <li>Check that it arrived. Run this in a new cell; your file name should be in the list:</li>
+      </ol>
+      <pre class="code-block"><span class="ln"><span class="k">import</span> os</span><span class="ln">print(os.listdir())</span></pre>
+      <p class="guide-warn">Uploaded files are deleted when the Colab session ends (after you close it or leave it idle). Upload the file again next time; your code stays in the notebook.</p>
+    </section>
+    <section class="lab-step" aria-labelledby="g3">
+      <div class="step-head"><span class="step-number">03</span><div><h2 id="g3">Look at the raw file</h2><p>Before any code from an AI, look at what the file really contains.</p></div></div>
+      <p>Replace the file name with yours. This prints the first 400 characters exactly as a program receives them:</p>
+      <pre class="code-block"><span class="ln">print(open(<span class="s">"my_file.csv"</span>, encoding=<span class="s">"utf-8"</span>).read()[:<span class="s">400</span>])</span></pre>
+      <p>Note what separates the columns, how decimals are written, how a missing value looks, and the names of the columns. The AI needs these facts, and you need them to check its code.</p>
+    </section>
+    <section class="lab-step" aria-labelledby="g4">
+      <div class="step-head"><span class="step-number">04</span><div><h2 id="g4">Ask the AI assistant</h2><p>Any assistant you are allowed to use. Give it the facts; ask for short code with an explanation.</p></div></div>
+      <p>Copy this request and fill in the three parts in brackets:</p>
+      <div class="prompt-box"><p>I have a CSV file named <strong>[file name]</strong>. Its first lines are:</p><p><strong>[paste the lines from Step 3]</strong></p><p>Write short Python code with pandas that prints these numbers, each with a label:</p><p><strong>[copy the three questions from Step 5 of the lab, word for word]</strong></p><p>Explain each line of the code in one sentence.</p></div>
+      <p class="guide-note">Do not paste your name or student ID into the assistant. The file does not contain them, and the assistant does not need them.</p>
+    </section>
+    <section class="lab-step" aria-labelledby="g5">
+      <div class="step-head"><span class="step-number">05</span><div><h2 id="g5">Read, then run</h2><p>The labs grade whether you can check code, not whether you can type it.</p></div></div>
+      <ol class="guide-list">
+        <li>Paste the code into a new cell. Read every line: what does it assume about the file? Does it treat missing values the way the lab asks?</li>
+        <li>Run it with <strong>Shift + Enter</strong>.</li>
+        <li>If it stops with an error, read the last line of the message, then find it in the table below. You can also paste the error and the code back to the assistant and ask what went wrong.</li>
+      </ol>
+      <div class="table-scroll" role="region" aria-label="Common errors" tabindex="0"><table class="audit-table guide-table"><thead><tr><th scope="col">The last line says</th><th scope="col">It usually means</th><th scope="col">Try</th></tr></thead><tbody>
+        <tr><td><code>FileNotFoundError</code></td><td>The file is not uploaded, or the name in the code differs from yours.</td><td>Upload again (Step 2); copy the exact name from <code>os.listdir()</code>.</td></tr>
+        <tr><td><code>KeyError: 'C6H6_ugm3'</code></td><td>The code uses a column name that is not in your file.</td><td>Compare with the first line of your file (Step 3).</td></tr>
+        <tr><td>Only one column, or numbers read as text</td><td>The separator or decimal mark in <code>read_csv</code> is wrong.</td><td>Check <code>sep=</code> and <code>decimal=</code> against what you saw in Step 3.</td></tr>
+        <tr><td><code>NameError</code></td><td>A cell that defines a variable or an import was not run.</td><td>Run the cells from the top: <strong>Runtime → Run all</strong>.</td></tr>
+        <tr><td><code>ModuleNotFoundError</code></td><td>The code needs a package that Colab does not have.</td><td>Ask the assistant for a version that uses only pandas, numpy and scipy.</td></tr>
+      </tbody></table></div>
+    </section>
+    <section class="lab-step" aria-labelledby="g6">
+      <div class="step-head"><span class="step-number">06</span><div><h2 id="g6">Check the numbers, then enter them</h2><p>Code that runs is not code that is right.</p></div></div>
+      <ul class="guide-list">
+        <li><strong>Count:</strong> does the number of rows match what you expect (for example 336 hours in 14 days)?</li>
+        <li><strong>Range:</strong> is a concentration ever negative? Is a share between 0 and 100 %?</li>
+        <li><strong>Hand:</strong> compute one value from five rows yourself and compare.</li>
+      </ul>
+      <p>Then type your numbers into Step 5 of the lab <strong>before</strong> the reveal. The lab records whether you entered them first, and tells you which ones match. If one does not, find the line in your code that explains the difference: that is the most useful thing you will learn that week.</p>
+    </section>
+    <p class="guide-back"><a class="ch-button primary" href="index.html">Back to the course home</a> <a class="ch-button" href="audit.html">Open Lab 01</a></p>
+  </main>
+  <footer class="site-footer"><span>2105315 Data Analytics in Chemical Engineering · Chulalongkorn University</span><span>Semester 2/2026</span></footer>
+</body>
+</html>

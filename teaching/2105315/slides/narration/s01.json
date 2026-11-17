@@ -585,6 +585,39 @@
    ]
   }
  },
+ "colab": {
+  "text": [
+   {
+    "en": "Your homework needs one tool: Google Colab. It runs Python in your browser, so there is nothing to install.",
+    "th": "การบ้านต้องใช้เครื่องมือเดียวคือ Google Colab ซึ่งรัน Python ในเบราว์เซอร์ ไม่ต้องติดตั้งอะไร"
+   },
+   {
+    "en": "Open a notebook, upload your lab file, and give the AI the file name, its first lines and the three questions from Step 5.",
+    "th": "เปิดโน้ตบุ๊ก อัปโหลดไฟล์แล็บ แล้วบอก AI ถึงชื่อไฟล์ แถวแรกๆ ของไฟล์ และคำถามสามข้อจากขั้นที่ห้า"
+   },
+   {
+    "en": "Read each line, run it, check the count and the range, then enter the numbers. The guide on the course site shows every step.",
+    "th": "อ่านทีละบรรทัด รัน ตรวจจำนวนแถวและช่วงของค่า แล้วจึงใส่ตัวเลข คู่มือบนเว็บไซต์ของวิชาแสดงทุกขั้นตอน"
+   }
+  ],
+  "en": {
+   "audio": "narration/s01/colab.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.63
+    ],
+    [
+     7.98,
+     16.96
+    ],
+    [
+     17.31,
+     25.65
+    ]
+   ]
+  }
+ },
  "next": {
   "text": [
    {
@@ -592,8 +625,8 @@
     "th": "คาบหน้าเราจะทำแล็บที่หนึ่งให้เสร็จ ตรวจโค้ดของ AI ใส่ตัวเลขจากโน้ตบุ๊ก กดตรวจสอบ และตอบคำถาม"
    },
    {
-    "en": "Before you come, download your file, ask an AI assistant for code that reports the three numbers in Step 5, and read that code before you run it.",
-    "th": "ก่อนมาเรียน ดาวน์โหลดไฟล์ของตัวเอง ให้ AI เขียนโค้ดที่หาตัวเลขสามค่าในขั้นที่ห้า และอ่านโค้ดนั้นก่อนกดรัน"
+    "en": "Before you come, download your file and follow the Colab guide: ask an AI assistant for code that reports the three numbers in Step 5, read it, and run it.",
+    "th": "ก่อนมาเรียน ดาวน์โหลดไฟล์ของตัวเอง แล้วทำตามคู่มือ Colab ให้ AI เขียนโค้ดที่หาตัวเลขสามค่าในขั้นที่ห้า อ่านโค้ด แล้วจึงรัน"
    }
   ],
   "en": {
@@ -605,7 +638,7 @@
     ],
     [
      9.58,
-     20.01
+     21.06
     ]
    ]
   }

@@ -198,10 +198,10 @@
     "th_say": "คาบหน้าเริ่มสัปดาห์ที่หก การเปลี่ยนแปลงได้ผลไหม การเปลี่ยนกระบวนการ ค่าเฉลี่ยที่เลื่อน และเรามั่นใจได้แค่ไหนว่าเป็นของจริง"
    },
    {
-    "en": "Submit your Lab 05 file, and think of one change at a plant and the data that would show it worked.",
-    "th": "ส่งไฟล์แล็บที่ห้า และลองคิดถึงการเปลี่ยนแปลงหนึ่งอย่างในโรงงาน กับข้อมูลที่จะแสดงว่ามันได้ผล",
-    "th_say": "ส่งไฟล์แล็บที่ห้า และลองคิดถึงการเปลี่ยนแปลงหนึ่งอย่างในโรงงาน กับข้อมูลที่จะแสดงว่ามันได้ผล",
-    "say": "Submit your Lab zero five file, and think of one change at a plant and the data that would show it worked."
+    "en": "Submit your Lab 05 file, read steps four to seven of the statistics refresher on the t-test, p and the confidence interval, and think of one change at a plant and the data that would show it worked.",
+    "th": "ส่งไฟล์แล็บที่ห้า อ่านขั้นที่สี่ถึงเจ็ดของบททบทวนสถิติ เรื่องการทดสอบที ค่า p และช่วงความเชื่อมั่น และลองคิดถึงการเปลี่ยนแปลงหนึ่งอย่างในโรงงาน กับข้อมูลที่จะแสดงว่ามันได้ผล",
+    "th_say": "ส่งไฟล์แล็บที่ห้า อ่านขั้นที่สี่ถึงเจ็ดของบททบทวนสถิติ เรื่องการทดสอบที ค่าพี และช่วงความเชื่อมั่น และลองคิดถึงการเปลี่ยนแปลงหนึ่งอย่างในโรงงาน กับข้อมูลที่จะแสดงว่ามันได้ผล",
+    "say": "Submit your Lab zero five file, read steps four to seven of the statistics refresher on the t-test, p and the confidence interval, and think of one change at a plant and the data that would show it worked."
    }
   ]
  }

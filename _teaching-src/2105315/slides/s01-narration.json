@@ -303,6 +303,25 @@
     "th_say": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ฟอร์มเดียวกันถามเรื่องความเร็วของคาบ ความมั่นใจ และแล็บใช้งานได้หรือไม่ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
    }
   ],
+  "colab": [
+   {
+    "en": "Your homework needs one tool: Google Colab. It runs Python in your browser, so there is nothing to install.",
+    "th": "การบ้านต้องใช้เครื่องมือเดียวคือ Google Colab ซึ่งรัน Python ในเบราว์เซอร์ ไม่ต้องติดตั้งอะไร",
+    "th_say": "การบ้านต้องใช้เครื่องมือเดียวคือกูเกิลโคแล็บ ซึ่งรันไพทอนในเบราว์เซอร์ ไม่ต้องติดตั้งอะไร",
+    "say": "Your homework needs one tool: Google Co-lab. It runs Python in your browser, so there is nothing to install."
+   },
+   {
+    "en": "Open a notebook, upload your lab file, and give the AI the file name, its first lines and the three questions from Step 5.",
+    "th": "เปิดโน้ตบุ๊ก อัปโหลดไฟล์แล็บ แล้วบอก AI ถึงชื่อไฟล์ แถวแรกๆ ของไฟล์ และคำถามสามข้อจากขั้นที่ห้า",
+    "th_say": "เปิดโน้ตบุ๊ก อัปโหลดไฟล์แล็บ แล้วบอกเอไอถึงชื่อไฟล์ แถวแรกๆ ของไฟล์ และคำถามสามข้อจากขั้นที่ห้า",
+    "say": "Open a notebook, upload your lab file, and give the AI the file name, its first lines and the three questions from Step five."
+   },
+   {
+    "en": "Read each line, run it, check the count and the range, then enter the numbers. The guide on the course site shows every step.",
+    "th": "อ่านทีละบรรทัด รัน ตรวจจำนวนแถวและช่วงของค่า แล้วจึงใส่ตัวเลข คู่มือบนเว็บไซต์ของวิชาแสดงทุกขั้นตอน",
+    "th_say": "อ่านทีละบรรทัด รัน ตรวจจำนวนแถวและช่วงของค่า แล้วจึงใส่ตัวเลข คู่มือบนเว็บไซต์ของวิชาแสดงทุกขั้นตอน"
+   }
+  ],
   "next": [
    {
     "en": "Next session we finish Lab 01: check the AI's code, enter your notebook numbers, run the audit and answer the questions.",
@@ -310,9 +329,10 @@
     "th_say": "คาบหน้าเราจะทำแล็บที่หนึ่งให้เสร็จ ตรวจโค้ดของเอไอ ใส่ตัวเลขจากโน้ตบุ๊ก กดตรวจสอบ และตอบคำถาม"
    },
    {
-    "en": "Before you come, download your file, ask an AI assistant for code that reports the three numbers in Step 5, and read that code before you run it.",
-    "th": "ก่อนมาเรียน ดาวน์โหลดไฟล์ของตัวเอง ให้ AI เขียนโค้ดที่หาตัวเลขสามค่าในขั้นที่ห้า และอ่านโค้ดนั้นก่อนกดรัน",
-    "th_say": "ก่อนมาเรียน ดาวน์โหลดไฟล์ของตัวเอง ให้เอไอเขียนโค้ดที่หาตัวเลขสามค่าในขั้นที่ห้า และอ่านโค้ดนั้นก่อนกดรัน"
+    "en": "Before you come, download your file and follow the Colab guide: ask an AI assistant for code that reports the three numbers in Step 5, read it, and run it.",
+    "th": "ก่อนมาเรียน ดาวน์โหลดไฟล์ของตัวเอง แล้วทำตามคู่มือ Colab ให้ AI เขียนโค้ดที่หาตัวเลขสามค่าในขั้นที่ห้า อ่านโค้ด แล้วจึงรัน",
+    "th_say": "ก่อนมาเรียน ดาวน์โหลดไฟล์ของตัวเอง แล้วทำตามคู่มือโคแล็บ ให้เอไอเขียนโค้ดที่หาตัวเลขสามค่าในขั้นที่ห้า อ่านโค้ด แล้วจึงรัน",
+    "say": "Before you come, download your file and follow the Co-lab guide: ask an AI assistant for code that reports the three numbers in Step five, read it, and run it."
    }
   ]
  }

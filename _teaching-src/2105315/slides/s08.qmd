@@ -278,7 +278,7 @@ Week 5 starts with correlation: when two tags move together, and when a third on
 :::
 ::: {}
 [Before you come]{.label}
-Submit your Lab 04 study file. Think of two plant variables that rise and fall together. Is one driving the other?
+Submit your Lab 04 study file. Read Steps 1 to 3 of the [statistics refresher](../labs/stats.html){target="_blank"}. Think of two plant variables that rise and fall together. Is one driving the other?
 :::
 :::
 

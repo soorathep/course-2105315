@@ -265,3 +265,32 @@
   .ci-week { grid-template-columns: minmax(0, 1fr); gap: 14px; }
   .ch-lede { font-size: 1.08rem; }
 }
+
+/* ===== Guide pages (colab.html, stats.html) ===== */
+.guide-page { max-width: 880px; }
+.guide-meta { font-size: .92rem; color: var(--muted); margin: 10px 0 8px; }
+.guide-list { padding-left: 22px; }
+.guide-list li { margin: 6px 0; }
+.guide-page code { font-family: var(--mono); font-size: .88em; background: var(--soft-teal); padding: 1px 5px; border-radius: 3px; }
+.guide-page .code-block code, .guide-page pre code { background: none; padding: 0; }
+.guide-warn { background: #FBF0DE; border-left: 4px solid var(--amber); padding: 10px 14px; border-radius: 4px; font-size: .95rem; }
+.guide-note { font-size: .92rem; color: var(--muted); }
+.prompt-box { background: #fff; border: 1px dashed var(--teal); border-radius: 8px; padding: 12px 16px; font-size: .97rem; }
+.prompt-box p { margin: 4px 0; }
+.formula { font-family: var(--mono); font-size: 1rem; background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; display: inline-block; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.two-col > div { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; }
+.two-col h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.two-col p { margin: 0; font-size: .95rem; }
+.guide-table td { vertical-align: top; }
+.guide-back { display: flex; flex-wrap: wrap; gap: 12px; margin: 34px 0 10px; }
+.helper-links { font-size: .92rem; color: var(--muted); margin: 8px 0 0; }
+@media (max-width: 760px) { .two-col { grid-template-columns: minmax(0, 1fr); } }
+.ci-before { margin-top: 8px !important; font-size: .9rem; }
+.guide-page .lab-step > .table-scroll { width: auto; }
+.guide-table { table-layout: fixed; }
+.guide-table th:first-child { width: 28%; }
+.guide-table td:first-child { font-family: inherit; font-size: .9rem; }
+.guide-table td { font-size: .9rem; }
+.guide-table th, .guide-table td { white-space: normal; text-align: left; overflow-wrap: anywhere; }
+.guide-table { min-width: 600px; }

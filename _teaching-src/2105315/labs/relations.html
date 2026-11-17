@@ -22,6 +22,8 @@
       <div class="logbook-row"><p class="logbook-time"><strong>TASK</strong>you</p><p class="task-line">Part A: decide whether the correlation is temperature, or something that moves both. Part B: find when the sensor's drift started.</p></div>
     </div>
 
+    <p class="helper-links">This lab uses correlation r and the standard deviation σ. If they are rusty, read the <a href="stats.html">statistics refresher</a> first.</p>
+
     <fieldset class="mode-switch"><legend>View</legend><div class="mode-options"><label><input type="radio" name="lab-mode" value="core" checked><span>Core</span></label><label><input type="radio" name="lab-mode" value="graduate"><span>Extension</span></label></div><p class="core-only">Core: Steps 1 to 8, about 45 minutes.</p><p class="grad-only">Extension: the core steps plus Step 9, tuning the CUSUM chart.</p></fieldset>
 
     <section class="lab-step" aria-labelledby="s1">
@@ -71,6 +73,7 @@ print((daily - trend)["T_degC"].corr((daily - trend)["NOx_ppb"]))</p>
 
     <section class="lab-step" aria-labelledby="s5">
       <div class="step-head"><span class="step-number">05</span><div><h2 id="s5">Your notebook numbers</h2><p>Download your Part A file (one row per day). Ask an AI assistant for code that reports the three numbers below, read it before you run it, and enter what you get.</p></div></div>
+      <p class="helper-links">First time running code? Follow the <a href="colab.html">Google Colab guide</a>: upload, look at the raw file, ask, read, run, check.</p>
       <p><button id="download-csv" class="secondary-button" type="button">Download my file (CSV)</button></p>
       <div id="notebook-list" class="notebook-list"></div>
       <p id="locked-note" class="locked-note">Enter your numbers before you remove the trend. Doing so locks your numbers and your prediction.</p>

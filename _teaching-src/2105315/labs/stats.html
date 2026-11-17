@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Statistics refresher for Weeks 5 and 6 · 2105315 Data Analytics Labs</title>
+  <meta name="description" content="Standard deviation, z-scores, correlation, the standard error, Welch's t-test, p and the 95 % confidence interval, with worked numbers from the labs.">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="assets/labs.css?v=8">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the content</a>
+  <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html">Lab 01</a><a href="gaps.html">Lab 02</a><a href="spikes.html">Lab 03</a><a href="figures.html">Lab 04</a><a href="relations.html">Lab 05</a><a href="shift.html">Lab 06</a><a href="decision.html">Lab 07</a><a href="index.html">All labs</a></nav></header>
+    <main class="page da-page guide-page" id="main">
+    <p class="eyebrow">2105315 · Refresher · Read before Week 5</p>
+    <h1>The statistics you need for Weeks 5 and 6</h1>
+    <p class="intro-copy">Weeks 5 and 6 use standard deviation, correlation, the t-test, p and confidence intervals. This page explains each one with numbers from the labs, and the one line of pandas or scipy that computes it. Work through it with a calculator; the self-check at the end takes ten minutes.</p>
+    <section class="lab-step" aria-labelledby="g1">
+      <div class="step-head"><span class="step-number">01</span><div><h2 id="g1">Mean and standard deviation σ</h2><p>How large the values are, and how much they scatter.</p></div></div>
+      <p>The mean is the sum divided by the number of values, n. The standard deviation σ is the typical distance from the mean:</p>
+      <p class="formula">σ = √( Σ (x − mean)² / (n − 1) )</p>
+      <p><strong>By hand.</strong> Five daily mean benzene values from Lab 06, Demo A: 12.55, 12.40, 8.62, 6.05, 12.13 µg/m³. Mean = 51.75 / 5 = 10.35. Distances from the mean: 2.20, 2.05, −1.73, −4.30, 1.78. Squared and added: 33.69. Divided by n − 1 = 4: 8.42. Square root: <strong>σ = 2.90 µg/m³</strong>.</p>
+      <pre class="code-block"><span class="ln">s.mean(), s.std()   <span class="c"># pandas divides by n − 1, as above</span></span></pre>
+      <p class="guide-warn">numpy's <code>np.std(x)</code> divides by n, not n − 1, and gives a slightly smaller value (2.60 here). If your number differs from the lab's by a few percent, check which one your code used.</p>
+    </section>
+    <section class="lab-step" aria-labelledby="g2">
+      <div class="step-head"><span class="step-number">02</span><div><h2 id="g2">z-score and the 3σ rule</h2><p>How unusual one value is.</p></div></div>
+      <p class="formula">z = (x − mean) / σ</p>
+      <p>z = 2 means two standard deviations above the mean. For data that follow a normal distribution, about 0.3 % of values lie more than 3σ from the mean, so "|z| &gt; 3" is a common flag (Lab 03, Lab 05). It assumes one mean and one σ describe all the data; a daily cycle breaks that (Session 5).</p>
+    </section>
+    <section class="lab-step" aria-labelledby="g3">
+      <div class="step-head"><span class="step-number">03</span><div><h2 id="g3">Correlation r</h2><p>Whether two variables move together along a straight line.</p></div></div>
+      <p>r runs from −1 (one rises as the other falls, exactly on a line) through 0 (no straight-line relation) to +1. r² is the share of the variation of one that a straight line through the other accounts for, <strong>whatever the cause</strong>.</p>
+      <pre class="code-block"><span class="ln">df[<span class="s">"T_degC"</span>].corr(df[<span class="s">"NOx_ppb"</span>])</span></pre>
+      <p>Lab 05, Demo A: r = −0.57 over 16 summer weeks, and 0.14 after removing the seasonal trend from both. r measures moving together; it does not say which one drives the other, or whether a third variable drives both.</p>
+    </section>
+    <section class="lab-step" aria-labelledby="g4">
+      <div class="step-head"><span class="step-number">04</span><div><h2 id="g4">How sure is a mean? The standard error</h2><p>A mean of a few values is less certain than a mean of many.</p></div></div>
+      <p class="formula">standard error of a mean = σ / √n</p>
+      <p>The 14 daily means before the change in Lab 06, Demo A have mean 10.27 and σ = 3.45, so the standard error is 3.45 / √14 = <strong>0.92 µg/m³</strong>. With 56 days it would be half that.</p>
+      <p class="guide-warn">This holds only if the n values are <strong>independent</strong>: each tells you something the others do not. Neighboring hours of benzene are not (Session 12). Using 336 hours as n makes the standard error far too small.</p>
+    </section>
+    <section class="lab-step" aria-labelledby="g5">
+      <div class="step-head"><span class="step-number">05</span><div><h2 id="g5">Comparing two means: Welch's t-test</h2><p>Is the difference larger than the scatter would produce by chance?</p></div></div>
+      <p class="formula">t = (mean<sub>after</sub> − mean<sub>before</sub>) / √( σ<sub>a</sub>²/n<sub>a</sub> + σ<sub>b</sub>²/n<sub>b</sub> )</p>
+      <p>Lab 06, Demo A, daily means: before 10.27 (σ 3.45, n 14), after 8.58 (σ 2.05, n 14). Difference −1.69. The bottom line: √(3.45²/14 + 2.05²/14) = 1.07. So <strong>t = −1.69 / 1.07 = −1.57</strong>.</p>
+      <p>Welch's version does not assume the two periods have the same σ; that is why the labs use it (<code>equal_var=False</code>).</p>
+      <pre class="code-block"><span class="ln"><span class="k">from</span> scipy <span class="k">import</span> stats</span><span class="ln">res = stats.ttest_ind(after, before, equal_var=<span class="s">False</span>)</span><span class="ln">print(res.statistic, res.pvalue, res.confidence_interval())</span></pre>
+      <p>For this example scipy prints t = −1.57, p = 0.13, and an interval from −3.91 to 0.54.</p>
+    </section>
+    <section class="lab-step" aria-labelledby="g6">
+      <div class="step-head"><span class="step-number">06</span><div><h2 id="g6">What p and the 95 % confidence interval say</h2><p>And what they do not say.</p></div></div>
+      <div class="two-col">
+        <div><h3>p</h3><p>If nothing had changed, the share of comparisons that would show a difference at least this large. p = 0.13: about one in eight. It is <strong>not</strong> the probability that the change worked, and not the size of the change. 0.05 is a convention, not a law.</p></div>
+        <div><h3>95 % confidence interval</h3><p>The range of differences that fit the data: difference ± about 2 standard errors. Here −1.69 ± 2.08 × 1.07 = <strong>−3.91 to 0.54</strong>. It includes 0, so "no change" fits too. Its width shows how much the data can tell.</p></div>
+      </div>
+      <p>Both rest on the same assumptions as the standard error: independent values, and nothing else changing between the two periods. Session 12 tests both on plant data.</p>
+    </section>
+    <section class="lab-step" aria-labelledby="g7">
+      <div class="step-head"><span class="step-number">07</span><div><h2 id="g7">Self-check</h2><p>Write your answer first, then open the explanation. Nothing is saved or sent.</p></div></div>
+        <div class="concept-question"><h3>1. A pandas column of daily means gives <code>s.std()</code> = 2.90 and <code>np.std(s)</code> = 2.60. Which does the lab use, and why do they differ?</h3><label for="q1" class="visually-hidden">Your answer</label><textarea id="q1" rows="2" maxlength="2000" placeholder="Write your answer first."></textarea><details><summary>Compare with the answer</summary><div class="concept-answer"><p>The lab uses 2.90, pandas' default, which divides by n − 1. numpy divides by n. With few values the difference is noticeable; with hundreds it is tiny.</p></div></details></div>
+        <div class="concept-question"><h3>2. Daily temperature and daily NOx have r = −0.6. Write one sentence the data allow, and one they do not.</h3><label for="q2" class="visually-hidden">Your answer</label><textarea id="q2" rows="2" maxlength="2000" placeholder="Write your answer first."></textarea><details><summary>Compare with the answer</summary><div class="concept-answer"><p>Allowed: "On colder days NOx tended to be higher over these weeks (r = −0.6)." Not allowed: "Cold weather causes high NOx" or "temperature explains 36 % of NOx", because r cannot separate temperature from anything else that changes with the season.</p></div></details></div>
+        <div class="concept-question"><h3>3. Two periods of 14 daily means each have σ = 2. Roughly what is the standard error of the difference in means?</h3><label for="q3" class="visually-hidden">Your answer</label><textarea id="q3" rows="2" maxlength="2000" placeholder="Write your answer first."></textarea><details><summary>Compare with the answer</summary><div class="concept-answer"><p>√(2²/14 + 2²/14) = √(0.571) ≈ 0.76. A difference of about 1.5 (2 standard errors) would just reach p ≈ 0.05.</p></div></details></div>
+        <div class="concept-question"><h3>4. A t-test on 650 hourly values gives p = 0.00006; the same data as 28 daily means give p = 0.13. Which do you report, and why?</h3><label for="q4" class="visually-hidden">Your answer</label><textarea id="q4" rows="2" maxlength="2000" placeholder="Write your answer first."></textarea><details><summary>Compare with the answer</summary><div class="concept-answer"><p>The daily means. Neighboring hours are not independent, so counting 650 of them makes the standard error far too small and p far too small. 28 daily means are closer to independent, though not fully (Session 12).</p></div></details></div>
+        <div class="concept-question"><h3>5. A 95 % confidence interval for a change in yield is +0.1 to +0.3 percentage points, p = 0.001. Is the change important?</h3><label for="q5" class="visually-hidden">Your answer</label><textarea id="q5" rows="2" maxlength="2000" placeholder="Write your answer first."></textarea><details><summary>Compare with the answer</summary><div class="concept-answer"><p>It is very likely real (the interval excludes 0), but whether it matters depends on its size: 0.1 to 0.3 points may or may not pay for the change. Significance and importance are different questions.</p></div></details></div>
+    </section>
+    <p class="guide-back"><a class="ch-button primary" href="index.html">Back to the course home</a> <a class="ch-button" href="relations.html">Open Lab 05</a></p>
+  </main>
+  <footer class="site-footer"><span>2105315 Data Analytics in Chemical Engineering · Chulalongkorn University</span><span>Semester 2/2026</span></footer>
+</body>
+</html>

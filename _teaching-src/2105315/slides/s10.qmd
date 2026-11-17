@@ -280,7 +280,7 @@ Week 6 starts hypothesis tests: a process change, a shift in the mean, and how s
 :::
 ::: {}
 [Before you come]{.label}
-Submit your Lab 05 study file. Think of one change at a plant: a new catalyst, a new setpoint. What data would show it worked?
+Submit your Lab 05 study file. Read Steps 4 to 7 of the [statistics refresher](../labs/stats.html){target="_blank"}: the t-test, p and the confidence interval. Think of one change at a plant. What data would show it worked?
 :::
 :::
 
