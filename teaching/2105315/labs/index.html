@@ -4,29 +4,74 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>2105315 Data Analytics Labs</title>
-  <meta name="description" content="Interactive labs for 2105315 Data Analytics in Chemical Engineering: understand the principle, then check code that an AI assistant writes.">
+  <title>2105315 Data Analytics in Chemical Engineering · Course home</title>
+  <meta name="description" content="2105315 Data Analytics in Chemical Engineering, weeks 1 to 7: fourteen narrated sessions and seven web labs on real monitoring data. An AI assistant may write the code; students check it.">
   <link rel="icon" href="/favicon.png">
-  <link rel="stylesheet" href="assets/labs.css?v=7">
+  <link rel="stylesheet" href="assets/labs.css?v=8">
 </head>
 <body>
-  <a class="skip-link" href="#labs">Skip to the labs</a>
+  <a class="skip-link" href="#weeks">Skip to the weeks</a>
   <header class="site-header"><a class="brand" href="index.html">SKH <span>Data Analytics Labs</span></a><nav aria-label="Course navigation"><a href="audit.html">Lab 01</a><a href="gaps.html">Lab 02</a><a href="spikes.html">Lab 03</a><a href="figures.html">Lab 04</a><a href="relations.html">Lab 05</a><a href="shift.html">Lab 06</a><a href="decision.html">Lab 07</a><a href="index.html" aria-current="page">All labs</a></nav></header>
-  <main class="page da-page" id="labs">
-    <p class="eyebrow">2105315 Data Analytics in Chemical Engineering · Weeks 1 to 7</p>
-    <h1>Data Analytics Labs</h1>
-    <p class="intro-copy">Each lab asks one question about real plant or monitoring data. You decide what to do with the data, and an AI assistant may write the code. Each lab shows you how to check that code. You submit one file per lab on myCourseVille.</p>
-    <p class="intro-copy">Session slides with narration and captions in English and Thai: <a href="../slides/s01.html">Session 1 · Data you can trust</a>, <a href="../slides/s02.html">Session 2 · Audit and the AI's code</a>, <a href="../slides/s03.html">Session 3 · Why values go missing</a>, <a href="../slides/s04.html">Session 4 · Filling gaps you can defend</a>, <a href="../slides/s05.html">Session 5 · Spike or real event?</a>, <a href="../slides/s06.html">Session 6 · Smoothing without lying</a>, <a href="../slides/s07.html">Session 7 · Trends and distributions</a>, <a href="../slides/s08.html">Session 8 · Figures that tell the truth</a>, <a href="../slides/s09.html">Session 9 · Correlated, or driven?</a>, <a href="../slides/s10.html">Session 10 · When did it start?</a>, <a href="../slides/s11.html">Session 11 · Did the change work?</a>, <a href="../slides/s12.html">Session 12 · Tests on plant data</a>, <a href="../slides/s13.html">Session 13 · Raw file to decision</a>, <a href="../slides/s14.html">Session 14 · Defend your decision</a>.</p>
-    <ol class="lab-index">
-      <li><span class="wk">Week 1</span><span><a href="audit.html">Lab 01 · Is this file ready for the morning report?</a><br><span class="state">Import settings, missing-value codes, repeated rows</span></span><span class="state">Open</span></li>
-      <li><span class="wk">Week 2</span><span><a href="gaps.html">Lab 02 · Which gap-filling method biases the answer least?</a><br><span class="state">Kinds of gap, five fill methods, error against the true record</span></span><span class="state">Open</span></li>
-      <li><span class="wk">Week 3</span><span><a href="spikes.html">Lab 03 · Spike or real process event?</a><br><span class="state">Three outlier rules against known faults, a second sensor, smoothing</span></span><span class="state">Open</span></li>
-      <li><span class="wk">Week 4</span><span><a href="figures.html">Lab 04 · Does this figure tell the truth about the process?</a><br><span class="state">Axis baselines and the lie factor, distributions, choosing a trend window</span></span><span class="state">Open</span></li>
-      <li><span class="wk">Week 5</span><span><a href="relations.html">Lab 05 · Correlated, or driven by a third variable?</a><br><span class="state">A correlation that is mostly season; when a sensor started to drift (CUSUM)</span></span><span class="state">Open</span></li>
-      <li><span class="wk">Week 6</span><span><a href="shift.html">Lab 06 · Did the change really shift the process?</a><br><span class="state">A t-test on hourly values, on daily means, and at every ordinary date in the year</span></span><span class="state">Open</span></li>
-      <li><span class="wk">Week 7</span><span><a href="decision.html">Lab 07 · From raw file to a defended decision</a><br><span class="state">Two raw files on different clocks: audit, align, calibrate, decide</span></span><span class="state">Open</span></li>
-    </ol>
+  <main class="page da-page course-home" id="main">
+    <section class="ch-hero" aria-labelledby="ch-title">
+      <p class="eyebrow">2105315 · Chulalongkorn University · Semester 2/2026, from January 2027</p>
+      <h1 id="ch-title">Data Analytics in Chemical Engineering</h1>
+      <p class="ch-lede">Read plant and monitoring data you can trust, then decide what it shows. An AI assistant may write your code. You learn to check it.</p>
+      <ul class="ch-facts" aria-label="Course at a glance"><li><strong>7</strong> weeks</li><li><strong>14</strong> sessions of 90 min</li><li><strong>7</strong> web labs</li><li><strong>1</strong> file per lab on myCourseVille</li></ul>
+      <p class="ch-actions"><a class="ch-button primary" href="../slides/s01.html">Start with Session 1</a><a class="ch-button" href="audit.html">Open Lab 01</a></p>
+    </section>
+
+    <section class="ch-how" aria-labelledby="how-title">
+      <h2 id="how-title">How each week works</h2>
+      <ol class="ch-steps">
+        <li><span class="ch-step">1</span><div><h3>First session</h3><p>Concepts and an activity in class, then the first steps of the lab on your own data set.</p></div></li>
+        <li><span class="ch-step">2</span><div><h3>Homework</h3><p>Download your file, ask an AI assistant for code, read it before you run it, and note three numbers.</p></div></li>
+        <li><span class="ch-step">3</span><div><h3>Second session</h3><p>Check the AI's code, enter your numbers, finish the lab, and upload one study file.</p></div></li>
+      </ol>
+      <p class="ch-note">Slides play with English narration and English or Thai captions; use the buttons at the bottom left of each slide. Labs work on a laptop or a phone. Your student ID picks your own data set.</p>
+    </section>
+
+    <section aria-labelledby="weeks-title" id="weeks">
+      <h2 id="weeks-title">Weeks 1 to 7</h2>
+      <ol class="ch-weeks">
+      <li class="ci-week" id="week-1">
+        <div class="ci-head"><span class="ci-wk">Week 1</span><h3>Import and audit</h3><p>Can you trust this file before you compute anything?</p></div>
+        <div class="ci-sessions"><p class="ci-label">Slides</p><ul><li><a href="../slides/s01.html"><span class="ci-num">S1</span><span>Data you can trust</span></a></li><li><a href="../slides/s02.html"><span class="ci-num">S2</span><span>Audit and the AI's code</span></a></li></ul></div>
+        <div class="ci-lab"><p class="ci-label">Lab</p><a class="ci-lab-link" href="audit.html">Lab 01 · Is this file ready for the morning report?</a><p class="ci-desc">Import settings, missing-value codes, repeated rows</p></div>
+      </li>
+      <li class="ci-week" id="week-2">
+        <div class="ci-head"><span class="ci-wk">Week 2</span><h3>Missing data</h3><p>Why is a value missing, and which fill can you defend?</p></div>
+        <div class="ci-sessions"><p class="ci-label">Slides</p><ul><li><a href="../slides/s03.html"><span class="ci-num">S3</span><span>Why values go missing</span></a></li><li><a href="../slides/s04.html"><span class="ci-num">S4</span><span>Filling gaps you can defend</span></a></li></ul></div>
+        <div class="ci-lab"><p class="ci-label">Lab</p><a class="ci-lab-link" href="gaps.html">Lab 02 · Which gap-filling method biases the answer least?</a><p class="ci-desc">Kinds of gap, five fill methods, error against the true record</p></div>
+      </li>
+      <li class="ci-week" id="week-3">
+        <div class="ci-head"><span class="ci-wk">Week 3</span><h3>Outliers and noise</h3><p>Is a sharp value a fault or a real event?</p></div>
+        <div class="ci-sessions"><p class="ci-label">Slides</p><ul><li><a href="../slides/s05.html"><span class="ci-num">S5</span><span>Spike or real event?</span></a></li><li><a href="../slides/s06.html"><span class="ci-num">S6</span><span>Smoothing without lying</span></a></li></ul></div>
+        <div class="ci-lab"><p class="ci-label">Lab</p><a class="ci-lab-link" href="spikes.html">Lab 03 · Spike or real process event?</a><p class="ci-desc">Three outlier rules against known faults, a second sensor, smoothing</p></div>
+      </li>
+      <li class="ci-week" id="week-4">
+        <div class="ci-head"><span class="ci-wk">Week 4</span><h3>Visualization</h3><p>Does the figure show what the data show?</p></div>
+        <div class="ci-sessions"><p class="ci-label">Slides</p><ul><li><a href="../slides/s07.html"><span class="ci-num">S7</span><span>Trends and distributions</span></a></li><li><a href="../slides/s08.html"><span class="ci-num">S8</span><span>Figures that tell the truth</span></a></li></ul></div>
+        <div class="ci-lab"><p class="ci-label">Lab</p><a class="ci-lab-link" href="figures.html">Lab 04 · Does this figure tell the truth about the process?</a><p class="ci-desc">Axis baselines and the lie factor, distributions, choosing a trend window</p></div>
+      </li>
+      <li class="ci-week" id="week-5">
+        <div class="ci-head"><span class="ci-wk">Week 5</span><h3>Correlation and anomalies</h3><p>Do two variables move together, and when did a drift start?</p></div>
+        <div class="ci-sessions"><p class="ci-label">Slides</p><ul><li><a href="../slides/s09.html"><span class="ci-num">S9</span><span>Correlated, or driven?</span></a></li><li><a href="../slides/s10.html"><span class="ci-num">S10</span><span>When did it start?</span></a></li></ul></div>
+        <div class="ci-lab"><p class="ci-label">Lab</p><a class="ci-lab-link" href="relations.html">Lab 05 · Correlated, or driven by a third variable?</a><p class="ci-desc">A correlation that is mostly season; when a sensor started to drift (CUSUM)</p></div>
+      </li>
+      <li class="ci-week" id="week-6">
+        <div class="ci-head"><span class="ci-wk">Week 6</span><h3>Hypothesis tests</h3><p>Did the change really shift the process?</p></div>
+        <div class="ci-sessions"><p class="ci-label">Slides</p><ul><li><a href="../slides/s11.html"><span class="ci-num">S11</span><span>Did the change work?</span></a></li><li><a href="../slides/s12.html"><span class="ci-num">S12</span><span>Tests on plant data</span></a></li></ul></div>
+        <div class="ci-lab"><p class="ci-label">Lab</p><a class="ci-lab-link" href="shift.html">Lab 06 · Did the change really shift the process?</a><p class="ci-desc">A t-test on hourly values, on daily means, and at ordinary dates in the year</p></div>
+      </li>
+      <li class="ci-week" id="week-7">
+        <div class="ci-head"><span class="ci-wk">Week 7</span><h3>Integrated case</h3><p>From two raw files to a decision you can defend</p></div>
+        <div class="ci-sessions"><p class="ci-label">Slides</p><ul><li><a href="../slides/s13.html"><span class="ci-num">S13</span><span>Raw file to decision</span></a></li><li><a href="../slides/s14.html"><span class="ci-num">S14</span><span>Defend your decision</span></a></li></ul></div>
+        <div class="ci-lab"><p class="ci-label">Lab</p><a class="ci-lab-link" href="decision.html">Lab 07 · From raw file to a defended decision</a><p class="ci-desc">Two raw files on different clocks: audit, align, calibrate, decide</p></div>
+      </li>
+      </ol>
+    </section>
   </main>
-  <footer class="site-footer"><span>2105315 Data Analytics in Chemical Engineering · Chulalongkorn University</span><span>Semester 2/2026, from January 2027</span></footer>
+  <footer class="site-footer"><span>2105315 Data Analytics in Chemical Engineering · Chulalongkorn University</span><span>Data: De Vito, UCI Air Quality, CC BY 4.0</span></footer>
 </body>
 </html>
