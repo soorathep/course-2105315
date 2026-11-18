@@ -15,8 +15,10 @@ main { max-width: 640px; margin: 0 auto; padding: 24px 18px 48px; }
 h1 { font-family: "Source Serif 4", Georgia, serif; font-size: 1.6rem; line-height: 1.2; margin: .2em 0 .3em; }
 .lede { margin: 0 0 1.2em; color: var(--graphite); }
 .th { display: block; color: var(--slate); font-size: .9em; font-family: "Course Thai", sans-serif; font-weight: 400; }
-form > div, fieldset { background: #fff; border: 1px solid var(--mist); border-radius: 6px; padding: 14px 16px; margin: 0 0 12px; }
+form > div, .course-part > div, fieldset { background: #fff; border: 1px solid var(--mist); border-radius: 6px; padding: 14px 16px; margin: 0 0 12px; }
 fieldset { min-width: 0; }
+.course-part { border-top: 2px solid var(--mist); margin: 20px 0 0; padding: 16px 0 0; }
+.course-part h2 { font-size: 1.15rem; margin: 0 0 4px; }
 legend, label.q { font-weight: 600; display: block; margin-bottom: 6px; padding: 0; }
 legend { float: left; width: 100%; }
 legend + * { clear: both; }
@@ -77,6 +79,42 @@ form > .status.err { background: #fbeee9; border-left: 4px solid #BE654C; paddin
       <label class="q" for="change">One thing you would change about today? <span class="optional">optional</span> <span class="th">อยากให้ปรับอะไรหนึ่งอย่าง</span></label>
       <textarea id="change" name="change" maxlength="3000"></textarea>
     </div>
+    <section id="course-part" class="course-part" hidden>
+      <h2>Sessions 1 to 14 as a whole <span class="th">ภาพรวมทั้ง 14 คาบ</span></h2>
+      <p class="lede">Last session only. These answers help plan next year.</p>
+      <fieldset>
+        <legend>Overall, how useful were Sessions 1 to 14 for you? <span class="th">โดยรวมทั้ง 14 คาบมีประโยชน์กับคุณแค่ไหน (1 = น้อยมาก, 5 = มาก)</span></legend>
+        <div class="opts"><label><input type="radio" name="course_overall" value="1"> 1</label><label><input type="radio" name="course_overall" value="2"> 2</label><label><input type="radio" name="course_overall" value="3"> 3</label><label><input type="radio" name="course_overall" value="4"> 4</label><label><input type="radio" name="course_overall" value="5"> 5</label></div>
+      </fieldset>
+      <fieldset>
+        <legend>Can you now check AI-written analysis code on a data file on your own? <span class="th">ตอนนี้ตรวจโค้ดวิเคราะห์ข้อมูลที่ AI เขียนได้เองแค่ไหน (1 = ไม่ได้เลย, 5 = มั่นใจ)</span></legend>
+        <div class="opts"><label><input type="radio" name="course_skill" value="1"> 1</label><label><input type="radio" name="course_skill" value="2"> 2</label><label><input type="radio" name="course_skill" value="3"> 3</label><label><input type="radio" name="course_skill" value="4"> 4</label><label><input type="radio" name="course_skill" value="5"> 5</label></div>
+      </fieldset>
+      <fieldset>
+        <legend>Quality of the slides, narration and captions <span class="th">คุณภาพของสไลด์ เสียงบรรยาย และคำบรรยาย (1 = ต่ำ, 5 = ดีมาก)</span></legend>
+        <div class="opts"><label><input type="radio" name="course_slides" value="1"> 1</label><label><input type="radio" name="course_slides" value="2"> 2</label><label><input type="radio" name="course_slides" value="3"> 3</label><label><input type="radio" name="course_slides" value="4"> 4</label><label><input type="radio" name="course_slides" value="5"> 5</label></div>
+      </fieldset>
+      <fieldset>
+        <legend>Quality of the web labs and the course notebook <span class="th">คุณภาพของแล็บบนเว็บและโน้ตบุ๊กของวิชา (1 = ต่ำ, 5 = ดีมาก)</span></legend>
+        <div class="opts"><label><input type="radio" name="course_labs" value="1"> 1</label><label><input type="radio" name="course_labs" value="2"> 2</label><label><input type="radio" name="course_labs" value="3"> 3</label><label><input type="radio" name="course_labs" value="4"> 4</label><label><input type="radio" name="course_labs" value="5"> 5</label></div>
+      </fieldset>
+      <fieldset>
+        <legend>Workload of the labs and homework <span class="th">ปริมาณงานของแล็บและการบ้าน</span></legend>
+        <div class="opts"><label><input type="radio" name="course_workload" value="Too light"> Too light</label><label><input type="radio" name="course_workload" value="About right"> About right</label><label><input type="radio" name="course_workload" value="Too heavy"> Too heavy</label></div>
+      </fieldset>
+      <div>
+        <label class="q" for="course_best">What helped you learn most? <span class="optional">optional</span> <span class="th">อะไรช่วยให้เรียนรู้ได้มากที่สุด</span></label>
+        <textarea id="course_best" name="course_best" maxlength="3000"></textarea>
+      </div>
+      <div>
+        <label class="q" for="course_weak">Which slide deck or lab most needs improving, and why? <span class="optional">optional</span> <span class="th">สไลด์หรือแล็บไหนควรปรับปรุงที่สุด เพราะอะไร</span></label>
+        <textarea id="course_weak" name="course_weak" maxlength="3000"></textarea>
+      </div>
+      <div>
+        <label class="q" for="course_improve">What should change for next year? <span class="optional">optional</span> <span class="th">ปีหน้าควรปรับอะไร</span></label>
+        <textarea id="course_improve" name="course_improve" maxlength="3000"></textarea>
+      </div>
+    </section>
     <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button type="submit" id="send">Send</button>
     <div class="status" id="status" role="status" aria-live="polite"></div>
@@ -107,7 +145,10 @@ const TOTAL = 14;
 const $ = (id) => document.getElementById(id);
 const s = Math.min(TOTAL, Math.max(1, parseInt(new URLSearchParams(location.search).get('s'), 10) || 1));
 for (let i = 1; i <= TOTAL; i++) $('session').add(new Option('Session ' + i, i, i === s, i === s));
-const setPrompt = () => { $('prompt').textContent = PROMPTS[$('session').value] || 'Answer the exit-ticket question shown on the last slide of the session.'; };
+const setPrompt = () => {
+  $('prompt').textContent = PROMPTS[$('session').value] || 'Answer the exit-ticket question shown on the last slide of the session.';
+  $('course-part').hidden = Number($('session').value) !== TOTAL;     // whole-course questions on the last session only
+};
 $('session').addEventListener('change', setPrompt); setPrompt();
 const status = (msg, kind) => { $('status').textContent = msg; $('status').className = 'status ' + (kind || ''); };
 
@@ -116,6 +157,7 @@ $('f').addEventListener('submit', async (e) => {
   const fd = new FormData(e.target);
   const body = Object.fromEntries(fd.entries());
   body.course = COURSE; body.session = Number(body.session);
+  if (body.session !== TOTAL) for (const k of Object.keys(body)) if (k.startsWith('course_')) delete body[k];
   if (!body.exit_ticket.trim()) { status('Please answer the exit-ticket question first.', 'err'); $('exit_ticket').focus(); return; }
   if (!RELAY_URL) { status('This form is not connected yet. Please tell the instructor.', 'err'); return; }
   $('send').disabled = true; status('Sending…');

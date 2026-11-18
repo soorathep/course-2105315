@@ -317,16 +317,16 @@
  "exit": {
   "text": [
    {
-    "en": "Before you leave, answer the exit ticket. It takes about five minutes and it is anonymous.",
-    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบ ใช้เวลาประมาณห้านาที และไม่ระบุตัวตน"
+    "en": "Before you leave, answer the exit ticket and the course feedback. It takes about ten minutes and it is anonymous.",
+    "th": "ก่อนออกจากห้อง ตอบคำถามท้ายคาบและแบบประเมินวิชา ใช้เวลาประมาณสิบนาที และไม่ระบุตัวตน"
    },
    {
     "en": "Your memo says the sensor may run the alert. A reviewer gets sixty-two percent from the same two files. Which two steps would you ask them to check first, and why?",
     "th": "บันทึกของคุณบอกว่าเซนเซอร์ใช้เตือนได้ ผู้ตรวจสอบได้หกสิบสองเปอร์เซ็นต์จากสองไฟล์เดียวกัน คุณจะขอให้เขาตรวจสองขั้นตอนใดก่อน และเพราะอะไร"
    },
    {
-    "en": "Scan the code or open the link. No name or student ID is recorded.",
-    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
+    "en": "Scan the code or open the link. After the questions about today, the form asks about all fourteen sessions: how useful they were, the quality of the slides and the labs, the workload, and what to change next year. No name or student ID is recorded.",
+    "th": "สแกนคิวอาร์โค้ดหรือเปิดลิงก์ หลังคำถามเกี่ยวกับคาบนี้ แบบฟอร์มจะถามถึงภาพรวมทั้งสิบสี่คาบ ได้แก่ ประโยชน์ คุณภาพของสไลด์และแล็บ ปริมาณงาน และสิ่งที่ควรปรับในปีหน้า ระบบไม่บันทึกชื่อหรือรหัสนิสิต"
    }
   ],
   "en": {
@@ -334,15 +334,15 @@
    "cues": [
     [
      0.25,
-     6.27
+     7.44
     ],
     [
-     6.62,
-     17.56
+     7.79,
+     18.73
     ],
     [
-     17.91,
-     23.24
+     19.08,
+     37.45
     ]
    ]
   }

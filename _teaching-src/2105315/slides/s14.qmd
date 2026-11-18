@@ -40,7 +40,7 @@ Session 13 found the two clocks. Today: what a wrong clock does to a calibration
 [45–75]{.t} **Activity 2** [Lab 07, Steps 4 to 10]{.d}
 :::
 ::: {.seg .wrap}
-[75–90]{.t} **Course wrap-up** [Exit ticket]{.d}
+[75–90]{.t} **Course wrap-up** [Exit ticket and course feedback]{.d}
 :::
 :::
 
@@ -216,9 +216,9 @@ Studying alone: work through Steps 4 to 10 in order and submit in Step 10.
 [Which check from the course would you now run first on a plant file, and why?]{.dq}
 :::
 
-## Exit ticket · 5 minutes {#exit .activity}
+## Exit ticket and course feedback · 10 minutes {#exit .activity}
 
-[Exit ticket and feedback · alone · 5 minutes · anonymous]{.act-label}
+[Exit ticket and feedback · alone · 10 minutes · anonymous]{.act-label}
 
 :::: {.columns}
 ::: {.column width="64%"}
@@ -226,7 +226,7 @@ Studying alone: work through Steps 4 to 10 in order and submit in Step 10.
 Your memo says the sensor may run the alert. A reviewer gets 62 % from the same two files. Name the two steps you would ask them to check first, and why.
 :::
 
-Scan the code or open the link. The same form asks three short questions about today: pace, confidence, and whether the lab worked on your device.
+Scan the code or open the link. The form asks three short questions about today, then about Sessions 1 to 14 as a whole: how useful they were, the quality of the slides and the labs, the workload, and what to change next year.
 
 No name or student ID is recorded. Wait for **"Response received."**
 :::
