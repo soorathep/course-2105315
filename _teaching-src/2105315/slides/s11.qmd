@@ -78,7 +78,7 @@ Season, feed, load, a shutdown: anything that changed at the same time.
 Studying alone: write the three answers for your change.
 :::
 
-## What p measures {#shuffle data-hold="true"}
+## What p measures: a shuffle demonstration {#shuffle data-hold="true"}
 
 ```{=html}
 <div class="pm" id="pm">
@@ -127,7 +127,7 @@ Studying alone: write the three answers for your change.
     const far = sims.filter((d) => Math.abs(d) >= Math.abs(OBS) - 1e-9).length;
     document.getElementById('pm-out').textContent = sims.length === 0
       ? 'If the change did nothing, the labels "before" and "after" are arbitrary. Shuffle them and see what differences chance alone gives.'
-      : `${sims.length} ${sims.length === 1 ? 'shuffle' : 'shuffles'}. ${far} gave a difference at least as large as 1.69 in size: ${(100 * far / sims.length).toFixed(1)} %. The t-test on these daily means gives p = ${D.p}.`;
+      : `${sims.length} ${sims.length === 1 ? 'shuffle' : 'shuffles'}. ${far} gave a difference at least as large as 1.69 in size: ${(100 * far / sims.length).toFixed(1)} %. Welch\'s t-test on these daily means gives p = ${D.p}.`;
   }
   root.querySelectorAll('[data-a]').forEach((b) => b.addEventListener('click', () => {
     const a = b.dataset.a;
@@ -140,6 +140,8 @@ Studying alone: write the three answers for your change.
 </script>
 ```
 
+[The shuffle shows what p means; it is not how the lab computes p. Lab 06 and your reports use Welch's t-test, which gets the same kind of share from a formula: here p = 0.13, close to the shuffle.]{.note-line}
+
 [Lab 06, Demo A: benzene, 15 July to 11 August 2004, change on 29 July. Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
 
 ## Reading p {#reading-p}
@@ -147,7 +149,7 @@ Studying alone: write the three answers for your change.
 ::: {.checks3}
 ::: {.c4}
 [What it is]{.label}
-If nothing had changed, the share of comparisons that would show a difference at least this large. Demo A: about 13 %.
+If nothing had changed, the share of comparisons that would show a difference at least this large. In Lab 06 it comes from Welch's t-test. Demo A: p = 0.13.
 :::
 ::: {.c4}
 [What it is not]{.label}

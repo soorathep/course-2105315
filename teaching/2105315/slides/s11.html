@@ -37,7 +37,7 @@
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="s11_files/libs/revealjs/dist/theme/quarto-b334f3268ccd5e08bfe37898af6488d3.css">
-  <link rel="stylesheet" href="slides.css?v=787028c1">
+  <link rel="stylesheet" href="slides.css?v=5307caca">
   <link href="s11_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="s11_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="s11_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -208,7 +208,7 @@ Soorathep Kheawhom, Ph.D., FRSC
 </div>
 </section>
 <section id="shuffle" class="slide level2" data-hold="true">
-<h2>What p measures</h2>
+<h2>What p measures: a shuffle demonstration</h2>
 <div class="pm" id="pm">
   <div class="sm-controls">
     <div class="sm-mode pm-mode" role="group" aria-label="Shuffle">
@@ -255,7 +255,7 @@ Soorathep Kheawhom, Ph.D., FRSC
     const far = sims.filter((d) => Math.abs(d) >= Math.abs(OBS) - 1e-9).length;
     document.getElementById('pm-out').textContent = sims.length === 0
       ? 'If the change did nothing, the labels "before" and "after" are arbitrary. Shuffle them and see what differences chance alone gives.'
-      : `${sims.length} ${sims.length === 1 ? 'shuffle' : 'shuffles'}. ${far} gave a difference at least as large as 1.69 in size: ${(100 * far / sims.length).toFixed(1)} %. The t-test on these daily means gives p = ${D.p}.`;
+      : `${sims.length} ${sims.length === 1 ? 'shuffle' : 'shuffles'}. ${far} gave a difference at least as large as 1.69 in size: ${(100 * far / sims.length).toFixed(1)} %. Welch\'s t-test on these daily means gives p = ${D.p}.`;
   }
   root.querySelectorAll('[data-a]').forEach((b) => b.addEventListener('click', () => {
     const a = b.dataset.a;
@@ -266,13 +266,14 @@ Soorathep Kheawhom, Ph.D., FRSC
   draw();
 })();
 </script>
+<p><span class="note-line">The shuffle shows what p means; it is not how the lab computes p.&nbsp;Lab 06 and your reports use Welch’s t-test, which gets the same kind of share from a formula: here p = 0.13, close to the shuffle.</span></p>
 <p><span class="source">Lab 06, Demo A: benzene, 15 July to 11 August 2004, change on 29 July. Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.</span></p>
 </section>
 <section id="reading-p" class="slide level2">
 <h2>Reading p</h2>
 <div class="checks3">
 <div class="c4">
-<p><span class="label">What it is</span> If nothing had changed, the share of comparisons that would show a difference at least this large. Demo A: about 13 %.</p>
+<p><span class="label">What it is</span> If nothing had changed, the share of comparisons that would show a difference at least this large. In Lab 06 it comes from Welch’s t-test. Demo A: p = 0.13.</p>
 </div>
 <div class="c4">
 <p><span class="label">What it is not</span> Not the probability that the change worked, and not the size of the change. p = 0.001 can belong to a difference too small to matter.</p>

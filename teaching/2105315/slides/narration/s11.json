@@ -114,8 +114,8 @@
     "th": "ต่อไปสลับหนึ่งพันครั้ง ประมาณหนึ่งในแปดของการสลับให้ผลต่างที่มากอย่างน้อยเท่ากับที่เราวัดได้"
    },
    {
-    "en": "That share is what p measures. The t-test on these daily means gives zero point one three.",
-    "th": "สัดส่วนนั้นคือสิ่งที่ค่า p วัด การทดสอบทีกับค่าเฉลี่ยรายวันชุดนี้ให้ศูนย์จุดหนึ่งสาม"
+    "en": "That share is the idea behind p. The shuffle is only a demonstration. In the lab, p comes from Welch’s t-test, which gets this share from a formula. For these daily means it gives zero point one three, close to the shuffle.",
+    "th": "สัดส่วนนี้คือความหมายของ p การสลับป้ายเป็นเพียงการสาธิต ในแล็บ p มาจาก Welch’s t-test ซึ่งคำนวณสัดส่วนนี้จากสูตร สำหรับค่าเฉลี่ยรายวันชุดนี้ได้ 0.13 ใกล้กับผลของการสลับป้าย"
    }
   ],
   "en": {
@@ -135,7 +135,7 @@
     ],
     [
      29.67,
-     36.07
+     46.01
     ]
    ]
   }

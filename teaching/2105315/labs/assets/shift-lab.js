@@ -32,7 +32,7 @@ function setCase(kind, { quiet = false } = {}) {
   for (const id of ['p-daily', 'p-rate']) $(id).disabled = false;
   shiftChart($('raw-chart'), r, { showDaily: false });
   const h = r.hourly;
-  $('claim').textContent = `The consultant's result: mean benzene was ${Math.abs(h.diff).toFixed(2)} µg/m³ ${h.diff < 0 ? 'lower' : 'higher'} after the change (${h.nb + h.na} hourly values, t-test p = ${S.fmtP(h.p)}).`;
+  $('claim').textContent = `The consultant's result: mean benzene was ${Math.abs(h.diff).toFixed(2)} µg/m³ ${h.diff < 0 ? 'lower' : 'higher'} after the change (${h.nb + h.na} hourly values, Welch's t-test p = ${S.fmtP(h.p)}).`;
   renderNotebook();
   $('results').hidden = true; $('placebo-box').hidden = true;
   $('win-table').querySelector('tbody').innerHTML = '';

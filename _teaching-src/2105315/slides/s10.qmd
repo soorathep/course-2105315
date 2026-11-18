@@ -182,19 +182,19 @@ Studying alone: write your answer, then go on.
 | Day | Date | Difference | minus mean, minus k | Running sum |
 |:--|:--|--:|--:|--:|
 | 15 | 14/04 | 1.64 | 0.75 | 0.75 |
-| 16 | 15/04 | 0.94 | 0.05 | 0.79 |
+| 16 | 15/04 | 0.94 | 0.05 | 0.80 |
 | 17 | 16/04 | −0.41 | −1.30 | 0.00 |
 | 18 | 17/04 | −0.04 | −0.93 | 0.00 |
 | 19 | 18/04 | −0.68 | −1.57 | 0.00 |
 | 20 | 19/04 | 1.58 | 0.69 | 0.69 |
-| 21 | 20/04 | 4.17 | 3.28 | 3.96 |
-| 22 | 21/04 | 4.87 | 3.98 | 7.94 |
-| 23 | 22/04 | 5.02 | 4.13 | **12.07** |
-| 24 | 23/04 | 3.93 | 3.04 | 15.11 |
+| 21 | 20/04 | 4.17 | 3.28 | 3.97 |
+| 22 | 21/04 | 4.87 | 3.98 | 7.95 |
+| 23 | 22/04 | 5.02 | 4.13 | **12.08** |
+| 24 | 23/04 | 3.93 | 3.04 | 15.12 |
 :::
 ::: {.column width="38%"}
 ::: {.calc-note}
-Mean of the calibration days 0.02, σ = 1.75 µg/m³.
+Mean of the calibration days 0.02, σ = 1.7486 µg/m³ (about 1.75).
 
 Allowance k = 0.5σ = 0.87. Limit h = 5σ = 8.74.
 
@@ -205,7 +205,7 @@ The sum passes h on day 23. The last day it was zero, day 19, marks the estimate
 :::
 ::::
 
-[A second sum does the same for differences below the mean. Values are rounded to 2 decimals.]{.note-line}
+[A second sum does the same for differences below the mean. The sums here use the rounded numbers shown, so you can check them by hand; the lab uses full precision, and its sums can differ by 0.01. The alarm day is the same.]{.note-line}
 
 ## Two rules, one drift {#two-rules}
 
