@@ -79,6 +79,27 @@ What would convince you that it is real, or that it is a fault?
 Studying alone: write down your answers to the three questions.
 :::
 
+## Two ways to measure spread {#spread}
+
+Seven hours of benzene, µg/m³. One of them is a fault: 4.1 · 4.4 · 4.0 · 4.6 · 4.3 · **21.0** · 4.2
+
+::: {.beforeafter}
+::: {}
+[Mean and standard deviation]{.label}
+Mean 6.66, σ 6.33 (pandas `.std()`). The one bad hour pulls both up.
+
+The 21.0 is (21.0 − 6.66) / 6.33 = **2.3 σ** from the mean. Below 3: not flagged.
+:::
+::: {}
+[Median and MAD]{.label}
+Median 4.3, the middle value once sorted. **MAD** is the median of the distances from the median: 0.2, 0.1, 0.3, 0.3, 0, 16.7, 0.1, so MAD = 0.2.
+
+Scaled MAD = 1.4826 × 0.2 = 0.30 µg/m³. The factor makes it equal to σ for normally distributed data. The 21.0 is (21.0 − 4.3) / 0.30 ≈ **56 scaled MADs** away. Flagged.
+:::
+:::
+
+[One bad value can hide by inflating σ. The median and the MAD barely move, which is why the Hampel filter on the next slide uses them.]{.note-line}
+
 ## Three ways to call a value unusual {#rules}
 
 ::: {.why3}

@@ -99,6 +99,39 @@
    ]
   }
  },
+ "r-means": {
+  "text": [
+   {
+    "en": "Before the data, what the correlation coefficient r measures: how closely the points follow one straight line, from minus one to plus one. Zero means no straight-line pattern.",
+    "th": "ก่อนดูข้อมูล มาดูว่าสัมประสิทธิ์สหสัมพันธ์ r วัดอะไร r วัดว่าจุดเรียงตามเส้นตรงเส้นเดียวได้ใกล้แค่ไหน มีค่าตั้งแต่ −1 ถึง +1 ค่าศูนย์แปลว่าไม่มีรูปแบบเส้นตรง"
+   },
+   {
+    "en": "It is not the slope, not the size of an effect, and not a direction of cause.",
+    "th": "มันไม่ใช่ความชัน ไม่ใช่ขนาดของผล และไม่บอกทิศทางของเหตุ"
+   },
+   {
+    "en": "Any variation the two series share feeds it, including a slow trend over weeks. So r squared is not the share that one variable explains in the other.",
+    "th": "ความแปรผันใดก็ตามที่สองอนุกรมมีร่วมกันส่งผลต่อค่านี้ รวมถึงแนวโน้มช้าๆ ข้ามสัปดาห์ ดังนั้น r กำลังสองไม่ใช่สัดส่วนที่ตัวแปรหนึ่งอธิบายอีกตัว"
+   }
+  ],
+  "en": {
+   "audio": "narration/s09/r-means.en.mp3",
+   "cues": [
+    [
+     0.25,
+     13.07
+    ],
+    [
+     13.42,
+     18.56
+    ],
+    [
+     18.91,
+     29.34
+    ]
+   ]
+  }
+ },
  "views": {
   "text": [
    {
@@ -136,39 +169,6 @@
     [
      33.71,
      41.58
-    ]
-   ]
-  }
- },
- "r-means": {
-  "text": [
-   {
-    "en": "The correlation r measures how closely the points follow one straight line, from minus one to plus one.",
-    "th": "ค่าสหสัมพันธ์ r วัดว่าจุดเรียงตัวใกล้เส้นตรงเส้นเดียวแค่ไหน มีค่าตั้งแต่ลบหนึ่งถึงบวกหนึ่ง"
-   },
-   {
-    "en": "It is not the slope, not the size of an effect, and not a direction of cause.",
-    "th": "มันไม่ใช่ความชัน ไม่ใช่ขนาดของผล และไม่บอกทิศทางของเหตุ"
-   },
-   {
-    "en": "Any variation the two series share feeds it, including a slow trend over weeks. So r squared is not the share that one variable explains in the other.",
-    "th": "ความแปรผันใดก็ตามที่สองอนุกรมมีร่วมกันส่งผลต่อค่านี้ รวมถึงแนวโน้มช้าๆ ข้ามสัปดาห์ ดังนั้น r กำลังสองไม่ใช่สัดส่วนที่ตัวแปรหนึ่งอธิบายอีกตัว"
-   }
-  ],
-  "en": {
-   "audio": "narration/s09/r-means.en.mp3",
-   "cues": [
-    [
-     0.25,
-     7.27
-    ],
-    [
-     7.62,
-     12.76
-    ],
-    [
-     13.11,
-     23.54
     ]
    ]
   }

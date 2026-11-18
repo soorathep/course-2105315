@@ -211,7 +211,7 @@ The sum passes h on day 23. The last day it was zero, day 19, marks the estimate
 
 ::: {.checks3}
 ::: {.c4}
-[3σ rule]{.label}
+[[3σ]{.nocap} rule]{.label}
 Alarms on one day far from the mean. Good for a sudden step. For Demo A: day 41, three weeks after the drift began.
 :::
 ::: {.c4}

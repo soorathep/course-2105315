@@ -275,8 +275,8 @@
     "th": "เปิดแล็บที่สองและโหลดชุดข้อมูลของตัวเอง ดูช่องว่างแต่ละแบบในข้อมูลเบนซีนสิบสี่วันของคุณ"
    },
    {
-    "en": "Predict the best method for each kind of gap, and write your reason for the outage. Do not reveal the truth yet. Download your study to keep your work.",
-    "th": "ทำนายวิธีที่ดีที่สุดสำหรับช่องว่างแต่ละแบบ และเขียนเหตุผลสำหรับช่วงที่เครื่องหยุด ยังไม่ต้องเปิดดูค่าจริง ดาวน์โหลดไฟล์งานเก็บไว้ก่อน"
+    "en": "Step three explains what each of the five fill methods puts into a missing hour. Read it, then predict the best method for each kind of gap, and write your reason for the outage. Do not reveal the truth yet. Download your study to keep your work.",
+    "th": "ขั้นที่สามอธิบายว่าวิธีเติมข้อมูลทั้งห้าวิธีใส่ค่าอะไรลงในชั่วโมงที่หาย อ่านก่อน แล้วทำนายวิธีที่ดีที่สุดสำหรับช่องว่างแต่ละแบบ และเขียนเหตุผลสำหรับช่วงที่เครื่องดับ ยังไม่ต้องเปิดดูค่าจริง ดาวน์โหลดไฟล์ study เก็บงานไว้"
    }
   ],
   "en": {
@@ -292,7 +292,7 @@
     ],
     [
      14.18,
-     24.22
+     30.9
     ]
    ]
   }

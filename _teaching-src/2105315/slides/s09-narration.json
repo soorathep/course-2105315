@@ -51,6 +51,23 @@
     "th_say": "มันขึ้นลงไปด้วยกันไหม รายงานจะบอกว่าตัวไหนขับอีกตัว และอะไรที่อาจขับทั้งคู่"
    }
   ],
+  "r-means": [
+   {
+    "en": "Before the data, what the correlation coefficient r measures: how closely the points follow one straight line, from minus one to plus one. Zero means no straight-line pattern.",
+    "th": "ก่อนดูข้อมูล มาดูว่าสัมประสิทธิ์สหสัมพันธ์ r วัดอะไร r วัดว่าจุดเรียงตามเส้นตรงเส้นเดียวได้ใกล้แค่ไหน มีค่าตั้งแต่ −1 ถึง +1 ค่าศูนย์แปลว่าไม่มีรูปแบบเส้นตรง",
+    "th_say": "ก่อนดูข้อมูล มาดูว่าสัมประสิทธิ์สหสัมพันธ์อาร์วัดอะไร อาร์วัดว่าจุดเรียงตามเส้นตรงเส้นเดียวได้ใกล้แค่ไหน มีค่าตั้งแต่ลบหนึ่งถึงบวกหนึ่ง ค่าศูนย์แปลว่าไม่มีรูปแบบเส้นตรง"
+   },
+   {
+    "en": "It is not the slope, not the size of an effect, and not a direction of cause.",
+    "th": "มันไม่ใช่ความชัน ไม่ใช่ขนาดของผล และไม่บอกทิศทางของเหตุ",
+    "th_say": "มันไม่ใช่ความชัน ไม่ใช่ขนาดของผล และไม่บอกทิศทางของเหตุ"
+   },
+   {
+    "en": "Any variation the two series share feeds it, including a slow trend over weeks. So r squared is not the share that one variable explains in the other.",
+    "th": "ความแปรผันใดก็ตามที่สองอนุกรมมีร่วมกันส่งผลต่อค่านี้ รวมถึงแนวโน้มช้าๆ ข้ามสัปดาห์ ดังนั้น r กำลังสองไม่ใช่สัดส่วนที่ตัวแปรหนึ่งอธิบายอีกตัว",
+    "th_say": "ความแปรผันใดก็ตามที่สองอนุกรมมีร่วมกันส่งผลต่อค่านี้ รวมถึงแนวโน้มช้าๆ ข้ามสัปดาห์ ดังนั้นอาร์กำลังสองไม่ใช่สัดส่วนที่ตัวแปรหนึ่งอธิบายอีกตัว"
+   }
+  ],
   "views": [
    {
     "en": "This is daily temperature against daily NOx over sixteen summer weeks. The correlation is minus zero point five seven: cooler days had more NOx.",
@@ -73,23 +90,6 @@
     "en": "The correlation falls to zero point one four. Most of the reported correlation came from the season that moved both.",
     "th": "ค่าสหสัมพันธ์ลดเหลือศูนย์จุดหนึ่งสี่ สหสัมพันธ์ส่วนใหญ่ที่รายงานมาจากฤดูกาลที่ขับทั้งสองตัว",
     "th_say": "ค่าสหสัมพันธ์ลดเหลือศูนย์จุดหนึ่งสี่ สหสัมพันธ์ส่วนใหญ่ที่รายงานมาจากฤดูกาลที่ขับทั้งสองตัว"
-   }
-  ],
-  "r-means": [
-   {
-    "en": "The correlation r measures how closely the points follow one straight line, from minus one to plus one.",
-    "th": "ค่าสหสัมพันธ์ r วัดว่าจุดเรียงตัวใกล้เส้นตรงเส้นเดียวแค่ไหน มีค่าตั้งแต่ลบหนึ่งถึงบวกหนึ่ง",
-    "th_say": "ค่าสหสัมพันธ์อาร์ วัดว่าจุดเรียงตัวใกล้เส้นตรงเส้นเดียวแค่ไหน มีค่าตั้งแต่ลบหนึ่งถึงบวกหนึ่ง"
-   },
-   {
-    "en": "It is not the slope, not the size of an effect, and not a direction of cause.",
-    "th": "มันไม่ใช่ความชัน ไม่ใช่ขนาดของผล และไม่บอกทิศทางของเหตุ",
-    "th_say": "มันไม่ใช่ความชัน ไม่ใช่ขนาดของผล และไม่บอกทิศทางของเหตุ"
-   },
-   {
-    "en": "Any variation the two series share feeds it, including a slow trend over weeks. So r squared is not the share that one variable explains in the other.",
-    "th": "ความแปรผันใดก็ตามที่สองอนุกรมมีร่วมกันส่งผลต่อค่านี้ รวมถึงแนวโน้มช้าๆ ข้ามสัปดาห์ ดังนั้น r กำลังสองไม่ใช่สัดส่วนที่ตัวแปรหนึ่งอธิบายอีกตัว",
-    "th_say": "ความแปรผันใดก็ตามที่สองอนุกรมมีร่วมกันส่งผลต่อค่านี้ รวมถึงแนวโน้มช้าๆ ข้ามสัปดาห์ ดังนั้นอาร์กำลังสองไม่ใช่สัดส่วนที่ตัวแปรหนึ่งอธิบายอีกตัว"
    }
   ],
   "act1": [

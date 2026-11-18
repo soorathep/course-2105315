@@ -77,6 +77,27 @@ Name one thing that could move both: load, season, feed, a shift change.
 Studying alone: write the three answers for your pair.
 :::
 
+## What r measures {#r-means}
+
+::: {.checks3}
+::: {.c4}
+[What it is]{.label}
+The correlation coefficient r: how closely the points follow one straight line, from −1 to +1. The sign gives the direction; 0 means no straight-line pattern.
+
+r = Σ(x − x̄)(y − ȳ) / √[Σ(x − x̄)² · Σ(y − ȳ)²], in pandas `x.corr(y)`.
+:::
+::: {.c4}
+[What it is not]{.label}
+Not the slope, not the size of an effect, and not a direction of cause. On the next slide, r = −0.57 does not say temperature changes NOx.
+:::
+::: {.c4}
+[What feeds it]{.label}
+Any variation the two series share. A slow trend that both follow, over weeks, can produce most of r.
+:::
+:::
+
+[r² is the square of r. For r = −0.57, r² = 0.32, often read as "temperature explains 32 % of NOx". That sentence claims a cause the number cannot carry.]{.note-line}
+
 ## One correlation, three views {#views data-hold="true"}
 
 ```{=html}
@@ -142,25 +163,6 @@ Studying alone: write the three answers for your pair.
 ```
 
 [Lab 05, Demo A, 20 June to 9 October 2004. Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.]{.source}
-
-## What r measures {#r-means}
-
-::: {.checks3}
-::: {.c4}
-[What it is]{.label}
-How closely the points follow one straight line, from −1 to +1. The sign gives the direction.
-:::
-::: {.c4}
-[What it is not]{.label}
-Not the slope, not the size of an effect, and not a direction of cause. r = −0.57 does not say temperature changes NOx.
-:::
-::: {.c4}
-[What feeds it]{.label}
-Any variation the two series share. A slow trend that both follow, over weeks, can produce most of r.
-:::
-:::
-
-[r² = 0.32 is often read as "temperature explains 32 % of NOx". That sentence claims a cause the number cannot carry.]{.note-line}
 
 ## Activity 1 · Correlated or driven? {#act1 .activity data-hold="true"}
 

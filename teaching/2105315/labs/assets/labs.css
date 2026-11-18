@@ -329,3 +329,12 @@
 .px-opt > span:last-child { flex: 1 1 auto; }
 .px-q .px-opt.px-correct { border-color: var(--teal); background: var(--soft-teal); }
 .px-q .px-opt.px-picked { border-color: #BE654C; background: #F6E3DD; }
+/* Lab 02, Step 3: definitions of the five fill methods */
+.method-intro { margin: 10px 0 8px; font-size: .97rem; }
+.method-defs th[scope="row"] { text-align: left; font-weight: 600; white-space: normal; }
+.method-defs td { white-space: normal; text-align: left; }
+.method-defs code { font-size: .85em; overflow-wrap: anywhere; }
+.method-defs { table-layout: fixed; width: 100%; min-width: 640px; }
+.method-defs thead th { text-align: left; }
+.method-defs th:nth-child(1) { width: 22%; }
+.method-defs th:nth-child(3), .method-defs td:nth-child(3) { width: 34%; }

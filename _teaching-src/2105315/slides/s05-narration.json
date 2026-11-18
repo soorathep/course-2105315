@@ -50,6 +50,29 @@
     "th_say": "ถามว่าเกิดเมื่อไร มีรูปร่างอย่างไร และหลักฐานอะไรที่จะทำให้คุณเชื่อหรือไม่เชื่อ"
    }
   ],
+  "spread": [
+   {
+    "en": "Before the rules, two ways to measure spread. Here are seven hours of benzene, and one of them is a fault.",
+    "th": "ก่อนดูกฎ มาดูสองวิธีวัดการกระจายของข้อมูล นี่คือค่าเบนซีนเจ็ดชั่วโมง และมีหนึ่งค่าที่เป็นความผิดพลาด",
+    "th_say": "ก่อนดูกฎ มาดูสองวิธีวัดการกระจายของข้อมูล นี่คือค่าเบนซีนเจ็ดชั่วโมง และมีหนึ่งค่าที่เป็นความผิดพลาด"
+   },
+   {
+    "en": "The bad hour pulls the mean and the standard deviation up, so twenty-one is only two point three standard deviations from the mean, and a three-sigma rule does not flag it.",
+    "say": "The bad hour pulls the mean and the standard deviation up, so twenty-one is only two point three standard deviations from the mean, and a three-sigma rule does not flag it.",
+    "th": "ค่าที่ผิดดึงค่าเฉลี่ยและส่วนเบี่ยงเบนมาตรฐานให้สูงขึ้น ค่า 21 จึงห่างจากค่าเฉลี่ยเพียง 2.3 σ และกฎ 3σ ไม่ตรวจจับค่านี้",
+    "th_say": "ค่าที่ผิดดึงค่าเฉลี่ยและส่วนเบี่ยงเบนมาตรฐานให้สูงขึ้น ค่ายี่สิบเอ็ดจึงห่างจากค่าเฉลี่ยเพียงสองจุดสามซิกมา และกฎสามซิกมาไม่ตรวจจับค่านี้"
+   },
+   {
+    "en": "The median is the middle value. The MAD is the median of the distances from the median, here zero point two. Scaled by one point four eight two six, it matches the standard deviation for normal data.",
+    "th": "มัธยฐานคือค่าตรงกลาง MAD คือมัธยฐานของระยะห่างจากมัธยฐาน ในที่นี้เท่ากับ 0.2 เมื่อคูณด้วย 1.4826 จะเท่ากับส่วนเบี่ยงเบนมาตรฐานสำหรับข้อมูลที่แจกแจงแบบปกติ",
+    "th_say": "มัธยฐานคือค่าตรงกลาง เอ็มเอดีคือมัธยฐานของระยะห่างจากมัธยฐาน ในที่นี้เท่ากับศูนย์จุดสอง เมื่อคูณด้วยหนึ่งจุดสี่แปดสองหก จะเท่ากับส่วนเบี่ยงเบนมาตรฐานสำหรับข้อมูลที่แจกแจงแบบปกติ"
+   },
+   {
+    "en": "Measured this way, twenty-one is about fifty-six scaled MADs away, and it is flagged. One bad value cannot hide by inflating the spread. That is why the Hampel filter uses the median and the MAD.",
+    "th": "เมื่อวัดแบบนี้ ค่า 21 ห่างประมาณ 56 เท่าของ scaled MAD จึงถูกตรวจจับ ค่าผิดเพียงค่าเดียวซ่อนตัวด้วยการขยายการกระจายไม่ได้ นี่คือเหตุผลที่ Hampel filter ใช้มัธยฐานและ MAD",
+    "th_say": "เมื่อวัดแบบนี้ ค่ายี่สิบเอ็ดห่างประมาณห้าสิบหกเท่าของสเกลเอ็มเอดี จึงถูกตรวจจับ ค่าผิดเพียงค่าเดียวซ่อนตัวด้วยการขยายการกระจายไม่ได้ นี่คือเหตุผลที่แฮมเปลฟิลเตอร์ใช้มัธยฐานและเอ็มเอดี"
+   }
+  ],
   "rules": [
    {
     "en": "There are three ways to call a value unusual. A z-score measures distance from the mean of the whole record.",

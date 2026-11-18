@@ -193,7 +193,7 @@ Most gaps in the real CO record are single hours: 145 of 187. They hold 9 % of t
 
 1. Open **Lab 02** and enter your name and student ID. Press **My data set**.
 2. Step 2: look at each kind of gap in your 14 days of benzene.
-3. Step 3: predict the best method for each kind of gap, and write your reason for the outage.
+3. Step 3: read what each of the five fill methods puts into a missing hour, then predict the best method for each kind of gap and write your reason for the outage.
 4. Do not reveal the truth yet. Download your study in Step 9 to keep your work.
 
 [Open Lab 02](../labs/gaps.html){.lab-button target="_blank"}

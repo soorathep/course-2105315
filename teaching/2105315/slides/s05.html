@@ -208,6 +208,21 @@ Soorathep Kheawhom, Ph.D., FRSC
 <p>Studying alone: write down your answers to the three questions.</p>
 </div>
 </section>
+<section id="spread" class="slide level2">
+<h2>Two ways to measure spread</h2>
+<p>Seven hours of benzene, µg/m³. One of them is a fault: 4.1 · 4.4 · 4.0 · 4.6 · 4.3 · <strong>21.0</strong> · 4.2</p>
+<div class="beforeafter">
+<div>
+<p><span class="label">Mean and standard deviation</span> Mean 6.66, σ 6.33 (pandas <code>.std()</code>). The one bad hour pulls both up.</p>
+<p>The 21.0 is (21.0 − 6.66) / 6.33 = <strong>2.3 σ</strong> from the mean. Below 3: not flagged.</p>
+</div>
+<div>
+<p><span class="label">Median and MAD</span> Median 4.3, the middle value once sorted. <strong>MAD</strong> is the median of the distances from the median: 0.2, 0.1, 0.3, 0.3, 0, 16.7, 0.1, so MAD = 0.2.</p>
+<p>Scaled MAD = 1.4826 × 0.2 = 0.30 µg/m³. The factor makes it equal to σ for normally distributed data. The 21.0 is (21.0 − 4.3) / 0.30 ≈ <strong>56 scaled MADs</strong> away. Flagged.</p>
+</div>
+</div>
+<p><span class="note-line">One bad value can hide by inflating σ. The median and the MAD barely move, which is why the Hampel filter on the next slide uses them.</span></p>
+</section>
 <section id="rules" class="slide level2">
 <h2>Three ways to call a value unusual</h2>
 <div class="why3">

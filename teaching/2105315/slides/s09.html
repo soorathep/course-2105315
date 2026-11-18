@@ -207,6 +207,22 @@ Soorathep Kheawhom, Ph.D., FRSC
 <p>Studying alone: write the three answers for your pair.</p>
 </div>
 </section>
+<section id="r-means" class="slide level2">
+<h2>What r measures</h2>
+<div class="checks3">
+<div class="c4">
+<p><span class="label">What it is</span> The correlation coefficient r: how closely the points follow one straight line, from −1 to +1. The sign gives the direction; 0 means no straight-line pattern.</p>
+<p>r = Σ(x − x̄)(y − ȳ) / √[Σ(x − x̄)² · Σ(y − ȳ)²], in pandas <code>x.corr(y)</code>.</p>
+</div>
+<div class="c4">
+<p><span class="label">What it is not</span> Not the slope, not the size of an effect, and not a direction of cause. On the next slide, r = −0.57 does not say temperature changes NOx.</p>
+</div>
+<div class="c4">
+<p><span class="label">What feeds it</span> Any variation the two series share. A slow trend that both follow, over weeks, can produce most of r.</p>
+</div>
+</div>
+<p><span class="note-line">r² is the square of r. For r = −0.57, r² = 0.32, often read as “temperature explains 32 % of NOx”. That sentence claims a cause the number cannot carry.</span></p>
+</section>
 <section id="views" class="slide level2" data-hold="true">
 <h2>One correlation, three views</h2>
 <div class="rl" id="rl">
@@ -269,21 +285,6 @@ Soorathep Kheawhom, Ph.D., FRSC
 })();
 </script>
 <p><span class="source">Lab 05, Demo A, 20 June to 9 October 2004. Data: De Vito, UCI Air Quality, doi:10.24432/C59K5F, CC BY 4.0.</span></p>
-</section>
-<section id="r-means" class="slide level2">
-<h2>What r measures</h2>
-<div class="checks3">
-<div class="c4">
-<p><span class="label">What it is</span> How closely the points follow one straight line, from −1 to +1. The sign gives the direction.</p>
-</div>
-<div class="c4">
-<p><span class="label">What it is not</span> Not the slope, not the size of an effect, and not a direction of cause. r = −0.57 does not say temperature changes NOx.</p>
-</div>
-<div class="c4">
-<p><span class="label">What feeds it</span> Any variation the two series share. A slow trend that both follow, over weeks, can produce most of r.</p>
-</div>
-</div>
-<p><span class="note-line">r² = 0.32 is often read as “temperature explains 32 % of NOx”. That sentence claims a cause the number cannot carry.</span></p>
 </section>
 <section id="act1" class="slide level2 activity" data-hold="true">
 <h2>Activity 1 · Correlated or driven?</h2>

@@ -99,6 +99,47 @@
    ]
   }
  },
+ "spread": {
+  "text": [
+   {
+    "en": "Before the rules, two ways to measure spread. Here are seven hours of benzene, and one of them is a fault.",
+    "th": "ก่อนดูกฎ มาดูสองวิธีวัดการกระจายของข้อมูล นี่คือค่าเบนซีนเจ็ดชั่วโมง และมีหนึ่งค่าที่เป็นความผิดพลาด"
+   },
+   {
+    "en": "The bad hour pulls the mean and the standard deviation up, so twenty-one is only two point three standard deviations from the mean, and a three-sigma rule does not flag it.",
+    "th": "ค่าที่ผิดดึงค่าเฉลี่ยและส่วนเบี่ยงเบนมาตรฐานให้สูงขึ้น ค่า 21 จึงห่างจากค่าเฉลี่ยเพียง 2.3 σ และกฎ 3σ ไม่ตรวจจับค่านี้"
+   },
+   {
+    "en": "The median is the middle value. The MAD is the median of the distances from the median, here zero point two. Scaled by one point four eight two six, it matches the standard deviation for normal data.",
+    "th": "มัธยฐานคือค่าตรงกลาง MAD คือมัธยฐานของระยะห่างจากมัธยฐาน ในที่นี้เท่ากับ 0.2 เมื่อคูณด้วย 1.4826 จะเท่ากับส่วนเบี่ยงเบนมาตรฐานสำหรับข้อมูลที่แจกแจงแบบปกติ"
+   },
+   {
+    "en": "Measured this way, twenty-one is about fifty-six scaled MADs away, and it is flagged. One bad value cannot hide by inflating the spread. That is why the Hampel filter uses the median and the MAD.",
+    "th": "เมื่อวัดแบบนี้ ค่า 21 ห่างประมาณ 56 เท่าของ scaled MAD จึงถูกตรวจจับ ค่าผิดเพียงค่าเดียวซ่อนตัวด้วยการขยายการกระจายไม่ได้ นี่คือเหตุผลที่ Hampel filter ใช้มัธยฐานและ MAD"
+   }
+  ],
+  "en": {
+   "audio": "narration/s05/spread.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.06
+    ],
+    [
+     7.41,
+     19.37
+    ],
+    [
+     19.72,
+     35.1
+    ],
+    [
+     35.45,
+     50.96
+    ]
+   ]
+  }
+ },
  "rules": {
   "text": [
    {

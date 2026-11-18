@@ -7,7 +7,7 @@
   <title>Lab 02 · Which gap-filling method biases the answer least? · 2105315 Data Analytics Labs</title>
   <meta name="description" content="Fill gaps in a real two-week benzene record five ways, then compare each answer with the true values: which method you may use depends on the kind of gap.">
   <link rel="icon" href="/favicon.png">
-  <link rel="stylesheet" href="assets/labs.css?v=8">
+  <link rel="stylesheet" href="assets/labs.css?v=9">
   <script type="module" src="assets/mode.js?v=1"></script>
   <script type="module" src="assets/gaps-lab.js?v=1"></script>
 </head>
@@ -49,6 +49,15 @@
 
     <section class="lab-step" aria-labelledby="s3">
       <div class="step-head"><span class="step-number">03</span><div><h2 id="s3">Predict before you look</h2><p>For each kind of gap, choose the method you expect to keep both answers, the two-week mean and the typical daily peak, closest to the truth. Step 6 checks each choice.</p></div></div>
+      <p class="method-intro">The five fill methods, and what each one puts into a missing hour. Session 4 discusses when each one fails.</p>
+      <div class="table-scroll" role="region" aria-label="The five fill methods" tabindex="0"><table class="audit-table method-defs"><thead><tr><th scope="col">Method</th><th scope="col">What goes into a missing hour</th><th scope="col">In pandas</th></tr></thead><tbody>
+        <tr><th scope="row">Drop the missing hours</th><td>Nothing. The hour is left out, and the mean and the peaks use only the measured hours.</td><td><code>s.dropna()</code></td></tr>
+        <tr><th scope="row">Fill with the mean</th><td>The mean of all measured hours in the two weeks, the same number in every gap.</td><td><code>s.fillna(s.mean())</code></td></tr>
+        <tr><th scope="row">Linear interpolation</th><td>A point on the straight line from the last reading before the gap to the first reading after it.</td><td><code>s.interpolate()</code></td></tr>
+        <tr><th scope="row">Carry the last value forward</th><td>The last reading before the gap, repeated until the gap ends.</td><td><code>s.ffill()</code></td></tr>
+        <tr><th scope="row">Same hour on other days</th><td>The mean of the same clock hour on the days where it was measured, for example all measured 04:00 hours.</td><td><code>s.fillna(s.groupby(s.index.hour).transform("mean"))</code></td></tr>
+      </tbody></table></div>
+      <p class="method-intro"><strong>Two-week mean:</strong> the mean of the 336 hours after filling (for Drop, of the measured hours only). <strong>Typical daily peak:</strong> the highest hour of each day, averaged over the 14 days.</p>
       <div id="predict-list" class="notebook-list"></div>
       <label for="p-reason">Which method would you use for the three-day outage, and why? One or two sentences.</label>
       <textarea id="p-reason" rows="3" maxlength="3000"></textarea>
