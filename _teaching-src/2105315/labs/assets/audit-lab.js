@@ -294,7 +294,7 @@ async function start() {
   $('student-id').addEventListener('input', () => {
     if (state.variant?.kind === 'student' && $('student-id').value.replace(/\s+/g, '') !== state.variant.seedId) $('id-note').textContent = 'Your ID changed. Press My data set to load the data set for this ID.';
   });
-  setCase('spring');
+  setCase('a');
   for (const id of ['run-audit', 'run-hours', 'run-daily', 'export-study']) $(id).disabled = false;
 }
 

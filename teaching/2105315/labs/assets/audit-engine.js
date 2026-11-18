@@ -8,8 +8,9 @@ export const EMPTY_TAIL_ROWS = 2;         // the source file ends with 114 empty
 export const SENSOR_COLUMN = 'PT08.S1(CO)';
 
 export const DEMOS = {
-  spring: { label: 'Demo A · spring 2004', start: '2004-04-22T00:00' },
-  winter: { label: 'Demo B · winter 2004', start: '2004-12-02T00:00' },
+  // Demo A is the file used in Sessions 1 and 2, so students can rerun the slides' numbers.
+  a: { label: 'Demo A · Sessions 1 and 2', start: '2004-12-18T02:00', dupAt: 205 },
+  b: { label: 'Demo B · spring 2004', start: '2004-04-22T00:00', dupAt: 101 },
 };
 
 /** FNV-1a, 32 bit. Same input, same data set, on every computer. */
@@ -64,7 +65,7 @@ export function windowStarts(data) {
   return data.hours - WINDOW_HOURS + 1;
 }
 
-/** Which 14 days and where the repeated rows go. kind: 'spring' | 'winter' | 'student'. */
+/** Which 14 days and where the repeated rows go. kind: 'a' | 'b' | 'student'. */
 export function makeVariant(data, kind, studentId = '') {
   if (kind === 'student') {
     const id = normaliseId(studentId);
@@ -76,7 +77,7 @@ export function makeVariant(data, kind, studentId = '') {
   }
   const demo = DEMOS[kind];
   if (!demo) throw new Error('Unknown data set.');
-  return { kind, label: demo.label, seedId: '', startIndex: indexOf(data, demo.start), dupAt: kind === 'spring' ? 101 : 205 };
+  return { kind, label: demo.label, seedId: '', startIndex: indexOf(data, demo.start), dupAt: demo.dupAt };
 }
 
 /** Rows of the exported file, as source text, with the repeated block inserted after its original. */

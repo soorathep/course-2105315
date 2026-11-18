@@ -139,6 +139,8 @@ Studying alone: write your three numbers down before you go on.
     <p class="abc-tag">A</p>
 <pre class="code-mini">df = pd.read_csv(f, sep=";",
        decimal=",", na_values=[-200])
+df = df.dropna(how="all")
+df = df.drop_duplicates()
 df = df.dropna()
 print(df["CO(GT)"].mean())</pre>
     <button type="button" class="abc-show">Show what it prints</button>
@@ -148,6 +150,8 @@ print(df["CO(GT)"].mean())</pre>
     <p class="abc-tag">B</p>
 <pre class="code-mini">df = pd.read_csv(f, sep=";",
        decimal=",")
+df = df.dropna(how="all")
+df = df.drop_duplicates()
 df = df.replace(-200, 0)
 print(df["CO(GT)"].mean())</pre>
     <button type="button" class="abc-show">Show what it prints</button>
@@ -157,6 +161,8 @@ print(df["CO(GT)"].mean())</pre>
     <p class="abc-tag">C</p>
 <pre class="code-mini">df = pd.read_csv(f, sep=";",
        decimal=",", na_values=[-200])
+df = df.dropna(how="all")
+df = df.drop_duplicates()
 print(df["CO(GT)"].isna().sum())
 print(df["CO(GT)"].mean())</pre>
     <button type="button" class="abc-show">Show what it prints</button>
@@ -175,7 +181,7 @@ print(df["CO(GT)"].mean())</pre>
 ```
 
 ::: {.prompt .small}
-Same file as Session 1: 336 hours, repeated and empty rows already removed, 99 CO hours at −200. Before you reveal anything: which code goes into the 09:00 report? For the other two, name the check that catches them.
+Same file as Session 1: Lab 01 Demo A, 336 hours, 99 CO hours at −200. Each version first removes the empty rows and the repeated rows. Before you reveal anything: which code goes into the 09:00 report? For the other two, name the check that catches them.
 :::
 
 ::: {.selfstudy}
@@ -192,7 +198,7 @@ Studying alone: write your choice and two checks, then reveal.
 
 [A runs without an error and prints nothing useful. B prints a plausible number. B is the more dangerous one.]{.note-line}
 
-[Data: S. De Vito, Air Quality, UCI Machine Learning Repository, doi:10.24432/C59K5F, CC BY 4.0. Window: 18 Dec 2004 02:00 to 1 Jan 2005 01:00.]{.source}
+[Data: S. De Vito, Air Quality, UCI Machine Learning Repository, doi:10.24432/C59K5F, CC BY 4.0. Lab 01 Demo A: 18 Dec 2004 02:00 to 1 Jan 2005 01:00. Download it in Lab 01, Step 2, and rerun all three.]{.source}
 
 ## Is missing data random? {#mar}
 

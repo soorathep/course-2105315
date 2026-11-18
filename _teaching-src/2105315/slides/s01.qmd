@@ -85,7 +85,7 @@ Question for today: before anyone computes a mean, what must you know about the 
 A concentration cannot be negative. Nothing crashed, yet the number is wrong. Today is about catching this before it reaches the report.
 :::
 
-[Data: S. De Vito, Air Quality, UCI Machine Learning Repository, doi:10.24432/C59K5F, CC BY 4.0. The −57.00 is computed from one student's 14-day window.]{.source}
+[Data: S. De Vito, Air Quality, UCI Machine Learning Repository, doi:10.24432/C59K5F, CC BY 4.0. The −57.00 comes from the Lab 01 Demo A file, 18 Dec 2004 to 1 Jan 2005. You can download it and rerun every number in Sessions 1 and 2.]{.source}
 
 ## What a plant data file contains {#anatomy}
 
@@ -308,7 +308,7 @@ Studying alone: write your four settings before you go to the next slide.
 | Missing value | `-200` | −200 is averaged as a concentration |
 | Date format | day/month/year, time `18.00.00` | 11/03 becomes 3 November |
 
-[Both missing CO rows are at 04:00. Keep that in mind: missing values may follow a pattern. The Extension view of Lab 01 asks why.]{.note-line}
+[These are the first lines of the full source file, March 2004. The Lab 01 files are cut from it. Both missing CO rows are at 04:00. Keep that in mind: missing values may follow a pattern. The Extension view of Lab 01 asks why.]{.note-line}
 
 ## The six-check audit {#audit}
 
@@ -384,7 +384,7 @@ In a file where 99 of 336 CO hours are −200 and the valid hours average 2.74 m
 Studying alone: estimate the number, then go on.
 :::
 
-## It prints −57.00 {#ai-answer}
+## It prints −56.9994…, about −57.0 {#ai-answer}
 
 ::: {.calc}
 (237 × 2.74 + 99 × (−200)) / 336 ≈ **−57.0 mg/m³**
