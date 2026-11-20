@@ -338,3 +338,8 @@
 .method-defs thead th { text-align: left; }
 .method-defs th:nth-child(1) { width: 22%; }
 .method-defs th:nth-child(3), .method-defs td:nth-child(3) { width: 34%; }
+/* Course home: per-session notes link next to each deck */
+.ci-sessions li { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.ci-sessions li > a:first-child { flex: 1; }
+.ci-sessions a.ci-note { flex: none; margin: 0; padding: 2px 8px; font-size: .82rem; border: 1px solid var(--teal); border-radius: 999px; color: var(--teal); text-decoration: none; }
+.ci-sessions a.ci-note:hover { background: var(--soft-teal); }
