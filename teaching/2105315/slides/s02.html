@@ -813,7 +813,8 @@ print(df["CO(GT)"].mean())</pre>
       $('nr-auto').addEventListener('click', (e) => { state.auto = !state.auto; store.set('auto', state.auto ? 'on' : 'off'); paintButtons(); e.currentTarget.blur(); });
 
       paintButtons();
-      fetch('narration/' + deck + '.json').then((r) => r.ok ? r.json() : {}).then((d) => {
+      // no-cache: revalidate, so newly added Thai recordings show up at once
+      fetch('narration/' + deck + '.json', { cache: 'no-cache' }).then((r) => r.ok ? r.json() : {}).then((d) => {
         data = d;
         voices = ['en', 'th'].filter((v) => Object.values(d).some((s) => s[v]));
         if (state.sound !== 'off' && !voices.includes(state.sound)) state.sound = voices[0] || 'off';
